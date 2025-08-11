@@ -1,19 +1,11 @@
 [
     {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\navigation_mobile_navigation.xml.flat",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\navigation\\mobile_navigation.xml"
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\drawable_location_status.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\drawable\\location_status.xml"
     },
     {
         "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_fragment_home.xml.flat",
         "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_home.xml"
-    },
-    {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\xml\\data_extraction_rules.xml"
-    },
-    {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\layout_fragment_home.xml.flat",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\layout\\fragment_home.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\layout_fragment_profile.xml.flat",
@@ -22,6 +14,18 @@
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\navigation_mobile_navigation.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\navigation\\mobile_navigation.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\layout\\fragment_home.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\layout_fragment_saved.xml.flat",
@@ -34,6 +38,10 @@
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\xml_backup_rules.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\drawable_chat_city_logo.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-68:\\drawable\\chat_city_logo.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-66:\\menu_bottom_nav_menu.xml.flat",

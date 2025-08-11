@@ -4,6 +4,7 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -20,10 +21,19 @@ public final class FragmentHomeBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final ImageView chatCityLogo;
+
+  @NonNull
+  public final ImageView locationStatus;
+
+  @NonNull
   public final MapView mapView;
 
-  private FragmentHomeBinding(@NonNull ConstraintLayout rootView, @NonNull MapView mapView) {
+  private FragmentHomeBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView chatCityLogo,
+      @NonNull ImageView locationStatus, @NonNull MapView mapView) {
     this.rootView = rootView;
+    this.chatCityLogo = chatCityLogo;
+    this.locationStatus = locationStatus;
     this.mapView = mapView;
   }
 
@@ -54,13 +64,26 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.chatCityLogo;
+      ImageView chatCityLogo = ViewBindings.findChildViewById(rootView, id);
+      if (chatCityLogo == null) {
+        break missingId;
+      }
+
+      id = R.id.locationStatus;
+      ImageView locationStatus = ViewBindings.findChildViewById(rootView, id);
+      if (locationStatus == null) {
+        break missingId;
+      }
+
       id = R.id.mapView;
       MapView mapView = ViewBindings.findChildViewById(rootView, id);
       if (mapView == null) {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, mapView);
+      return new FragmentHomeBinding((ConstraintLayout) rootView, chatCityLogo, locationStatus,
+          mapView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

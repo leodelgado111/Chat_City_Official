@@ -11,6 +11,7 @@ import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.plugin.logo.logo
 
 class HomeFragment : Fragment() {
 
@@ -26,19 +27,14 @@ class HomeFragment : Fragment() {
         mapView = root.findViewById(R.id.mapView)
         
         // Load map style with callback
-        mapView?.getMapboxMap()?.loadStyleUri(Style.MAPBOX_STREETS) { style ->
-            if (style != null) {
-                Log.d("HomeFragment", "Map style loaded successfully")
-            } else {
-                Log.e("HomeFragment", "Failed to load map style")
-            }
+        mapView?.getMapboxMap()?.loadStyleUri(Style.MAPBOX_STREETS) { 
+            Log.d("HomeFragment", "Map style loaded successfully")
         }
         
-        // Remove the scale bar (mile-radius bar)
+        // Remove UI elements
         mapView?.scalebar?.enabled = false
-        
-        // Remove the GPS/center button (location button)
         mapView?.location?.enabled = false
+        mapView?.logo?.enabled = false  // Remove Mapbox logo
         
         return root
     }

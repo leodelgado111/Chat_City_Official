@@ -3578,6 +3578,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable chat_city_logo
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3622,6 +3623,7 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
+drawable location_status
 drawable m3_appbar_background
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3849,6 +3851,7 @@ id center_vertical
 id chain
 id chain2
 id chains
+id chatCityLogo
 id checkbox
 id checked
 id chronometer
@@ -3994,6 +3997,7 @@ id linear
 id listMode
 id list_item
 id locale
+id locationStatus
 id location_puck_2_d
 id location_puck_3_d
 id ltr
