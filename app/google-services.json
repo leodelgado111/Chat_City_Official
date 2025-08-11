@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "984199978830",
+    "project_id": "chat-city-82dad",
+    "storage_bucket": "chat-city-82dad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984199978830:android:e8e46cfae19a5b2bdfc81f",
+        "android_client_info": {
+          "package_name": "com.chatcityofficial.chatmapapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1dJ7330MfDAQkBaTaS-5V2Or8U1kcMEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
