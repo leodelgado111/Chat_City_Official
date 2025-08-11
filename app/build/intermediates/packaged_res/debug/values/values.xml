@@ -19,7 +19,7 @@
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="title_saved">Saved</string>
-    <style name="Theme.ChatCityOfficial" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.ChatCityOfficial" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
