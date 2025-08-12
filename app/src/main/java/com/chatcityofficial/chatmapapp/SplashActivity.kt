@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -22,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         
         // CRITICAL: Remove the translucent flag once activity starts
         // This makes the activity opaque after the system splash is skipped
-        window.setWindowIsTranslucent(false)
+        setWindowIsTranslucent(false)
         
         // Make it truly fullscreen - edge to edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -102,15 +103,18 @@ class SplashActivity : AppCompatActivity() {
         }, 2500) // Reduced to 2.5 seconds for faster experience
     }
     
-    // Extension function to set window translucent
-    private fun WindowManager.setWindowIsTranslucent(translucent: Boolean) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+    // Function to set window translucent
+    private fun setWindowIsTranslucent(translucent: Boolean) {
+        try {
             val method = Window::class.java.getDeclaredMethod(
                 "setTranslucent",
                 Boolean::class.javaPrimitiveType
             )
             method.isAccessible = true
-            method.invoke(this, translucent)
+            method.invoke(window, translucent)
+        } catch (e: Exception) {
+            // If the method doesn't exist or fails, just continue
+            e.printStackTrace()
         }
     }
 }
