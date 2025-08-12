@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Background gradient -->
+    <!-- Background gradient only - no logo here to avoid duplication -->
     <item>
         <shape android:shape="rectangle">
             <gradient
@@ -11,9 +11,4 @@
                 android:type="linear" />
         </shape>
     </item>
-    
-    <!-- Logo in center - using item with drawable instead of bitmap -->
-    <item
-        android:drawable="@drawable/chat_city_logo"
-        android:gravity="center" />
 </layer-list>
