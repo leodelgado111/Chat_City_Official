@@ -11,8 +11,6 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 
 class SplashActivity : AppCompatActivity() {
     
@@ -22,10 +20,17 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // CRITICAL: Remove the translucent flag once activity starts
+        // This makes the activity opaque after the system splash is skipped
+        window.setWindowIsTranslucent(false)
+        
         // Make it truly fullscreen - edge to edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
         
         setContentView(R.layout.activity_splash)
+        
+        // Set the background color to match the gradient start
+        window.decorView.setBackgroundColor(android.graphics.Color.parseColor("#FF9AC8"))
         
         // Hide system bars
         hideSystemUI()
@@ -95,5 +100,17 @@ class SplashActivity : AppCompatActivity() {
             
             finish()
         }, 2500) // Reduced to 2.5 seconds for faster experience
+    }
+    
+    // Extension function to set window translucent
+    private fun WindowManager.setWindowIsTranslucent(translucent: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            val method = Window::class.java.getDeclaredMethod(
+                "setTranslucent",
+                Boolean::class.javaPrimitiveType
+            )
+            method.isAccessible = true
+            method.invoke(this, translucent)
+        }
     }
 }
