@@ -28,17 +28,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Location Status (right margin matches nav bar: 20dp) -->
-    <ImageView
-        android:id="@+id/locationStatus"
+    <!-- Location Status Container -->
+    <LinearLayout
+        android:id="@+id/locationContainer"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginEnd="20dp"
-        android:adjustViewBounds="true"
-        android:src="@drawable/location_status"
-        android:contentDescription="Dallas, TX"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/location_background"
+        android:paddingStart="12dp"
+        android:paddingEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/chatCityLogo"
-        app:layout_constraintBottom_toBottomOf="@id/chatCityLogo" />
+        app:layout_constraintBottom_toBottomOf="@id/chatCityLogo">
+
+        <!-- Location Icon -->
+        <ImageView
+            android:id="@+id/locationIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_location_pin"
+            android:tint="@color/black"
+            android:layout_marginEnd="6dp" />
+
+        <!-- Location Text -->
+        <TextView
+            android:id="@+id/locationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Locating..."
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:maxWidth="120dp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
