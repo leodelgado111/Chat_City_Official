@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,7 +23,21 @@ class UsersAdapter(
     }
     
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        holder.bind(users[position], onUserClick)
+        val user = users[position]
+        
+        // Add 100px top margin for Chat City Assistant (demo user)
+        val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
+        if (user.id == "demo_user_123") {
+            // Convert 100 pixels to actual pixels based on screen density
+            val density = holder.itemView.context.resources.displayMetrics.density
+            val topMarginInPixels = (100 * density).toInt()
+            layoutParams.topMargin = topMarginInPixels
+        } else {
+            layoutParams.topMargin = 0
+        }
+        holder.itemView.layoutParams = layoutParams
+        
+        holder.bind(user, onUserClick)
     }
     
     override fun getItemCount() = users.size
