@@ -20,6 +20,7 @@ import com.google.android.gms.location.*
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.CameraState
 import com.mapbox.maps.MapView
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.gestures
@@ -38,6 +39,10 @@ class HomeFragment : Fragment() {
     private var isMapReady = false
     private var hasCenteredOnLocation = false
     
+    // Camera state preservation
+    private var savedCameraState: CameraState? = null
+    private var shouldRestoreCamera = false
+    
     // Google Location Services
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
@@ -55,7 +60,7 @@ class HomeFragment : Fragment() {
     }
 
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
-        if (!hasCenteredOnLocation) {
+        if (!hasCenteredOnLocation && !shouldRestoreCamera) {
             // Only center automatically on first location update with zoom level 15
             mapView?.getMapboxMap()?.setCamera(
                 CameraOptions.Builder()
@@ -99,7 +104,9 @@ class HomeFragment : Fragment() {
                 // Setup location after permission granted
                 if (isMapReady) {
                     setupLocationComponent()
-                    requestCurrentLocation()
+                    if (!shouldRestoreCamera) {
+                        requestCurrentLocation()
+                    }
                 }
             } else {
                 Log.d("HomeFragment", "❌ Location permission denied via launcher")
@@ -128,8 +135,8 @@ class HomeFragment : Fragment() {
                 locationResult.lastLocation?.let { location ->
                     Log.d("HomeFragment", "📍 Location update from callback: ${location.latitude}, ${location.longitude}")
                     
-                    // Center map on first location if not already centered
-                    if (isMapReady && !hasCenteredOnLocation) {
+                    // Center map on first location if not already centered and not restoring
+                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera) {
                         centerMapOnLocation(location)
                     }
                 }
@@ -160,8 +167,14 @@ class HomeFragment : Fragment() {
                 // Setup location component
                 setupLocationComponent()
                 
-                // Check and request permissions after map is ready
-                checkAndRequestLocationPermissions()
+                // Check if we should restore camera position
+                if (savedCameraState != null && shouldRestoreCamera) {
+                    Log.d("HomeFragment", "📸 Restoring saved camera position")
+                    restoreCameraPosition()
+                } else {
+                    // Check and request permissions after map is ready
+                    checkAndRequestLocationPermissions()
+                }
                 
             } else {
                 Log.e("HomeFragment", "❌ Map style failed to load")
@@ -170,6 +183,29 @@ class HomeFragment : Fragment() {
         }
         
         return root
+    }
+    
+    private fun saveCameraPosition() {
+        savedCameraState = mapView?.getMapboxMap()?.cameraState
+        savedCameraState?.let {
+            Log.d("HomeFragment", "💾 Saved camera position - Center: ${it.center.latitude()}, ${it.center.longitude()}, Zoom: ${it.zoom}")
+        }
+    }
+    
+    private fun restoreCameraPosition() {
+        savedCameraState?.let { state ->
+            mapView?.getMapboxMap()?.setCamera(
+                CameraOptions.Builder()
+                    .center(state.center)
+                    .zoom(state.zoom)
+                    .bearing(state.bearing)
+                    .pitch(state.pitch)
+                    .build()
+            )
+            Log.d("HomeFragment", "✅ Restored camera position")
+            hasCenteredOnLocation = true // Prevent auto-centering after restore
+        }
+        shouldRestoreCamera = false
     }
     
     private fun checkAndRequestLocationPermissions() {
@@ -181,7 +217,9 @@ class HomeFragment : Fragment() {
                 // Permission already granted
                 Log.d("HomeFragment", "✅ Location permission already granted")
                 isLocationPermissionGranted = true
-                requestCurrentLocation()
+                if (!shouldRestoreCamera) {
+                    requestCurrentLocation()
+                }
             }
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 // Show explanation and request permission
@@ -249,7 +287,7 @@ class HomeFragment : Fragment() {
             .addOnSuccessListener { location ->
                 if (location != null) {
                     Log.d("HomeFragment", "✅ Got last known location: ${location.latitude}, ${location.longitude}")
-                    if (isMapReady && !hasCenteredOnLocation) {
+                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera) {
                         centerMapOnLocation(location)
                     }
                 } else {
@@ -322,8 +360,13 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("HomeFragment", "📱 Fragment resumed")
-        // Request location updates when fragment resumes if needed
-        if (isLocationPermissionGranted && !hasCenteredOnLocation && isMapReady) {
+        
+        // If we have a saved camera state and the map is ready, restore it
+        if (savedCameraState != null && isMapReady) {
+            shouldRestoreCamera = true
+            restoreCameraPosition()
+        } else if (isLocationPermissionGranted && !hasCenteredOnLocation && isMapReady) {
+            // Otherwise, request location if we haven't centered yet
             Log.d("HomeFragment", "📍 Resuming - requesting location")
             requestCurrentLocation()
         }
@@ -332,6 +375,11 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         Log.d("HomeFragment", "⏸️ Fragment paused")
+        
+        // Save the current camera position before pausing
+        saveCameraPosition()
+        shouldRestoreCamera = true
+        
         // Stop location updates when fragment pauses
         stopLocationUpdates()
     }
@@ -343,6 +391,10 @@ class HomeFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        
+        // Save camera position when stopping
+        saveCameraPosition()
+        
         mapView?.onStop()
     }
 
@@ -354,6 +406,11 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         Log.d("HomeFragment", "🗑️ Fragment view destroyed")
+        
+        // Save camera position before destroying view
+        saveCameraPosition()
+        shouldRestoreCamera = true
+        
         fragmentScope.cancel()
         stopLocationUpdates()
         mapView?.location?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
