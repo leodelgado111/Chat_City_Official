@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Splash screen image filling the entire screen -->
-    <item android:drawable="@drawable/splash_screen" />
+    <!-- Solid background color that matches your splash screen -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#000000" />
+        </shape>
+    </item>
+    
+    <!-- Splash screen image centered and scaled -->
+    <item>
+        <bitmap
+            android:src="@drawable/splash_screen"
+            android:gravity="center|fill_horizontal|fill_vertical" />
+    </item>
 </layer-list>
