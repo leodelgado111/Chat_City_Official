@@ -14,22 +14,23 @@
         <!-- Customize your theme here. -->
     </style>
     
-    <!-- Splash Screen Theme -->
+    <!-- Splash Screen Theme - Quick launch with minimal background -->
     <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Use the splash window background drawable -->
-        <item name="android:windowBackground">@drawable/splash_window_background</item>
+        <!-- Use a simple solid color background for instant display -->
+        <item name="android:windowBackground">@color/black</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+        <!-- Make it NOT translucent so it loads faster -->
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <!-- Disable Android 12+ splash screen API to prevent icon overlay -->
+        <!-- Disable Android 12+ splash screen API -->
         <item name="android:windowSplashScreenAnimatedIcon" tools:targetApi="31">@android:color/transparent</item>
         <item name="android:windowSplashScreenIconBackgroundColor" tools:targetApi="31">@android:color/transparent</item>
-        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@android:color/transparent</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/black</item>
     </style>
 </resources>
