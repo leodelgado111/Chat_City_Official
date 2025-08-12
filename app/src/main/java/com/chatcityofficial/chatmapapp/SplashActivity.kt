@@ -1,8 +1,5 @@
 package com.chatcityofficial.chatmapapp
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -53,18 +50,14 @@ class SplashActivity : AppCompatActivity() {
         ivSplashImage = findViewById(R.id.ivSplashImage)
         progressBar = findViewById(R.id.progressBar)
         
-        // Initially hide elements for animation
-        ivSplashImage.alpha = 0f
+        // Image is already visible from system splash, no need to hide it
+        // Only hide progress bar for animation
         progressBar.alpha = 0f
     }
     
     private fun startAnimations() {
-        // Splash image fade in
-        ivSplashImage.animate()
-            .alpha(1f)
-            .setDuration(1000)
-            .setInterpolator(AccelerateDecelerateInterpolator())
-            .start()
+        // No need to animate the splash image since it's already showing from system splash
+        // This creates a seamless transition
         
         // Progress bar animation - fade in after delay
         progressBar.animate()
