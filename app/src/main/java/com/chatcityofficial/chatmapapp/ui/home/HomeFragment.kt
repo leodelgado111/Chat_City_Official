@@ -21,7 +21,6 @@ import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.android.gestures.RotateGestureDetector
-import com.mapbox.android.gestures.StandardGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.CameraState
@@ -29,13 +28,11 @@ import com.mapbox.maps.MapView
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.OnRotateListener
 import com.mapbox.maps.plugin.gestures.gestures
-import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.attribution.attribution
-import com.mapbox.maps.plugin.compass.compass
 import kotlinx.coroutines.*
 import java.util.Locale
 
@@ -185,19 +182,6 @@ class HomeFragment : Fragment() {
         mapView = root.findViewById(R.id.mapView)
         locationText = root.findViewById(R.id.locationText)
         
-        // CRITICAL: Disable compass before loading style
-        mapView?.compass?.apply {
-            enabled = false
-            fadeWhenFacingNorth = false
-            visibility = View.GONE  // Use GONE instead of INVISIBLE
-        }
-        
-        // Find and hide the compass view directly
-        mapView?.findViewById<View>(com.mapbox.maps.R.id.mapbox_compass)?.let { compassView ->
-            compassView.visibility = View.GONE
-            compassView.isEnabled = false
-        }
-        
         // Load map style
         mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/light-v11") { style ->
             if (style != null) {
@@ -208,13 +192,6 @@ class HomeFragment : Fragment() {
                 mapView?.scalebar?.enabled = false
                 mapView?.logo?.enabled = false
                 mapView?.attribution?.enabled = false
-                
-                // Disable compass again after style load
-                mapView?.compass?.apply {
-                    enabled = false
-                    visibility = View.GONE
-                    fadeWhenFacingNorth = false
-                }
                 
                 // Aggressively disable all rotation
                 mapView?.gestures?.apply {
@@ -251,14 +228,10 @@ class HomeFragment : Fragment() {
                     }
                 })
                 
-                // Use a timer to continuously enforce no rotation and hide compass
+                // Use a timer to continuously enforce no rotation
                 fragmentScope.launch {
                     while (isActive) {
                         delay(100) // Check every 100ms
-                        
-                        // Keep compass hidden
-                        mapView?.compass?.visibility = View.GONE
-                        mapView?.findViewById<View>(com.mapbox.maps.R.id.mapbox_compass)?.visibility = View.GONE
                         
                         // Force bearing to 0 if it changed
                         val bearing = mapView?.getMapboxMap()?.cameraState?.bearing ?: 0.0
@@ -523,10 +496,6 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("HomeFragment", "📱 Fragment resumed")
-        
-        // Re-hide compass on resume
-        mapView?.compass?.visibility = View.GONE
-        mapView?.findViewById<View>(com.mapbox.maps.R.id.mapbox_compass)?.visibility = View.GONE
         
         // If we have a saved camera state and the map is ready, restore it
         if (savedCameraState != null && isMapReady) {
