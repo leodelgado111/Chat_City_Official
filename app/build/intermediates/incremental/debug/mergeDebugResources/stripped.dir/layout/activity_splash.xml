@@ -8,12 +8,12 @@
     android:fitsSystemWindows="false"
     tools:context=".SplashActivity">
 
-    <!-- Main Splash Image - fills entire screen for seamless transition -->
+    <!-- Main Splash Image using vector drawable for seamless transition -->
     <ImageView
         android:id="@+id/ivSplashImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/splash_screen"
+        android:src="@drawable/splash_screen_vector"
         android:scaleType="centerCrop"
         android:adjustViewBounds="false"
         app:layout_constraintTop_toTopOf="parent"

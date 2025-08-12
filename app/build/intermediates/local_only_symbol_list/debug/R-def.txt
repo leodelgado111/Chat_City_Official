@@ -26,6 +26,9 @@ drawable nav_bar_background
 drawable splash_background
 drawable splash_logo
 drawable splash_screen
+drawable splash_screen_simple
+drawable splash_screen_vector
+drawable splash_test
 drawable splash_window_background
 drawable splash_window_background_fill
 id chatCityLogo
