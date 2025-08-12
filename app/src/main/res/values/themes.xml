@@ -16,8 +16,8 @@
     
     <!-- Splash Screen Theme -->
     <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Use only the windowBackground, no overlays -->
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <!-- Use the splash window background drawable -->
+        <item name="android:windowBackground">@drawable/splash_window_background</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
