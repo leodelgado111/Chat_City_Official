@@ -64,13 +64,13 @@ dependencies {
     implementation("com.mapbox.maps:android:10.16.1")
     implementation("com.mapbox.plugin:maps-locationcomponent:10.16.1")
     
-    // Google Maps (for search)
+    // Google Maps and Location Services
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-places:17.0.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")  // Added for FusedLocationProviderClient
     implementation("com.google.android.libraries.places:places:3.3.0")
     
     // Firebase
-    // Firebase - update this section in your app/build.gradle.kts
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
