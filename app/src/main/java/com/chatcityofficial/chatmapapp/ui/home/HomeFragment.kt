@@ -210,12 +210,21 @@ class HomeFragment : Fragment() {
                 // Override gesture detectors to block rotation
                 mapView?.gestures?.addOnRotateListener(object : OnRotateListener {
                     override fun onRotateBegin(detector: RotateGestureDetector) {
-                        // Block rotation start
+                        // Block rotation start - immediately reset
+                        mapView?.getMapboxMap()?.setCamera(
+                            CameraOptions.Builder()
+                                .bearing(0.0)
+                                .build()
+                        )
                     }
                     
-                    override fun onRotate(detector: RotateGestureDetector): Boolean {
-                        // Consume and block all rotation
-                        return true
+                    override fun onRotate(detector: RotateGestureDetector) {
+                        // Block all rotation - immediately reset
+                        mapView?.getMapboxMap()?.setCamera(
+                            CameraOptions.Builder()
+                                .bearing(0.0)
+                                .build()
+                        )
                     }
                     
                     override fun onRotateEnd(detector: RotateGestureDetector) {
