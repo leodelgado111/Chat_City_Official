@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <!-- White background -->
+    <!-- White background with 90% opacity -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#FFFFFF" />
+            <solid android:color="#E6FFFFFF" />
         </shape>
     </item>
     
-    <!-- Gradient overlay - same colors as nav bar -->
+    <!-- Gradient overlay with reduced opacity - same colors as nav bar but 90% overall -->
     <item>
         <shape android:shape="rectangle">
             <gradient
-                android:startColor="#8098D5F1"
-                android:centerColor="#80CAADE6"
-                android:endColor="#40FC86BC"
+                android:startColor="#7398D5F1"
+                android:centerColor="#73CAADE6"
+                android:endColor="#3AFC86BC"
                 android:angle="45" />
         </shape>
     </item>
     
-    <!-- Black stroke on top of everything -->
-    <item>
+    <!-- Bottom stroke only -->
+    <item android:top="-3dp" android:left="-3dp" android:right="-3dp">
         <shape android:shape="rectangle">
             <solid android:color="#00000000" />
             <stroke 
