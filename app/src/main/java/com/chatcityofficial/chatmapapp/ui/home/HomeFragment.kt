@@ -3,6 +3,7 @@ package com.chatcityofficial.chatmapapp.ui.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -10,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -31,10 +33,12 @@ import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.attribution.attribution
 import kotlinx.coroutines.*
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
     private var mapView: MapView? = null
+    private var locationText: TextView? = null
     private var isLocationPermissionGranted = false
     private var isMapReady = false
     private var hasCenteredOnLocation = false
@@ -48,11 +52,17 @@ class HomeFragment : Fragment() {
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
     
+    // Geocoder for reverse geocoding
+    private var geocoder: Geocoder? = null
+    
     // Permission launcher
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
     
     // Coroutine scope for delayed operations
     private val fragmentScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
+    
+    // Job for debouncing location updates
+    private var geocodingJob: Job? = null
     
     // Location tracking listeners
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
@@ -70,6 +80,9 @@ class HomeFragment : Fragment() {
             )
             hasCenteredOnLocation = true
             Log.d("HomeFragment", "📍 Centered on location from indicator: ${it.latitude()}, ${it.longitude()}")
+            
+            // Update location text for initial position
+            updateLocationText(it.latitude(), it.longitude())
         }
         mapView?.gestures?.focalPoint = mapView?.getMapboxMap()?.pixelForCoordinate(it)
     }
@@ -80,14 +93,30 @@ class HomeFragment : Fragment() {
         }
 
         override fun onMove(detector: MoveGestureDetector): Boolean {
+            // Update location text as user moves the map
+            val center = mapView?.getMapboxMap()?.cameraState?.center
+            center?.let {
+                updateLocationText(it.latitude(), it.longitude())
+            }
             return false
         }
 
-        override fun onMoveEnd(detector: MoveGestureDetector) {}
+        override fun onMoveEnd(detector: MoveGestureDetector) {
+            // Final update when movement ends
+            val center = mapView?.getMapboxMap()?.cameraState?.center
+            center?.let {
+                updateLocationText(it.latitude(), it.longitude())
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Initialize geocoder
+        context?.let {
+            geocoder = Geocoder(it, Locale.getDefault())
+        }
         
         // Initialize permission launcher
         requestPermissionLauncher = registerForActivityResult(
@@ -152,6 +181,7 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         
         mapView = root.findViewById(R.id.mapView)
+        locationText = root.findViewById(R.id.locationText)
         
         // Load map style first
         mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/light-v11") { style ->
@@ -176,6 +206,14 @@ class HomeFragment : Fragment() {
                     checkAndRequestLocationPermissions()
                 }
                 
+                // Add camera change listener to update location when user scrolls
+                mapView?.getMapboxMap()?.addOnCameraChangeListener {
+                    val center = mapView?.getMapboxMap()?.cameraState?.center
+                    center?.let {
+                        updateLocationText(it.latitude(), it.longitude())
+                    }
+                }
+                
             } else {
                 Log.e("HomeFragment", "❌ Map style failed to load")
                 Toast.makeText(context, "❌ Map style failed to load", Toast.LENGTH_SHORT).show()
@@ -183,6 +221,50 @@ class HomeFragment : Fragment() {
         }
         
         return root
+    }
+    
+    private fun updateLocationText(latitude: Double, longitude: Double) {
+        // Cancel previous geocoding job if it exists
+        geocodingJob?.cancel()
+        
+        // Debounce the geocoding request
+        geocodingJob = fragmentScope.launch {
+            delay(300) // Wait 300ms before executing
+            
+            withContext(Dispatchers.IO) {
+                try {
+                    geocoder?.let { geo ->
+                        val addresses = geo.getFromLocation(latitude, longitude, 1)
+                        if (!addresses.isNullOrEmpty()) {
+                            val address = addresses[0]
+                            
+                            // Get city name, or fallback to locality, sub-admin area, or admin area
+                            val cityName = when {
+                                !address.locality.isNullOrEmpty() -> address.locality
+                                !address.subAdminArea.isNullOrEmpty() -> address.subAdminArea
+                                !address.adminArea.isNullOrEmpty() -> address.adminArea
+                                else -> "Unknown Location"
+                            }
+                            
+                            withContext(Dispatchers.Main) {
+                                locationText?.text = cityName
+                                Log.d("HomeFragment", "📍 Location updated to: $cityName")
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                locationText?.text = "Unknown Location"
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("HomeFragment", "Error getting location name: ${e.message}")
+                    withContext(Dispatchers.Main) {
+                        // Fallback to coordinates if geocoding fails
+                        locationText?.text = "${latitude.format(2)}, ${longitude.format(2)}"
+                    }
+                }
+            }
+        }
     }
     
     private fun saveCameraPosition() {
@@ -204,6 +286,9 @@ class HomeFragment : Fragment() {
             )
             Log.d("HomeFragment", "✅ Restored camera position")
             hasCenteredOnLocation = true // Prevent auto-centering after restore
+            
+            // Update location text for restored position
+            updateLocationText(state.center.latitude(), state.center.longitude())
         }
         shouldRestoreCamera = false
     }
@@ -343,7 +428,9 @@ class HomeFragment : Fragment() {
         
         hasCenteredOnLocation = true
         Log.d("HomeFragment", "✅ Map centered on location: ${location.latitude}, ${location.longitude}")
-        Toast.makeText(context, "📍 Located at: ${location.latitude.format(4)}, ${location.longitude.format(4)}", Toast.LENGTH_SHORT).show()
+        
+        // Update location text when centering
+        updateLocationText(location.latitude, location.longitude)
         
         // Stop location updates once we've centered the map
         stopLocationUpdates()
@@ -411,6 +498,9 @@ class HomeFragment : Fragment() {
         saveCameraPosition()
         shouldRestoreCamera = true
         
+        // Cancel any pending geocoding jobs
+        geocodingJob?.cancel()
+        
         fragmentScope.cancel()
         stopLocationUpdates()
         mapView?.location?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
@@ -418,5 +508,6 @@ class HomeFragment : Fragment() {
         mapView?.gestures?.removeOnMoveListener(onMoveListener)
         mapView?.onDestroy()
         mapView = null
+        locationText = null
     }
 }
