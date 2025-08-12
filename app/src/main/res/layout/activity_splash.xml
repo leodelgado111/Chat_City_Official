@@ -5,15 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
     tools:context=".SplashActivity">
 
-    <!-- Main Splash Image - matches the system splash for seamless transition -->
+    <!-- Main Splash Image - fills entire screen for seamless transition -->
     <ImageView
         android:id="@+id/ivSplashImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/splash_screen"
         android:scaleType="centerCrop"
+        android:adjustViewBounds="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
