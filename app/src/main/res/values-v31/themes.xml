@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Override splash theme for Android 12+ (API 31+) -->
     <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Use only the windowBackground, no overlays -->
-        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <!-- Use the splash window background drawable -->
+        <item name="android:windowBackground">@drawable/splash_window_background</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
