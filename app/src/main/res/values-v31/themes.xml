@@ -1,20 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Override splash theme for Android 12+ (API 31+) -->
+    <!-- Override splash theme for Android 12+ (API 31+) - ELIMINATE SYSTEM SPLASH -->
     <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Use the splash window background drawable -->
-        <item name="android:windowBackground">@drawable/splash_window_background</item>
-        <item name="android:windowFullscreen">true</item>
+        <!-- Make it translucent to skip system splash entirely -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <!-- Force disable the Android 12 splash screen API -->
-        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <!-- Completely disable Android 12 splash screen API -->
         <item name="android:windowSplashScreenBackground">@android:color/transparent</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@android:color/transparent</item>
         <item name="android:windowSplashScreenAnimationDuration">0</item>
     </style>
 </resources>

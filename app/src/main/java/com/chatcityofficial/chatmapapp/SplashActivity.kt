@@ -1,16 +1,17 @@
 package com.chatcityofficial.chatmapapp
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.Window
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.WindowCompat
 
 class SplashActivity : AppCompatActivity() {
     
@@ -19,10 +20,21 @@ class SplashActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // CRITICAL: Remove the translucent flag once activity starts
+        // This makes the activity opaque after the system splash is skipped
+        setWindowIsTranslucent(false)
+        
+        // Make it truly fullscreen - edge to edge
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        
         setContentView(R.layout.activity_splash)
         
-        // Make the status bar transparent
-        makeStatusBarTransparent()
+        // Set the background color to match the gradient start
+        window.decorView.setBackgroundColor(android.graphics.Color.parseColor("#FF9AC8"))
+        
+        // Hide system bars
+        hideSystemUI()
         
         // Initialize views
         initViews()
@@ -34,16 +46,27 @@ class SplashActivity : AppCompatActivity() {
         navigateToMain()
     }
     
-    private fun makeStatusBarTransparent() {
-        // Make status bar transparent
-        window.decorView.systemUiVisibility = (
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        )
+    private fun hideSystemUI() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                or View.SYSTEM_UI_FLAG_FULLSCREEN
+            )
+        }
         
-        // Hide the status bar and navigation bar for immersive experience
-        val windowInsetsController = WindowInsetsControllerCompat(window, window.decorView)
-        windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
+        // Make status bar and navigation bar transparent
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
+        
+        // Add flags to go full screen
+        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
     
     private fun initViews() {
@@ -64,7 +87,6 @@ class SplashActivity : AppCompatActivity() {
             .alpha(1f)
             .setDuration(500)
             .setStartDelay(500)
-            .setInterpolator(AccelerateDecelerateInterpolator())
             .start()
     }
     
@@ -74,10 +96,25 @@ class SplashActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             
-            // Add a fade transition
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            // No transition animation for instant switch
+            overridePendingTransition(0, 0)
             
             finish()
         }, 2500) // Reduced to 2.5 seconds for faster experience
+    }
+    
+    // Function to set window translucent
+    private fun setWindowIsTranslucent(translucent: Boolean) {
+        try {
+            val method = Window::class.java.getDeclaredMethod(
+                "setTranslucent",
+                Boolean::class.javaPrimitiveType
+            )
+            method.isAccessible = true
+            method.invoke(window, translucent)
+        } catch (e: Exception) {
+            // If the method doesn't exist or fails, just continue
+            e.printStackTrace()
+        }
     }
 }
