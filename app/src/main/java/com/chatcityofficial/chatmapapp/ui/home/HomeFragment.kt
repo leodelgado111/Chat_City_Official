@@ -56,11 +56,11 @@ class HomeFragment : Fragment() {
 
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
         if (!hasCenteredOnLocation) {
-            // Only center automatically on first location update
+            // Only center automatically on first location update with zoom level 15
             mapView?.getMapboxMap()?.setCamera(
                 CameraOptions.Builder()
                     .center(it)
-                    .zoom(14.0)
+                    .zoom(15.0)  // Changed from 14.0 to 15.0 for closer view
                     .build()
             )
             hasCenteredOnLocation = true
@@ -299,7 +299,7 @@ class HomeFragment : Fragment() {
         mapView?.getMapboxMap()?.setCamera(
             CameraOptions.Builder()
                 .center(point)
-                .zoom(14.0)
+                .zoom(15.0)  // Changed from 14.0 to 15.0 for closer view
                 .build()
         )
         
