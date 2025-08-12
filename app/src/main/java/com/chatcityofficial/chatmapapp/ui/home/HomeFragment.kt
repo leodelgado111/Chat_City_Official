@@ -11,7 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
@@ -20,7 +21,6 @@ import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
-import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
@@ -29,11 +29,11 @@ import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.attribution.attribution
+import kotlinx.coroutines.*
 
 class HomeFragment : Fragment() {
 
     private var mapView: MapView? = null
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
     private var isLocationPermissionGranted = false
     private var isMapReady = false
     private var hasCenteredOnLocation = false
@@ -42,6 +42,12 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private lateinit var locationRequest: LocationRequest
+    
+    // Permission launcher
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<Array<String>>
+    
+    // Coroutine scope for delayed operations
+    private val fragmentScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
     
     // Location tracking listeners
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
@@ -58,6 +64,7 @@ class HomeFragment : Fragment() {
                     .build()
             )
             hasCenteredOnLocation = true
+            Log.d("HomeFragment", "📍 Centered on location from indicator: ${it.latitude()}, ${it.longitude()}")
         }
         mapView?.gestures?.focalPoint = mapView?.getMapboxMap()?.pixelForCoordinate(it)
     }
@@ -77,6 +84,34 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // Initialize permission launcher
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+            val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+            
+            if (fineLocationGranted || coarseLocationGranted) {
+                Log.d("HomeFragment", "✅ Location permission granted via launcher")
+                Toast.makeText(context, "Location permission granted", Toast.LENGTH_SHORT).show()
+                isLocationPermissionGranted = true
+                
+                // Setup location after permission granted
+                if (isMapReady) {
+                    setupLocationComponent()
+                    requestCurrentLocation()
+                }
+            } else {
+                Log.d("HomeFragment", "❌ Location permission denied via launcher")
+                Toast.makeText(
+                    context,
+                    "Location permission denied. Map will not center on your location.",
+                    Toast.LENGTH_LONG
+                ).show()
+                isLocationPermissionGranted = false
+            }
+        }
+        
         // Initialize location client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         
@@ -91,7 +126,7 @@ class HomeFragment : Fragment() {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult.lastLocation?.let { location ->
-                    Log.d("HomeFragment", "📍 Location update: ${location.latitude}, ${location.longitude}")
+                    Log.d("HomeFragment", "📍 Location update from callback: ${location.latitude}, ${location.longitude}")
                     
                     // Center map on first location if not already centered
                     if (isMapReady && !hasCenteredOnLocation) {
@@ -111,13 +146,10 @@ class HomeFragment : Fragment() {
         
         mapView = root.findViewById(R.id.mapView)
         
-        // Check for location permissions
-        checkLocationPermissions()
-        
-        // Load map style
+        // Load map style first
         mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/light-v11") { style ->
             if (style != null) {
-                Log.d("HomeFragment", "✅ Map style loaded")
+                Log.d("HomeFragment", "✅ Map style loaded successfully")
                 isMapReady = true
                 
                 // Remove unnecessary UI elements
@@ -128,10 +160,9 @@ class HomeFragment : Fragment() {
                 // Setup location component
                 setupLocationComponent()
                 
-                // Try to get current location if permission granted
-                if (isLocationPermissionGranted) {
-                    requestCurrentLocation()
-                }
+                // Check and request permissions after map is ready
+                checkAndRequestLocationPermissions()
+                
             } else {
                 Log.e("HomeFragment", "❌ Map style failed to load")
                 Toast.makeText(context, "❌ Map style failed to load", Toast.LENGTH_SHORT).show()
@@ -141,29 +172,53 @@ class HomeFragment : Fragment() {
         return root
     }
     
-    private fun checkLocationPermissions() {
-        if (ContextCompat.checkSelfPermission(
+    private fun checkAndRequestLocationPermissions() {
+        when {
+            ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            isLocationPermissionGranted = true
-            Log.d("HomeFragment", "✅ Location permission already granted")
-        } else {
-            Log.d("HomeFragment", "❌ Requesting location permission")
-            // Request permission
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                ),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission already granted
+                Log.d("HomeFragment", "✅ Location permission already granted")
+                isLocationPermissionGranted = true
+                requestCurrentLocation()
+            }
+            shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                // Show explanation and request permission
+                Log.d("HomeFragment", "ℹ️ Should show permission rationale")
+                Toast.makeText(
+                    context,
+                    "Location permission is needed to show your position on the map",
+                    Toast.LENGTH_LONG
+                ).show()
+                
+                // Request permission after showing rationale
+                fragmentScope.launch {
+                    delay(2000) // Give user time to read the message
+                    requestLocationPermissions()
+                }
+            }
+            else -> {
+                // Request permission directly
+                Log.d("HomeFragment", "📍 Requesting location permission")
+                requestLocationPermissions()
+            }
         }
     }
     
+    private fun requestLocationPermissions() {
+        Log.d("HomeFragment", "🔔 Launching permission request dialog")
+        requestPermissionLauncher.launch(
+            arrayOf(
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
+    }
+    
     private fun setupLocationComponent() {
+        Log.d("HomeFragment", "⚙️ Setting up location component")
+        
         // Enable location component
         mapView?.location?.apply {
             enabled = true
@@ -172,12 +227,12 @@ class HomeFragment : Fragment() {
             // Add listeners for location updates
             addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
             addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+            
+            Log.d("HomeFragment", "✅ Location component enabled with pulsing")
         }
         
         // Add gesture listener
         mapView?.gestures?.addOnMoveListener(onMoveListener)
-        
-        Log.d("HomeFragment", "✅ Location component setup complete")
     }
     
     @SuppressLint("MissingPermission")
@@ -187,44 +242,55 @@ class HomeFragment : Fragment() {
             return
         }
         
-        Log.d("HomeFragment", "📍 Requesting current location...")
+        Log.d("HomeFragment", "📍 Requesting current location from FusedLocationClient...")
         
         // Try to get last known location first
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                Log.d("HomeFragment", "✅ Got last known location: ${location.latitude}, ${location.longitude}")
-                if (isMapReady && !hasCenteredOnLocation) {
-                    centerMapOnLocation(location)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+                if (location != null) {
+                    Log.d("HomeFragment", "✅ Got last known location: ${location.latitude}, ${location.longitude}")
+                    if (isMapReady && !hasCenteredOnLocation) {
+                        centerMapOnLocation(location)
+                    }
+                } else {
+                    Log.d("HomeFragment", "⚠️ Last location is null, requesting fresh location updates")
+                    // Request location updates if last location is null
+                    startLocationUpdates()
                 }
-            } else {
-                Log.d("HomeFragment", "⚠️ Last location is null, requesting location updates")
-                // Request location updates if last location is null
+            }
+            .addOnFailureListener { e ->
+                Log.e("HomeFragment", "❌ Failed to get last location: ${e.message}")
+                // Try requesting location updates as fallback
                 startLocationUpdates()
             }
-        }.addOnFailureListener { e ->
-            Log.e("HomeFragment", "❌ Failed to get location: ${e.message}")
-            // Try requesting location updates as fallback
-            startLocationUpdates()
-        }
     }
     
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         if (!isLocationPermissionGranted) {
+            Log.e("HomeFragment", "❌ Cannot start location updates - permission not granted")
             return
         }
         
-        Log.d("HomeFragment", "📍 Starting location updates...")
-        fusedLocationClient.requestLocationUpdates(
-            locationRequest,
-            locationCallback,
-            Looper.getMainLooper()
-        )
+        Log.d("HomeFragment", "🔄 Starting continuous location updates...")
+        try {
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "❌ Error starting location updates: ${e.message}")
+        }
     }
     
     private fun stopLocationUpdates() {
         Log.d("HomeFragment", "⏹️ Stopping location updates")
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        try {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "❌ Error stopping location updates: ${e.message}")
+        }
     }
     
     private fun centerMapOnLocation(location: Location) {
@@ -239,10 +305,13 @@ class HomeFragment : Fragment() {
         
         hasCenteredOnLocation = true
         Log.d("HomeFragment", "✅ Map centered on location: ${location.latitude}, ${location.longitude}")
+        Toast.makeText(context, "📍 Located at: ${location.latitude.format(4)}, ${location.longitude.format(4)}", Toast.LENGTH_SHORT).show()
         
         // Stop location updates once we've centered the map
         stopLocationUpdates()
     }
+    
+    private fun Double.format(digits: Int) = "%.${digits}f".format(this)
     
     private fun onCameraTrackingDismissed() {
         mapView?.location?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
@@ -250,46 +319,19 @@ class HomeFragment : Fragment() {
         mapView?.gestures?.removeOnMoveListener(onMoveListener)
     }
     
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                isLocationPermissionGranted = true
-                Toast.makeText(context, "Location permission granted", Toast.LENGTH_SHORT).show()
-                Log.d("HomeFragment", "✅ Location permission granted by user")
-                
-                // Setup location component and request location now that we have permission
-                if (isMapReady) {
-                    setupLocationComponent()
-                    requestCurrentLocation()
-                }
-            } else {
-                Toast.makeText(
-                    context,
-                    "Location permission denied. Map will not center on your location.",
-                    Toast.LENGTH_LONG
-                ).show()
-                Log.d("HomeFragment", "❌ Location permission denied by user")
-            }
-        }
-    }
-    
     override fun onResume() {
         super.onResume()
-        // Request location updates when fragment resumes
-        if (isLocationPermissionGranted && !hasCenteredOnLocation) {
+        Log.d("HomeFragment", "📱 Fragment resumed")
+        // Request location updates when fragment resumes if needed
+        if (isLocationPermissionGranted && !hasCenteredOnLocation && isMapReady) {
+            Log.d("HomeFragment", "📍 Resuming - requesting location")
             requestCurrentLocation()
         }
     }
     
     override fun onPause() {
         super.onPause()
+        Log.d("HomeFragment", "⏸️ Fragment paused")
         // Stop location updates when fragment pauses
         stopLocationUpdates()
     }
@@ -311,6 +353,8 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("HomeFragment", "🗑️ Fragment view destroyed")
+        fragmentScope.cancel()
         stopLocationUpdates()
         mapView?.location?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
         mapView?.location?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
