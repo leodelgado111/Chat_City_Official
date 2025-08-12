@@ -2640,6 +2640,13 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color splash_alt_gradient_center
+color splash_alt_gradient_end
+color splash_alt_gradient_start
+color splash_gradient_center
+color splash_gradient_end
+color splash_gradient_start
+color splash_text_secondary
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -3735,6 +3742,9 @@ drawable quantum_ic_arrow_back_grey600_24
 drawable quantum_ic_clear_grey600_24
 drawable quantum_ic_cloud_off_vd_theme_24
 drawable quantum_ic_search_grey600_24
+drawable splash_background
+drawable splash_logo
+drawable splash_screen
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3989,6 +3999,7 @@ id invisible
 id inward
 id italic
 id item_touch_helper_previous_elevation
+id ivLogo
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -4159,6 +4170,7 @@ id places_autocomplete_try_again_progress
 id position
 id postLayout
 id pressed
+id progressBar
 id progress_circular
 id progress_horizontal
 id radio
@@ -4292,6 +4304,9 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvAppName
+id tvTagline
+id tvVersion
 id unchecked
 id uniform
 id unique
@@ -4438,6 +4453,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_dummy
 layout activity_main
+layout activity_splash
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
 layout custom_dialog
@@ -5406,6 +5422,7 @@ style Theme_MaterialComponents_Light_NoActionBar
 style Theme_MaterialComponents_Light_NoActionBar_Bridge
 style Theme_MaterialComponents_NoActionBar
 style Theme_MaterialComponents_NoActionBar_Bridge
+style Theme_SplashScreen
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark

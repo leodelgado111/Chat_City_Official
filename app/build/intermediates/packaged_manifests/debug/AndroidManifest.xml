@@ -53,16 +53,23 @@
             android:name="MAPBOX_ACCESS_TOKEN"
             android:value="pk.eyJ1IjoibGVvZGVsZ2FkbzExMSIsImEiOiJjbWRqMDF2OGswZjF1MmpzYjdtbThuam94In0.QlS3L22SRl7Iw8vRdNnUzw" />
 
+        <!-- Splash Screen Activity (launches first) -->
         <activity
-            android:name="com.chatcityofficial.chatmapapp.MainActivity"
+            android:name="com.chatcityofficial.chatmapapp.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.ChatCityOfficial" >
+            android:theme="@style/Theme.SplashScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Main Activity (no longer the launcher) -->
+        <activity
+            android:name="com.chatcityofficial.chatmapapp.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ChatCityOfficial" />
         <activity
             android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
             android:exported="false"

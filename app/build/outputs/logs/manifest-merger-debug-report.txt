@@ -7,10 +7,10 @@ INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:21:9-23
 	android:name
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:22:13-58
 manifest
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-39:12
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-39:12
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-39:12
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-39:12
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-47:12
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-47:12
 MERGED from [androidx.databinding:viewbinding:8.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\58a4c0215099318f95d5e27a1aa675a7\transformed\jetified-viewbinding-8.1.4\AndroidManifest.xml:2:1-7:12
 MERGED from [com.mapbox.maps:android:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\d5397c9ee41f697d1759301dd4891f69\transformed\jetified-android-10.16.1\AndroidManifest.xml:2:1-9:12
 MERGED from [com.mapbox.common:okhttp:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\76ebe4b1ce20e5addefa9265917f1160\transformed\jetified-okhttp-23.8.3\AndroidManifest.xml:2:1-9:12
@@ -197,8 +197,8 @@ MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\Leo\.gradle\caches\8.9\transf
 	android:name
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:8:22-76
 application
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-38:19
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-38:19
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-46:19
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-46:19
 MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\935d5abcd4b01f37b17ecbdb92d23336\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -293,24 +293,32 @@ ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:25:9-27:12
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:27:13-126
 	android:name
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:26:13-47
-activity#com.chatcityofficial.chatmapapp.MainActivity
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:29:9-37:20
+activity#com.chatcityofficial.chatmapapp.SplashActivity
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:30:9-38:20
 	android:exported
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:31:13-36
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:33:13-36
 	android:theme
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:32:13-58
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:32:13-54
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:30:13-41
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:31:13-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:33:13-36:29
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:34:13-37:29
 action#android.intent.action.MAIN
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:34:17-69
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:17-69
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:34:25-66
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:17-77
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:36:17-77
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:27-74
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:36:27-74
+activity#com.chatcityofficial.chatmapapp.MainActivity
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:41:9-44:61
+	android:exported
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:43:13-36
+	android:theme
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:44:13-58
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:42:13-41
 uses-sdk
 INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml
