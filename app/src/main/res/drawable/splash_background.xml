@@ -12,10 +12,8 @@
         </shape>
     </item>
     
-    <!-- Logo in center -->
-    <item>
-        <bitmap
-            android:src="@drawable/chat_city_logo"
-            android:gravity="center" />
-    </item>
+    <!-- Logo in center - using item with drawable instead of bitmap -->
+    <item
+        android:drawable="@drawable/chat_city_logo"
+        android:gravity="center" />
 </layer-list>
