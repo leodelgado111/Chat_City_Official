@@ -40,15 +40,21 @@
         <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
         
     </style>
-    <style name="Theme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:windowBackground">@drawable/splash_background</item>
+    <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
+        
+        <item name="android:windowBackground">@drawable/splash_window_background</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowIsTranslucent">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsTranslucent">false</item>
+        
+        <item name="android:windowSplashScreenAnimatedIcon" ns1:targetApi="31">@android:color/transparent</item>
+        <item name="android:windowSplashScreenIconBackgroundColor" ns1:targetApi="31">@android:color/transparent</item>
+        <item name="android:windowSplashScreenBackground" ns1:targetApi="31">@drawable/splash_window_background</item>
     </style>
 </resources>

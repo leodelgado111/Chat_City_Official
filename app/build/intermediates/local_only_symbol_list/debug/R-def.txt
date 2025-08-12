@@ -26,9 +26,11 @@ drawable nav_bar_background
 drawable splash_background
 drawable splash_logo
 drawable splash_screen
+drawable splash_window_background
+drawable splash_window_background_fill
 id chatCityLogo
 id container
-id ivLogo
+id ivSplashImage
 id locationStatus
 id mapView
 id mobile_navigation
@@ -43,9 +45,6 @@ id progressBar
 id text_chats
 id text_profile
 id text_saved
-id tvAppName
-id tvTagline
-id tvVersion
 layout activity_main
 layout activity_splash
 layout fragment_chats

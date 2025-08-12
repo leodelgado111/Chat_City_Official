@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -22,29 +21,16 @@ public final class ActivitySplashBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ImageView ivLogo;
+  public final ImageView ivSplashImage;
 
   @NonNull
   public final ProgressBar progressBar;
 
-  @NonNull
-  public final TextView tvAppName;
-
-  @NonNull
-  public final TextView tvTagline;
-
-  @NonNull
-  public final TextView tvVersion;
-
-  private ActivitySplashBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView ivLogo,
-      @NonNull ProgressBar progressBar, @NonNull TextView tvAppName, @NonNull TextView tvTagline,
-      @NonNull TextView tvVersion) {
+  private ActivitySplashBinding(@NonNull ConstraintLayout rootView,
+      @NonNull ImageView ivSplashImage, @NonNull ProgressBar progressBar) {
     this.rootView = rootView;
-    this.ivLogo = ivLogo;
+    this.ivSplashImage = ivSplashImage;
     this.progressBar = progressBar;
-    this.tvAppName = tvAppName;
-    this.tvTagline = tvTagline;
-    this.tvVersion = tvVersion;
   }
 
   @Override
@@ -74,9 +60,9 @@ public final class ActivitySplashBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.ivLogo;
-      ImageView ivLogo = ViewBindings.findChildViewById(rootView, id);
-      if (ivLogo == null) {
+      id = R.id.ivSplashImage;
+      ImageView ivSplashImage = ViewBindings.findChildViewById(rootView, id);
+      if (ivSplashImage == null) {
         break missingId;
       }
 
@@ -86,26 +72,7 @@ public final class ActivitySplashBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvAppName;
-      TextView tvAppName = ViewBindings.findChildViewById(rootView, id);
-      if (tvAppName == null) {
-        break missingId;
-      }
-
-      id = R.id.tvTagline;
-      TextView tvTagline = ViewBindings.findChildViewById(rootView, id);
-      if (tvTagline == null) {
-        break missingId;
-      }
-
-      id = R.id.tvVersion;
-      TextView tvVersion = ViewBindings.findChildViewById(rootView, id);
-      if (tvVersion == null) {
-        break missingId;
-      }
-
-      return new ActivitySplashBinding((ConstraintLayout) rootView, ivLogo, progressBar, tvAppName,
-          tvTagline, tvVersion);
+      return new ActivitySplashBinding((ConstraintLayout) rootView, ivSplashImage, progressBar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

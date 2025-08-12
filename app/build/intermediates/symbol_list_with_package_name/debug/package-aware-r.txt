@@ -3745,6 +3745,8 @@ drawable quantum_ic_search_grey600_24
 drawable splash_background
 drawable splash_logo
 drawable splash_screen
+drawable splash_window_background
+drawable splash_window_background_fill
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -3999,7 +4001,7 @@ id invisible
 id inward
 id italic
 id item_touch_helper_previous_elevation
-id ivLogo
+id ivSplashImage
 id jumpToEnd
 id jumpToStart
 id labeled
@@ -4304,9 +4306,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
-id tvAppName
-id tvTagline
-id tvVersion
 id unchecked
 id uniform
 id unique
