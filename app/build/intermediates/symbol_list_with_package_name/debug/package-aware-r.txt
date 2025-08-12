@@ -3745,6 +3745,9 @@ drawable quantum_ic_search_grey600_24
 drawable splash_background
 drawable splash_logo
 drawable splash_screen
+drawable splash_screen_simple
+drawable splash_screen_vector
+drawable splash_test
 drawable splash_window_background
 drawable splash_window_background_fill
 drawable test_level_drawable
