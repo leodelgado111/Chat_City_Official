@@ -20,11 +20,13 @@ import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
 import com.mapbox.android.gestures.MoveGestureDetector
+import com.mapbox.android.gestures.RotateGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.CameraState
 import com.mapbox.maps.MapView
 import com.mapbox.maps.plugin.gestures.OnMoveListener
+import com.mapbox.maps.plugin.gestures.OnRotateListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorBearingChangedListener
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
@@ -107,6 +109,27 @@ class HomeFragment : Fragment() {
             }
         }
     }
+    
+    // Add a rotate listener that prevents rotation
+    private val onRotateListener = object : OnRotateListener {
+        override fun onRotateBegin(detector: RotateGestureDetector) {
+            // Do nothing - prevent rotation from starting
+        }
+
+        override fun onRotate(detector: RotateGestureDetector): Boolean {
+            // Return true to consume the event and prevent rotation
+            return true
+        }
+
+        override fun onRotateEnd(detector: RotateGestureDetector) {
+            // Ensure bearing stays at 0
+            mapView?.getMapboxMap()?.setCamera(
+                CameraOptions.Builder()
+                    .bearing(0.0)
+                    .build()
+            )
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -187,22 +210,46 @@ class HomeFragment : Fragment() {
                 Log.d("HomeFragment", "✅ Map style loaded successfully")
                 isMapReady = true
                 
-                // Remove unnecessary UI elements
+                // Completely disable compass - set visibility to INVISIBLE to ensure it never shows
+                mapView?.compass?.apply {
+                    enabled = false
+                    fadeWhenFacingNorth = false
+                    visibility = View.INVISIBLE  // Force hide the compass view
+                }
+                
+                // Remove other UI elements
                 mapView?.scalebar?.enabled = false
                 mapView?.logo?.enabled = false
                 mapView?.attribution?.enabled = false
-                mapView?.compass?.enabled = false  // Disable compass/GPS icon
                 
-                // Disable rotation gestures while keeping other gestures enabled
+                // Configure gestures - completely disable rotation
                 mapView?.gestures?.apply {
-                    rotateEnabled = false  // Disable rotation
-                    scrollEnabled = true   // Keep scrolling enabled
-                    pitchEnabled = false   // Disable pitch/tilt
+                    rotateEnabled = false      // Disable rotation gesture
+                    simultaneousRotateAndPinchToZoomEnabled = false  // Disable rotation during pinch
+                    scrollEnabled = true       // Keep scrolling enabled
+                    pitchEnabled = false       // Disable pitch/tilt
                     doubleTapToZoomInEnabled = true  // Keep zoom gestures
                     doubleTouchToZoomOutEnabled = true
                     quickZoomEnabled = true
                     pinchToZoomEnabled = true
+                    
+                    // Add rotate listener to prevent any rotation attempts
+                    addOnRotateListener(onRotateListener)
+                    
+                    // Update settings to ensure rotation is disabled
+                    updateSettings {
+                        rotateEnabled = false
+                        simultaneousRotateAndPinchToZoomEnabled = false
+                    }
                 }
+                
+                // Force camera to north orientation
+                mapView?.getMapboxMap()?.setCamera(
+                    CameraOptions.Builder()
+                        .bearing(0.0)
+                        .pitch(0.0)
+                        .build()
+                )
                 
                 // Setup location component
                 setupLocationComponent()
@@ -221,6 +268,16 @@ class HomeFragment : Fragment() {
                     val center = mapView?.getMapboxMap()?.cameraState?.center
                     center?.let {
                         updateLocationText(it.latitude(), it.longitude())
+                    }
+                    
+                    // Force bearing to stay at 0 if it somehow changes
+                    val currentBearing = mapView?.getMapboxMap()?.cameraState?.bearing ?: 0.0
+                    if (currentBearing != 0.0) {
+                        mapView?.getMapboxMap()?.setCamera(
+                            CameraOptions.Builder()
+                                .bearing(0.0)
+                                .build()
+                        )
                     }
                 }
                 
@@ -359,7 +416,7 @@ class HomeFragment : Fragment() {
             
             // Only add position listener, not bearing since rotation is disabled
             addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-            // Removed bearing listener since we're disabling rotation
+            // Do not add bearing listener to prevent any rotation tracking
             
             Log.d("HomeFragment", "✅ Location component enabled with pulsing")
         }
@@ -518,6 +575,7 @@ class HomeFragment : Fragment() {
         // Removed bearing listener cleanup since it's no longer used
         mapView?.location?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         mapView?.gestures?.removeOnMoveListener(onMoveListener)
+        mapView?.gestures?.removeOnRotateListener(onRotateListener)
         mapView?.onDestroy()
         mapView = null
         locationText = null
