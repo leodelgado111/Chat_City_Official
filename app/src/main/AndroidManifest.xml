@@ -37,11 +37,18 @@
             </intent-filter>
         </activity>
 
-        <!-- Main Activity (no longer the launcher) -->
+        <!-- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.ChatCityOfficial" />
+            
+        <!-- Chat Activity -->
+        <activity
+            android:name=".ui.chat.ChatActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ChatCityOfficial"
+            android:windowSoftInputMode="adjustResize" />
             
     </application>
 </manifest>
