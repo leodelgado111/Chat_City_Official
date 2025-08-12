@@ -9,22 +9,16 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 
 class SplashActivity : AppCompatActivity() {
     
-    private lateinit var ivLogo: ImageView
-    private lateinit var tvAppName: TextView
-    private lateinit var tvTagline: TextView
+    private lateinit var ivSplashImage: ImageView
     private lateinit var progressBar: ProgressBar
-    private lateinit var tvVersion: TextView
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,67 +50,27 @@ class SplashActivity : AppCompatActivity() {
     }
     
     private fun initViews() {
-        ivLogo = findViewById(R.id.ivLogo)
-        tvAppName = findViewById(R.id.tvAppName)
-        tvTagline = findViewById(R.id.tvTagline)
+        ivSplashImage = findViewById(R.id.ivSplashImage)
         progressBar = findViewById(R.id.progressBar)
-        tvVersion = findViewById(R.id.tvVersion)
         
         // Initially hide elements for animation
-        ivLogo.alpha = 0f
-        tvAppName.alpha = 0f
-        tvTagline.alpha = 0f
-        tvVersion.alpha = 0f
+        ivSplashImage.alpha = 0f
         progressBar.alpha = 0f
-        
-        ivLogo.scaleX = 0.3f
-        ivLogo.scaleY = 0.3f
     }
     
     private fun startAnimations() {
-        // Logo animation - scale and fade in
-        val logoScaleX = ObjectAnimator.ofFloat(ivLogo, View.SCALE_X, 0.3f, 1f)
-        val logoScaleY = ObjectAnimator.ofFloat(ivLogo, View.SCALE_Y, 0.3f, 1f)
-        val logoAlpha = ObjectAnimator.ofFloat(ivLogo, View.ALPHA, 0f, 1f)
-        
-        logoScaleX.interpolator = OvershootInterpolator()
-        logoScaleY.interpolator = OvershootInterpolator()
-        logoAlpha.interpolator = AccelerateDecelerateInterpolator()
-        
-        val logoAnimatorSet = AnimatorSet()
-        logoAnimatorSet.playTogether(logoScaleX, logoScaleY, logoAlpha)
-        logoAnimatorSet.duration = 1000
-        logoAnimatorSet.start()
-        
-        // App name animation - fade in with delay
-        tvAppName.animate()
+        // Splash image fade in
+        ivSplashImage.animate()
             .alpha(1f)
-            .setDuration(800)
-            .setStartDelay(600)
+            .setDuration(1000)
             .setInterpolator(AccelerateDecelerateInterpolator())
             .start()
         
-        // Tagline animation - fade in with delay
-        tvTagline.animate()
-            .alpha(1f)
-            .setDuration(800)
-            .setStartDelay(800)
-            .setInterpolator(AccelerateDecelerateInterpolator())
-            .start()
-        
-        // Progress bar animation - fade in
+        // Progress bar animation - fade in after delay
         progressBar.animate()
             .alpha(1f)
             .setDuration(500)
-            .setStartDelay(1000)
-            .setInterpolator(AccelerateDecelerateInterpolator())
-            .start()
-        
-        // Version text animation - fade in
-        tvVersion.animate()
-            .alpha(1f)
-            .setDuration(500)
-            .setStartDelay(1200)
+            .setStartDelay(800)
             .setInterpolator(AccelerateDecelerateInterpolator())
             .start()
     }
@@ -131,6 +85,6 @@ class SplashActivity : AppCompatActivity() {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             
             finish()
-        }, 3000) // 3 second delay to show all animations
+        }, 3000) // 3 second delay
     }
 }
