@@ -27,7 +27,7 @@ class SplashActivity : AppCompatActivity() {
         // Initialize views
         initViews()
         
-        // Start animations
+        // Start animations immediately for faster display
         startAnimations()
         
         // Navigate to MainActivity after delay
@@ -50,20 +50,20 @@ class SplashActivity : AppCompatActivity() {
         ivSplashImage = findViewById(R.id.ivSplashImage)
         progressBar = findViewById(R.id.progressBar)
         
-        // Image is already visible from system splash, no need to hide it
-        // Only hide progress bar for animation
+        // Start with image visible immediately (no fade)
+        ivSplashImage.alpha = 1f
         progressBar.alpha = 0f
     }
     
     private fun startAnimations() {
-        // No need to animate the splash image since it's already showing from system splash
-        // This creates a seamless transition
+        // No animation for the image - it's already visible
+        // This makes the splash appear instantly
         
         // Progress bar animation - fade in after delay
         progressBar.animate()
             .alpha(1f)
             .setDuration(500)
-            .setStartDelay(800)
+            .setStartDelay(500)
             .setInterpolator(AccelerateDecelerateInterpolator())
             .start()
     }
@@ -78,6 +78,6 @@ class SplashActivity : AppCompatActivity() {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
             
             finish()
-        }, 3000) // 3 second delay
+        }, 2500) // Reduced to 2.5 seconds for faster experience
     }
 }
