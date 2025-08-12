@@ -4,9 +4,7 @@
     <item android:drawable="@android:color/black" />
     
     <!-- Center the splash image -->
-    <item
-        android:width="match_parent"
-        android:height="match_parent">
+    <item>
         <bitmap
             android:src="@drawable/splash_screen"
             android:gravity="fill" />
