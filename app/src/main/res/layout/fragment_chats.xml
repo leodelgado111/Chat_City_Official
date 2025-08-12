@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:fitsSystemWindows="true">
 
-    <!-- Top Bar -->
+    <!-- Top Bar with margin from top -->
     <LinearLayout
         android:id="@+id/top_bar"
         android:layout_width="0dp"
         android:layout_height="70dp"
-        android:background="@drawable/top_bar_background"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/top_bar_background_no_radius"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:paddingStart="20dp"
