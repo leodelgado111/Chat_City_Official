@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Chat City Logo (aligned with nav bar margin: 28dp) -->
+    <!-- Chat City Logo with custom drop shadow (aligned with nav bar margin: 28dp) -->
     <ImageView
         android:id="@+id/chatCityLogo"
         android:layout_width="138dp"
