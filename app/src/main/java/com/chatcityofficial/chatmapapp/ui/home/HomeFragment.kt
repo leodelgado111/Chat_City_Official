@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
 import com.mapbox.maps.MapView
@@ -12,6 +13,7 @@ import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.logo.logo
+import com.mapbox.maps.plugin.attribution.attribution
 
 class HomeFragment : Fragment() {
 
@@ -26,15 +28,23 @@ class HomeFragment : Fragment() {
         
         mapView = root.findViewById(R.id.mapView)
         
-        // Load map style with callback
-        mapView?.getMapboxMap()?.loadStyleUri(Style.MAPBOX_STREETS) { 
-            Log.d("HomeFragment", "Map style loaded successfully")
+        // Test with Mapbox's built-in light monochrome style first
+        mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/light-v11") { style ->
+            if (style != null) {
+                Log.d("HomeFragment", "✅ Built-in light monochrome loaded")
+                Toast.makeText(context, "✅ Built-in light style loaded", Toast.LENGTH_SHORT).show()
+                
+                // Remove all UI elements
+                mapView?.scalebar?.enabled = false
+                mapView?.location?.enabled = false  
+                mapView?.logo?.enabled = false
+                mapView?.attribution?.enabled = false  // Remove the info/attribution button
+                
+            } else {
+                Log.e("HomeFragment", "❌ Built-in style failed")
+                Toast.makeText(context, "❌ Built-in style failed", Toast.LENGTH_SHORT).show()
+            }
         }
-        
-        // Remove UI elements
-        mapView?.scalebar?.enabled = false
-        mapView?.location?.enabled = false
-        mapView?.logo?.enabled = false  // Remove Mapbox logo
         
         return root
     }

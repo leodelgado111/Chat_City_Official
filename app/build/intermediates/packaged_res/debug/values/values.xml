@@ -16,6 +16,7 @@
     <string name="mapbox_access_token">pk.eyJ1IjoibGVvZGVsZ2FkbzExMSIsImEiOiJjbWRqMDF2OGswZjF1MmpzYjdtbThuam94In0.QlS3L22SRl7Iw8vRdNnUzw</string>
     <string name="project_id" translatable="false">chat-city-82dad</string>
     <string name="title_chats">Chats</string>
+    <string name="title_create">Create</string>
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
     <string name="title_saved">Saved</string>

@@ -16,10 +16,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Chat City Logo (left margin matches nav bar: 20dp) -->
     <ImageView
         android:id="@+id/chatCityLogo"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_width="138dp"
+        android:layout_height="46dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="80dp"
         android:src="@drawable/chat_city_logo"
@@ -27,11 +28,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Location Status (right margin matches nav bar: 20dp) -->
     <ImageView
         android:id="@+id/locationStatus"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginEnd="20dp"
+        android:adjustViewBounds="true"
         android:src="@drawable/location_status"
         android:contentDescription="Dallas, TX"
         app:layout_constraintEnd_toEndOf="parent"

@@ -8,7 +8,14 @@ color teal_200
 color teal_700
 color white
 drawable chat_city_logo
+drawable ic_nav_chat
+drawable ic_nav_create
+drawable ic_nav_home
+drawable ic_nav_profile
+drawable ic_nav_saved
+drawable ic_saved
 drawable location_status
+drawable nav_bar_background
 id chatCityLogo
 id container
 id locationStatus
@@ -17,6 +24,7 @@ id mobile_navigation
 id nav_host_fragment_activity_main
 id nav_view
 id navigation_chats
+id navigation_create
 id navigation_home
 id navigation_profile
 id navigation_saved
@@ -29,6 +37,11 @@ layout fragment_home
 layout fragment_profile
 layout fragment_saved
 menu bottom_nav_menu
+mipmap ic_launcher
+mipmap ic_launcher_background
+mipmap ic_launcher_foreground
+mipmap ic_launcher_monochrome
+mipmap ic_launcher_round
 navigation mobile_navigation
 string app_name
 string gcm_defaultSenderId
@@ -39,6 +52,7 @@ string google_storage_bucket
 string mapbox_access_token
 string project_id
 string title_chats
+string title_create
 string title_home
 string title_profile
 string title_saved

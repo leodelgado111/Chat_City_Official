@@ -276,11 +276,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Le
 	android:fullBackupContent
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:13:9-54
 	android:roundIcon
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:16:9-62
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:16:9-54
 	tools:targetApi
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:19:9-29
 	android:icon
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:9-57
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:9-43
 	android:allowBackup
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:11:9-35
 	android:theme

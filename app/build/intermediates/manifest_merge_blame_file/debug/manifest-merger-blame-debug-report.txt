@@ -70,12 +70,12 @@
 42        android:extractNativeLibs="false"
 43        android:fullBackupContent="@xml/backup_rules"
 43-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:13:9-54
-44        android:icon="@android:drawable/ic_menu_gallery"
-44-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:9-57
+44        android:icon="@mipmap/ic_launcher"
+44-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:9-43
 45        android:label="@string/app_name"
 45-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:15:9-41
-46        android:roundIcon="@android:drawable/ic_menu_gallery"
-46-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:16:9-62
+46        android:roundIcon="@mipmap/ic_launcher_round"
+46-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:16:9-54
 47        android:supportsRtl="true"
 47-->C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:17:9-35
 48        android:theme="@style/Theme.ChatCityOfficial" >
