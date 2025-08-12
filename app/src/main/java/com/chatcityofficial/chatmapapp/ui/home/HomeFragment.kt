@@ -32,6 +32,7 @@ import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.attribution.attribution
+import com.mapbox.maps.plugin.compass.compass
 import kotlinx.coroutines.*
 import java.util.Locale
 
@@ -64,11 +65,7 @@ class HomeFragment : Fragment() {
     // Job for debouncing location updates
     private var geocodingJob: Job? = null
     
-    // Location tracking listeners
-    private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
-        mapView?.getMapboxMap()?.setCamera(CameraOptions.Builder().bearing(it).build())
-    }
-
+    // Location tracking listeners - removed bearing listener since rotation is disabled
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
         if (!hasCenteredOnLocation && !shouldRestoreCamera) {
             // Only center automatically on first location update with zoom level 15
@@ -76,6 +73,7 @@ class HomeFragment : Fragment() {
                 CameraOptions.Builder()
                     .center(it)
                     .zoom(15.0)  // Changed from 14.0 to 15.0 for closer view
+                    .bearing(0.0) // Keep bearing at 0 (north)
                     .build()
             )
             hasCenteredOnLocation = true
@@ -193,6 +191,18 @@ class HomeFragment : Fragment() {
                 mapView?.scalebar?.enabled = false
                 mapView?.logo?.enabled = false
                 mapView?.attribution?.enabled = false
+                mapView?.compass?.enabled = false  // Disable compass/GPS icon
+                
+                // Disable rotation gestures while keeping other gestures enabled
+                mapView?.gestures?.apply {
+                    rotateEnabled = false  // Disable rotation
+                    scrollEnabled = true   // Keep scrolling enabled
+                    pitchEnabled = false   // Disable pitch/tilt
+                    doubleTapToZoomInEnabled = true  // Keep zoom gestures
+                    doubleTouchToZoomOutEnabled = true
+                    quickZoomEnabled = true
+                    pinchToZoomEnabled = true
+                }
                 
                 // Setup location component
                 setupLocationComponent()
@@ -280,8 +290,8 @@ class HomeFragment : Fragment() {
                 CameraOptions.Builder()
                     .center(state.center)
                     .zoom(state.zoom)
-                    .bearing(state.bearing)
-                    .pitch(state.pitch)
+                    .bearing(0.0)  // Always restore with north orientation
+                    .pitch(0.0)    // Always restore with no tilt
                     .build()
             )
             Log.d("HomeFragment", "✅ Restored camera position")
@@ -347,9 +357,9 @@ class HomeFragment : Fragment() {
             enabled = true
             pulsingEnabled = true
             
-            // Add listeners for location updates
+            // Only add position listener, not bearing since rotation is disabled
             addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
-            addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+            // Removed bearing listener since we're disabling rotation
             
             Log.d("HomeFragment", "✅ Location component enabled with pulsing")
         }
@@ -423,6 +433,8 @@ class HomeFragment : Fragment() {
             CameraOptions.Builder()
                 .center(point)
                 .zoom(15.0)  // Changed from 14.0 to 15.0 for closer view
+                .bearing(0.0)  // Always north orientation
+                .pitch(0.0)    // No tilt
                 .build()
         )
         
@@ -439,7 +451,7 @@ class HomeFragment : Fragment() {
     private fun Double.format(digits: Int) = "%.${digits}f".format(this)
     
     private fun onCameraTrackingDismissed() {
-        mapView?.location?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+        // Removed bearing listener since rotation is disabled
         mapView?.location?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         mapView?.gestures?.removeOnMoveListener(onMoveListener)
     }
@@ -503,7 +515,7 @@ class HomeFragment : Fragment() {
         
         fragmentScope.cancel()
         stopLocationUpdates()
-        mapView?.location?.removeOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+        // Removed bearing listener cleanup since it's no longer used
         mapView?.location?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         mapView?.gestures?.removeOnMoveListener(onMoveListener)
         mapView?.onDestroy()
