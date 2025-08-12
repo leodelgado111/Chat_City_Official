@@ -14,15 +14,15 @@
         <!-- Customize your theme here. -->
     </style>
     
-    <!-- Splash Screen Theme -->
+    <!-- Splash Screen Theme - NO SYSTEM SPLASH -->
     <style name="Theme.SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Use the optimized splash window background -->
-        <item name="android:windowBackground">@drawable/splash_window_background</item>
-        <item name="android:windowFullscreen">true</item>
+        <!-- Make it transparent so it goes straight to the activity -->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowFullscreen">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentStatus">true</item>
