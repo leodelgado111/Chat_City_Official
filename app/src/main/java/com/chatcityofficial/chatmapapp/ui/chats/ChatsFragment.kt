@@ -36,6 +36,11 @@ class ChatsFragment : Fragment() {
         emptyView = root.findViewById(R.id.empty_view)
         
         setupRecyclerView()
+        
+        // Add demo user for testing
+        addDemoUser()
+        
+        // Then load real users from Firebase
         loadUsers()
         
         return root
@@ -47,6 +52,7 @@ class ChatsFragment : Fragment() {
             val intent = Intent(requireContext(), ChatActivity::class.java).apply {
                 putExtra("RECIPIENT_ID", user.id)
                 putExtra("RECIPIENT_NAME", user.name)
+                putExtra("IS_DEMO", user.id == "demo_user_123") // Flag for demo user
             }
             startActivity(intent)
         }
@@ -57,13 +63,38 @@ class ChatsFragment : Fragment() {
         }
     }
     
+    private fun addDemoUser() {
+        // Add a demo user that's always available
+        val demoUser = User(
+            id = "demo_user_123",
+            name = "Chat City Assistant",
+            email = "assistant@chatcity.com",
+            profileImage = "",
+            isOnline = true
+        )
+        
+        // Add to the beginning of the list
+        users.add(0, demoUser)
+        usersAdapter.notifyDataSetChanged()
+        
+        // Hide empty view since we have at least one user
+        emptyView.visibility = View.GONE
+        recyclerView.visibility = View.VISIBLE
+    }
+    
     private fun loadUsers() {
         val currentUserId = auth.currentUser?.uid
         
         firestore.collection("users")
             .get()
             .addOnSuccessListener { documents ->
-                users.clear()
+                // Don't clear the list completely - keep the demo user
+                val tempUsers = mutableListOf<User>()
+                
+                // Keep the demo user if it exists
+                if (users.isNotEmpty() && users[0].id == "demo_user_123") {
+                    tempUsers.add(users[0])
+                }
                 
                 for (document in documents) {
                     // Skip current user
@@ -76,9 +107,11 @@ class ChatsFragment : Fragment() {
                         profileImage = document.getString("profileImage") ?: "",
                         isOnline = document.getBoolean("isOnline") ?: false
                     )
-                    users.add(user)
+                    tempUsers.add(user)
                 }
                 
+                users.clear()
+                users.addAll(tempUsers)
                 usersAdapter.notifyDataSetChanged()
                 
                 // Show/hide empty view
@@ -91,10 +124,16 @@ class ChatsFragment : Fragment() {
                 }
             }
             .addOnFailureListener { exception ->
-                // Handle error
-                emptyView.text = "Error loading users: ${exception.message}"
-                emptyView.visibility = View.VISIBLE
-                recyclerView.visibility = View.GONE
+                // Handle error but keep demo user visible
+                if (users.isEmpty() || (users.size == 1 && users[0].id == "demo_user_123")) {
+                    // We still have the demo user, so don't show error
+                    emptyView.visibility = View.GONE
+                    recyclerView.visibility = View.VISIBLE
+                } else {
+                    emptyView.text = "Error loading users: ${exception.message}"
+                    emptyView.visibility = View.VISIBLE
+                    recyclerView.visibility = View.GONE
+                }
             }
     }
 }
