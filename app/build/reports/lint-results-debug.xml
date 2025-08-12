@@ -1,0 +1,1062 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.1.4">
+
+    <issue
+        id="Lifecycle"
+        severity="Warning"
+        message="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        category="Correctness"
+        priority="8"
+        summary="Redundant method call"
+        explanation="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        errorLine1="        mapView?.onStart()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\home\HomeFragment.kt"
+            line="54"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Lifecycle"
+        severity="Warning"
+        message="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        category="Correctness"
+        priority="8"
+        summary="Redundant method call"
+        explanation="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        errorLine1="        mapView?.onStop()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\home\HomeFragment.kt"
+            line="59"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Lifecycle"
+        severity="Warning"
+        message="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        category="Correctness"
+        priority="8"
+        summary="Redundant method call"
+        explanation="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        errorLine1="        mapView?.onLowMemory()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\home\HomeFragment.kt"
+            line="64"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="Lifecycle"
+        severity="Warning"
+        message="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        category="Correctness"
+        priority="8"
+        summary="Redundant method call"
+        explanation="It&apos;s no longer required to manually invoke onStart/onStop/onDestroy/onLowMemory MapView lifecycle methods explicitly. The Mapbox Maps SDK for Android depends on the plugin-lifecycle that leverages androidx.lifecycle to make the MapView a lifecycle aware component. This behavior is automatically enforced when appcompact 1.3.0+ is used. The plugin-lifecycle can be removed from class path to opt-out of the associated behavior."
+        errorLine1="        mapView?.onDestroy()"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\home\HomeFragment.kt"
+            line="69"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="OldTargetApi"
+        severity="Warning"
+        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
+        category="Correctness"
+        priority="6"
+        summary="Target SDK attribute is not targeting latest version"
+        explanation="When your application runs on a version of Android that is more recent than your `targetSdkVersion` specifies that it has been tested with, various compatibility modes kick in. This ensures that your application continues to work, but it may look out of place. For example, if the `targetSdkVersion` is less than 14, your app may get an option button in the UI.&#xA;&#xA;To fix this issue, set the `targetSdkVersion` to the highest available value. Then test your app to make sure everything works correctly. You may want to consult the compatibility notes to see what changes apply to each version you are adding support for: https://developer.android.com/reference/android/os/Build.VERSION_CODES.html as well as follow this guide:&#xA;https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        url="https://developer.android.com/distribute/best-practices/develop/target-sdk.html"
+        urls="https://developer.android.com/distribute/best-practices/develop/target-sdk.html,https://developer.android.com/reference/android/os/Build.VERSION_CODES.html"
+        errorLine1="        targetSdk = 34"
+        errorLine2="        ~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="15"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="CustomSplashScreen"
+        severity="Warning"
+        message="The application should not provide its own launch screen"
+        category="Correctness"
+        priority="5"
+        summary="Application-defined Launch Screen"
+        explanation="Starting in Android 12 (API 31+), the application&apos;s Launch Screen is provided by the system and the application should not create its own, otherwise the user will see two splashscreens. Please check the `SplashScreen` class to check how the Splash Screen can be controlled and customized."
+        url="https://developer.android.com/guide/topics/ui/splash-screen"
+        urls="https://developer.android.com/guide/topics/ui/splash-screen"
+        errorLine1="class SplashActivity : AppCompatActivity() {"
+        errorLine2="      ~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\SplashActivity.kt"
+            line="16"
+            column="7"/>
+    </issue>
+
+    <issue
+        id="FragmentTagUsage"
+        severity="Warning"
+        message="Replace the &lt;fragment> tag with FragmentContainerView."
+        category="Correctness"
+        priority="5"
+        summary="Use FragmentContainerView instead of the &lt;fragment> tag"
+        explanation="FragmentContainerView replaces the &lt;fragment> tag as the preferred                 way of adding fragments via XML. Unlike the &lt;fragment> tag, FragmentContainerView                 uses a normal `FragmentTransaction` under the hood to add the initial fragment,                 allowing further FragmentTransaction operations on the FragmentContainerView                 and providing a consistent timing for lifecycle events."
+        url="https://developer.android.com/reference/androidx/fragment/app/FragmentContainerView.html"
+        urls="https://developer.android.com/reference/androidx/fragment/app/FragmentContainerView.html"
+        errorLine1="    &lt;fragment"
+        errorLine2="     ~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\layout\activity_main.xml"
+            line="8"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="VectorRaster"
+        severity="Warning"
+        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more"
+        category="Correctness"
+        priority="5"
+        summary="Vector Image Generation"
+        explanation="Vector icons require API 21 or API 24 depending on used features, but when `minSdkVersion` is less than 21 or 24 and Android Gradle plugin 1.4 or higher is used, a vector drawable placed in the `drawable` folder is automatically moved to `drawable-anydpi-v21` or `drawable-anydpi-v24` and bitmap images are generated for different screen resolutions for backwards compatibility.&#xA;&#xA;However, there are some limitations to this raster image generation, and this lint check flags elements and attributes that are not fully supported. You should manually check whether the generated output is acceptable for those older devices."
+        errorLine1="    android:width=&quot;393dp&quot;"
+        errorLine2="                   ~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen_vector.xml"
+            line="3"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.core:core-ktx than 1.12.0 is available: 1.16.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.12.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="54"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.appcompat:appcompat:1.6.1&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="55"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.google.android.material:material than 1.10.0 is available: 1.12.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;com.google.android.material:material:1.10.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="56"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.constraintlayout:constraintlayout:2.1.4&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="57"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.lifecycle:lifecycle-livedata-ktx than 2.7.0 is available: 2.9.2"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.lifecycle:lifecycle-livedata-ktx:2.7.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="58"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-ktx than 2.7.0 is available: 2.9.2"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="59"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.navigation:navigation-fragment-ktx than 2.7.5 is available: 2.9.3"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.navigation:navigation-fragment-ktx:2.7.5&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="60"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.navigation:navigation-ui-ktx than 2.7.5 is available: 2.9.3"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;androidx.navigation:navigation-ui-ktx:2.7.5&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="61"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.mapbox.maps:android than 10.16.1 is available: 11.14.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;com.mapbox.maps:android:10.16.1&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="64"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.mapbox.plugin:maps-locationcomponent than 10.16.1 is available: 11.14.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;com.mapbox.plugin:maps-locationcomponent:10.16.1&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="65"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.google.android.gms:play-services-maps than 18.2.0 is available: 19.2.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;com.google.android.gms:play-services-maps:18.2.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="68"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.google.android.gms:play-services-places than 17.0.0 is available: 17.1.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;com.google.android.gms:play-services-places:17.0.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="69"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of com.google.android.libraries.places:places than 3.3.0 is available: 4.4.1"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    implementation(&quot;com.google.android.libraries.places:places:3.3.0&quot;)"
+        errorLine2="                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="70"
+            column="21"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    androidTestImplementation(&quot;androidx.test.ext:junit:1.1.5&quot;)"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="98"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
+        message="A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    androidTestImplementation(&quot;androidx.test.espresso:espresso-core:3.5.1&quot;)"
+        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\build.gradle.kts"
+            line="99"
+            column="32"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        severity="Warning"
+        message="Did you mean &quot;OGswZjF!&quot; instead of &quot;OGswZjF1&quot;?"
+        category="Correctness:Messages"
+        priority="7"
+        summary="Spelling error"
+        explanation="This check looks through the string definitions, and if it finds any words that look like likely misspellings, they are flagged."
+        errorLine1="    &lt;string name=&quot;mapbox_access_token&quot;>pk.eyJ1IjoibGVvZGVsZ2FkbzExMSIsImEiOiJjbWRqMDF2OGswZjF1MmpzYjdtbThuam94In0.QlS3L22SRl7Iw8vRdNnUzw&lt;/string>"
+        errorLine2="                                                                                      ^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\mapbox.xml"
+            line="3"
+            column="87"/>
+    </issue>
+
+    <issue
+        id="Typos"
+        severity="Warning"
+        message="Did you mean &quot;eyJ!&quot; instead of &quot;eyJ1&quot;?"
+        category="Correctness:Messages"
+        priority="7"
+        summary="Spelling error"
+        explanation="This check looks through the string definitions, and if it finds any words that look like likely misspellings, they are flagged."
+        errorLine1="    &lt;string name=&quot;mapbox_access_token&quot;>pk.eyJ1IjoibGVvZGVsZ2FkbzExMSIsImEiOiJjbWRqMDF2OGswZjF1MmpzYjdtbThuam94In0.QlS3L22SRl7Iw8vRdNnUzw&lt;/string>"
+        errorLine2="                                          ^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\mapbox.xml"
+            line="3"
+            column="43"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 24. Merge all the resources in this folder into `drawable`."
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable-v24"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="Unnecessary; SDK_INT is always >= 21"
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
+        errorLine1="        &lt;item name=&quot;android:statusBarColor&quot; tools:targetApi=&quot;l&quot;>?attr/colorPrimaryVariant&lt;/item>"
+        errorLine2="                                            ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\themes.xml"
+            line="13"
+            column="45"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (6022 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="        android:pathData=&quot;M17.5906 14.94C16.5266 14.94 15.5653 15.1267 14.7066 15.5C13.848 15.8547 13.12 16.3867 12.5226 17.096C11.9253 17.7867 11.468 18.636 11.1506 19.644C10.8333 20.6333 10.6746 21.7533 10.6746 23.004C10.6746 24.6467 10.9266 26.0747 11.4306 27.288C11.9533 28.5013 12.7186 29.4347 13.7266 30.088C14.7533 30.7413 16.032 31.068 17.5626 31.068C18.44 31.068 19.2706 30.9933 20.0546 30.844C20.8386 30.6947 21.604 30.508 22.3506 30.284V32.468C21.604 32.748 20.8293 32.9533 20.0266 33.084C19.2426 33.2147 18.3 33.28 17.1986 33.28C15.164 33.28 13.4653 32.86 12.1026 32.02C10.74 31.18 9.71331 29.9853 9.02264 28.436C8.35064 26.8867 8.01464 25.0667 8.01464 22.976C8.01464 21.464 8.21997 20.0827 8.63064 18.832C9.05997 17.5813 9.67597 16.4987 10.4786 15.584C11.3 14.6693 12.308 13.9693 13.5026 13.484C14.6973 12.98 16.0693 12.728 17.6186 12.728C18.6453 12.728 19.6346 12.8307 20.5866 13.036C21.5386 13.2413 22.388 13.5307 23.1346 13.904L22.1266 16.032C21.5106 15.752 20.82 15.5 20.0546 15.276C19.308 15.052 18.4866 14.94 17.5906 14.94ZM28.842 17.964C28.842 18.3187 28.8234 18.6827 28.786 19.056C28.7674 19.4293 28.7394 19.7653 28.702 20.064H28.87C29.1874 19.5413 29.5887 19.112 30.074 18.776C30.5594 18.44 31.1007 18.188 31.698 18.02C32.2954 17.8333 32.9114 17.74 33.546 17.74C34.7594 17.74 35.7674 17.936 36.57 18.328C37.3914 18.7013 38.0074 19.2893 38.418 20.092C38.8287 20.8947 39.034 21.94 39.034 23.228V33H36.598V23.396C36.598 22.1827 36.3274 21.2773 35.786 20.68C35.2447 20.0827 34.3954 19.784 33.238 19.784C32.118 19.784 31.2407 19.9987 30.606 20.428C29.9714 20.8387 29.514 21.4547 29.234 22.276C28.9727 23.0787 28.842 24.068 28.842 25.244V33H26.378V11.72H28.842V17.964ZM49.3706 17.74C51.2 17.74 52.5533 18.1413 53.4306 18.944C54.308 19.7467 54.7466 21.0253 54.7466 22.78V33H52.9546L52.4786 30.872H52.3666C51.9373 31.4133 51.4893 31.8707 51.0226 32.244C50.5746 32.5987 50.052 32.86 49.4546 33.028C48.876 33.196 48.1666 33.28 47.3266 33.28C46.4306 33.28 45.6186 33.1213 44.8906 32.804C44.1813 32.4867 43.6213 32.0013 43.2106 31.348C42.8 30.676 42.5946 29.836 42.5946 28.828C42.5946 27.3347 43.1826 26.1867 44.3586 25.384C45.5346 24.5627 47.3453 24.1147 49.7906 24.04L52.3386 23.956V23.06C52.3386 21.8093 52.068 20.9413 51.5266 20.456C50.9853 19.9707 50.22 19.728 49.2306 19.728C48.4466 19.728 47.7 19.8493 46.9906 20.092C46.2813 20.316 45.6186 20.5773 45.0026 20.876L44.2466 19.028C44.9 18.6733 45.6746 18.3747 46.5706 18.132C47.4666 17.8707 48.4 17.74 49.3706 17.74ZM50.0986 25.748C48.232 25.8227 46.9346 26.1213 46.2066 26.644C45.4973 27.1667 45.1426 27.904 45.1426 28.856C45.1426 29.696 45.3946 30.312 45.8986 30.704C46.4213 31.096 47.084 31.292 47.8866 31.292C49.156 31.292 50.2106 30.9467 51.0506 30.256C51.8906 29.5467 52.3106 28.464 52.3106 27.008V25.664L50.0986 25.748ZM64.394 31.264C64.7673 31.264 65.15 31.236 65.542 31.18C65.934 31.1053 66.2513 31.0307 66.494 30.956V32.832C66.2326 32.9627 65.8593 33.0653 65.374 33.14C64.8886 33.2333 64.422 33.28 63.974 33.28C63.19 33.28 62.462 33.1493 61.79 32.888C61.1366 32.608 60.6046 32.132 60.194 31.46C59.7833 30.788 59.578 29.8453 59.578 28.632V19.896H57.45V18.72L59.606 17.74L60.586 14.548H62.042V17.992H66.382V19.896H62.042V28.576C62.042 29.4907 62.2566 30.172 62.686 30.62C63.134 31.0493 63.7033 31.264 64.394 31.264ZM85.6766 14.94C84.6126 14.94 83.6512 15.1267 82.7926 15.5C81.9339 15.8547 81.2059 16.3867 80.6086 17.096C80.0112 17.7867 79.5539 18.636 79.2366 19.644C78.9192 20.6333 78.7606 21.7533 78.7606 23.004C78.7606 24.6467 79.0126 26.0747 79.5166 27.288C80.0392 28.5013 80.8046 29.4347 81.8126 30.088C82.8392 30.7413 84.1179 31.068 85.6486 31.068C86.5259 31.068 87.3566 30.9933 88.1406 30.844C88.9246 30.6947 89.6899 30.508 90.4366 30.284V32.468C89.6899 32.748 88.9152 32.9533 88.1126 33.084C87.3286 33.2147 86.3859 33.28 85.2846 33.28C83.2499 33.28 81.5512 32.86 80.1886 32.02C78.8259 31.18 77.7992 29.9853 77.1086 28.436C76.4366 26.8867 76.1006 25.0667 76.1006 22.976C76.1006 21.464 76.3059 20.0827 76.7166 18.832C77.1459 17.5813 77.7619 16.4987 78.5646 15.584C79.3859 14.6693 80.3939 13.9693 81.5886 13.484C82.7832 12.98 84.1552 12.728 85.7046 12.728C86.7312 12.728 87.7206 12.8307 88.6726 13.036C89.6246 13.2413 90.4739 13.5307 91.2206 13.904L90.2126 16.032C89.5966 15.752 88.9059 15.5 88.1406 15.276C87.3939 15.052 86.5726 14.94 85.6766 14.94ZM96.928 17.992V33H94.464V17.992H96.928ZM95.724 12.364C96.0973 12.364 96.424 12.4947 96.704 12.756C97.0027 12.9987 97.152 13.3907 97.152 13.932C97.152 14.4547 97.0027 14.8467 96.704 15.108C96.424 15.3693 96.0973 15.5 95.724 15.5C95.3133 15.5 94.968 15.3693 94.688 15.108C94.408 14.8467 94.268 14.4547 94.268 13.932C94.268 13.3907 94.408 12.9987 94.688 12.756C94.968 12.4947 95.3133 12.364 95.724 12.364ZM106.695 31.264C107.068 31.264 107.451 31.236 107.843 31.18C108.235 31.1053 108.552 31.0307 108.795 30.956V32.832C108.533 32.9627 108.16 33.0653 107.675 33.14C107.189 33.2333 106.723 33.28 106.275 33.28C105.491 33.28 104.763 33.1493 104.091 32.888C103.437 32.608 102.905 32.132 102.495 31.46C102.084 30.788 101.879 29.8453 101.879 28.632V19.896H99.7507V18.72L101.907 17.74L102.887 14.548H104.343V17.992H108.683V19.896H104.343V28.576C104.343 29.4907 104.557 30.172 104.987 30.62C105.435 31.0493 106.004 31.264 106.695 31.264ZM109.448 17.992H112.08L115.328 26.532C115.515 27.036 115.683 27.5213 115.832 27.988C116 28.4547 116.149 28.912 116.28 29.36C116.411 29.7893 116.513 30.2093 116.588 30.62H116.7C116.812 30.1533 116.989 29.5467 117.232 28.8C117.475 28.0347 117.727 27.2693 117.988 26.504L121.04 17.992H123.7L117.232 35.072C116.877 36.0053 116.457 36.8173 115.972 37.508C115.505 38.2173 114.927 38.7587 114.236 39.132C113.564 39.524 112.743 39.72 111.772 39.72C111.324 39.72 110.932 39.692 110.596 39.636C110.26 39.5987 109.971 39.552 109.728 39.496V37.536C109.933 37.5733 110.176 37.6107 110.456 37.648C110.755 37.6853 111.063 37.704 111.38 37.704C111.959 37.704 112.453 37.592 112.864 37.368C113.293 37.1627 113.657 36.8547 113.956 36.444C114.255 36.052 114.507 35.5853 114.712 35.044L115.496 33.056L109.448 17.992Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\chat_city_logo.xml"
+            line="7"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (31130 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="        android:pathData=&quot;M14.7066 15.5L14.8212 15.7773L14.8263 15.7751L14.7066 15.5ZM12.5226 17.096L12.7496 17.2923L12.7521 17.2892L12.5226 17.096ZM11.1506 19.644L11.4363 19.7356L11.4368 19.7341L11.1506 19.644ZM11.4306 27.288L11.1536 27.4031L11.1551 27.4067L11.4306 27.288ZM13.7266 30.088L13.5635 30.3398L13.5656 30.3411L13.7266 30.088ZM20.0546 30.844L19.9985 30.5493L20.0546 30.844ZM22.3506 30.284H22.6506V29.8808L22.2644 29.9967L22.3506 30.284ZM22.3506 32.468L22.456 32.7489L22.6506 32.6759V32.468H22.3506ZM20.0266 33.084L19.9784 32.7879L19.9773 32.7881L20.0266 33.084ZM12.1026 32.02L12.2601 31.7646V31.7646L12.1026 32.02ZM9.02264 28.436L8.7474 28.5554L8.74863 28.5581L9.02264 28.436ZM8.63064 18.832L8.34687 18.7346L8.34561 18.7384L8.63064 18.832ZM10.4786 15.584L10.2554 15.3835L10.2532 15.3861L10.4786 15.584ZM13.5026 13.484L13.6156 13.762L13.6193 13.7604L13.5026 13.484ZM20.5866 13.036L20.6499 12.7427L20.6499 12.7427L20.5866 13.036ZM23.1346 13.904L23.4058 14.0324L23.5315 13.767L23.2688 13.6357L23.1346 13.904ZM22.1266 16.032L22.0025 16.3051L22.2713 16.4273L22.3978 16.1604L22.1266 16.032ZM20.0546 15.276L19.9684 15.5634L19.9704 15.5639L20.0546 15.276ZM17.5906 14.94V14.64C16.4911 14.64 15.4882 14.833 14.587 15.2249L14.7066 15.5L14.8263 15.7751C15.6424 15.4203 16.5622 15.24 17.5906 15.24V14.94ZM14.7066 15.5L14.5921 15.2227C13.689 15.5957 12.9216 16.1565 12.2932 16.9028L12.5226 17.096L12.7521 17.2892C13.3184 16.6168 14.0069 16.1136 14.8212 15.7773L14.7066 15.5ZM12.5226 17.096L12.2957 16.8998C11.6677 17.6259 11.1922 18.5129 10.8645 19.5539L11.1506 19.644L11.4368 19.7341C11.7438 18.7591 12.1829 17.9474 12.7495 17.2922L12.5226 17.096ZM11.1506 19.644L10.865 19.5524C10.5364 20.5766 10.3746 21.7284 10.3746 23.004H10.6746H10.9746C10.9746 21.7783 11.1302 20.69 11.4363 19.7356L11.1506 19.644ZM10.6746 23.004H10.3746C10.3746 24.6766 10.6312 26.1454 11.1536 27.4031L11.4306 27.288L11.7077 27.1729C11.2221 26.0039 10.9746 24.6167 10.9746 23.004H10.6746ZM11.4306 27.288L11.1551 27.4067C11.6988 28.6688 12.5008 29.6509 13.5635 30.3397L13.7266 30.088L13.8898 29.8363C12.9365 29.2184 12.2078 28.3338 11.7062 27.1693L11.4306 27.288ZM13.7266 30.088L13.5656 30.3411C14.6514 31.0321 15.9896 31.368 17.5626 31.368V31.068V30.768C16.0744 30.768 14.8552 30.4506 13.8877 29.8349L13.7266 30.088ZM17.5626 31.068V31.368C18.457 31.368 19.3066 31.2919 20.1108 31.1387L20.0546 30.844L19.9985 30.5493C19.2347 30.6948 18.423 30.768 17.5626 30.768V31.068ZM20.0546 30.844L20.1108 31.1387C20.9047 30.9875 21.6801 30.7984 22.4368 30.5713L22.3506 30.284L22.2644 29.9967C21.5279 30.2176 20.7726 30.4019 19.9985 30.5493L20.0546 30.844ZM22.3506 30.284H22.0506V32.468H22.3506H22.6506V30.284H22.3506ZM22.3506 32.468L22.2453 32.1871C21.5175 32.46 20.762 32.6603 19.9784 32.7879L20.0266 33.084L20.0748 33.3801C20.8966 33.2463 21.6905 33.036 22.456 32.7489L22.3506 32.468ZM20.0266 33.084L19.9773 32.7881C19.2145 32.9152 18.2893 32.98 17.1986 32.98V33.28V33.58C18.3107 33.58 19.2708 33.5141 20.076 33.3799L20.0266 33.084ZM17.1986 33.28V32.98C15.2047 32.98 13.5642 32.5685 12.2601 31.7646L12.1026 32.02L11.9452 32.2754C13.3665 33.1515 15.1233 33.58 17.1986 33.58V33.28ZM12.1026 32.02L12.2601 31.7646C10.9519 30.9582 9.96429 29.8115 9.29665 28.3139L9.02264 28.436L8.74863 28.5581C9.46233 30.1591 10.528 31.4018 11.9452 32.2754L12.1026 32.02ZM9.02264 28.436L9.29787 28.3166C8.6456 26.8128 8.31464 25.0351 8.31464 22.976H8.01464H7.71464C7.71464 25.0982 8.05568 26.9605 8.74741 28.5554L9.02264 28.436ZM8.01464 22.976H8.31464C8.31464 21.4912 8.51627 20.1419 8.91567 18.9256L8.63064 18.832L8.34561 18.7384C7.92368 20.0234 7.71464 21.4368 7.71464 22.976H8.01464ZM8.63064 18.832L8.91439 18.9294C9.33214 17.7125 9.9294 16.6647 10.7041 15.7819L10.4786 15.584L10.2532 15.3861C9.42255 16.3326 8.78781 17.4502 8.34689 18.7346L8.63064 18.832ZM10.4786 15.584L10.7019 15.7844C11.4913 14.9053 12.4609 14.231 13.6156 13.7619L13.5026 13.484L13.3897 13.2061C12.155 13.7077 11.1087 14.4334 10.2554 15.3836L10.4786 15.584ZM13.5026 13.484L13.6193 13.7604C14.7706 13.2747 16.1017 13.028 17.6186 13.028V12.728V12.428C16.0369 12.428 14.6241 12.6853 13.386 13.2076L13.5026 13.484ZM17.6186 12.728V13.028C18.6252 13.028 19.5933 13.1286 20.5234 13.3293L20.5866 13.036L20.6499 12.7427C19.676 12.5327 18.6654 12.428 17.6186 12.428V12.728ZM20.5866 13.036L20.5234 13.3293C21.4548 13.5301 22.2797 13.8119 23.0005 14.1723L23.1346 13.904L23.2688 13.6357C22.4963 13.2494 21.6225 12.9525 20.6499 12.7427L20.5866 13.036ZM23.1346 13.904L22.8635 13.7756L21.8555 15.9036L22.1266 16.032L22.3978 16.1604L23.4058 14.0324L23.1346 13.904ZM22.1266 16.032L22.2508 15.7589C21.6198 15.4721 20.9155 15.2154 20.1389 14.9881L20.0546 15.276L19.9704 15.5639C20.7244 15.7846 21.4015 16.0319 22.0025 16.3051L22.1266 16.032ZM20.0546 15.276L20.1408 14.9887C19.3624 14.7551 18.5116 14.64 17.5906 14.64V14.94V15.24C18.4617 15.24 19.2535 15.3489 19.9684 15.5633L20.0546 15.276ZM28.786 19.056L28.4875 19.0261L28.4868 19.0336L28.4864 19.041L28.786 19.056ZM28.702 20.064L28.4044 20.0268L28.3622 20.364H28.702V20.064ZM28.87 20.064V20.364H29.0389L29.1265 20.2197L28.87 20.064ZM30.074 18.776L29.9033 18.5293L30.074 18.776ZM31.698 18.02L31.7793 18.3089L31.7875 18.3063L31.698 18.02ZM36.57 18.328L36.4383 18.5977L36.4459 18.6011L36.57 18.328ZM38.418 20.092L38.6851 19.9554L38.418 20.092ZM39.034 33V33.3H39.334V33H39.034ZM36.598 33H36.298V33.3H36.598V33ZM35.786 20.68L36.0083 20.4785L35.786 20.68ZM30.606 20.428L30.7691 20.6799L30.7741 20.6765L30.606 20.428ZM29.234 22.276L28.9501 22.1792L28.9488 22.1831L29.234 22.276ZM28.842 33V33.3H29.142V33H28.842ZM26.378 33H26.078V33.3H26.378V33ZM26.378 11.72V11.42H26.078V11.72H26.378ZM28.842 11.72H29.142V11.42H28.842V11.72ZM28.842 17.964H28.542C28.542 18.3081 28.5239 18.6622 28.4875 19.0261L28.786 19.056L29.0846 19.0858C29.1228 18.7032 29.142 18.3292 29.142 17.964H28.842ZM28.786 19.056L28.4864 19.041C28.468 19.4086 28.4406 19.737 28.4044 20.0268L28.702 20.064L28.9997 20.1012C29.0382 19.7937 29.0667 19.4501 29.0857 19.071L28.786 19.056ZM28.702 20.064V20.364H28.87V20.064V19.764H28.702V20.064ZM28.87 20.064L29.1265 20.2197C29.4228 19.7317 29.7954 19.3338 30.2448 19.0227L30.074 18.776L29.9033 18.5293C29.3821 18.8902 28.952 19.351 28.6136 19.9083L28.87 20.064ZM30.074 18.776L30.2448 19.0227C30.7015 18.7065 31.2123 18.4683 31.7793 18.3088L31.698 18.02L31.6168 17.7312C30.9892 17.9077 30.4173 18.1735 29.9033 18.5293L30.074 18.776ZM31.698 18.02L31.7875 18.3063C32.3555 18.1289 32.9413 18.04 33.546 18.04V17.74V17.44C32.8815 17.44 32.2353 17.5378 31.6086 17.7337L31.698 18.02ZM33.546 17.74V18.04C34.7293 18.04 35.6887 18.2314 36.4384 18.5976L36.57 18.328L36.7017 18.0584C35.8461 17.6406 34.7895 17.44 33.546 17.44V17.74ZM36.57 18.328L36.4459 18.6011C37.2056 18.9464 37.7712 19.4863 38.151 20.2286L38.418 20.092L38.6851 19.9554C38.2436 19.0923 37.5772 18.4562 36.6942 18.0549L36.57 18.328ZM38.418 20.092L38.151 20.2286C38.5327 20.9748 38.734 21.9685 38.734 23.228H39.034H39.334C39.334 21.9115 39.1247 20.8145 38.6851 19.9554L38.418 20.092ZM39.034 23.228H38.734V33H39.034H39.334V23.228H39.034ZM39.034 33V32.7H36.598V33V33.3H39.034V33ZM36.598 33H36.898V23.396H36.598H36.298V33H36.598ZM36.598 23.396H36.898C36.898 22.1448 36.6198 21.1532 36.0083 20.4785L35.786 20.68L35.5638 20.8815C36.035 21.4015 36.298 22.2205 36.298 23.396H36.598ZM35.786 20.68L36.0083 20.4785C35.389 19.7951 34.4424 19.484 33.238 19.484V19.784V20.084C34.3484 20.084 35.1004 20.3702 35.5638 20.8815L35.786 20.68ZM33.238 19.784V19.484C32.0844 19.484 31.1403 19.7044 30.438 20.1795L30.606 20.428L30.7741 20.6765C31.3412 20.2929 32.1517 20.084 33.238 20.084V19.784ZM30.606 20.428L30.4431 20.1761C29.7436 20.6287 29.2485 21.3039 28.9501 22.1792L29.234 22.276L29.518 22.3728C29.7796 21.6054 30.1992 21.0486 30.769 20.6799L30.606 20.428ZM29.234 22.276L28.9488 22.1831C28.6747 23.025 28.542 24.0479 28.542 25.244H28.842H29.142C29.142 24.0881 29.2707 23.1323 29.5193 22.3689L29.234 22.276ZM28.842 25.244H28.542V33H28.842H29.142V25.244H28.842ZM28.842 33V32.7H26.378V33V33.3H28.842V33ZM26.378 33H26.678V11.72H26.378H26.078V33H26.378ZM26.378 11.72V12.02H28.842V11.72V11.42H26.378V11.72ZM28.842 11.72H28.542V17.964H28.842H29.142V11.72H28.842ZM53.4306 18.944L53.6331 18.7227L53.4306 18.944ZM54.7466 33V33.3H55.0466V33H54.7466ZM52.9546 33L52.6619 33.0655L52.7143 33.3H52.9546V33ZM52.4786 30.872L52.7714 30.8065L52.7189 30.572H52.4786V30.872ZM52.3666 30.872V30.572H52.2217L52.1316 30.6856L52.3666 30.872ZM51.0226 32.244L51.2089 32.4792L51.21 32.4783L51.0226 32.244ZM49.4546 33.028L49.3734 32.7392L49.371 32.7399L49.4546 33.028ZM44.8906 32.804L44.7681 33.0779L44.7708 33.079L44.8906 32.804ZM43.2106 31.348L42.9546 31.5044L42.9566 31.5077L43.2106 31.348ZM44.3586 25.384L44.5278 25.6318L44.5304 25.63L44.3586 25.384ZM49.7906 24.04L49.7998 24.3399L49.8005 24.3398L49.7906 24.04ZM52.3386 23.956L52.3485 24.2558L52.6386 24.2463V23.956H52.3386ZM51.5266 20.456L51.3264 20.6794L51.5266 20.456ZM46.9906 20.092L47.081 20.3782L47.0877 20.3758L46.9906 20.092ZM45.0026 20.876L44.725 20.9896L44.846 21.2854L45.1335 21.1459L45.0026 20.876ZM44.2466 19.028L44.1035 18.7643L43.8671 18.8927L43.969 19.1416L44.2466 19.028ZM46.5706 18.132L46.6491 18.4216L46.6546 18.42L46.5706 18.132ZM50.0986 25.748L50.0873 25.4482L50.0867 25.4482L50.0986 25.748ZM46.2066 26.644L46.0317 26.4003L46.0287 26.4025L46.2066 26.644ZM45.8986 30.704L45.7144 30.9408L45.7186 30.944L45.8986 30.704ZM51.0506 30.256L51.2412 30.4877L51.2442 30.4852L51.0506 30.256ZM52.3106 25.664H52.6106V25.3524L52.2993 25.3642L52.3106 25.664ZM49.3706 17.74V18.04C51.164 18.04 52.4294 18.4345 53.2281 19.1653L53.4306 18.944L53.6331 18.7227C52.6773 17.8481 51.236 17.44 49.3706 17.44V17.74ZM53.4306 18.944L53.2281 19.1653C54.0188 19.8887 54.4466 21.0691 54.4466 22.78H54.7466H55.0466C55.0466 20.9815 54.5972 19.6046 53.6331 18.7227L53.4306 18.944ZM54.7466 22.78H54.4466V33H54.7466H55.0466V22.78H54.7466ZM54.7466 33V32.7H52.9546V33V33.3H54.7466V33ZM52.9546 33L53.2474 32.9345L52.7714 30.8065L52.4786 30.872L52.1859 30.9375L52.6619 33.0655L52.9546 33ZM52.4786 30.872V30.572H52.3666V30.872V31.172H52.4786V30.872ZM52.3666 30.872L52.1316 30.6856C51.7142 31.2119 51.2818 31.6525 50.8352 32.0097L51.0226 32.244L51.21 32.4783C51.6968 32.0888 52.1605 31.6148 52.6017 31.0584L52.3666 30.872ZM51.0226 32.244L50.8364 32.0088C50.4221 32.3368 49.9359 32.581 49.3734 32.7392L49.4546 33.028L49.5359 33.3168C50.1681 33.139 50.7272 32.8606 51.2089 32.4792L51.0226 32.244ZM49.4546 33.028L49.371 32.7399C48.8278 32.8976 48.1486 32.98 47.3266 32.98V33.28V33.58C48.1847 33.58 48.9241 33.4944 49.5383 33.3161L49.4546 33.028ZM47.3266 33.28V32.98C46.4666 32.98 45.6961 32.8279 45.0105 32.529L44.8906 32.804L44.7708 33.079C45.5411 33.4148 46.3947 33.58 47.3266 33.58V33.28ZM44.8906 32.804L45.0131 32.5302C44.3576 32.2369 43.8435 31.7911 43.4646 31.1883L43.2106 31.348L42.9566 31.5077C43.3991 32.2116 44.005 32.7365 44.7681 33.0778L44.8906 32.804ZM43.2106 31.348L43.4666 31.1916C43.0918 30.5782 42.8946 29.796 42.8946 28.828H42.5946H42.2946C42.2946 29.876 42.5082 30.7738 42.9547 31.5044L43.2106 31.348ZM42.5946 28.828H42.8946C42.8946 27.4281 43.4383 26.3754 44.5278 25.6318L44.3586 25.384L44.1895 25.1362C42.927 25.9979 42.2946 27.2413 42.2946 28.828H42.5946ZM44.3586 25.384L44.5304 25.63C45.6355 24.8581 47.3762 24.4139 49.7998 24.3399L49.7906 24.04L49.7815 23.7401C47.3144 23.8155 45.4337 24.2672 44.1869 25.138L44.3586 25.384ZM49.7906 24.04L49.8005 24.3398L52.3485 24.2558L52.3386 23.956L52.3288 23.6562L49.7808 23.7402L49.7906 24.04ZM52.3386 23.956H52.6386V23.06H52.3386H52.0386V23.956H52.3386ZM52.3386 23.06H52.6386C52.6386 21.7823 52.3649 20.8047 51.7269 20.2326L51.5266 20.456L51.3264 20.6794C51.771 21.078 52.0386 21.8364 52.0386 23.06H52.3386ZM51.5266 20.456L51.7269 20.2326C51.1133 19.6825 50.267 19.428 49.2306 19.428V19.728V20.028C50.173 20.028 50.8573 20.2588 51.3264 20.6794L51.5266 20.456ZM49.2306 19.728V19.428C48.4151 19.428 47.6355 19.5543 46.8935 19.8081L46.9906 20.092L47.0877 20.3758C47.7644 20.1444 48.4782 20.028 49.2306 20.028V19.728ZM46.9906 20.092L46.9003 19.8059C46.1783 20.0339 45.5019 20.3005 44.8718 20.6061L45.0026 20.876L45.1335 21.1459C45.7353 20.8541 46.3844 20.5981 47.081 20.3781L46.9906 20.092ZM45.0026 20.876L45.2803 20.7624L44.5243 18.9144L44.2466 19.028L43.969 19.1416L44.725 20.9896L45.0026 20.876ZM44.2466 19.028L44.3898 19.2917C45.0183 18.9505 45.7703 18.6596 46.6491 18.4216L46.5706 18.132L46.4922 17.8424C45.579 18.0898 44.7817 18.3962 44.1035 18.7643L44.2466 19.028ZM46.5706 18.132L46.6546 18.42C47.5223 18.1669 48.4273 18.04 49.3706 18.04V17.74V17.44C48.3727 17.44 47.411 17.5744 46.4866 17.844L46.5706 18.132ZM50.0986 25.748L50.0867 25.4482C48.2128 25.5232 46.8367 25.8223 46.0317 26.4003L46.2066 26.644L46.3816 26.8877C47.0326 26.4203 48.2512 26.1221 50.1106 26.0478L50.0986 25.748ZM46.2066 26.644L46.0287 26.4025C45.2357 26.9868 44.8426 27.8176 44.8426 28.856H45.1426H45.4426C45.4426 27.9904 45.7589 27.3465 46.3846 26.8855L46.2066 26.644ZM45.1426 28.856H44.8426C44.8426 29.7569 45.1156 30.475 45.7145 30.9408L45.8986 30.704L46.0828 30.4672C45.6737 30.149 45.4426 29.6351 45.4426 28.856H45.1426ZM45.8986 30.704L45.7186 30.944C46.3042 31.3831 47.0342 31.592 47.8866 31.592V31.292V30.992C47.1337 30.992 46.5384 30.8089 46.0786 30.464L45.8986 30.704ZM47.8866 31.292V31.592C49.2133 31.592 50.3388 31.2297 51.2412 30.4877L51.0506 30.256L50.8601 30.0243C50.0825 30.6636 49.0987 30.992 47.8866 30.992V31.292ZM51.0506 30.256L51.2442 30.4852C52.172 29.7018 52.6106 28.5218 52.6106 27.008H52.3106H52.0106C52.0106 28.4062 51.6093 29.3916 50.8571 30.0268L51.0506 30.256ZM52.3106 27.008H52.6106V25.664H52.3106H52.0106V27.008H52.3106ZM52.3106 25.664L52.2993 25.3642L50.0873 25.4482L50.0986 25.748L50.11 26.0478L52.322 25.9638L52.3106 25.664ZM65.542 31.18L65.5844 31.4773L65.5981 31.4747L65.542 31.18ZM66.494 30.956H66.794V30.5498L66.4057 30.6693L66.494 30.956ZM66.494 32.832L66.6281 33.1003L66.794 33.0174V32.832H66.494ZM65.374 33.14L65.3283 32.8433L65.3173 32.8454L65.374 33.14ZM61.79 32.888L61.6717 33.1639L61.6812 33.1676L61.79 32.888ZM60.194 31.46L59.938 31.6164L60.194 31.46ZM59.578 19.896H59.878V19.596H59.578V19.896ZM57.45 19.896H57.15V20.196H57.45V19.896ZM57.45 18.72L57.3258 18.4469L57.15 18.5268V18.72H57.45ZM59.606 17.74L59.7301 18.0131L59.8531 17.9572L59.8927 17.828L59.606 17.74ZM60.586 14.548V14.248H60.3642L60.2992 14.4599L60.586 14.548ZM62.042 14.548H62.342V14.248H62.042V14.548ZM62.042 17.992H61.742V18.292H62.042V17.992ZM66.382 17.992H66.682V17.692H66.382V17.992ZM66.382 19.896V20.196H66.682V19.896H66.382ZM62.042 19.896V19.596H61.742V19.896H62.042ZM62.686 30.62L62.4692 30.8278L62.4784 30.8366L62.686 30.62ZM64.394 31.264V31.564C64.7823 31.564 65.1792 31.5349 65.5844 31.477L65.542 31.18L65.4995 30.883C65.1207 30.9371 64.7523 30.964 64.394 30.964V31.264ZM65.542 31.18L65.5981 31.4747C65.9956 31.399 66.3248 31.3219 66.5822 31.2427L66.494 30.956L66.4057 30.6693C66.1778 30.7394 65.8723 30.8117 65.4858 30.8853L65.542 31.18ZM66.494 30.956H66.194V32.832H66.494H66.794V30.956H66.494ZM66.494 32.832L66.3598 32.5637C66.1389 32.6741 65.8008 32.7708 65.3283 32.8435L65.374 33.14L65.4196 33.4365C65.9178 33.3599 66.3263 33.2512 66.6281 33.1003L66.494 32.832ZM65.374 33.14L65.3173 32.8454C64.8487 32.9355 64.4011 32.98 63.974 32.98V33.28V33.58C64.4428 33.58 64.9285 33.5312 65.4306 33.4346L65.374 33.14ZM63.974 33.28V32.98C63.2239 32.98 62.5331 32.8551 61.8987 32.6084L61.79 32.888L61.6812 33.1676C62.3908 33.4436 63.156 33.58 63.974 33.58V33.28ZM61.79 32.888L61.9081 32.6123C61.3181 32.3594 60.8318 31.9285 60.4499 31.3036L60.194 31.46L59.938 31.6164C60.3774 32.3355 60.9551 32.8566 61.6718 33.1637L61.79 32.888ZM60.194 31.46L60.4499 31.3036C60.0796 30.6976 59.878 29.8176 59.878 28.632H59.578H59.278C59.278 29.8731 59.4869 30.8784 59.938 31.6164L60.194 31.46ZM59.578 28.632H59.878V19.896H59.578H59.278V28.632H59.578ZM59.578 19.896V19.596H57.45V19.896V20.196H59.578V19.896ZM57.45 19.896H57.75V18.72H57.45H57.15V19.896H57.45ZM57.45 18.72L57.5741 18.9931L59.7301 18.0131L59.606 17.74L59.4818 17.4669L57.3258 18.4469L57.45 18.72ZM59.606 17.74L59.8927 17.828L60.8727 14.636L60.586 14.548L60.2992 14.4599L59.3192 17.652L59.606 17.74ZM60.586 14.548V14.848H62.042V14.548V14.248H60.586V14.548ZM62.042 14.548H61.742V17.992H62.042H62.342V14.548H62.042ZM62.042 17.992V18.292H66.382V17.992V17.692H62.042V17.992ZM66.382 17.992H66.082V19.896H66.382H66.682V17.992H66.382ZM66.382 19.896V19.596H62.042V19.896V20.196H66.382V19.896ZM62.042 19.896H61.742V28.576H62.042H62.342V19.896H62.042ZM62.042 28.576H61.742C61.742 29.5318 61.9658 30.3021 62.4694 30.8276L62.686 30.62L62.9025 30.4124C62.5474 30.0419 62.342 29.4496 62.342 28.576H62.042ZM62.686 30.62L62.4784 30.8366C62.9887 31.3257 63.6354 31.564 64.394 31.564V31.264V30.964C63.7711 30.964 63.2792 30.773 62.8935 30.4034L62.686 30.62ZM82.7926 15.5L82.9071 15.7773L82.9122 15.7751L82.7926 15.5ZM80.6086 17.096L80.8355 17.2923L80.8381 17.2892L80.6086 17.096ZM79.2366 19.644L79.5222 19.7356L79.5227 19.7341L79.2366 19.644ZM79.5166 27.288L79.2395 27.4031L79.2411 27.4067L79.5166 27.288ZM81.8126 30.088L81.6494 30.3398L81.6515 30.3411L81.8126 30.088ZM88.1406 30.844L88.0844 30.5493L88.1406 30.844ZM90.4366 30.284H90.7366V29.8808L90.3504 29.9967L90.4366 30.284ZM90.4366 32.468L90.5419 32.7489L90.7366 32.6759V32.468H90.4366ZM88.1126 33.084L88.0644 32.7879L88.0633 32.7881L88.1126 33.084ZM80.1886 32.02L80.346 31.7646V31.7646L80.1886 32.02ZM77.1086 28.436L76.8333 28.5554L76.8346 28.5581L77.1086 28.436ZM76.7166 18.832L76.4328 18.7346L76.4315 18.7384L76.7166 18.832ZM78.5646 15.584L78.3413 15.3835L78.3391 15.3861L78.5646 15.584ZM81.5886 13.484L81.7015 13.762L81.7052 13.7604L81.5886 13.484ZM88.6726 13.036L88.7358 12.7427V12.7427L88.6726 13.036ZM91.2206 13.904L91.4917 14.0324L91.6174 13.767L91.3547 13.6357L91.2206 13.904ZM90.2126 16.032L90.0884 16.3051L90.3573 16.4273L90.4837 16.1604L90.2126 16.032ZM88.1406 15.276L88.0544 15.5634L88.0563 15.5639L88.1406 15.276ZM85.6766 14.94V14.64C84.577 14.64 83.5742 14.833 82.673 15.2249L82.7926 15.5L82.9122 15.7751C83.7283 15.4203 84.6481 15.24 85.6766 15.24V14.94ZM82.7926 15.5L82.678 15.2227C81.775 15.5957 81.0075 16.1565 80.3791 16.9028L80.6086 17.096L80.8381 17.2892C81.4043 16.6168 82.0929 16.1136 82.9071 15.7773L82.7926 15.5ZM80.6086 17.096L80.3817 16.8998C79.7537 17.6259 79.2781 18.5129 78.9504 19.5539L79.2366 19.644L79.5227 19.7341C79.8297 18.7591 80.2688 17.9474 80.8355 17.2922L80.6086 17.096ZM79.2366 19.644L78.9509 19.5524C78.6224 20.5766 78.4606 21.7284 78.4606 23.004H78.7606H79.0606C79.0606 21.7783 79.2161 20.69 79.5222 19.7356L79.2366 19.644ZM78.7606 23.004H78.4606C78.4606 24.6766 78.7171 26.1454 79.2395 27.4031L79.5166 27.288L79.7936 27.1729C79.3081 26.0039 79.0606 24.6167 79.0606 23.004H78.7606ZM79.5166 27.288L79.2411 27.4067C79.7848 28.6688 80.5867 29.6509 81.6494 30.3397L81.8126 30.088L81.9757 29.8363C81.0225 29.2184 80.2937 28.3338 79.7921 27.1693L79.5166 27.288ZM81.8126 30.088L81.6515 30.3411C82.7373 31.0321 84.0755 31.368 85.6486 31.368V31.068V30.768C84.1603 30.768 82.9412 30.4506 81.9736 29.8349L81.8126 30.088ZM85.6486 31.068V31.368C86.5429 31.368 87.3925 31.2919 88.1967 31.1387L88.1406 30.844L88.0844 30.5493C87.3207 30.6948 86.5089 30.768 85.6486 30.768V31.068ZM88.1406 30.844L88.1967 31.1387C88.9906 30.9875 89.766 30.7984 90.5228 30.5713L90.4366 30.284L90.3504 29.9967C89.6138 30.2176 88.8585 30.4019 88.0844 30.5493L88.1406 30.844ZM90.4366 30.284H90.1366V32.468H90.4366H90.7366V30.284H90.4366ZM90.4366 32.468L90.3312 32.1871C89.6034 32.46 88.8479 32.6603 88.0644 32.7879L88.1126 33.084L88.1608 33.3801C88.9826 33.2463 89.7764 33.036 90.5419 32.7489L90.4366 32.468ZM88.1126 33.084L88.0633 32.7881C87.3004 32.9152 86.3752 32.98 85.2846 32.98V33.28V33.58C86.3966 33.58 87.3567 33.5141 88.1619 33.3799L88.1126 33.084ZM85.2846 33.28V32.98C83.2906 32.98 81.6501 32.5685 80.346 31.7646L80.1886 32.02L80.0312 32.2754C81.4524 33.1515 83.2092 33.58 85.2846 33.58V33.28ZM80.1886 32.02L80.346 31.7646C79.0379 30.9582 78.0502 29.8115 77.3826 28.3139L77.1086 28.436L76.8346 28.5581C77.5483 30.1591 78.614 31.4018 80.0312 32.2754L80.1886 32.02ZM77.1086 28.436L77.3838 28.3166C76.7315 26.8128 76.4006 25.0351 76.4006 22.976H76.1006H75.8006C75.8006 25.0982 76.1416 26.9605 76.8334 28.5554L77.1086 28.436ZM76.1006 22.976H76.4006C76.4006 21.4912 76.6022 20.1419 77.0016 18.9256L76.7166 18.832L76.4315 18.7384C76.0096 20.0234 75.8006 21.4368 75.8006 22.976H76.1006ZM76.7166 18.832L77.0003 18.9294C77.4181 17.7125 78.0153 16.6647 78.7901 15.7819L78.5646 15.584L78.3391 15.3861C77.5085 16.3326 76.8737 17.4502 76.4328 18.7346L76.7166 18.832ZM78.5646 15.584L78.7878 15.7844C79.5772 14.9053 80.5469 14.231 81.7015 13.7619L81.5886 13.484L81.4757 13.2061C80.241 13.7077 79.1946 14.4334 78.3414 15.3836L78.5646 15.584ZM81.5886 13.484L81.7052 13.7604C82.8565 13.2747 84.1876 13.028 85.7046 13.028V12.728V12.428C84.1228 12.428 82.71 12.6853 81.472 13.2076L81.5886 13.484ZM85.7046 12.728V13.028C86.7111 13.028 87.6792 13.1286 88.6093 13.3293L88.6726 13.036L88.7358 12.7427C87.762 12.5327 86.7514 12.428 85.7046 12.428V12.728ZM88.6726 13.036L88.6093 13.3293C89.5407 13.5301 90.3656 13.8119 91.0864 14.1723L91.2206 13.904L91.3547 13.6357C90.5822 13.2494 89.7084 12.9525 88.7358 12.7427L88.6726 13.036ZM91.2206 13.904L90.9495 13.7756L89.9415 15.9036L90.2126 16.032L90.4837 16.1604L91.4917 14.0324L91.2206 13.904ZM90.2126 16.032L90.3367 15.7589C89.7058 15.4721 89.0015 15.2154 88.2248 14.9881L88.1406 15.276L88.0563 15.5639C88.8103 15.7846 89.4874 16.0319 90.0884 16.3051L90.2126 16.032ZM88.1406 15.276L88.2268 14.9887C87.4483 14.7551 86.5975 14.64 85.6766 14.64V14.94V15.24C86.5476 15.24 87.3395 15.3489 88.0544 15.5633L88.1406 15.276ZM96.928 17.992H97.228V17.692H96.928V17.992ZM96.928 33V33.3H97.228V33H96.928ZM94.464 33H94.164V33.3H94.464V33ZM94.464 17.992V17.692H94.164V17.992H94.464ZM96.704 12.756L96.4993 12.9753L96.5068 12.9823L96.5148 12.9888L96.704 12.756ZM96.704 15.108L96.5063 14.8821L96.4993 14.8887L96.704 15.108ZM94.688 15.108L94.8927 14.8887V14.8887L94.688 15.108ZM94.688 12.756L94.8846 12.9829L94.8927 12.9753L94.688 12.756ZM96.928 17.992H96.628V33H96.928H97.228V17.992H96.928ZM96.928 33V32.7H94.464V33V33.3H96.928V33ZM94.464 33H94.764V17.992H94.464H94.164V33H94.464ZM94.464 17.992V18.292H96.928V17.992V17.692H94.464V17.992ZM95.724 12.364V12.664C96.0192 12.664 96.2732 12.7643 96.4993 12.9753L96.704 12.756L96.9087 12.5367C96.5747 12.225 96.1755 12.064 95.724 12.064V12.364ZM96.704 12.756L96.5148 12.9888C96.7181 13.154 96.852 13.4425 96.852 13.932H97.152H97.452C97.452 13.3388 97.2872 12.8433 96.8932 12.5232L96.704 12.756ZM97.152 13.932H96.852C96.852 14.3972 96.7209 14.6946 96.5064 14.8822L96.704 15.108L96.9015 15.3338C97.2844 14.9988 97.452 14.5121 97.452 13.932H97.152ZM96.704 15.108L96.4993 14.8887C96.2732 15.0997 96.0192 15.2 95.724 15.2V15.5V15.8C96.1755 15.8 96.5747 15.639 96.9087 15.3273L96.704 15.108ZM95.724 15.5V15.2C95.3833 15.2 95.1129 15.0942 94.8927 14.8887L94.688 15.108L94.4833 15.3273C94.8231 15.6445 95.2433 15.8 95.724 15.8V15.5ZM94.688 15.108L94.8927 14.8887C94.6931 14.7024 94.568 14.4029 94.568 13.932H94.268H93.968C93.968 14.5064 94.1228 14.9909 94.4833 15.3273L94.688 15.108ZM94.268 13.932H94.568C94.568 13.4367 94.6959 13.1461 94.8845 12.9827L94.688 12.756L94.4915 12.5293C94.1201 12.8512 93.968 13.3446 93.968 13.932H94.268ZM94.688 12.756L94.8927 12.9753C95.1129 12.7698 95.3833 12.664 95.724 12.664V12.364V12.064C95.2433 12.064 94.8231 12.2195 94.4833 12.5367L94.688 12.756ZM107.843 31.18L107.885 31.4773L107.899 31.4747L107.843 31.18ZM108.795 30.956H109.095V30.5498L108.707 30.6693L108.795 30.956ZM108.795 32.832L108.929 33.1003L109.095 33.0174V32.832H108.795ZM107.675 33.14L107.629 32.8433L107.618 32.8454L107.675 33.14ZM104.091 32.888L103.972 33.1639L103.982 33.1676L104.091 32.888ZM102.495 31.46L102.239 31.6164L102.495 31.46ZM101.879 19.896H102.179V19.596H101.879V19.896ZM99.7507 19.896H99.4507V20.196H99.7507V19.896ZM99.7507 18.72L99.6266 18.4469L99.4507 18.5268V18.72H99.7507ZM101.907 17.74L102.031 18.0131L102.154 17.9572L102.194 17.828L101.907 17.74ZM102.887 14.548V14.248H102.665L102.6 14.4599L102.887 14.548ZM104.343 14.548H104.643V14.248H104.343V14.548ZM104.343 17.992H104.043V18.292H104.343V17.992ZM108.683 17.992H108.983V17.692H108.683V17.992ZM108.683 19.896V20.196H108.983V19.896H108.683ZM104.343 19.896V19.596H104.043V19.896H104.343ZM104.987 30.62L104.77 30.8278L104.779 30.8366L104.987 30.62ZM106.695 31.264V31.564C107.083 31.564 107.48 31.5349 107.885 31.477L107.843 31.18L107.8 30.883C107.422 30.9371 107.053 30.964 106.695 30.964V31.264ZM107.843 31.18L107.899 31.4747C108.296 31.399 108.626 31.3219 108.883 31.2427L108.795 30.956L108.707 30.6693C108.479 30.7394 108.173 30.8117 107.787 30.8853L107.843 31.18ZM108.795 30.956H108.495V32.832H108.795H109.095V30.956H108.795ZM108.795 32.832L108.661 32.5637C108.44 32.6741 108.102 32.7708 107.629 32.8435L107.675 33.14L107.72 33.4365C108.219 33.3599 108.627 33.2512 108.929 33.1003L108.795 32.832ZM107.675 33.14L107.618 32.8454C107.15 32.9355 106.702 32.98 106.275 32.98V33.28V33.58C106.744 33.58 107.229 33.5312 107.731 33.4346L107.675 33.14ZM106.275 33.28V32.98C105.525 32.98 104.834 32.8551 104.199 32.6084L104.091 32.888L103.982 33.1676C104.692 33.4436 105.457 33.58 106.275 33.58V33.28ZM104.091 32.888L104.209 32.6123C103.619 32.3594 103.133 31.9285 102.751 31.3036L102.495 31.46L102.239 31.6164C102.678 32.3355 103.256 32.8566 103.973 33.1637L104.091 32.888ZM102.495 31.46L102.751 31.3036C102.38 30.6976 102.179 29.8176 102.179 28.632H101.879H101.579C101.579 29.8731 101.788 30.8784 102.239 31.6164L102.495 31.46ZM101.879 28.632H102.179V19.896H101.879H101.579V28.632H101.879ZM101.879 19.896V19.596H99.7507V19.896V20.196H101.879V19.896ZM99.7507 19.896H100.051V18.72H99.7507H99.4507V19.896H99.7507ZM99.7507 18.72L99.8749 18.9931L102.031 18.0131L101.907 17.74L101.783 17.4669L99.6266 18.4469L99.7507 18.72ZM101.907 17.74L102.194 17.828L103.174 14.636L102.887 14.548L102.6 14.4599L101.62 17.652L101.907 17.74ZM102.887 14.548V14.848H104.343V14.548V14.248H102.887V14.548ZM104.343 14.548H104.043V17.992H104.343H104.643V14.548H104.343ZM104.343 17.992V18.292H108.683V17.992V17.692H104.343V17.992ZM108.683 17.992H108.383V19.896H108.683H108.983V17.992H108.683ZM108.683 19.896V19.596H104.343V19.896V20.196H108.683V19.896ZM104.343 19.896H104.043V28.576H104.343H104.643V19.896H104.343ZM104.343 28.576H104.043C104.043 29.5318 104.267 30.3021 104.77 30.8276L104.987 30.62L105.203 30.4124C104.848 30.0419 104.643 29.4496 104.643 28.576H104.343ZM104.987 30.62L104.779 30.8366C105.29 31.3257 105.936 31.564 106.695 31.564V31.264V30.964C106.072 30.964 105.58 30.773 105.194 30.4034L104.987 30.62ZM109.448 17.992V17.692H109.004L109.17 18.1038L109.448 17.992ZM112.08 17.992L112.36 17.8854L112.287 17.692H112.08V17.992ZM115.328 26.532L115.609 26.4278L115.608 26.4254L115.328 26.532ZM115.832 27.988L115.546 28.0795L115.55 28.0896L115.832 27.988ZM116.28 29.36L115.992 29.444L115.993 29.4473L116.28 29.36ZM116.588 30.62L116.293 30.6737L116.338 30.92H116.588V30.62ZM116.7 30.62V30.92H116.936L116.992 30.69L116.7 30.62ZM117.232 28.8L117.517 28.8927L117.518 28.8907L117.232 28.8ZM117.988 26.504L117.705 26.4027L117.704 26.4071L117.988 26.504ZM121.04 17.992V17.692H120.829L120.758 17.8907L121.04 17.992ZM123.7 17.992L123.98 18.0982L124.134 17.692H123.7V17.992ZM117.232 35.072L117.512 35.1786L117.512 35.1782L117.232 35.072ZM115.972 37.508L115.726 37.3354L115.721 37.3431L115.972 37.508ZM114.236 39.132L114.093 38.868L114.085 38.8729L114.236 39.132ZM110.596 39.636L110.645 39.3401L110.637 39.3387L110.629 39.3378L110.596 39.636ZM109.728 39.496H109.428V39.7347L109.66 39.7883L109.728 39.496ZM109.728 37.536L109.782 37.2408L109.428 37.1765V37.536H109.728ZM110.456 37.648L110.416 37.9454L110.419 37.9457L110.456 37.648ZM112.864 37.368L112.734 37.0974L112.727 37.1008L112.72 37.1046L112.864 37.368ZM113.956 36.444L113.717 36.2621L113.713 36.2675L113.956 36.444ZM114.712 35.044L114.433 34.9339L114.431 34.9376L114.712 35.044ZM115.496 33.056L115.775 33.1661L115.819 33.055L115.774 32.9442L115.496 33.056ZM109.448 17.992V18.292H112.08V17.992V17.692H109.448V17.992ZM112.08 17.992L111.8 18.0986L115.048 26.6386L115.328 26.532L115.608 26.4254L112.36 17.8854L112.08 17.992ZM115.328 26.532L115.047 26.6362C115.232 27.1364 115.398 27.6174 115.546 28.0794L115.832 27.988L116.118 27.8966C115.967 27.4252 115.797 26.9356 115.609 26.4278L115.328 26.532ZM115.832 27.988L115.55 28.0896C115.716 28.5508 115.863 29.0023 115.992 29.444L116.28 29.36L116.568 29.276C116.435 28.8217 116.284 28.3585 116.114 27.8864L115.832 27.988ZM116.28 29.36L115.993 29.4473C116.12 29.8664 116.22 30.2752 116.293 30.6737L116.588 30.62L116.883 30.5663C116.806 30.1435 116.701 29.7122 116.567 29.2727L116.28 29.36ZM116.588 30.62V30.92H116.7V30.62V30.32H116.588V30.62ZM116.7 30.62L116.992 30.69C117.101 30.2342 117.276 29.636 117.517 28.8927L117.232 28.8L116.947 28.7073C116.703 29.4574 116.523 30.0724 116.408 30.55L116.7 30.62ZM117.232 28.8L117.518 28.8907C117.76 28.1275 118.011 27.3642 118.272 26.6009L117.988 26.504L117.704 26.4071C117.442 27.1745 117.189 27.9419 116.946 28.7093L117.232 28.8ZM117.988 26.504L118.27 26.6053L121.322 18.0933L121.04 17.992L120.758 17.8907L117.706 26.4027L117.988 26.504ZM121.04 17.992V18.292H123.7V17.992V17.692H121.04V17.992ZM123.7 17.992L123.419 17.8858L116.951 34.9658L117.232 35.072L117.512 35.1782L123.98 18.0982L123.7 17.992ZM117.232 35.072L116.951 34.9654C116.604 35.8795 116.195 36.6686 115.726 37.3355L115.972 37.508L116.217 37.6805C116.719 36.9661 117.15 36.1311 117.512 35.1786L117.232 35.072ZM115.972 37.508L115.721 37.3431C115.28 38.0145 114.737 38.5202 114.093 38.8681L114.236 39.132L114.379 39.3959C115.116 38.9971 115.731 38.4202 116.223 37.6729L115.972 37.508ZM114.236 39.132L114.085 38.8729C113.469 39.2322 112.702 39.42 111.772 39.42V39.72V40.02C112.783 40.02 113.659 39.8158 114.387 39.3911L114.236 39.132ZM111.772 39.72V39.42C111.336 39.42 110.961 39.3927 110.645 39.3401L110.596 39.636L110.547 39.9319C110.903 39.9913 111.312 40.02 111.772 40.02V39.72ZM110.596 39.636L110.629 39.3378C110.301 39.3014 110.024 39.2563 109.795 39.2037L109.728 39.496L109.66 39.7883C109.918 39.8477 110.219 39.896 110.563 39.9342L110.596 39.636ZM109.728 39.496H110.028V37.536H109.728H109.428V39.496H109.728ZM109.728 37.536L109.674 37.8312C109.886 37.8696 110.133 37.9076 110.416 37.9454L110.456 37.648L110.496 37.3506C110.219 37.3137 109.981 37.2771 109.782 37.2408L109.728 37.536ZM110.456 37.648L110.419 37.9457C110.73 37.9846 111.051 38.004 111.38 38.004V37.704V37.404C111.074 37.404 110.779 37.386 110.493 37.3503L110.456 37.648ZM111.38 37.704V38.004C111.997 38.004 112.544 37.8845 113.008 37.6314L112.864 37.368L112.72 37.1046C112.363 37.2995 111.92 37.404 111.38 37.404V37.704ZM112.864 37.368L112.993 37.6386C113.471 37.4104 113.873 37.0686 114.199 36.6205L113.956 36.444L113.713 36.2675C113.442 36.6407 113.116 36.915 112.734 37.0974L112.864 37.368ZM113.956 36.444L114.195 36.6258C114.513 36.2072 114.779 35.7142 114.992 35.1504L114.712 35.044L114.431 34.9376C114.235 35.4565 113.996 35.8968 113.717 36.2622L113.956 36.444ZM114.712 35.044L114.991 35.1541L115.775 33.1661L115.496 33.056L115.217 32.9459L114.433 34.9339L114.712 35.044ZM115.496 33.056L115.774 32.9442L109.726 17.8802L109.448 17.992L109.17 18.1038L115.218 33.1678L115.496 33.056Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\chat_city_logo.xml"
+            line="10"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (4706 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="        android:pathData=&quot;M22.4102 24.448C22.4102 25.888 22.1402 27.094 21.6002 28.066C21.0722 29.038 20.3102 29.77 19.3142 30.262C18.3182 30.754 17.1122 31 15.6962 31H12.1142V18.148H16.0742C17.3702 18.148 18.4922 18.388 19.4402 18.868C20.3882 19.348 21.1202 20.056 21.6362 20.992C22.1522 21.916 22.4102 23.068 22.4102 24.448ZM20.7002 24.502C20.7002 23.362 20.5082 22.426 20.1242 21.694C19.7522 20.962 19.2002 20.422 18.4682 20.074C17.7482 19.714 16.8722 19.534 15.8402 19.534H13.7342V29.614H15.4802C17.2202 29.614 18.5222 29.188 19.3862 28.336C20.2622 27.472 20.7002 26.194 20.7002 24.502ZM28.7006 21.19C29.8766 21.19 30.7466 21.448 31.3106 21.964C31.8746 22.48 32.1566 23.302 32.1566 24.43V31H31.0046L30.6986 29.632H30.6266C30.3506 29.98 30.0626 30.274 29.7626 30.514C29.4746 30.742 29.1386 30.91 28.7546 31.018C28.3826 31.126 27.9266 31.18 27.3866 31.18C26.8106 31.18 26.2886 31.078 25.8206 30.874C25.3646 30.67 25.0046 30.358 24.7406 29.938C24.4766 29.506 24.3446 28.966 24.3446 28.318C24.3446 27.358 24.7226 26.62 25.4786 26.104C26.2346 25.576 27.3986 25.288 28.9706 25.24L30.6086 25.186V24.61C30.6086 23.806 30.4346 23.248 30.0866 22.936C29.7386 22.624 29.2466 22.468 28.6106 22.468C28.1066 22.468 27.6266 22.546 27.1706 22.702C26.7146 22.846 26.2886 23.014 25.8926 23.206L25.4066 22.018C25.8266 21.79 26.3246 21.598 26.9006 21.442C27.4766 21.274 28.0766 21.19 28.7006 21.19ZM29.1686 26.338C27.9686 26.386 27.1346 26.578 26.6666 26.914C26.2106 27.25 25.9826 27.724 25.9826 28.336C25.9826 28.876 26.1446 29.272 26.4686 29.524C26.8046 29.776 27.2306 29.902 27.7466 29.902C28.5626 29.902 29.2406 29.68 29.7806 29.236C30.3206 28.78 30.5906 28.084 30.5906 27.148V26.284L29.1686 26.338ZM36.7204 31H35.1364V17.32H36.7204V31ZM41.3611 31H39.7771V17.32H41.3611V31ZM48.0717 21.19C49.2477 21.19 50.1177 21.448 50.6817 21.964C51.2457 22.48 51.5277 23.302 51.5277 24.43V31H50.3757L50.0697 29.632H49.9977C49.7217 29.98 49.4337 30.274 49.1337 30.514C48.8457 30.742 48.5097 30.91 48.1257 31.018C47.7537 31.126 47.2977 31.18 46.7577 31.18C46.1817 31.18 45.6597 31.078 45.1917 30.874C44.7357 30.67 44.3757 30.358 44.1117 29.938C43.8477 29.506 43.7157 28.966 43.7157 28.318C43.7157 27.358 44.0937 26.62 44.8497 26.104C45.6057 25.576 46.7697 25.288 48.3417 25.24L49.9797 25.186V24.61C49.9797 23.806 49.8057 23.248 49.4577 22.936C49.1097 22.624 48.6177 22.468 47.9817 22.468C47.4777 22.468 46.9977 22.546 46.5417 22.702C46.0857 22.846 45.6597 23.014 45.2637 23.206L44.7777 22.018C45.1977 21.79 45.6957 21.598 46.2717 21.442C46.8477 21.274 47.4477 21.19 48.0717 21.19ZM48.5397 26.338C47.3397 26.386 46.5057 26.578 46.0377 26.914C45.5817 27.25 45.3537 27.724 45.3537 28.336C45.3537 28.876 45.5157 29.272 45.8397 29.524C46.1757 29.776 46.6017 29.902 47.1177 29.902C47.9337 29.902 48.6117 29.68 49.1517 29.236C49.6917 28.78 49.9617 28.084 49.9617 27.148V26.284L48.5397 26.338ZM60.7895 28.336C60.7895 28.96 60.6335 29.482 60.3215 29.902C60.0095 30.322 59.5655 30.64 58.9895 30.856C58.4135 31.072 57.7295 31.18 56.9375 31.18C56.2655 31.18 55.6835 31.126 55.1915 31.018C54.7115 30.91 54.2855 30.76 53.9135 30.568V29.128C54.2975 29.32 54.7595 29.5 55.2995 29.668C55.8515 29.824 56.4095 29.902 56.9735 29.902C57.7775 29.902 58.3595 29.776 58.7195 29.524C59.0795 29.26 59.2595 28.912 59.2595 28.48C59.2595 28.24 59.1935 28.024 59.0615 27.832C58.9295 27.64 58.6895 27.448 58.3415 27.256C58.0055 27.064 57.5195 26.848 56.8835 26.608C56.2595 26.368 55.7255 26.128 55.2815 25.888C54.8375 25.648 54.4955 25.36 54.2555 25.024C54.0155 24.688 53.8955 24.256 53.8955 23.728C53.8955 22.912 54.2255 22.282 54.8855 21.838C55.5575 21.394 56.4335 21.172 57.5135 21.172C58.1015 21.172 58.6475 21.232 59.1515 21.352C59.6675 21.46 60.1475 21.616 60.5915 21.82L60.0515 23.08C59.7875 22.96 59.5055 22.858 59.2055 22.774C58.9175 22.678 58.6235 22.606 58.3235 22.558C58.0235 22.498 57.7175 22.468 57.4055 22.468C56.7575 22.468 56.2595 22.576 55.9115 22.792C55.5755 22.996 55.4075 23.278 55.4075 23.638C55.4075 23.902 55.4855 24.13 55.6415 24.322C55.7975 24.502 56.0555 24.682 56.4155 24.862C56.7875 25.03 57.2795 25.234 57.8915 25.474C58.5035 25.702 59.0255 25.936 59.4575 26.176C59.8895 26.416 60.2195 26.71 60.4475 27.058C60.6755 27.394 60.7895 27.82 60.7895 28.336ZM65.0468 29.11C64.9388 29.53 64.8008 29.986 64.6328 30.478C64.4648 30.97 64.2788 31.456 64.0748 31.936C63.8828 32.428 63.6908 32.89 63.4988 33.322H62.3288C62.4488 32.866 62.5628 32.374 62.6708 31.846C62.7908 31.33 62.8988 30.82 62.9948 30.316C63.0908 29.8 63.1688 29.332 63.2288 28.912H64.9208L65.0468 29.11ZM76.897 31H75.277V19.57H71.263V18.148H80.893V19.57H76.897V31ZM91.561 31H89.725L86.323 25.42L82.867 31H81.157L85.423 24.304L81.427 18.148H83.227L86.377 23.188L89.545 18.148H91.255L87.277 24.268L91.561 31Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\location_status.xml"
+            line="7"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (2034 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="        android:pathData=&quot;M122.258 455.477C119.566 456.898 116.215 457.609 112.203 457.609C107.023 457.609 102.876 455.942 99.7617 452.607C96.6471 449.273 95.0898 444.897 95.0898 439.48C95.0898 433.658 96.8418 428.952 100.346 425.363C103.85 421.775 108.293 419.98 113.676 419.98C117.129 419.98 119.99 420.48 122.258 421.479V426.023C119.651 424.568 116.773 423.84 113.625 423.84C109.444 423.84 106.05 425.236 103.443 428.029C100.854 430.822 99.5586 434.555 99.5586 439.227C99.5586 443.661 100.769 447.199 103.189 449.84C105.627 452.464 108.818 453.775 112.762 453.775C116.418 453.775 119.583 452.963 122.258 451.338V455.477ZM150.695 457H146.531V442.02C146.531 436.603 144.517 433.895 140.488 433.895C138.457 433.895 136.747 434.682 135.359 436.256C133.971 437.813 133.277 439.819 133.277 442.273V457H129.113V418.508H133.277V435.316H133.379C135.376 432.033 138.22 430.391 141.91 430.391C147.767 430.391 150.695 433.92 150.695 440.979V457ZM177.178 457H173.014V452.938H172.912C171.101 456.052 168.435 457.609 164.914 457.609C162.324 457.609 160.293 456.924 158.82 455.553C157.365 454.182 156.637 452.362 156.637 450.094C156.637 445.236 159.497 442.409 165.219 441.613L173.014 440.521C173.014 436.104 171.228 433.895 167.656 433.895C164.525 433.895 161.698 434.961 159.176 437.094V432.828C161.732 431.203 164.677 430.391 168.012 430.391C174.122 430.391 177.178 433.624 177.178 440.09V457ZM173.014 443.848L166.742 444.711C164.812 444.982 163.357 445.464 162.375 446.158C161.393 446.835 160.902 448.046 160.902 449.789C160.902 451.059 161.351 452.1 162.248 452.912C163.162 453.708 164.372 454.105 165.879 454.105C167.944 454.105 169.645 453.386 170.982 451.947C172.337 450.492 173.014 448.655 173.014 446.438V443.848ZM197.084 456.746C196.102 457.288 194.807 457.559 193.199 457.559C188.646 457.559 186.369 455.02 186.369 449.941V434.555H181.9V431H186.369V424.652L190.533 423.307V431H197.084V434.555H190.533V449.205C190.533 450.949 190.829 452.193 191.422 452.938C192.014 453.682 192.996 454.055 194.367 454.055C195.417 454.055 196.322 453.767 197.084 453.191V456.746Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen_vector.xml"
+            line="30"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (1384 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="        android:pathData=&quot;M242.254 455.477C239.562 456.898 236.211 457.609 232.199 457.609C227.02 457.609 222.872 455.942 219.758 452.607C216.643 449.273 215.086 444.897 215.086 439.48C215.086 433.658 216.838 428.952 220.342 425.363C223.846 421.775 228.289 419.98 233.672 419.98C237.125 419.98 239.986 420.48 242.254 421.479V426.023C239.647 424.568 236.77 423.84 233.621 423.84C229.44 423.84 226.046 425.236 223.439 428.029C220.85 430.822 219.555 434.555 219.555 439.227C219.555 443.661 220.765 447.199 223.186 449.84C225.623 452.464 228.814 453.775 232.758 453.775C236.414 453.775 239.579 452.963 242.254 451.338V455.477ZM253.273 457H249.109V431H253.273V457ZM273.764 456.746C272.782 457.288 271.487 457.559 269.879 457.559C265.326 457.559 263.049 455.02 263.049 449.941V434.555H258.58V431H263.049V424.652L267.213 423.307V431H273.764V434.555H267.213V449.205C267.213 450.949 267.509 452.193 268.102 452.938C268.694 453.682 269.676 454.055 271.047 454.055C272.096 454.055 273.002 453.767 273.764 453.191V456.746ZM300.018 431L288.059 461.164C285.926 466.547 282.93 469.238 279.07 469.238C277.987 469.238 277.081 469.128 276.354 468.908V465.176C277.251 465.48 278.072 465.633 278.816 465.633C280.915 465.633 282.49 464.38 283.539 461.875L285.621 456.949L275.465 431H280.086L287.119 451.008C287.204 451.262 287.382 451.922 287.652 452.988H287.805C287.889 452.582 288.059 451.939 288.312 451.059L295.701 431H300.018Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen_vector.xml"
+            line="35"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (2271 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="            android:pathData=&quot;M275.856 375C275.888 375 275.92 375 275.952 375C276.458 375.454 276.385 375.973 276.374 376.502C276.371 376.631 276.371 376.76 276.371 376.889C276.369 377.132 276.366 377.376 276.362 377.619C276.358 377.897 276.356 378.175 276.354 378.452C276.35 379.023 276.343 379.593 276.335 380.163C276.403 380.177 276.403 380.177 276.473 380.191C276.73 380.247 276.888 380.357 277.021 380.504C277.152 380.692 277.198 380.868 277.124 381.069C276.687 382.622 277.499 384.433 278.105 385.927C278.421 385.927 278.737 385.927 279.062 385.927C279.062 386.6 279.062 387.274 279.062 387.968C279.694 387.968 280.325 387.968 280.976 387.968C280.976 388.642 280.976 389.315 280.976 390.009C281.418 390.009 281.86 390.009 282.316 390.009C282.316 398.103 282.316 406.196 282.316 414.535C282.853 414.535 283.389 414.535 283.943 414.535C283.943 415.337 283.943 416.14 283.943 416.966C284.622 416.966 285.3 416.966 286 416.966C286 418.957 286 420.949 286 423C279.4 423 272.8 423 266 423C266 421.494 266 419.989 266 418.437C266.6 418.437 267.2 418.437 267.818 418.437C267.818 417.149 267.818 415.862 267.818 414.535C268.402 414.535 268.987 414.535 269.589 414.535C269.589 406.441 269.589 398.348 269.589 390.009C269.999 390.009 270.41 390.009 270.833 390.009C270.833 389.336 270.833 388.662 270.833 387.968C271.511 387.968 272.19 387.968 272.89 387.968C272.89 387.294 272.89 386.621 272.89 385.927C273.19 385.917 273.49 385.907 273.799 385.897C274.561 384.343 274.896 382.704 274.848 381.08C274.847 381.052 274.846 381.025 274.845 380.997C274.844 380.949 274.841 380.901 274.837 380.853C274.829 380.645 274.949 380.498 275.169 380.347C275.206 380.326 275.244 380.305 275.282 380.283C275.391 380.228 275.391 380.228 275.389 380.144C275.389 380.11 275.389 380.076 275.388 380.041C275.388 380.002 275.388 379.963 275.388 379.922C275.388 379.879 275.387 379.835 275.386 379.792C275.386 379.746 275.386 379.701 275.386 379.655C275.385 379.557 275.385 379.458 275.384 379.36C275.383 379.204 275.382 379.047 275.382 378.891C275.382 378.838 275.382 378.784 275.382 378.731C275.382 378.704 275.382 378.677 275.382 378.65C275.382 378.286 275.381 377.923 275.378 377.559C275.376 377.314 275.375 377.069 275.376 376.824C275.377 376.694 275.377 376.565 275.374 376.435C275.358 375.398 275.358 375.398 275.856 375Z&quot;"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen_vector.xml"
+            line="47"
+            column="31"/>
+    </issue>
+
+    <issue
+        id="VectorPath"
+        severity="Warning"
+        message="Very long vector path (2849 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        category="Performance"
+        priority="5"
+        summary="Long vector paths"
+        explanation="Using long vector paths is bad for performance. There are several ways to make the `pathData` shorter:&#xA;* Using less precision&#xA;* Removing some minor details&#xA;* Using the Android Studio vector conversion tool&#xA;* Rasterizing the image (converting to PNG)"
+        errorLine1="        android:pathData=&quot;M276.44 367.764C277.486 367.829 278.511 368.124 279.456 368.633C280.472 369.18 281.368 369.963 282.092 370.923C283.411 370.175 284.871 369.784 286.354 369.786C291.901 369.786 295.996 374.986 296.022 380.748C296.683 381.099 297.304 381.535 297.876 382.044H297.877C299.619 383.604 301.25 386.262 301.25 390.51L301.243 390.91C301.113 394.964 299.004 398.418 295.972 400.177C295.991 405.883 292.013 411.068 286.564 411.23L286.302 411.234C284.822 411.234 283.366 410.841 282.051 410.094C281.329 411.048 280.436 411.826 279.426 412.37C278.351 412.949 277.174 413.25 275.979 413.25C274.785 413.25 273.606 412.951 272.531 412.373C271.52 411.829 270.628 411.051 269.905 410.097C268.716 410.769 267.381 411.178 265.95 411.229L265.646 411.234C260.097 411.234 256 406.031 255.977 400.268C255.432 399.977 254.78 399.565 254.123 398.978C252.381 397.418 250.75 394.757 250.75 390.51L250.757 390.111C250.886 386.062 252.978 382.605 255.994 380.834C255.972 375.035 260.078 369.768 265.663 369.768L265.954 369.773C267.333 369.822 268.685 370.209 269.914 370.907C270.636 369.952 271.529 369.174 272.541 368.63C273.617 368.051 274.796 367.75 275.991 367.75L276.44 367.764ZM275.748 371.521C275.185 371.556 274.628 371.714 274.108 371.993C273.514 372.313 272.979 372.786 272.55 373.385L270.975 375.584L270.841 375.771L270.643 375.652L268.399 374.304C267.656 373.857 266.843 373.6 266.017 373.543L265.662 373.53C262.284 373.531 259.428 376.831 259.493 380.917L259.525 382.934L259.527 383.082L259.398 383.155L257.753 384.088C255.71 385.246 254.25 387.64 254.25 390.51L254.263 391.067C254.389 393.773 255.433 395.251 256.364 396.085L256.391 396.108C256.824 396.492 257.259 396.761 257.62 396.946L259.356 397.839L259.493 397.909L259.492 398.063L259.475 400.151C259.442 404.212 262.287 407.472 265.646 407.472C266.642 407.472 267.568 407.192 268.4 406.695L270.639 405.359L270.836 405.241L270.97 405.429L272.54 407.618C272.969 408.216 273.504 408.689 274.098 409.008C274.691 409.327 275.333 409.488 275.979 409.487C276.624 409.487 277.266 409.326 277.858 409.007C278.452 408.687 278.986 408.215 279.415 407.616L280.99 405.418L281.124 405.23L281.322 405.35L283.565 406.697C284.415 407.208 285.354 407.47 286.302 407.471L286.617 407.461C289.857 407.264 292.534 404.048 292.474 400.092L292.442 398.064L292.44 397.915L292.57 397.842L294.229 396.914L294.419 396.803C296.373 395.615 297.75 393.286 297.75 390.51C297.75 387.447 296.629 385.824 295.636 384.935L295.621 384.922C295.238 384.583 294.823 384.3 294.385 384.076L292.644 383.186L292.507 383.115L292.508 382.961L292.525 380.87C292.557 376.936 289.888 373.753 286.667 373.558L286.354 373.549H286.35C285.4 373.548 284.458 373.811 283.605 374.322L281.359 375.671L281.161 375.79L281.027 375.602L279.454 373.398C279.023 372.795 278.485 372.319 277.888 371.997C277.291 371.676 276.644 371.512 275.994 371.513H275.99L275.748 371.521Z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen_vector.xml"
+            line="53"
+            column="27"/>
+    </issue>
+
+    <issue
+        id="MergeRootFrame"
+        severity="Warning"
+        message="This `&lt;FrameLayout>` can be replaced with a `&lt;merge>` tag"
+        category="Performance"
+        priority="4"
+        summary="FrameLayout can be replaced with `&lt;merge>` tag"
+        explanation="If a `&lt;FrameLayout>` is the root of a layout and does not provide background or padding etc, it can often be replaced with a `&lt;merge>` tag which is slightly more efficient. Note that this depends on context, so make sure you understand how the `&lt;merge>` tag works before proceeding."
+        url="https://android-developers.googleblog.com/2009/03/android-layout-tricks-3-optimize-by.html"
+        urls="https://android-developers.googleblog.com/2009/03/android-layout-tricks-3-optimize-by.html"
+        errorLine1="&lt;FrameLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\layout\activity_splash.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.purple_200` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;purple_200&quot;>#FFBB86FC&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="3"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_gradient_start` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_gradient_start&quot;>#667eea&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="12"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_gradient_center` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_gradient_center&quot;>#764ba2&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="13"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_gradient_end` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_gradient_end&quot;>#f093fb&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="14"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_text_secondary` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_text_secondary&quot;>#E0E0E0&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="15"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_alt_gradient_start` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_alt_gradient_start&quot;>#0F2027&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="18"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_alt_gradient_center` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_alt_gradient_center&quot;>#203A43&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="19"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.color.splash_alt_gradient_end` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="    &lt;color name=&quot;splash_alt_gradient_end&quot;>#2C5364&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\values\colors.xml"
+            line="20"
+            column="12"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.ic_saved` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\ic_saved.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.splash_background` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_background.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.splash_logo` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_logo.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.splash_screen` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen.png"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.splash_screen_simple` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen_simple.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.splash_test` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_test.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        severity="Warning"
+        message="The resource `R.drawable.splash_window_background_fill` appears to be unused"
+        category="Performance"
+        priority="3"
+        summary="Unused resources"
+        explanation="Unused resources make applications larger and slow down builds.&#xA;&#xA;&#xA;The unused resource check can ignore tests. If you want to include resources that are only referenced from tests, consider packaging them in a test source set instead.&#xA;&#xA;You can include test sources in the unused resource check by setting the system property lint.unused-resources.include-tests =true, and to exclude them (usually for performance reasons), use lint.unused-resources.exclude-tests =true.&#xA;,"
+        errorLine1="&lt;layer-list xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
+        errorLine2="^">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_window_background_fill.xml"
+            line="2"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="IconLocation"
+        severity="Warning"
+        message="Found bitmap drawable `res/drawable/splash_screen.png` in densityless folder"
+        category="Usability:Icons"
+        priority="5"
+        summary="Image defined in density-independent drawable folder"
+        explanation="The res/drawable folder is intended for density-independent graphics such as shapes defined in XML. For bitmaps, move it to `drawable-mdpi` and consider providing higher and lower resolution versions in `drawable-ldpi`, `drawable-hdpi` and `drawable-xhdpi`. If the icon **really** is density independent (for example a solid color) you can place it in `drawable-nodpi`."
+        url="https://developer.android.com/guide/practices/screens_support.html"
+        urls="https://developer.android.com/guide/practices/screens_support.html">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\drawable\splash_screen.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-hdpi\ic_launcher_monochrome.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-hdpi\ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-mdpi\ic_launcher_monochrome.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-mdpi\ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xhdpi\ic_launcher_monochrome.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xhdpi\ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxhdpi\ic_launcher_monochrome.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxhdpi\ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher_foreground.png, ic_launcher_monochrome.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxxhdpi\ic_launcher_monochrome.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxxhdpi\ic_launcher_foreground.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-hdpi\ic_launcher_round.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-hdpi\ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-mdpi\ic_launcher_round.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-mdpi\ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xhdpi\ic_launcher_round.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xhdpi\ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxhdpi\ic_launcher_round.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxhdpi\ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="IconDuplicates"
+        severity="Warning"
+        message="The following unrelated icon files have identical contents: ic_launcher.png, ic_launcher_round.png"
+        category="Usability:Icons"
+        priority="3"
+        summary="Duplicated icons under different names"
+        explanation="If an icon is repeated under different names, you can consolidate and just use one of the icons and delete the others to make your application smaller. However, duplicated icons usually are not intentional and can sometimes point to icons that were accidentally overwritten or accidentally not updated.">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxxhdpi\ic_launcher_round.png"/>
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\mipmap-xxxhdpi\ic_launcher.png"/>
+    </issue>
+
+    <issue
+        id="ContentDescription"
+        severity="Warning"
+        message="Missing `contentDescription` attribute on image"
+        category="Accessibility"
+        priority="3"
+        summary="Image without `contentDescription`"
+        explanation="Non-textual widgets like ImageViews and ImageButtons should use the `contentDescription` attribute to specify a textual description of the widget such that screen readers and other accessibility tools can adequately describe the user interface.&#xA;&#xA;Note that elements in application screens that are purely decorative and do not provide any content or enable a user action should not have accessibility content descriptions. In this case, set their descriptions to `@null`. If your app&apos;s minSdkVersion is 16 or higher, you can instead set these graphical elements&apos; `android:importantForAccessibility` attributes to `no`.&#xA;&#xA;Note that for text fields, you should not set both the `hint` and the `contentDescription` attributes since the hint will never be shown. Just set the `hint`."
+        url="https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        urls="https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases"
+        errorLine1="    &lt;ImageView"
+        errorLine2="     ~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\layout\activity_splash.xml"
+            line="16"
+            column="6"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="        textView.text = &quot;This is chats fragment&quot;"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\chats\ChatsFragment.kt"
+            line="20"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="        textView.text = &quot;This is profile fragment&quot;"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\profile\ProfileFragment.kt"
+            line="20"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="SetTextI18n"
+        severity="Warning"
+        message="String literal in `setText` can not be translated. Use Android resources instead."
+        category="Internationalization"
+        priority="6"
+        summary="TextView Internationalization"
+        explanation="When calling `TextView#setText`&#xA;* Never call `Number#toString()` to format numbers; it will not handle fraction separators and locale-specific digits properly. Consider using `String#format` with proper format specifications (`%d` or `%f`) instead.&#xA;* Do not pass a string literal (e.g. &quot;Hello&quot;) to display text. Hardcoded text can not be properly translated to other languages. Consider using Android resource strings instead.&#xA;* Do not build messages by concatenating text chunks. Such messages can not be properly translated."
+        url="https://developer.android.com/guide/topics/resources/localization.html"
+        urls="https://developer.android.com/guide/topics/resources/localization.html"
+        errorLine1="        textView.text = &quot;This is saved fragment&quot;"
+        errorLine2="                         ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\java\com\chatcityofficial\chatmapapp\ui\saved\SavedFragment.kt"
+            line="20"
+            column="26"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Chat City&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="        android:contentDescription=&quot;Chat City&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\layout\fragment_home.xml"
+            line="27"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="HardcodedText"
+        severity="Warning"
+        message="Hardcoded string &quot;Dallas, TX&quot;, should use `@string` resource"
+        category="Internationalization"
+        priority="5"
+        summary="Hardcoded text"
+        explanation="Hardcoding text attributes directly in layout files is bad for several reasons:&#xA;&#xA;* When creating configuration variations (for example for landscape or portrait) you have to repeat the actual text (and keep it up to date when making changes)&#xA;&#xA;* The application cannot be translated to other languages by just adding new translations for existing string resources.&#xA;&#xA;There are quickfixes to automatically extract this hardcoded string into a resource lookup."
+        errorLine1="        android:contentDescription=&quot;Dallas, TX&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\src\Chat_City_Official\app\src\main\res\layout\fragment_home.xml"
+            line="39"
+            column="9"/>
+    </issue>
+
+</issues>
