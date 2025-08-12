@@ -1,6 +1,8 @@
 package com.chatcityofficial.chatmapapp.ui.chat
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
@@ -34,6 +36,7 @@ class ChatActivity : AppCompatActivity() {
     private var chatId: String = ""
     private var recipientId: String = ""
     private var recipientName: String = ""
+    private var isDemo: Boolean = false
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,7 @@ class ChatActivity : AppCompatActivity() {
         // Get data from intent
         recipientId = intent.getStringExtra("RECIPIENT_ID") ?: ""
         recipientName = intent.getStringExtra("RECIPIENT_NAME") ?: "User"
+        isDemo = intent.getBooleanExtra("IS_DEMO", false)
         
         // Generate chat ID (combine user IDs in alphabetical order for consistency)
         val currentUserId = auth.currentUser?.uid ?: "anonymous_${UUID.randomUUID()}"
@@ -53,7 +57,14 @@ class ChatActivity : AppCompatActivity() {
         
         setupViews()
         setupRecyclerView()
-        setupMessageListener()
+        
+        if (isDemo) {
+            // For demo user, show initial message
+            showDemoWelcomeMessage()
+        } else {
+            // For real users, setup Firebase listener
+            setupMessageListener()
+        }
     }
     
     private fun setupViews() {
@@ -75,18 +86,87 @@ class ChatActivity : AppCompatActivity() {
         
         // Setup send button
         sendButton.setOnClickListener {
-            sendMessage()
+            if (isDemo) {
+                sendDemoMessage()
+            } else {
+                sendMessage()
+            }
         }
     }
     
     private fun setupRecyclerView() {
-        messageAdapter = MessageAdapter(messages, auth.currentUser?.uid ?: "")
+        val currentUserId = auth.currentUser?.uid ?: "anonymous_user"
+        messageAdapter = MessageAdapter(messages, currentUserId)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(this@ChatActivity).apply {
                 stackFromEnd = true
             }
             adapter = messageAdapter
         }
+    }
+    
+    private fun showDemoWelcomeMessage() {
+        // Add initial welcome message from the assistant
+        val welcomeMessage = Message(
+            id = UUID.randomUUID().toString(),
+            senderId = "demo_user_123",
+            senderName = "Chat City Assistant",
+            text = "What's on your mind? 🤔",
+            timestamp = Date()
+        )
+        
+        messages.add(welcomeMessage)
+        messageAdapter.notifyDataSetChanged()
+        recyclerView.scrollToPosition(messages.size - 1)
+    }
+    
+    private fun sendDemoMessage() {
+        val text = messageInput.text.toString().trim()
+        if (text.isEmpty()) return
+        
+        val currentUserId = auth.currentUser?.uid ?: "anonymous_user"
+        val currentUserName = auth.currentUser?.displayName ?: "You"
+        
+        // Add user's message
+        val userMessage = Message(
+            id = UUID.randomUUID().toString(),
+            senderId = currentUserId,
+            senderName = currentUserName,
+            text = text,
+            timestamp = Date()
+        )
+        
+        messages.add(userMessage)
+        messageAdapter.notifyDataSetChanged()
+        recyclerView.scrollToPosition(messages.size - 1)
+        messageInput.text.clear()
+        
+        // Simulate assistant typing and responding
+        Handler(Looper.getMainLooper()).postDelayed({
+            val responses = listOf(
+                "That's interesting! Tell me more about it.",
+                "I understand how you feel. What happened next?",
+                "That sounds amazing! How did that make you feel?",
+                "Wow, that's quite an experience! What did you learn from it?",
+                "I'm here to listen. Please continue sharing your thoughts.",
+                "That's a great perspective! Have you considered other viewpoints?",
+                "Thanks for sharing that with me. How can I help you today?"
+            )
+            
+            val randomResponse = responses.random()
+            
+            val assistantMessage = Message(
+                id = UUID.randomUUID().toString(),
+                senderId = "demo_user_123",
+                senderName = "Chat City Assistant",
+                text = randomResponse,
+                timestamp = Date()
+            )
+            
+            messages.add(assistantMessage)
+            messageAdapter.notifyDataSetChanged()
+            recyclerView.scrollToPosition(messages.size - 1)
+        }, 1500) // Delay to simulate typing
     }
     
     private fun setupMessageListener() {
