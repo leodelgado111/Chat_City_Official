@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Background color (in case image doesn't fill) -->
-    <item android:drawable="@android:color/white" />
+    <!-- Background gradient -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="@color/splash_gradient_start"
+                android:centerColor="@color/splash_gradient_center"
+                android:endColor="@color/splash_gradient_end"
+                android:type="linear" />
+        </shape>
+    </item>
     
-    <!-- Your splash screen image -->
+    <!-- Logo in center -->
     <item>
         <bitmap
-            android:src="@drawable/splash_screen"
-            android:gravity="fill" />
+            android:src="@drawable/chat_city_logo"
+            android:gravity="center" />
     </item>
 </layer-list>

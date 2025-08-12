@@ -7,4 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- Splash Screen Colors -->
+    <color name="splash_gradient_start">#667eea</color>
+    <color name="splash_gradient_center">#764ba2</color>
+    <color name="splash_gradient_end">#f093fb</color>
+    <color name="splash_text_secondary">#E0E0E0</color>
+    
+    <!-- Alternative gradient option (blue to teal) -->
+    <color name="splash_alt_gradient_start">#0F2027</color>
+    <color name="splash_alt_gradient_center">#203A43</color>
+    <color name="splash_alt_gradient_end">#2C5364</color>
 </resources>
