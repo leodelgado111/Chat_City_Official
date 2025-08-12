@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Chat bubble icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,2H4c-1.1,0 -2,0.9 -2,2v12c0,1.1 0.9,2 2,2h14l4,4V4c0,-1.1 -0.9,-2 -2,-2zm-2,12H6v-2h12v2zm0,-3H6V9h12v2zm0,-3H6V6h12v2z"/>
+    
+    <!-- City skyline -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M15,11V5l-3,-3l-3,3v2H3v14h18V11H15zM7,19H5v-2h2V19zM7,15H5v-2h2V15zM7,11H5V9h2V11zM13,19h-2v-2h2V19zM13,15h-2v-2h2V15zM13,11h-2V9h2V11zM13,7h-2V5h2V7zM19,19h-2v-2h2V19zM19,15h-2v-2h2V15z"/>
+</vector>
