@@ -51,9 +51,8 @@ class MainActivity : AppCompatActivity() {
         
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         
-        // Remove all default animations
+        // Remove all default animations by disabling icon tint changes
         navView.itemIconTintList = null
-        navView.itemActiveIndicatorStyle = null
         
         // Set up navigation with controller
         navView.setupWithNavController(navController)
