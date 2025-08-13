@@ -3,14 +3,19 @@ package com.chatcityofficial.chatmapapp.ui.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.ColorFilter
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -19,6 +24,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
+import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
+import com.luckycatlabs.sunrisesunset.dto.SunLocation
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.android.gestures.RotateGestureDetector
 import com.mapbox.geojson.Point
@@ -34,12 +41,15 @@ import com.mapbox.maps.plugin.scalebar.scalebar
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.attribution.attribution
 import kotlinx.coroutines.*
+import java.util.Calendar
 import java.util.Locale
+import java.util.TimeZone
 
 class HomeFragment : Fragment() {
 
     private var mapView: MapView? = null
     private var locationText: TextView? = null
+    private var chatCityLogo: ImageView? = null
     private var isLocationPermissionGranted = false
     private var isMapReady = false
     private var hasCenteredOnLocation = false
@@ -64,6 +74,12 @@ class HomeFragment : Fragment() {
     
     // Job for debouncing location updates
     private var geocodingJob: Job? = null
+    
+    // Theme management
+    private var isDarkTheme = false
+    private var currentUserLocation: Location? = null
+    private val themeHandler = Handler(Looper.getMainLooper())
+    private lateinit var themeUpdateRunnable: Runnable
     
     // Location tracking listeners
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
@@ -163,12 +179,27 @@ class HomeFragment : Fragment() {
                 locationResult.lastLocation?.let { location ->
                     Log.d("HomeFragment", "📍 Location update from callback: ${location.latitude}, ${location.longitude}")
                     
+                    // Store current location for theme calculations
+                    currentUserLocation = location
+                    
+                    // Update theme based on location
+                    updateThemeBasedOnSunriseSunset(location)
+                    
                     // Center map on first location if not already centered and not restoring
                     if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera) {
                         centerMapOnLocation(location)
                     }
                 }
             }
+        }
+        
+        // Setup theme update runnable
+        themeUpdateRunnable = Runnable {
+            currentUserLocation?.let { location ->
+                updateThemeBasedOnSunriseSunset(location)
+            }
+            // Schedule next update in 1 minute
+            themeHandler.postDelayed(themeUpdateRunnable, 60000)
         }
     }
 
@@ -181,12 +212,25 @@ class HomeFragment : Fragment() {
         
         mapView = root.findViewById(R.id.mapView)
         locationText = root.findViewById(R.id.locationText)
+        chatCityLogo = root.findViewById(R.id.chatCityLogo)
         
-        // Load map style - Changed to Dark theme
-        mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/dark-v11") { style ->
+        // Determine initial theme based on time (before we have location)
+        val initialTheme = determineInitialTheme()
+        
+        // Load map style based on initial theme
+        val mapStyle = if (initialTheme) {
+            "mapbox://styles/mapbox/dark-v11"
+        } else {
+            "mapbox://styles/mapbox/light-v11"
+        }
+        
+        mapView?.getMapboxMap()?.loadStyleUri(mapStyle) { style ->
             if (style != null) {
                 Log.d("HomeFragment", "✅ Map style loaded successfully")
                 isMapReady = true
+                
+                // Update logo color based on initial theme
+                updateLogoColor(initialTheme)
                 
                 // Remove UI elements
                 mapView?.scalebar?.enabled = false
@@ -284,6 +328,79 @@ class HomeFragment : Fragment() {
         }
         
         return root
+    }
+    
+    private fun determineInitialTheme(): Boolean {
+        // Use a simple time-based approach for initial theme
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        
+        // Dark theme between 6 PM and 6 AM
+        return hour >= 18 || hour < 6
+    }
+    
+    private fun updateThemeBasedOnSunriseSunset(location: Location) {
+        try {
+            val sunLocation = SunLocation(location.latitude, location.longitude)
+            val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
+            
+            val calendar = Calendar.getInstance()
+            val officialSunrise = calculator.getOfficialSunriseCalendarForDate(calendar)
+            val officialSunset = calculator.getOfficialSunsetCalendarForDate(calendar)
+            
+            val currentTime = Calendar.getInstance()
+            
+            // Determine if it's currently dark (after sunset or before sunrise)
+            val shouldUseDarkTheme = currentTime.after(officialSunset) || currentTime.before(officialSunrise)
+            
+            if (shouldUseDarkTheme != isDarkTheme) {
+                isDarkTheme = shouldUseDarkTheme
+                
+                // Switch map theme
+                val newMapStyle = if (isDarkTheme) {
+                    "mapbox://styles/mapbox/dark-v11"
+                } else {
+                    "mapbox://styles/mapbox/light-v11"
+                }
+                
+                mapView?.getMapboxMap()?.loadStyleUri(newMapStyle) { style ->
+                    Log.d("HomeFragment", "✅ Theme switched to ${if (isDarkTheme) "dark" else "light"}")
+                    
+                    // Re-setup location component after style change
+                    setupLocationComponent()
+                }
+                
+                // Update logo color
+                updateLogoColor(isDarkTheme)
+            }
+            
+            Log.d("HomeFragment", "🌅 Sunrise: ${officialSunrise.time}, 🌇 Sunset: ${officialSunset.time}")
+            Log.d("HomeFragment", "🎨 Current theme: ${if (isDarkTheme) "dark" else "light"}")
+            
+        } catch (e: Exception) {
+            Log.e("HomeFragment", "Error calculating sunrise/sunset: ${e.message}")
+            // Fall back to time-based theme
+            isDarkTheme = determineInitialTheme()
+            updateLogoColor(isDarkTheme)
+        }
+    }
+    
+    private fun updateLogoColor(isDark: Boolean) {
+        chatCityLogo?.let { logo ->
+            if (isDark) {
+                // White logo for dark theme (sunset to sunrise)
+                logo.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(requireContext(), android.R.color.white),
+                    PorterDuff.Mode.SRC_IN
+                )
+            } else {
+                // Black logo for light theme (sunrise to sunset)
+                logo.colorFilter = PorterDuffColorFilter(
+                    ContextCompat.getColor(requireContext(), android.R.color.black),
+                    PorterDuff.Mode.SRC_IN
+                )
+            }
+        }
     }
     
     private fun updateLocationText(latitude: Double, longitude: Double) {
@@ -434,6 +551,11 @@ class HomeFragment : Fragment() {
             .addOnSuccessListener { location ->
                 if (location != null) {
                     Log.d("HomeFragment", "✅ Got last known location: ${location.latitude}, ${location.longitude}")
+                    
+                    // Store location and update theme
+                    currentUserLocation = location
+                    updateThemeBasedOnSunriseSunset(location)
+                    
                     if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera) {
                         centerMapOnLocation(location)
                     }
@@ -506,6 +628,9 @@ class HomeFragment : Fragment() {
         super.onResume()
         Log.d("HomeFragment", "📱 Fragment resumed")
         
+        // Start theme update handler
+        themeHandler.post(themeUpdateRunnable)
+        
         // If we have a saved camera state and the map is ready, restore it
         if (savedCameraState != null && isMapReady) {
             shouldRestoreCamera = true
@@ -520,6 +645,9 @@ class HomeFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         Log.d("HomeFragment", "⏸️ Fragment paused")
+        
+        // Stop theme update handler
+        themeHandler.removeCallbacks(themeUpdateRunnable)
         
         // Save the current camera position before pausing
         saveCameraPosition()
@@ -556,6 +684,9 @@ class HomeFragment : Fragment() {
         saveCameraPosition()
         shouldRestoreCamera = true
         
+        // Stop theme update handler
+        themeHandler.removeCallbacks(themeUpdateRunnable)
+        
         // Cancel any pending geocoding jobs
         geocodingJob?.cancel()
         
@@ -566,5 +697,6 @@ class HomeFragment : Fragment() {
         mapView?.onDestroy()
         mapView = null
         locationText = null
+        chatCityLogo = null
     }
 }
