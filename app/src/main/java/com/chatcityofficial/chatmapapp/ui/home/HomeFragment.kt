@@ -25,7 +25,7 @@ import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
-import com.luckycatlabs.sunrisesunset.dto.SunLocation
+import com.luckycatlabs.sunrisesunset.dto.Location as SunLocation
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.android.gestures.RotateGestureDetector
 import com.mapbox.geojson.Point

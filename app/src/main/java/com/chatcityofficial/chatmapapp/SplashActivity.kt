@@ -26,7 +26,7 @@ class SplashActivity : AppCompatActivity() {
         private const val FADE_DURATION = 500L // 0.5 seconds for fade animation
     }
     
-    private lateinit var splashLogo: ImageView
+    private lateinit var splashImage: ImageView
     private lateinit var handler: Handler
     private lateinit var navigateRunnable: Runnable
     
@@ -54,8 +54,8 @@ class SplashActivity : AppCompatActivity() {
         
         setContentView(R.layout.activity_splash)
         
-        // Get reference to the logo
-        splashLogo = findViewById(R.id.splash_logo)
+        // Get reference to the splash image
+        splashImage = findViewById(R.id.ivSplashImage)
         
         // Initialize handler
         handler = Handler(Looper.getMainLooper())
@@ -73,13 +73,13 @@ class SplashActivity : AppCompatActivity() {
     }
     
     private fun startLogoAnimation() {
-        // Start with logo invisible
-        splashLogo.alpha = 0f
-        splashLogo.scaleX = 0.8f
-        splashLogo.scaleY = 0.8f
+        // Start with image invisible
+        splashImage.alpha = 0f
+        splashImage.scaleX = 0.8f
+        splashImage.scaleY = 0.8f
         
         // Fade in and scale up animation
-        splashLogo.animate()
+        splashImage.animate()
             .alpha(1f)
             .scaleX(1f)
             .scaleY(1f)
@@ -95,7 +95,7 @@ class SplashActivity : AppCompatActivity() {
         Log.d(TAG, "navigateToMain: Starting navigation to MainActivity")
         
         // Fade out animation before navigating
-        splashLogo.animate()
+        splashImage.animate()
             .alpha(0f)
             .scaleX(1.1f)
             .scaleY(1.1f)
