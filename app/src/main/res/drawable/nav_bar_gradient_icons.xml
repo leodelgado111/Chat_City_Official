@@ -4,7 +4,8 @@
     android:width="330dp"
     android:height="64dp"
     android:viewportWidth="330"
-    android:viewportHeight="64">
+    android:viewportHeight="64"
+    android:alpha="0.8">
     
     <!-- Gradient background -->
     <path
