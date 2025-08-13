@@ -182,8 +182,8 @@ class HomeFragment : Fragment() {
         mapView = root.findViewById(R.id.mapView)
         locationText = root.findViewById(R.id.locationText)
         
-        // Load map style
-        mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/light-v11") { style ->
+        // Load map style - Changed to Dark theme
+        mapView?.getMapboxMap()?.loadStyleUri("mapbox://styles/mapbox/dark-v11") { style ->
             if (style != null) {
                 Log.d("HomeFragment", "✅ Map style loaded successfully")
                 isMapReady = true
