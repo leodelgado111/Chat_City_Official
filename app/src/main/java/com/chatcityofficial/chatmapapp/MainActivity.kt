@@ -20,15 +20,18 @@ class MainActivity : AppCompatActivity() {
     private var currentOutlinePosition = 74f // Starting position for home icon
     
     // Absolute positions for centering outline on each icon
-    // Icons in the gradient SVG are at: 41, 103, 165, 227, 289
-    // Outline is 57dp wide, so we subtract 28.5 to center it
-    // Adding 2dp for the gradient centering offset
+    // Based on the visual inspection, icons appear to be evenly spaced
+    // Container is 334dp wide, icons are evenly distributed
+    // Each icon section is about 66dp wide (330/5)
+    // Icons are centered in each section: 33, 99, 165, 231, 297
+    // Outline is 57dp wide, so subtract 28.5 to center
+    // Adding small offset for container margins
     private val iconPositions = mapOf(
-        R.id.navigation_saved to 14.5f,    // 41 - 28.5 + 2 = 14.5
-        R.id.navigation_home to 76.5f,     // 103 - 28.5 + 2 = 76.5  
+        R.id.navigation_saved to 6.5f,     // 33 - 28.5 + 2 = 6.5
+        R.id.navigation_home to 72.5f,     // 99 - 28.5 + 2 = 72.5  
         R.id.navigation_create to 138.5f,  // 165 - 28.5 + 2 = 138.5
-        R.id.navigation_chats to 200.5f,   // 227 - 28.5 + 2 = 200.5
-        R.id.navigation_profile to 262.5f  // 289 - 28.5 + 2 = 262.5
+        R.id.navigation_chats to 204.5f,   // 231 - 28.5 + 2 = 204.5
+        R.id.navigation_profile to 270.5f  // 297 - 28.5 + 2 = 270.5
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +58,8 @@ class MainActivity : AppCompatActivity() {
         navSelectionOutline = findViewById(R.id.nav_selection_outline)
         
         // Set initial position to home
-        setOutlinePosition(iconPositions[R.id.navigation_home] ?: 76.5f)
+        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 72.5f
+        setOutlinePosition(currentOutlinePosition)
         
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
