@@ -17,12 +17,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navSelectionOutline: ImageView
     
     // X positions for centering outline on each icon
+    // Based on: icons are at positions 41, 103, 165, 227, 289 (center points)
+    // Outline width is 57dp, so we need to offset by 28.5dp to center
+    // Initial position in layout is 75dp (for home icon)
     private val iconPositions = mapOf(
-        R.id.navigation_saved to 4.5f,     // Saved icon center position
-        R.id.navigation_home to 75f,       // Home icon center position  
-        R.id.navigation_create to 136.5f,  // Create icon center position
-        R.id.navigation_chats to 198f,     // Chats icon center position
-        R.id.navigation_profile to 259.5f  // Profile icon center position
+        R.id.navigation_saved to -62.5f,   // 41 - 28.5 - 75 = -62.5 (move left from home position)
+        R.id.navigation_home to 0f,        // 103 - 28.5 - 75 = 0 (home position, no translation)
+        R.id.navigation_create to 61.5f,   // 165 - 28.5 - 75 = 61.5 (move right from home)
+        R.id.navigation_chats to 123.5f,   // 227 - 28.5 - 75 = 123.5 (move right from home)
+        R.id.navigation_profile to 185.5f  // 289 - 28.5 - 75 = 185.5 (move right from home)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
         
-        // Set initial outline position to home
-        navSelectionOutline.translationX = 0f  // Already positioned on home in layout
+        // Set initial outline position to home (no translation needed)
+        navSelectionOutline.translationX = 0f
     }
     
     private fun setupNavigationButtons() {
@@ -99,11 +102,8 @@ class MainActivity : AppCompatActivity() {
     private fun animateOutlineToPosition(destinationId: Int) {
         val targetPosition = iconPositions[destinationId] ?: return
         
-        // Calculate the translation from the initial position (75dp for home)
-        val translationX = targetPosition - 75f
-        
         // Create smooth sliding animation with 100ms duration
-        ObjectAnimator.ofFloat(navSelectionOutline, "translationX", translationX).apply {
+        ObjectAnimator.ofFloat(navSelectionOutline, "translationX", targetPosition).apply {
             duration = 100 // 100ms animation duration
             start()
         }
