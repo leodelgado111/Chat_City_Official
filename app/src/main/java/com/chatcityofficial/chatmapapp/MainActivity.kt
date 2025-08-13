@@ -17,17 +17,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: androidx.navigation.NavController
     private lateinit var navSelectionOutline: ImageView
-    private var currentOutlinePosition = 74.5f // Starting position for home
+    private var currentOutlinePosition = 74.5f
     
-    // Recalculated based on visual inspection of screenshots
-    // The icons appear to need more spacing adjustment
-    // Home needs to be at 74.5dp to be truly centered
+    // FINAL POSITIONS - Based on actual SVG icon positions
+    // Icons in SVG are at: 41, 103, 165, 227, 289
+    // Container is 334dp, gradient is 330dp centered (2dp offset)
+    // Outline is 57dp wide, needs 28.5dp offset to center
+    // Final formula: (icon_position_in_svg * scale_factor) + container_offset - outline_centering
+    // Scale factor = 1 (since we're using dp directly)
     private val iconPositions = mapOf(
-        R.id.navigation_saved to 12.5f,    // Adjusted for visual centering
-        R.id.navigation_home to 74.5f,     // Adjusted - was too far left at 72.5
-        R.id.navigation_create to 136.5f,  // Adjusted for visual centering
-        R.id.navigation_chats to 198.5f,   // Adjusted for visual centering
-        R.id.navigation_profile to 260.5f  // Adjusted for visual centering
+        R.id.navigation_saved to 14.5f,    // 41 + 2 - 28.5 = 14.5
+        R.id.navigation_home to 76.5f,     // 103 + 2 - 28.5 = 76.5
+        R.id.navigation_create to 138.5f,  // 165 + 2 - 28.5 = 138.5
+        R.id.navigation_chats to 200.5f,   // 227 + 2 - 28.5 = 200.5
+        R.id.navigation_profile to 262.5f  // 289 + 2 - 28.5 = 262.5
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         navSelectionOutline = findViewById(R.id.nav_selection_outline)
         
         // Set initial position to home
-        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 74.5f
+        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 76.5f
         navSelectionOutline.post {
             setOutlinePosition(currentOutlinePosition)
         }
