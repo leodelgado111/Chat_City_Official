@@ -2,138 +2,99 @@ package com.chatcityofficial.chatmapapp.ui.chats
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.chatcityofficial.chatmapapp.R
-import com.chatcityofficial.chatmapapp.data.User
-import com.chatcityofficial.chatmapapp.ui.chat.ChatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.chatcityofficial.chatmapapp.data.repository.ChatRepository
+import com.chatcityofficial.chatmapapp.databinding.FragmentChatsBinding
+import com.chatcityofficial.chatmapapp.ui.chat.ChatDetailActivity
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class ChatsFragment : Fragment() {
-    
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var emptyView: TextView
-    private lateinit var usersAdapter: UsersAdapter
-    
-    private val firestore = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
-    private val users = mutableListOf<User>()
-    
+
+    private var _binding: FragmentChatsBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var chatRepository: ChatRepository
+    private lateinit var chatsAdapter: ChatsAdapter
+    private lateinit var deviceId: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_chats, container, false)
-        
-        recyclerView = root.findViewById(R.id.chats_recycler_view)
-        emptyView = root.findViewById(R.id.empty_view)
-        
-        setupRecyclerView()
-        
-        // Add demo user for testing
-        addDemoUser()
-        
-        // Then load real users from Firebase
-        loadUsers()
-        
-        return root
+    ): View {
+        _binding = FragmentChatsBinding.inflate(inflater, container, false)
+        return binding.root
     }
-    
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
+        // Get device ID
+        deviceId = Settings.Secure.getString(
+            requireContext().contentResolver,
+            Settings.Secure.ANDROID_ID
+        )
+        
+        // Initialize repository
+        chatRepository = ChatRepository()
+        
+        // Setup UI
+        setupRecyclerView()
+        setupClickListeners()
+        
+        // Load chats
+        loadChats()
+        
+        // Create sample chats on first run
+        lifecycleScope.launch {
+            chatRepository.createSampleChats()
+        }
+    }
+
     private fun setupRecyclerView() {
-        usersAdapter = UsersAdapter(users) { user ->
-            // Open chat with selected user
-            val intent = Intent(requireContext(), ChatActivity::class.java).apply {
-                putExtra("RECIPIENT_ID", user.id)
-                putExtra("RECIPIENT_NAME", user.name)
-                putExtra("IS_DEMO", user.id == "demo_user_123") // Flag for demo user
+        chatsAdapter = ChatsAdapter { chat ->
+            // Open chat detail
+            val intent = Intent(requireContext(), ChatDetailActivity::class.java).apply {
+                putExtra("CHAT_ID", chat.id)
+                putExtra("CHAT_NAME", chat.name)
+                putExtra("DEVICE_ID", deviceId)
             }
             startActivity(intent)
         }
         
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = usersAdapter
+        binding.chatsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = chatsAdapter
         }
     }
-    
-    private fun addDemoUser() {
-        // Add a demo user that's always available
-        val demoUser = User(
-            id = "demo_user_123",
-            name = "Chat City Assistant",
-            email = "assistant@chatcity.com",
-            profileImage = "",
-            isOnline = true
-        )
+
+    private fun setupClickListeners() {
+        binding.backButton.setOnClickListener {
+            activity?.onBackPressed()
+        }
         
-        // Add to the beginning of the list
-        users.add(0, demoUser)
-        usersAdapter.notifyDataSetChanged()
-        
-        // Hide empty view since we have at least one user
-        emptyView.visibility = View.GONE
-        recyclerView.visibility = View.VISIBLE
+        binding.deleteButton.setOnClickListener {
+            // Handle delete if needed
+        }
     }
-    
-    private fun loadUsers() {
-        val currentUserId = auth.currentUser?.uid
-        
-        firestore.collection("users")
-            .get()
-            .addOnSuccessListener { documents ->
-                // Don't clear the list completely - keep the demo user
-                val tempUsers = mutableListOf<User>()
-                
-                // Keep the demo user if it exists
-                if (users.isNotEmpty() && users[0].id == "demo_user_123") {
-                    tempUsers.add(users[0])
-                }
-                
-                for (document in documents) {
-                    // Skip current user
-                    if (document.id == currentUserId) continue
-                    
-                    val user = User(
-                        id = document.id,
-                        name = document.getString("name") ?: "Unknown User",
-                        email = document.getString("email") ?: "",
-                        profileImage = document.getString("profileImage") ?: "",
-                        isOnline = document.getBoolean("isOnline") ?: false
-                    )
-                    tempUsers.add(user)
-                }
-                
-                users.clear()
-                users.addAll(tempUsers)
-                usersAdapter.notifyDataSetChanged()
-                
-                // Show/hide empty view
-                if (users.isEmpty()) {
-                    emptyView.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                } else {
-                    emptyView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                }
+
+    private fun loadChats() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            chatRepository.getAllChats().collectLatest { chats ->
+                chatsAdapter.submitList(chats)
             }
-            .addOnFailureListener { exception ->
-                // Handle error but keep demo user visible
-                if (users.isEmpty() || (users.size == 1 && users[0].id == "demo_user_123")) {
-                    // We still have the demo user, so don't show error
-                    emptyView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                } else {
-                    emptyView.text = "Error loading users: ${exception.message}"
-                    emptyView.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
-                }
-            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
