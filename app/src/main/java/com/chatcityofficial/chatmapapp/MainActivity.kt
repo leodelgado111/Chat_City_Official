@@ -17,21 +17,17 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: androidx.navigation.NavController
     private lateinit var navSelectionOutline: ImageView
-    private var currentOutlinePosition = 74f // Starting position for home icon
+    private var currentOutlinePosition = 73f // Starting position for home icon
     
-    // Absolute positions for centering outline on each icon
-    // Based on the visual inspection, icons appear to be evenly spaced
-    // Container is 334dp wide, icons are evenly distributed
-    // Each icon section is about 66dp wide (330/5)
-    // Icons are centered in each section: 33, 99, 165, 231, 297
-    // Outline is 57dp wide, so subtract 28.5 to center
-    // Adding small offset for container margins
+    // Based on your screenshots, the home icon outline is perfectly centered at 73dp
+    // The icons appear to be spaced 62dp apart from each other
+    // So we calculate positions relative to the home position
     private val iconPositions = mapOf(
-        R.id.navigation_saved to 6.5f,     // 33 - 28.5 + 2 = 6.5
-        R.id.navigation_home to 72.5f,     // 99 - 28.5 + 2 = 72.5  
-        R.id.navigation_create to 138.5f,  // 165 - 28.5 + 2 = 138.5
-        R.id.navigation_chats to 204.5f,   // 231 - 28.5 + 2 = 204.5
-        R.id.navigation_profile to 270.5f  // 297 - 28.5 + 2 = 270.5
+        R.id.navigation_saved to 11f,      // 73 - 62 = 11
+        R.id.navigation_home to 73f,       // Perfect position from screenshot
+        R.id.navigation_create to 135f,    // 73 + 62 = 135
+        R.id.navigation_chats to 197f,     // 73 + 62*2 = 197
+        R.id.navigation_profile to 259f    // 73 + 62*3 = 259
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,40 +54,48 @@ class MainActivity : AppCompatActivity() {
         navSelectionOutline = findViewById(R.id.nav_selection_outline)
         
         // Set initial position to home
-        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 72.5f
+        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 73f
         setOutlinePosition(currentOutlinePosition)
         
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
+        
+        // Debug: Log the actual positions being used
+        android.util.Log.d("NavBar", "Icon positions: $iconPositions")
     }
     
     private fun setupNavigationButtons() {
         // Saved button
         findViewById<View>(R.id.btn_saved).setOnClickListener {
+            android.util.Log.d("NavBar", "Saved clicked - moving to position ${iconPositions[R.id.navigation_saved]}")
             navigateToDestination(R.id.navigation_saved)
             animateOutlineToPosition(R.id.navigation_saved)
         }
         
         // Home button
         findViewById<View>(R.id.btn_home).setOnClickListener {
+            android.util.Log.d("NavBar", "Home clicked - moving to position ${iconPositions[R.id.navigation_home]}")
             navigateToDestination(R.id.navigation_home)
             animateOutlineToPosition(R.id.navigation_home)
         }
         
         // Create button
         findViewById<View>(R.id.btn_create).setOnClickListener {
+            android.util.Log.d("NavBar", "Create clicked - moving to position ${iconPositions[R.id.navigation_create]}")
             navigateToDestination(R.id.navigation_create)
             animateOutlineToPosition(R.id.navigation_create)
         }
         
         // Chats button
         findViewById<View>(R.id.btn_chats).setOnClickListener {
+            android.util.Log.d("NavBar", "Chats clicked - moving to position ${iconPositions[R.id.navigation_chats]}")
             navigateToDestination(R.id.navigation_chats)
             animateOutlineToPosition(R.id.navigation_chats)
         }
         
         // Profile button
         findViewById<View>(R.id.btn_profile).setOnClickListener {
+            android.util.Log.d("NavBar", "Profile clicked - moving to position ${iconPositions[R.id.navigation_profile]}")
             navigateToDestination(R.id.navigation_profile)
             animateOutlineToPosition(R.id.navigation_profile)
         }
@@ -115,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             addUpdateListener { animator ->
                 val value = animator.animatedValue as Float
                 setOutlinePosition(value)
+                android.util.Log.d("NavBar", "Animating outline to position: $value")
             }
             start()
         }
