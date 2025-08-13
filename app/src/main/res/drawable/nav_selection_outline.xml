@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="57dp"
+    android:height="52dp"
+    android:viewportWidth="57"
+    android:viewportHeight="52">
+    
+    <!-- Selection outline -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:pathData="M15,1 L42,1 Q56,1 56,15 L56,37 Q56,51 42,51 L15,51 Q1,51 1,37 L1,15 Q1,1 15,1 Z" />
+    
+</vector>
