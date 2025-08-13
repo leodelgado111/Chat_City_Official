@@ -3,27 +3,27 @@
 
     <item
         android:id="@+id/navigation_saved"
-        android:icon="@android:color/transparent"
+        android:icon="@drawable/ic_nav_saved"
         android:title="@string/title_saved" />
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@android:color/transparent"
+        android:icon="@drawable/ic_nav_home"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_create"
-        android:icon="@android:color/transparent"
+        android:icon="@drawable/ic_nav_create"
         android:title="@string/title_create" />
 
     <item
         android:id="@+id/navigation_chats"
-        android:icon="@android:color/transparent"
+        android:icon="@drawable/ic_nav_chat"
         android:title="@string/title_chats" />
 
     <item
         android:id="@+id/navigation_profile"
-        android:icon="@android:color/transparent"
+        android:icon="@drawable/ic_nav_profile"
         android:title="@string/title_profile" />
 
 </menu>
