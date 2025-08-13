@@ -25,9 +25,11 @@
         </aapt:attr>
     </path>
     
+    <!-- All icons now white to match the outline -->
+    
     <!-- Saved Icon -->
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -35,14 +37,14 @@
     
     <!-- Home Icon -->
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M106,41 L106,33 C106,32.7348 105.895,32.4804 105.707,32.2929 C105.52,32.1054 105.265,32 105,32 L101,32 C100.735,32 100.48,32.1054 100.293,32.2929 C100.105,32.4804 100,32.7348 100,33 L100,41" />
     
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -50,21 +52,21 @@
     
     <!-- Location Icon -->
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M173,30.6001 C173,35.3435 167.461,40.2836 165.601,41.8093 C165.428,41.9331 165.217,42 165,42 C164.783,42 164.572,41.9331 164.399,41.8093 C162.539,40.2836 157,35.3435 157,30.6001 C157,28.5844 157.843,26.6513 159.343,25.226 C160.843,23.8007 162.878,23 165,23 C167.122,23 169.157,23.8007 170.657,25.226 C172.157,26.6513 173,28.5844 173,30.6001 Z" />
     
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M165,28 L165,34" />
     
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -72,14 +74,14 @@
     
     <!-- Chat Icon -->
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M232,31 C232,31.5304 231.789,32.0391 231.414,32.4142 C231.039,32.7893 230.53,33 230,33 L222.828,33 C222.298,33.0001 221.789,33.2109 221.414,33.586 L219.212,35.788 C219.113,35.8873 218.986,35.9549 218.848,35.9823 C218.711,36.0097 218.568,35.9956 218.438,35.9419 C218.309,35.8881 218.198,35.7971 218.12,35.6804 C218.042,35.5637 218,35.4264 218,35.286 L218,25 C218,24.4696 218.211,23.9609 218.586,23.5858 C218.961,23.2107 219.47,23 220,23 L230,23 C230.53,23 231.039,23.2107 231.414,23.5858 C231.789,23.9609 232,24.4696 232,25 L232,31 Z" />
     
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
@@ -87,14 +89,14 @@
     
     <!-- Profile Icon -->
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:pathData="M296,41 L296,38.6667 C296,37.429 295.579,36.242 294.828,35.3668 C294.078,34.4917 293.061,34 292,34 L286,34 C284.939,34 283.922,34.4917 283.172,35.3668 C282.421,36.242 282,37.429 282,38.6667 L282,41" />
     
     <path
-        android:strokeColor="@android:color/black"
+        android:strokeColor="@android:color/white"
         android:strokeWidth="2"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
