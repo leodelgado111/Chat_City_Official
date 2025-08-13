@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="332dp"
+    android:height="66dp"
+    android:viewportWidth="332"
+    android:viewportHeight="66">
+    
+    <!-- Gradient background with conic gradient effect -->
+    <path
+        android:pathData="M19,0 L313,0 Q332,0 332,19 L332,47 Q332,66 313,66 L19,66 Q0,66 0,47 L0,19 Q0,0 19,0 Z"
+        android:fillAlpha="0.5">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:type="sweep"
+                android:centerX="166"
+                android:centerY="33">
+                <item android:offset="0.0" android:color="#5FD9A1CE" />
+                <item android:offset="0.39" android:color="#9998D5F1" />
+                <item android:offset="0.60" android:color="#99CAADD6" />
+                <item android:offset="0.79" android:color="#40FC86BC" />
+                <item android:offset="1.0" android:color="#5FD9A1CE" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    
+    <!-- Saved/Bookmark Icon -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M49,42 L42,37.7778 L35,42 L35,25.1111 C35,24.5512 35.2107,24.0142 35.5858,23.6183 C35.9609,23.2224 36.4696,23 37,23 L47,23 C47.5304,23 48.0391,23.2224 48.4142,23.6183 C48.7893,24.0142 49,24.5512 49,25.1111 L49,42 Z" />
+    
+    <!-- Home Icon (House) -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M107,42 L107,34 C107,33.7348 106.895,33.4804 106.707,33.2929 C106.52,33.1054 106.265,33 106,33 L102,33 C101.735,33 101.48,33.1054 101.293,33.2929 C101.105,33.4804 101,33.7348 101,34 L101,42" />
+    
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M95,31 C94.9999,30.709 95.0633,30.4216 95.1858,30.1577 C95.3082,29.8938 95.4868,29.6598 95.709,29.472 L102.709,23.473 C103.07,23.1679 103.527,23.0005 104,23.0005 C104.473,23.0005 104.93,23.1679 105.291,23.473 L112.291,29.472 C112.513,29.6598 112.692,29.8938 112.814,30.1577 C112.937,30.4216 113,30.709 113,31 L113,40 C113,40.5304 112.789,41.0391 112.414,41.4142 C112.039,41.7893 111.53,42 111,42 L97,42 C96.4696,42 95.9609,41.7893 95.5858,41.4142 C95.2107,41.0391 95,40.5304 95,40 L95,31 Z" />
+    
+    <!-- Location/Add Icon (Map pin with plus) -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M174,31.6001 C174,36.3435 168.461,41.2836 166.601,42.8093 C166.428,42.9331 166.217,43 166,43 C165.783,43 165.572,42.9331 165.399,42.8093 C163.539,41.2836 158,36.3435 158,31.6001 C158,29.5844 158.843,27.6513 160.343,26.226 C161.843,24.8007 163.878,24 166,24 C168.122,24 170.157,24.8007 171.657,26.226 C173.157,27.6513 174,29.5844 174,31.6001 Z" />
+    
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M166,29 L166,35" />
+    
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M163,32 L169,32" />
+    
+    <!-- Chat/Messages Icon -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M233,32 C233,32.5304 232.789,33.0391 232.414,33.4142 C232.039,33.7893 231.53,34 231,34 L223.828,34 C223.298,34.0001 222.789,34.2109 222.414,34.586 L220.212,36.788 C220.113,36.8873 219.986,36.9549 219.848,36.9823 C219.711,37.0097 219.568,36.9956 219.438,36.9419 C219.309,36.8881 219.198,36.7971 219.12,36.6804 C219.042,36.5637 219,36.4264 219,36.286 L219,26 C219,25.4696 219.211,24.9609 219.586,24.5858 C219.961,24.2107 220.47,24 221,24 L231,24 C231.53,24 232.039,24.2107 232.414,24.5858 C232.789,24.9609 233,25.4696 233,26 L233,32 Z" />
+    
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M236,30 C236.53,30 237.039,30.2107 237.414,30.5858 C237.789,30.9609 238,31.4696 238,32 L238,42.286 C238,42.4264 237.958,42.5637 237.88,42.6804 C237.802,42.7971 237.691,42.8881 237.562,42.9419 C237.432,42.9956 237.289,43.0097 237.152,42.9823 C237.014,42.9549 236.887,42.8873 236.788,42.788 L234.586,40.586 C234.211,40.2109 233.702,40.0001 233.172,40 L226,40 C225.47,40 224.961,39.7893 224.586,39.4142 C224.211,39.0391 224,38.5304 224,38 L224,37" />
+    
+    <!-- Profile/User Icon -->
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M297,42 L297,39.6667 C297,38.429 296.579,37.242 295.828,36.3668 C295.078,35.4917 294.061,35 293,35 L287,35 C285.939,35 284.922,35.4917 284.172,36.3668 C283.421,37.242 283,38.429 283,39.6667 L283,42" />
+    
+    <path
+        android:strokeColor="@android:color/black"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M290,31 C292.209,31 294,29.2091 294,27 C294,24.7909 292.209,23 290,23 C287.791,23 286,24.7909 286,27 C286,29.2091 287.791,31 290,31 Z" />
+    
+</vector>

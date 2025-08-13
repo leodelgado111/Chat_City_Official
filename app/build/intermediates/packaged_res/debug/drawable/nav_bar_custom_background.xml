@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Layer 1: White background base -->
+    <item android:drawable="@drawable/nav_bar_white_background" />
+    
+    <!-- Layer 2: Gradient overlay with icons -->
+    <item 
+        android:drawable="@drawable/nav_bar_gradient_layer"
+        android:left="1dp"
+        android:top="1dp"
+        android:right="1dp"
+        android:bottom="1dp" />
+    
+</layer-list>

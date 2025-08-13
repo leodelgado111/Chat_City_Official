@@ -1540,10 +1540,12 @@ color abc_tint_edittext
 color abc_tint_seek_thumb
 color abc_tint_spinner
 color abc_tint_switch_track
+color accent
 color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
+color background
 color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
@@ -1567,6 +1569,7 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
+color chat_background
 color common_google_signin_btn_text_dark
 color common_google_signin_btn_text_dark_default
 color common_google_signin_btn_text_dark_disabled
@@ -1620,12 +1623,14 @@ color dim_foreground_disabled_material_dark
 color dim_foreground_disabled_material_light
 color dim_foreground_material_dark
 color dim_foreground_material_light
+color divider
 color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color input_background
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2257,6 +2262,7 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color online_green
 color place_autocomplete_prediction_primary_text
 color place_autocomplete_prediction_primary_text_highlight
 color place_autocomplete_prediction_secondary_text
@@ -2280,6 +2286,8 @@ color places_text_white_alpha_26
 color places_text_white_alpha_87
 color places_ui_default_primary
 color places_ui_default_primary_dark
+color primary
+color primary_dark
 color primary_dark_material_dark
 color primary_dark_material_light
 color primary_material_dark
@@ -2640,13 +2648,6 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
-color splash_alt_gradient_center
-color splash_alt_gradient_end
-color splash_alt_gradient_start
-color splash_gradient_center
-color splash_gradient_end
-color splash_gradient_start
-color splash_text_secondary
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2655,9 +2656,12 @@ color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
 color teal_200
 color teal_700
+color text_primary
+color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
 color white
+color white_70
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -3586,6 +3590,7 @@ drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable chat_city_logo
+drawable chat_city_logo_with_shadow
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3612,6 +3617,7 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable ic_arrow_back
 drawable ic_arrow_back_black_24
 drawable ic_call_answer
 drawable ic_call_answer_low
@@ -3622,6 +3628,7 @@ drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_keyboard_black_24dp
+drawable ic_location_pin
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
@@ -3634,8 +3641,11 @@ drawable ic_nav_create
 drawable ic_nav_home
 drawable ic_nav_profile
 drawable ic_nav_saved
+drawable ic_profile_placeholder
 drawable ic_saved
 drawable ic_search_black_24
+drawable ic_send
+drawable location_background
 drawable location_status
 drawable m3_appbar_background
 drawable m3_avd_hide_password
@@ -3679,6 +3689,9 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable message_input_background
+drawable message_received_background
+drawable message_sent_background
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3717,6 +3730,15 @@ drawable mtrl_switch_track
 drawable mtrl_switch_track_decoration
 drawable mtrl_tabs_default_indicator
 drawable nav_bar_background
+drawable nav_bar_custom_background
+drawable nav_bar_custom_background_v2
+drawable nav_bar_gradient_icons
+drawable nav_bar_gradient_layer
+drawable nav_bar_gradient_layer_v2
+drawable nav_bar_white_background
+drawable nav_bar_white_background_v2
+drawable nav_bar_white_bg_simple
+drawable nav_selection_outline
 drawable navigation_empty_icon
 drawable notification_action_background
 drawable notification_bg
@@ -3731,6 +3753,7 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable online_indicator
 drawable places_autocomplete_toolbar_shadow
 drawable places_ic_clear
 drawable places_ic_search
@@ -3742,6 +3765,7 @@ drawable quantum_ic_arrow_back_grey600_24
 drawable quantum_ic_clear_grey600_24
 drawable quantum_ic_cloud_off_vd_theme_24
 drawable quantum_ic_search_grey600_24
+drawable send_button_background
 drawable splash_background
 drawable splash_logo
 drawable splash_screen
@@ -3753,6 +3777,8 @@ drawable splash_window_background_fill
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable top_bar_background
+drawable top_bar_background_no_radius
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3860,6 +3886,11 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btn_chats
+id btn_create
+id btn_home
+id btn_profile
+id btn_saved
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3874,6 +3905,7 @@ id chain
 id chain2
 id chains
 id chatCityLogo
+id chats_recycler_view
 id checkbox
 id checked
 id chronometer
@@ -3900,6 +3932,7 @@ id cradle
 id currentState
 id custom
 id customPanel
+id custom_nav_bar
 id cut
 id dark
 id date_picker_actions
@@ -3942,6 +3975,7 @@ id edit_query
 id edit_text_id
 id elastic
 id embed
+id empty_view
 id end
 id endToStart
 id enterAlways
@@ -4020,7 +4054,9 @@ id linear
 id listMode
 id list_item
 id locale
-id locationStatus
+id locationContainer
+id locationIcon
+id locationText
 id location_puck_2_d
 id location_puck_3_d
 id ltr
@@ -4052,6 +4088,10 @@ id material_timepicker_view
 id material_value_index
 id matrix
 id message
+id message_input
+id message_text
+id message_time
+id messages_recycler_view
 id middle
 id mini
 id mobile_navigation
@@ -4089,7 +4129,7 @@ id multiply
 id nav_controller_view_tag
 id nav_host_fragment_activity_main
 id nav_host_fragment_container
-id nav_view
+id nav_selection_outline
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -4117,6 +4157,7 @@ id notification_main_column_container
 id off
 id on
 id onInterceptTouchReturnSwipe
+id online_indicator
 id open_search_bar_text_view
 id open_search_view_background
 id open_search_view_clear_button
@@ -4175,6 +4216,7 @@ id places_autocomplete_try_again_progress
 id position
 id postLayout
 id pressed
+id profile_image
 id progressBar
 id progress_circular
 id progress_horizontal
@@ -4208,6 +4250,7 @@ id search_button
 id search_close_btn
 id search_edit_frame
 id search_go_btn
+id search_icon
 id search_mag_icon
 id search_plate
 id search_src_text
@@ -4215,6 +4258,8 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id send_button
+id sender_name
 id shared
 id sharedValueSet
 id sharedValueUnset
@@ -4279,7 +4324,6 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
-id text_chats
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -4298,8 +4342,11 @@ id title
 id titleDividerNoCustom
 id title_template
 id toggle
+id toolbar
+id toolbar_title
 id top
 id topPanel
+id top_bar
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -4316,6 +4363,8 @@ id unlabeled
 id up
 id upwards
 id useLogo
+id user_name
+id user_status
 id vertical
 id vertical_only
 id view_offset_helper
@@ -4453,6 +4502,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_chat
 layout activity_dummy
 layout activity_main
 layout activity_splash
@@ -4480,6 +4530,9 @@ layout fragment_profile
 layout fragment_saved
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_message_received
+layout item_message_sent
+layout item_user
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title

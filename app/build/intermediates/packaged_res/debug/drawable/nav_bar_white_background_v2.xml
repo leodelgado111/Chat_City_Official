@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="374dp"
+    android:height="108dp"
+    android:viewportWidth="374"
+    android:viewportHeight="108">
+    
+    <!-- White background with shadow -->
+    <group android:alpha="0.8">
+        <!-- Drop shadow effect (approximated) -->
+        <path
+            android:fillColor="#40000000"
+            android:pathData="M40,20 L334,20 Q354,20 354,40 L354,64 Q354,84 334,84 L40,84 Q20,84 20,64 L20,40 Q20,20 40,20 Z" />
+        
+        <!-- White rounded rectangle -->
+        <path
+            android:fillColor="@android:color/white"
+            android:pathData="M40,16 L334,16 Q354,16 354,36 L354,64 Q354,84 334,84 L40,84 Q20,84 20,64 L20,36 Q20,16 40,16 Z" />
+        
+        <!-- White stroke -->
+        <path
+            android:strokeColor="@android:color/white"
+            android:strokeWidth="1"
+            android:pathData="M40.5,16.5 L333.5,16.5 Q353.5,16.5 353.5,36 L353.5,64 Q353.5,83.5 333.5,83.5 L40.5,83.5 Q20.5,83.5 20.5,64 L20.5,36 Q20.5,16.5 40.5,16.5 Z" />
+    </group>
+    
+</vector>

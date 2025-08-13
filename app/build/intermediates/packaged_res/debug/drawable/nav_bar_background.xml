@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DEPRECATED - This file is no longer used. 
+     Please use nav_bar_custom_background.xml instead.
+     This can be safely deleted. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- White background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    
+    <!-- Gradient overlay -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#8098D5F1"
+                android:centerColor="#80CAADE6"
+                android:endColor="#40FC86BC"
+                android:angle="45" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    
+    <!-- Black stroke on top of everything -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <stroke 
+                android:width="2dp" 
+                android:color="#000000" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    
+</layer-list>
