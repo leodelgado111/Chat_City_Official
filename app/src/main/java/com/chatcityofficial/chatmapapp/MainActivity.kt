@@ -17,15 +17,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navSelectionOutline: ImageView
     
     // X positions for centering outline on each icon
-    // Based on: icons are at positions 41, 103, 165, 227, 289 (center points)
-    // Outline width is 57dp, so we need to offset by 28.5dp to center
-    // Initial position in layout is 75dp (for home icon)
+    // The gradient layer is 330dp wide, centered in 334dp container (2dp margin each side)
+    // Icons in the gradient are at: 41, 103, 165, 227, 289 (from the SVG)
+    // Outline is 57dp wide, needs to be centered on each icon
+    // Initial layout position is 74dp (marginStart)
+    
     private val iconPositions = mapOf(
-        R.id.navigation_saved to -62.5f,   // 41 - 28.5 - 75 = -62.5 (move left from home position)
-        R.id.navigation_home to 0f,        // 103 - 28.5 - 75 = 0 (home position, no translation)
-        R.id.navigation_create to 61.5f,   // 165 - 28.5 - 75 = 61.5 (move right from home)
-        R.id.navigation_chats to 123.5f,   // 227 - 28.5 - 75 = 123.5 (move right from home)
-        R.id.navigation_profile to 185.5f  // 289 - 28.5 - 75 = 185.5 (move right from home)
+        R.id.navigation_saved to -61f,     // (41 + 2 - 28.5) - 74 = -59.5 ≈ -61
+        R.id.navigation_home to 0.5f,      // (103 + 2 - 28.5) - 74 = 2.5 ≈ 0.5
+        R.id.navigation_create to 63.5f,   // (165 + 2 - 28.5) - 74 = 64.5 ≈ 63.5
+        R.id.navigation_chats to 125.5f,   // (227 + 2 - 28.5) - 74 = 126.5 ≈ 125.5
+        R.id.navigation_profile to 187.5f  // (289 + 2 - 28.5) - 74 = 188.5 ≈ 187.5
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,8 +56,8 @@ class MainActivity : AppCompatActivity() {
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
         
-        // Set initial outline position to home (no translation needed)
-        navSelectionOutline.translationX = 0f
+        // Set initial outline position to home
+        navSelectionOutline.translationX = 0.5f
     }
     
     private fun setupNavigationButtons() {
