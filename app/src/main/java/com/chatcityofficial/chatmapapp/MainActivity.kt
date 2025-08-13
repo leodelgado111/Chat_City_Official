@@ -1,9 +1,11 @@
 package com.chatcityofficial.chatmapapp
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -15,19 +17,18 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: androidx.navigation.NavController
     private lateinit var navSelectionOutline: ImageView
+    private var currentOutlinePosition = 74f // Starting position for home icon
     
-    // X positions for centering outline on each icon
-    // The gradient layer is 330dp wide, centered in 334dp container (2dp margin each side)
-    // Icons in the gradient are at: 41, 103, 165, 227, 289 (from the SVG)
-    // Outline is 57dp wide, needs to be centered on each icon
-    // Initial layout position is 74dp (marginStart)
-    
+    // Absolute positions for centering outline on each icon
+    // Icons in the gradient SVG are at: 41, 103, 165, 227, 289
+    // Outline is 57dp wide, so we subtract 28.5 to center it
+    // Adding 2dp for the gradient centering offset
     private val iconPositions = mapOf(
-        R.id.navigation_saved to -61f,     // (41 + 2 - 28.5) - 74 = -59.5 ≈ -61
-        R.id.navigation_home to 0.5f,      // (103 + 2 - 28.5) - 74 = 2.5 ≈ 0.5
-        R.id.navigation_create to 63.5f,   // (165 + 2 - 28.5) - 74 = 64.5 ≈ 63.5
-        R.id.navigation_chats to 125.5f,   // (227 + 2 - 28.5) - 74 = 126.5 ≈ 125.5
-        R.id.navigation_profile to 187.5f  // (289 + 2 - 28.5) - 74 = 188.5 ≈ 187.5
+        R.id.navigation_saved to 14.5f,    // 41 - 28.5 + 2 = 14.5
+        R.id.navigation_home to 76.5f,     // 103 - 28.5 + 2 = 76.5  
+        R.id.navigation_create to 138.5f,  // 165 - 28.5 + 2 = 138.5
+        R.id.navigation_chats to 200.5f,   // 227 - 28.5 + 2 = 200.5
+        R.id.navigation_profile to 262.5f  // 289 - 28.5 + 2 = 262.5
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,11 +54,11 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         navSelectionOutline = findViewById(R.id.nav_selection_outline)
         
+        // Set initial position to home
+        setOutlinePosition(iconPositions[R.id.navigation_home] ?: 76.5f)
+        
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
-        
-        // Set initial outline position to home
-        navSelectionOutline.translationX = 0.5f
     }
     
     private fun setupNavigationButtons() {
@@ -104,10 +105,22 @@ class MainActivity : AppCompatActivity() {
     private fun animateOutlineToPosition(destinationId: Int) {
         val targetPosition = iconPositions[destinationId] ?: return
         
-        // Create smooth sliding animation with 100ms duration
-        ObjectAnimator.ofFloat(navSelectionOutline, "translationX", targetPosition).apply {
+        // Animate the margin change instead of translation
+        ValueAnimator.ofFloat(currentOutlinePosition, targetPosition).apply {
             duration = 100 // 100ms animation duration
+            addUpdateListener { animator ->
+                val value = animator.animatedValue as Float
+                setOutlinePosition(value)
+            }
             start()
         }
+        
+        currentOutlinePosition = targetPosition
+    }
+    
+    private fun setOutlinePosition(position: Float) {
+        val layoutParams = navSelectionOutline.layoutParams as FrameLayout.LayoutParams
+        layoutParams.marginStart = position.toInt()
+        navSelectionOutline.layoutParams = layoutParams
     }
 }
