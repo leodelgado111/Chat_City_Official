@@ -22,8 +22,9 @@ class SplashActivity : AppCompatActivity() {
     
     companion object {
         private const val TAG = "SplashActivity"
-        private const val SPLASH_DELAY = 2000L // 2 seconds
-        private const val FADE_DURATION = 500L // 0.5 seconds for fade animation
+        private const val SPLASH_DELAY = 3000L // Increased to 3 seconds for better timing
+        private const val FADE_IN_DURATION = 600L // Slightly longer fade in
+        private const val FADE_OUT_DURATION = 400L // Slower fade out
     }
     
     private lateinit var splashImage: ImageView
@@ -72,7 +73,7 @@ class SplashActivity : AppCompatActivity() {
         // Start animations
         startLogoAnimation()
         
-        // Schedule navigation to main activity
+        // Schedule navigation to main activity with better timing
         handler.postDelayed(navigateRunnable, SPLASH_DELAY)
     }
     
@@ -87,7 +88,7 @@ class SplashActivity : AppCompatActivity() {
             .alpha(1f)
             .scaleX(1f)
             .scaleY(1f)
-            .setDuration(FADE_DURATION)
+            .setDuration(FADE_IN_DURATION)
             .setInterpolator(AccelerateDecelerateInterpolator())
             .setListener(null)
             .start()
@@ -98,12 +99,12 @@ class SplashActivity : AppCompatActivity() {
     private fun navigateToMain() {
         Log.d(TAG, "navigateToMain: Starting navigation to MainActivity")
         
-        // Fade out animation before navigating
+        // Fade out animation before navigating - slower for better transition
         splashImage.animate()
             .alpha(0f)
-            .scaleX(1.1f)
-            .scaleY(1.1f)
-            .setDuration(FADE_DURATION / 2)
+            .scaleX(1.05f) // Reduced scale for subtler effect
+            .scaleY(1.05f)
+            .setDuration(FADE_OUT_DURATION)
             .setInterpolator(AccelerateDecelerateInterpolator())
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {

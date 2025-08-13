@@ -28,12 +28,14 @@ import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
 import com.luckycatlabs.sunrisesunset.dto.Location as SunLocation
 import com.mapbox.android.gestures.MoveGestureDetector
 import com.mapbox.android.gestures.RotateGestureDetector
+import com.mapbox.android.gestures.StandardScaleGestureDetector
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.CameraState
 import com.mapbox.maps.MapView
 import com.mapbox.maps.plugin.gestures.OnMoveListener
 import com.mapbox.maps.plugin.gestures.OnRotateListener
+import com.mapbox.maps.plugin.gestures.OnScaleListener
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.OnIndicatorPositionChangedListener
 import com.mapbox.maps.plugin.locationcomponent.location
@@ -54,9 +56,10 @@ class HomeFragment : Fragment() {
     private var isMapReady = false
     private var hasCenteredOnLocation = false
     
-    // Camera state preservation
+    // Camera state preservation - improved
     private var savedCameraState: CameraState? = null
     private var shouldRestoreCamera = false
+    private var isUserInteracting = false
     
     // Google Location Services
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -83,7 +86,7 @@ class HomeFragment : Fragment() {
     
     // Location tracking listeners
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
-        if (!hasCenteredOnLocation && !shouldRestoreCamera) {
+        if (!hasCenteredOnLocation && !shouldRestoreCamera && !isUserInteracting) {
             // Only center automatically on first location update with zoom level 15
             mapView?.getMapboxMap()?.setCamera(
                 CameraOptions.Builder()
@@ -104,7 +107,7 @@ class HomeFragment : Fragment() {
 
     private val onMoveListener = object : OnMoveListener {
         override fun onMoveBegin(detector: MoveGestureDetector) {
-            // Allow move to begin
+            isUserInteracting = true
         }
 
         override fun onMove(detector: MoveGestureDetector): Boolean {
@@ -117,11 +120,27 @@ class HomeFragment : Fragment() {
         }
 
         override fun onMoveEnd(detector: MoveGestureDetector) {
+            isUserInteracting = false
             // Final update when movement ends
             val center = mapView?.getMapboxMap()?.cameraState?.center
             center?.let {
                 updateLocationText(it.latitude(), it.longitude())
             }
+        }
+    }
+    
+    // Scale listener for pinch zoom
+    private val onScaleListener = object : OnScaleListener {
+        override fun onScaleBegin(detector: StandardScaleGestureDetector) {
+            isUserInteracting = true
+        }
+
+        override fun onScale(detector: StandardScaleGestureDetector) {
+            // Allow scale
+        }
+
+        override fun onScaleEnd(detector: StandardScaleGestureDetector) {
+            isUserInteracting = false
         }
     }
 
@@ -186,7 +205,7 @@ class HomeFragment : Fragment() {
                     updateThemeBasedOnSunriseSunset(location)
                     
                     // Center map on first location if not already centered and not restoring
-                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera) {
+                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera && !isUserInteracting) {
                         centerMapOnLocation(location)
                     }
                 }
@@ -237,18 +256,25 @@ class HomeFragment : Fragment() {
                 mapView?.logo?.enabled = false
                 mapView?.attribution?.enabled = false
                 
-                // Aggressively disable all rotation
+                // Configure gestures - FIXED for simultaneous pinch and zoom
                 mapView?.gestures?.apply {
                     rotateEnabled = false
-                    simultaneousRotateAndPinchToZoomEnabled = false
                     pitchEnabled = false
                     
-                    // Allow scrolling and zooming
+                    // Enable all zoom and scroll gestures
                     scrollEnabled = true
                     doubleTapToZoomInEnabled = true
                     doubleTouchToZoomOutEnabled = true
                     quickZoomEnabled = true
                     pinchToZoomEnabled = true
+                    
+                    // IMPORTANT: Enable simultaneous gestures
+                    simultaneousRotateAndPinchToZoomEnabled = false // We don't want rotate
+                    pinchToZoomDecelerationEnabled = true
+                    scrollDecelerationEnabled = true
+                    
+                    // Add scale listener
+                    addOnScaleListener(onScaleListener)
                 }
                 
                 // Override gesture detectors to block rotation
@@ -280,26 +306,6 @@ class HomeFragment : Fragment() {
                         )
                     }
                 })
-                
-                // Use a timer to continuously enforce no rotation
-                fragmentScope.launch {
-                    while (isActive) {
-                        delay(100) // Check every 100ms
-                        
-                        // Force bearing to 0 if it changed
-                        val bearing = mapView?.getMapboxMap()?.cameraState?.bearing ?: 0.0
-                        if (bearing != 0.0) {
-                            mapView?.getMapboxMap()?.setCamera(
-                                CameraOptions.Builder()
-                                    .bearing(0.0)
-                                    .build()
-                            )
-                        }
-                        
-                        // Re-disable rotation gestures
-                        mapView?.gestures?.rotateEnabled = false
-                    }
-                }
                 
                 // Setup location component
                 setupLocationComponent()
@@ -556,7 +562,7 @@ class HomeFragment : Fragment() {
                     currentUserLocation = location
                     updateThemeBasedOnSunriseSunset(location)
                     
-                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera) {
+                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera && !isUserInteracting) {
                         centerMapOnLocation(location)
                     }
                 } else {
@@ -631,7 +637,7 @@ class HomeFragment : Fragment() {
         // Start theme update handler
         themeHandler.post(themeUpdateRunnable)
         
-        // If we have a saved camera state and the map is ready, restore it
+        // Always restore camera if we have saved state
         if (savedCameraState != null && isMapReady) {
             shouldRestoreCamera = true
             restoreCameraPosition()
@@ -649,7 +655,7 @@ class HomeFragment : Fragment() {
         // Stop theme update handler
         themeHandler.removeCallbacks(themeUpdateRunnable)
         
-        // Save the current camera position before pausing
+        // Always save the current camera position before pausing
         saveCameraPosition()
         shouldRestoreCamera = true
         
@@ -667,6 +673,7 @@ class HomeFragment : Fragment() {
         
         // Save camera position when stopping
         saveCameraPosition()
+        shouldRestoreCamera = true
         
         mapView?.onStop()
     }
@@ -694,6 +701,7 @@ class HomeFragment : Fragment() {
         stopLocationUpdates()
         mapView?.location?.removeOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         mapView?.gestures?.removeOnMoveListener(onMoveListener)
+        mapView?.gestures?.removeOnScaleListener(onScaleListener)
         mapView?.onDestroy()
         mapView = null
         locationText = null
