@@ -19,24 +19,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navSelectionOutline: ImageView
     private var currentOutlinePosition = 73f // Starting position for home icon
     
-    // CRITICAL ANALYSIS:
-    // The container is 334dp wide, gradient layer is 330dp (centered with 2dp margins)
-    // Icons in SVG are at x-coordinates: 41, 103, 165, 227, 289
-    // BUT these are in a 330dp viewBox, not actual dp positions
-    // 
-    // The gradient is centered in the container: 2dp offset on each side
-    // So actual icon positions in the container are: SVG_position + 2dp
-    // Real positions: 43, 105, 167, 229, 291
-    //
-    // The outline is 57dp wide, needs 28.5dp offset to center
-    // Final positions: icon_position - 28.5
+    // DIAGNOSTIC: Let's use simple math based on what we know works
+    // Home icon works perfectly at 73dp (from your screenshots)
+    // Let's assume icons are evenly spaced in the 330dp container
+    // 330dp / 5 icons = 66dp per icon
+    // Icon centers should be at: 33, 99, 165, 231, 297 (in 330dp space)
+    // But wait - the container is 334dp and gradient is centered
+    // So we need to add 2dp offset: 35, 101, 167, 233, 299
+    // Outline is 57dp wide, so subtract 28.5dp to center
+    // That gives us: 6.5, 72.5, 138.5, 204.5, 270.5
+    // But home at 73 works perfectly, not 72.5, so let's add 0.5 to all
     
     private val iconPositions = mapOf(
-        R.id.navigation_saved to 14.5f,    // 43 - 28.5 = 14.5
-        R.id.navigation_home to 76.5f,     // 105 - 28.5 = 76.5
-        R.id.navigation_create to 138.5f,  // 167 - 28.5 = 138.5
-        R.id.navigation_chats to 200.5f,   // 229 - 28.5 = 200.5
-        R.id.navigation_profile to 262.5f  // 291 - 28.5 = 262.5
+        R.id.navigation_saved to 7f,       // First icon
+        R.id.navigation_home to 73f,       // This works perfectly from your test
+        R.id.navigation_create to 139f,    // Center position
+        R.id.navigation_chats to 205f,     // Fourth position
+        R.id.navigation_profile to 271f    // Last position
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,70 +61,63 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         navSelectionOutline = findViewById(R.id.nav_selection_outline)
         
-        // IMPORTANT: Set the initial position programmatically to ensure consistency
-        // The layout XML has marginStart="73dp" but we need 76.5dp for proper centering
-        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 76.5f
+        // DIAGNOSTIC: Let's see what the actual dimensions are
         navSelectionOutline.post {
-            setOutlinePosition(currentOutlinePosition)
+            val container = findViewById<FrameLayout>(R.id.custom_nav_bar)
+            val params = navSelectionOutline.layoutParams as FrameLayout.LayoutParams
+            
+            android.util.Log.e("NAVBAR_DEBUG", "=================================")
+            android.util.Log.e("NAVBAR_DEBUG", "CONTAINER WIDTH: ${container.width}px")
+            android.util.Log.e("NAVBAR_DEBUG", "OUTLINE WIDTH: ${navSelectionOutline.width}px")
+            android.util.Log.e("NAVBAR_DEBUG", "OUTLINE HEIGHT: ${navSelectionOutline.height}px")
+            android.util.Log.e("NAVBAR_DEBUG", "INITIAL MARGIN START: ${params.marginStart}px")
+            android.util.Log.e("NAVBAR_DEBUG", "=================================")
+            
+            // Get the actual pixel density
+            val density = resources.displayMetrics.density
+            android.util.Log.e("NAVBAR_DEBUG", "SCREEN DENSITY: $density")
+            android.util.Log.e("NAVBAR_DEBUG", "73dp in pixels: ${(73 * density).toInt()}px")
+            android.util.Log.e("NAVBAR_DEBUG", "=================================")
         }
+        
+        // Set initial position
+        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 73f
         
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
-        
-        // Debug: Log container and outline dimensions after layout
-        navSelectionOutline.post {
-            val container = findViewById<FrameLayout>(R.id.custom_nav_bar)
-            android.util.Log.d("NavBar", "Container width: ${container.width}")
-            android.util.Log.d("NavBar", "Outline width: ${navSelectionOutline.width}")
-            android.util.Log.d("NavBar", "Initial outline marginStart: ${(navSelectionOutline.layoutParams as FrameLayout.LayoutParams).marginStart}")
-            android.util.Log.d("NavBar", "Icon positions map: $iconPositions")
-        }
     }
     
     private fun setupNavigationButtons() {
-        // Saved button
+        // Let's try a different approach - directly set positions without animation first
         findViewById<View>(R.id.btn_saved).setOnClickListener {
-            android.util.Log.d("NavBar", "=== SAVED CLICKED ===")
-            android.util.Log.d("NavBar", "Current position: $currentOutlinePosition")
-            android.util.Log.d("NavBar", "Target position: ${iconPositions[R.id.navigation_saved]}")
+            android.util.Log.e("NAVBAR_DEBUG", "SAVED CLICKED - Moving to: ${iconPositions[R.id.navigation_saved]}dp")
             navigateToDestination(R.id.navigation_saved)
-            animateOutlineToPosition(R.id.navigation_saved)
+            // TEST: Set position directly without animation
+            setOutlinePositionDirectly(iconPositions[R.id.navigation_saved] ?: 7f)
         }
         
-        // Home button
         findViewById<View>(R.id.btn_home).setOnClickListener {
-            android.util.Log.d("NavBar", "=== HOME CLICKED ===")
-            android.util.Log.d("NavBar", "Current position: $currentOutlinePosition")
-            android.util.Log.d("NavBar", "Target position: ${iconPositions[R.id.navigation_home]}")
+            android.util.Log.e("NAVBAR_DEBUG", "HOME CLICKED - Moving to: ${iconPositions[R.id.navigation_home]}dp")
             navigateToDestination(R.id.navigation_home)
-            animateOutlineToPosition(R.id.navigation_home)
+            setOutlinePositionDirectly(iconPositions[R.id.navigation_home] ?: 73f)
         }
         
-        // Create button
         findViewById<View>(R.id.btn_create).setOnClickListener {
-            android.util.Log.d("NavBar", "=== CREATE CLICKED ===")
-            android.util.Log.d("NavBar", "Current position: $currentOutlinePosition")
-            android.util.Log.d("NavBar", "Target position: ${iconPositions[R.id.navigation_create]}")
+            android.util.Log.e("NAVBAR_DEBUG", "CREATE CLICKED - Moving to: ${iconPositions[R.id.navigation_create]}dp")
             navigateToDestination(R.id.navigation_create)
-            animateOutlineToPosition(R.id.navigation_create)
+            setOutlinePositionDirectly(iconPositions[R.id.navigation_create] ?: 139f)
         }
         
-        // Chats button
         findViewById<View>(R.id.btn_chats).setOnClickListener {
-            android.util.Log.d("NavBar", "=== CHATS CLICKED ===")
-            android.util.Log.d("NavBar", "Current position: $currentOutlinePosition")
-            android.util.Log.d("NavBar", "Target position: ${iconPositions[R.id.navigation_chats]}")
+            android.util.Log.e("NAVBAR_DEBUG", "CHATS CLICKED - Moving to: ${iconPositions[R.id.navigation_chats]}dp")
             navigateToDestination(R.id.navigation_chats)
-            animateOutlineToPosition(R.id.navigation_chats)
+            setOutlinePositionDirectly(iconPositions[R.id.navigation_chats] ?: 205f)
         }
         
-        // Profile button
         findViewById<View>(R.id.btn_profile).setOnClickListener {
-            android.util.Log.d("NavBar", "=== PROFILE CLICKED ===")
-            android.util.Log.d("NavBar", "Current position: $currentOutlinePosition")
-            android.util.Log.d("NavBar", "Target position: ${iconPositions[R.id.navigation_profile]}")
+            android.util.Log.e("NAVBAR_DEBUG", "PROFILE CLICKED - Moving to: ${iconPositions[R.id.navigation_profile]}dp")
             navigateToDestination(R.id.navigation_profile)
-            animateOutlineToPosition(R.id.navigation_profile)
+            setOutlinePositionDirectly(iconPositions[R.id.navigation_profile] ?: 271f)
         }
     }
     
@@ -133,44 +125,25 @@ class MainActivity : AppCompatActivity() {
         try {
             navController.navigate(destinationId)
         } catch (e: Exception) {
-            // Handle navigation error if destination doesn't exist
             e.printStackTrace()
         }
     }
     
-    private fun animateOutlineToPosition(destinationId: Int) {
-        val targetPosition = iconPositions[destinationId] ?: return
+    // TEST FUNCTION: Set position directly without animation
+    private fun setOutlinePositionDirectly(positionDp: Float) {
+        val density = resources.displayMetrics.density
+        val positionPx = (positionDp * density).toInt()
         
-        android.util.Log.d("NavBar", "Starting animation from $currentOutlinePosition to $targetPosition")
-        
-        // Animate the margin change
-        ValueAnimator.ofFloat(currentOutlinePosition, targetPosition).apply {
-            duration = 100 // 100ms animation duration
-            addUpdateListener { animator ->
-                val value = animator.animatedValue as Float
-                setOutlinePosition(value)
-            }
-            addListener(object : android.animation.AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: android.animation.Animator) {
-                    android.util.Log.d("NavBar", "Animation completed. Final position: $targetPosition")
-                    // Verify the final position
-                    val finalMargin = (navSelectionOutline.layoutParams as FrameLayout.LayoutParams).marginStart
-                    android.util.Log.d("NavBar", "Actual final marginStart: $finalMargin")
-                }
-            })
-            start()
-        }
-        
-        currentOutlinePosition = targetPosition
-    }
-    
-    private fun setOutlinePosition(position: Float) {
         val layoutParams = navSelectionOutline.layoutParams as FrameLayout.LayoutParams
-        val newMargin = position.toInt()
-        layoutParams.marginStart = newMargin
+        layoutParams.marginStart = positionPx
         navSelectionOutline.layoutParams = layoutParams
         
-        // Force layout update
-        navSelectionOutline.requestLayout()
+        android.util.Log.e("NAVBAR_DEBUG", "Set margin to: ${positionPx}px (${positionDp}dp)")
+        
+        // Verify it actually moved
+        navSelectionOutline.post {
+            val actualMargin = (navSelectionOutline.layoutParams as FrameLayout.LayoutParams).marginStart
+            android.util.Log.e("NAVBAR_DEBUG", "VERIFIED: Actual margin is now: ${actualMargin}px")
+        }
     }
 }
