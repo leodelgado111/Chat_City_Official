@@ -16,23 +16,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Chat City Logo with custom drop shadow (aligned with nav bar margin: 28dp) -->
+    <!-- Chat City Logo with custom drop shadow (centered vertically with location container) -->
     <ImageView
         android:id="@+id/chatCityLogo"
         android:layout_width="138dp"
         android:layout_height="46dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="80dp"
         android:src="@drawable/chat_city_logo_with_shadow"
         android:contentDescription="Chat City"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/locationContainer"
+        app:layout_constraintBottom_toBottomOf="@id/locationContainer" />
 
     <!-- Location Status Container with elevation (aligned with nav bar: 28dp margin) -->
     <LinearLayout
         android:id="@+id/locationContainer"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="28dp"
         android:orientation="horizontal"
         android:gravity="center_vertical"
@@ -42,8 +43,7 @@
         android:elevation="8dp"
         android:outlineProvider="background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/chatCityLogo"
-        app:layout_constraintBottom_toBottomOf="@id/chatCityLogo">
+        app:layout_constraintTop_toTopOf="parent">
 
         <!-- Location Icon -->
         <ImageView

@@ -91,6 +91,9 @@ dependencies {
     // Date/Time
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
     
+    // Sunrise/Sunset calculations
+    implementation("com.luckycatlabs:SunriseSunsetCalculator:1.2")
+    
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     

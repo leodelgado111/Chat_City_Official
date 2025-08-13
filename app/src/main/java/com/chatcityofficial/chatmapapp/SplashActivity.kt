@@ -1,120 +1,132 @@
 package com.chatcityofficial.chatmapapp
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.content.Intent
-import android.os.Build
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
-import android.view.Window
 import android.view.WindowManager
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
-import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 
 class SplashActivity : AppCompatActivity() {
     
-    private lateinit var ivSplashImage: ImageView
-    private lateinit var progressBar: ProgressBar
+    companion object {
+        private const val TAG = "SplashActivity"
+        private const val SPLASH_DELAY = 2000L // 2 seconds
+        private const val FADE_DURATION = 500L // 0.5 seconds for fade animation
+    }
+    
+    private lateinit var splashLogo: ImageView
+    private lateinit var handler: Handler
+    private lateinit var navigateRunnable: Runnable
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // CRITICAL: Remove the translucent flag once activity starts
-        // This makes the activity opaque after the system splash is skipped
-        setWindowIsTranslucent(false)
+        // Disable screen rotation - lock to portrait mode
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         
-        // Make it truly fullscreen - edge to edge
+        Log.d(TAG, "onCreate: Starting splash screen")
+        
+        // Make fullscreen
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+        
+        // Hide system bars
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.let {
+            it.hide(WindowInsetsCompat.Type.systemBars())
+            it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
         
         setContentView(R.layout.activity_splash)
         
-        // Set the background color to match the gradient start
-        window.decorView.setBackgroundColor(android.graphics.Color.parseColor("#FF9AC8"))
+        // Get reference to the logo
+        splashLogo = findViewById(R.id.splash_logo)
         
-        // Hide system bars
-        hideSystemUI()
+        // Initialize handler
+        handler = Handler(Looper.getMainLooper())
         
-        // Initialize views
-        initViews()
-        
-        // Start animations immediately for faster display
-        startAnimations()
-        
-        // Navigate to MainActivity after delay
-        navigateToMain()
-    }
-    
-    private fun hideSystemUI() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = (
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                or View.SYSTEM_UI_FLAG_FULLSCREEN
-            )
+        // Create the navigation runnable
+        navigateRunnable = Runnable {
+            navigateToMain()
         }
         
-        // Make status bar and navigation bar transparent
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
-        window.navigationBarColor = android.graphics.Color.TRANSPARENT
+        // Start animations
+        startLogoAnimation()
         
-        // Add flags to go full screen
-        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        // Schedule navigation to main activity
+        handler.postDelayed(navigateRunnable, SPLASH_DELAY)
     }
     
-    private fun initViews() {
-        ivSplashImage = findViewById(R.id.ivSplashImage)
-        progressBar = findViewById(R.id.progressBar)
+    private fun startLogoAnimation() {
+        // Start with logo invisible
+        splashLogo.alpha = 0f
+        splashLogo.scaleX = 0.8f
+        splashLogo.scaleY = 0.8f
         
-        // Start with image visible immediately (no fade)
-        ivSplashImage.alpha = 1f
-        progressBar.alpha = 0f
-    }
-    
-    private fun startAnimations() {
-        // No animation for the image - it's already visible
-        // This makes the splash appear instantly
-        
-        // Progress bar animation - fade in after delay
-        progressBar.animate()
+        // Fade in and scale up animation
+        splashLogo.animate()
             .alpha(1f)
-            .setDuration(500)
-            .setStartDelay(500)
+            .scaleX(1f)
+            .scaleY(1f)
+            .setDuration(FADE_DURATION)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .setListener(null)
             .start()
+        
+        Log.d(TAG, "startLogoAnimation: Logo animation started")
     }
     
     private fun navigateToMain() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            
-            // No transition animation for instant switch
-            overridePendingTransition(0, 0)
-            
-            finish()
-        }, 2500) // Reduced to 2.5 seconds for faster experience
+        Log.d(TAG, "navigateToMain: Starting navigation to MainActivity")
+        
+        // Fade out animation before navigating
+        splashLogo.animate()
+            .alpha(0f)
+            .scaleX(1.1f)
+            .scaleY(1.1f)
+            .setDuration(FADE_DURATION / 2)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    Log.d(TAG, "navigateToMain: Fade out complete, launching MainActivity")
+                    
+                    val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                    startActivity(intent)
+                    
+                    // Use a smooth transition
+                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                    
+                    // Finish splash activity
+                    finish()
+                }
+            })
+            .start()
     }
     
-    // Function to set window translucent
-    private fun setWindowIsTranslucent(translucent: Boolean) {
-        try {
-            val method = Window::class.java.getDeclaredMethod(
-                "setTranslucent",
-                Boolean::class.javaPrimitiveType
-            )
-            method.isAccessible = true
-            method.invoke(window, translucent)
-        } catch (e: Exception) {
-            // If the method doesn't exist or fails, just continue
-            e.printStackTrace()
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        // Clean up the handler callback to prevent memory leaks
+        handler.removeCallbacks(navigateRunnable)
+        Log.d(TAG, "onDestroy: Splash activity destroyed")
+    }
+    
+    override fun onBackPressed() {
+        // Disable back button during splash screen
+        // Do nothing
     }
 }

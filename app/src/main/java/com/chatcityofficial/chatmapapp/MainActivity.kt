@@ -2,6 +2,7 @@ package com.chatcityofficial.chatmapapp
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -35,6 +36,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Disable screen rotation - lock to portrait mode
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         
         // Make status bar transparent
         WindowCompat.setDecorFitsSystemWindows(window, false)
