@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- DEPRECATED - This file is no longer used. 
+     Please use nav_bar_custom_background.xml instead.
+     This can be safely deleted. -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     
     <!-- White background -->
