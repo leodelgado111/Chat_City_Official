@@ -50,5 +50,12 @@
             android:theme="@style/Theme.ChatCityOfficial"
             android:windowSoftInputMode="adjustResize" />
             
+        <!-- Chat Detail Activity -->
+        <activity
+            android:name=".ui.chat.ChatDetailActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ChatCityOfficial"
+            android:windowSoftInputMode="adjustResize" />
+            
     </application>
 </manifest>
