@@ -67,9 +67,10 @@ class MainActivity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(customNavBar) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             
-            // Set the bottom margin to be system navigation bar height + 22dp (37dp - 15dp adjustment)
+            // Set the bottom margin to be system navigation bar height + 12dp (22dp - 10dp additional adjustment)
+            // Original was 22dp, subtracting 10dp makes it 12dp
             view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                val additionalMargin = (22 * resources.displayMetrics.density).toInt()
+                val additionalMargin = (12 * resources.displayMetrics.density).toInt()
                 bottomMargin = insets.bottom + additionalMargin
             }
             
