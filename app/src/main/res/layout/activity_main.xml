@@ -51,7 +51,6 @@
             app:itemIconSize="0dp"
             app:itemIconTint="@android:color/transparent"
             app:itemRippleColor="@null"
-            app:itemActiveIndicatorStyle="@null"
             app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_nav_menu" />
             
