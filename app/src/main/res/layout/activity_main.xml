@@ -16,44 +16,30 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
-    
-    <!-- Custom navigation container with new background -->
+
+    <!-- Simple stacked navigation bar -->
     <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/nav_bar_custom_background_v2"
-        android:elevation="8dp"
+        android:id="@+id/custom_nav_bar"
+        android:layout_width="334dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         
-        <!-- Selection outline that will animate -->
+        <!-- White background layer -->
         <ImageView
-            android:id="@+id/nav_selection_outline"
-            android:layout_width="57dp"
-            android:layout_height="52dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="14dp"
-            android:src="@drawable/nav_selection_outline"
-            android:visibility="visible" />
-        
-        <!-- Navigation view without animations -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:paddingTop="9dp"
-            android:paddingBottom="9dp"
-            app:itemIconSize="0dp"
-            app:itemIconTint="@android:color/transparent"
-            app:itemRippleColor="@null"
-            app:labelVisibilityMode="unlabeled"
-            app:menu="@menu/bottom_nav_menu" />
+            android:src="@drawable/nav_bar_white_bg_simple" />
             
+        <!-- Gradient layer with icons on top -->
+        <ImageView
+            android:layout_width="330dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:src="@drawable/nav_bar_gradient_icons" />
+        
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
