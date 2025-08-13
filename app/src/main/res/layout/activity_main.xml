@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation" />
 
-    <!-- Simple stacked navigation bar -->
+    <!-- Custom navigation bar with proper layering -->
     <FrameLayout
         android:id="@+id/custom_nav_bar"
         android:layout_width="334dp"
@@ -25,39 +25,42 @@
         android:layout_marginBottom="28dp"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:elevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
         
-        <!-- White background layer -->
+        <!-- Layer 1: White background (bottom) -->
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/nav_bar_white_bg_simple" />
             
-        <!-- Gradient layer with icons on top -->
+        <!-- Layer 2: Gradient layer with icons -->
         <ImageView
             android:layout_width="330dp"
             android:layout_height="64dp"
             android:layout_gravity="center"
+            android:elevation="2dp"
             android:src="@drawable/nav_bar_gradient_icons" />
             
-        <!-- Selection outline positioned on home icon initially -->
-        <!-- Home icon in SVG is at 103, plus 2dp offset, minus 28.5 for centering = 76.5 -->
+        <!-- Layer 3: Selection outline (top) - positioned on home icon initially -->
         <ImageView
             android:id="@+id/nav_selection_outline"
             android:layout_width="57dp"
             android:layout_height="52dp"
             android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="77dp"
+            android:layout_marginStart="74dp"
+            android:elevation="4dp"
             android:src="@drawable/nav_selection_outline" />
             
-        <!-- Invisible click areas for each icon -->
+        <!-- Layer 4: Invisible click areas (very top) -->
         <View
             android:id="@+id/btn_saved"
             android:layout_width="66dp"
             android:layout_height="match_parent"
             android:layout_marginStart="0dp"
+            android:elevation="6dp"
             android:clickable="true"
             android:focusable="true" />
             
@@ -66,6 +69,7 @@
             android:layout_width="66dp"
             android:layout_height="match_parent"
             android:layout_marginStart="66dp"
+            android:elevation="6dp"
             android:clickable="true"
             android:focusable="true" />
             
@@ -74,6 +78,7 @@
             android:layout_width="66dp"
             android:layout_height="match_parent"
             android:layout_marginStart="132dp"
+            android:elevation="6dp"
             android:clickable="true"
             android:focusable="true" />
             
@@ -82,6 +87,7 @@
             android:layout_width="66dp"
             android:layout_height="match_parent"
             android:layout_marginStart="198dp"
+            android:elevation="6dp"
             android:clickable="true"
             android:focusable="true" />
             
@@ -90,6 +96,7 @@
             android:layout_width="66dp"
             android:layout_height="match_parent"
             android:layout_marginStart="264dp"
+            android:elevation="6dp"
             android:clickable="true"
             android:focusable="true" />
         
