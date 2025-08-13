@@ -35,7 +35,7 @@ class MessageAdapter(
         }
         
         val view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-        return MessageViewHolder(view)
+        return MessageViewHolder(view, viewType)
     }
     
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
@@ -44,10 +44,12 @@ class MessageAdapter(
     
     override fun getItemCount() = messages.size
     
-    class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageText: TextView = itemView.findViewById(R.id.message_text)
-        private val messageTime: TextView = itemView.findViewById(R.id.message_time)
-        private val senderName: TextView? = itemView.findViewById(R.id.sender_name)
+    class MessageViewHolder(itemView: View, private val viewType: Int) : RecyclerView.ViewHolder(itemView) {
+        private val messageText: TextView = itemView.findViewById(R.id.messageText)
+        private val messageTime: TextView = itemView.findViewById(R.id.timeText)
+        private val senderName: TextView? = if (viewType == VIEW_TYPE_RECEIVED) {
+            itemView.findViewById(R.id.senderName)
+        } else null
         
         fun bind(message: Message) {
             messageText.text = message.text
