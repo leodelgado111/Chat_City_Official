@@ -43,13 +43,13 @@
             android:src="@drawable/nav_bar_gradient_icons" />
             
         <!-- Selection outline positioned on home icon initially -->
-        <!-- Starting position: center of home icon (72.5dp for even spacing) -->
+        <!-- Home icon in SVG is at 103, plus 2dp offset, minus 28.5 for centering = 76.5 -->
         <ImageView
             android:id="@+id/nav_selection_outline"
             android:layout_width="57dp"
             android:layout_height="52dp"
             android:layout_gravity="center_vertical|start"
-            android:layout_marginStart="73dp"
+            android:layout_marginStart="77dp"
             android:src="@drawable/nav_selection_outline" />
             
         <!-- Invisible click areas for each icon -->
