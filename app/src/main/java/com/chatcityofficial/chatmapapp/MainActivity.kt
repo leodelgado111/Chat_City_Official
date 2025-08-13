@@ -1,6 +1,7 @@
 package com.chatcityofficial.chatmapapp
 
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -9,6 +10,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: androidx.navigation.NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +32,46 @@ class MainActivity : AppCompatActivity() {
         
         setContentView(R.layout.activity_main)
         
-        // Navigation controller setup (for fragment navigation only)
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
+        // Navigation controller setup
+        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        
+        // Set up click listeners for navigation buttons
+        setupNavigationButtons()
+    }
+    
+    private fun setupNavigationButtons() {
+        // Saved button
+        findViewById<View>(R.id.btn_saved).setOnClickListener {
+            navigateToDestination(R.id.navigation_saved)
+        }
+        
+        // Home button
+        findViewById<View>(R.id.btn_home).setOnClickListener {
+            navigateToDestination(R.id.navigation_home)
+        }
+        
+        // Create button
+        findViewById<View>(R.id.btn_create).setOnClickListener {
+            navigateToDestination(R.id.navigation_create)
+        }
+        
+        // Chats button
+        findViewById<View>(R.id.btn_chats).setOnClickListener {
+            navigateToDestination(R.id.navigation_chats)
+        }
+        
+        // Profile button
+        findViewById<View>(R.id.btn_profile).setOnClickListener {
+            navigateToDestination(R.id.navigation_profile)
+        }
+    }
+    
+    private fun navigateToDestination(destinationId: Int) {
+        try {
+            navController.navigate(destinationId)
+        } catch (e: Exception) {
+            // Handle navigation error if destination doesn't exist
+            e.printStackTrace()
+        }
     }
 }
