@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
 
     <fragment
         android:id="@+id/nav_host_fragment_activity_main"
@@ -18,11 +19,11 @@
         app:navGraph="@navigation/mobile_navigation" />
 
     <!-- Custom navigation bar with proper layering -->
+    <!-- The bottom margin will be set dynamically to system nav bar height + 37dp -->
     <FrameLayout
         android:id="@+id/custom_nav_bar"
         android:layout_width="334dp"
         android:layout_height="68dp"
-        android:layout_marginBottom="28dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:elevation="12dp"

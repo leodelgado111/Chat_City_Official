@@ -5,19 +5,24 @@ import android.animation.ValueAnimator
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.updateLayoutParams
+import androidx.core.view.updateMargins
 import androidx.navigation.findNavController
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: androidx.navigation.NavController
     private lateinit var navSelectionOutline: ImageView
+    private lateinit var customNavBar: FrameLayout
     private var currentOutlinePosition = 74.5f
     
     // FINAL POSITIONS - Based on actual SVG icon positions
@@ -40,25 +45,35 @@ class MainActivity : AppCompatActivity() {
         // Disable screen rotation - lock to portrait mode
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         
-        // Make status bar transparent
+        // Make status bar transparent but keep navigation bar visible
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
         
-        // Hide system navigation bar
-        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
-        windowInsetsController.let {
-            it.hide(WindowInsetsCompat.Type.navigationBars())
-            it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
+        // Only make the status bar transparent, not the navigation bar
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
         
         setContentView(R.layout.activity_main)
         
         // Get references
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         navSelectionOutline = findViewById(R.id.nav_selection_outline)
+        customNavBar = findViewById(R.id.custom_nav_bar)
+        
+        // Apply window insets to position the nav bar correctly above the system navigation bar
+        ViewCompat.setOnApplyWindowInsetsListener(customNavBar) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            
+            // Set the bottom margin to be system navigation bar height + 37dp
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                val additionalMargin = (37 * resources.displayMetrics.density).toInt()
+                bottomMargin = insets.bottom + additionalMargin
+            }
+            
+            WindowInsetsCompat.CONSUMED
+        }
+        
+        // Request that insets be applied
+        ViewCompat.requestApplyInsets(window.decorView)
         
         // Set initial position to home
         currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 76.5f

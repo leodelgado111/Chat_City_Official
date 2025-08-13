@@ -38,17 +38,17 @@ class SplashActivity : AppCompatActivity() {
         
         Log.d(TAG, "onCreate: Starting splash screen")
         
-        // Make fullscreen
+        // Make fullscreen but keep navigation bar visible
         WindowCompat.setDecorFitsSystemWindows(window, false)
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
         
-        // Hide system bars
+        // Only make the status bar transparent during splash
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        
+        // Hide status bar during splash but keep navigation bar
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.let {
-            it.hide(WindowInsetsCompat.Type.systemBars())
+            it.hide(WindowInsetsCompat.Type.statusBars())
             it.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
         
