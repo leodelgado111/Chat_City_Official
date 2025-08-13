@@ -45,12 +45,16 @@ class MainActivity : AppCompatActivity() {
         // Disable screen rotation - lock to portrait mode
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         
-        // Make status bar transparent but keep navigation bar visible
+        // Make both status bar and navigation bar transparent
         WindowCompat.setDecorFitsSystemWindows(window, false)
         
-        // Only make the status bar transparent, not the navigation bar
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        // Set up transparent system bars
+        window.apply {
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+            statusBarColor = android.graphics.Color.TRANSPARENT
+            navigationBarColor = android.graphics.Color.TRANSPARENT
+        }
         
         setContentView(R.layout.activity_main)
         
@@ -63,9 +67,9 @@ class MainActivity : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(customNavBar) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             
-            // Set the bottom margin to be system navigation bar height + 37dp
+            // Set the bottom margin to be system navigation bar height + 22dp (37dp - 15dp adjustment)
             view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
-                val additionalMargin = (37 * resources.displayMetrics.density).toInt()
+                val additionalMargin = (22 * resources.displayMetrics.density).toInt()
                 bottomMargin = insets.bottom + additionalMargin
             }
             
