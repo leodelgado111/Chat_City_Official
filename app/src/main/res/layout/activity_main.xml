@@ -39,6 +39,56 @@
             android:layout_height="64dp"
             android:layout_gravity="center"
             android:src="@drawable/nav_bar_gradient_icons" />
+            
+        <!-- Selection outline positioned on home icon -->
+        <ImageView
+            android:id="@+id/nav_selection_outline"
+            android:layout_width="57dp"
+            android:layout_height="52dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="75dp"
+            android:src="@drawable/nav_selection_outline" />
+            
+        <!-- Invisible click areas for each icon -->
+        <View
+            android:id="@+id/btn_saved"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:clickable="true"
+            android:focusable="true" />
+            
+        <View
+            android:id="@+id/btn_home"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="66dp"
+            android:clickable="true"
+            android:focusable="true" />
+            
+        <View
+            android:id="@+id/btn_create"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="132dp"
+            android:clickable="true"
+            android:focusable="true" />
+            
+        <View
+            android:id="@+id/btn_chats"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="198dp"
+            android:clickable="true"
+            android:focusable="true" />
+            
+        <View
+            android:id="@+id/btn_profile"
+            android:layout_width="66dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="264dp"
+            android:clickable="true"
+            android:focusable="true" />
         
     </FrameLayout>
 
