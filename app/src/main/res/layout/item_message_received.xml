@@ -1,49 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="4dp">
+    android:padding="8dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="64dp"
-        android:background="@drawable/message_received_background"
-        android:orientation="vertical"
-        android:padding="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_alignParentStart="true"
+        android:orientation="vertical">
 
+        <!-- Sender Name -->
         <TextView
-            android:id="@+id/senderName"
+            android:id="@+id/sender_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sender Name"
-            android:textColor="#007AFF"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:text="John Doe"
+            android:textColor="#97D4F0"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="12dp" />
 
-        <TextView
-            android:id="@+id/messageText"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:maxWidth="240dp"
-            android:text="Message text"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:background="@drawable/message_bubble_received"
+            android:maxWidth="280dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/timeText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="12:34"
-            android:textColor="#808080"
-            android:textSize="11sp" />
+            <TextView
+                android:id="@+id/message_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is a received message"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:lineSpacingExtra="2dp" />
+
+            <TextView
+                android:id="@+id/message_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="10:25 AM"
+                android:textColor="#B3FFFFFF"
+                android:textSize="12sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
