@@ -26,6 +26,13 @@ class ChatsFragment : Fragment() {
     private lateinit var chatsAdapter: ChatsAdapter
     private lateinit var deviceId: String
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // IMPORTANT: Explicitly disable options menu to prevent three dots from appearing
+        setHasOptionsMenu(false)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,11 +46,16 @@ class ChatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         try {
-            // Get device ID
-            deviceId = Settings.Secure.getString(
-                requireContext().contentResolver,
-                Settings.Secure.ANDROID_ID
-            ) ?: "unknown_device"
+            // Get device ID with better null safety
+            deviceId = try {
+                Settings.Secure.getString(
+                    requireContext().contentResolver,
+                    Settings.Secure.ANDROID_ID
+                ) ?: generateFallbackDeviceId()
+            } catch (e: Exception) {
+                Log.e("ChatsFragment", "Error getting device ID", e)
+                generateFallbackDeviceId()
+            }
             
             Log.d("ChatsFragment", "Device ID: $deviceId")
             
@@ -71,21 +83,49 @@ class ChatsFragment : Fragment() {
         }
     }
 
+    private fun generateFallbackDeviceId(): String {
+        // Generate a fallback device ID if we can't get the real one
+        return "device_${System.currentTimeMillis()}"
+    }
+
     private fun setupRecyclerView() {
         chatsAdapter = ChatsAdapter { chat ->
             try {
-                // Open chat detail with null checks
-                val intent = Intent(requireContext(), ChatDetailActivity::class.java).apply {
-                    putExtra("CHAT_ID", chat.id ?: "")
-                    putExtra("CHAT_NAME", chat.name ?: "Unknown")
-                    putExtra("DEVICE_ID", deviceId)
-                    // Add flags to prevent crashes
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                // Validate chat data before opening detail
+                if (chat.id.isNullOrEmpty()) {
+                    Log.e("ChatsFragment", "Chat ID is null or empty")
+                    Toast.makeText(context, "Invalid chat data", Toast.LENGTH_SHORT).show()
+                    return@ChatsAdapter
                 }
-                startActivity(intent)
+                
+                // Check if activity context is available
+                val activityContext = activity
+                if (activityContext == null) {
+                    Log.e("ChatsFragment", "Activity context is null")
+                    Toast.makeText(context, "Cannot open chat at this time", Toast.LENGTH_SHORT).show()
+                    return@ChatsAdapter
+                }
+                
+                // Create intent with better error handling
+                val intent = Intent(activityContext, ChatDetailActivity::class.java).apply {
+                    putExtra("CHAT_ID", chat.id)
+                    putExtra("CHAT_NAME", chat.name ?: "Unknown Chat")
+                    putExtra("DEVICE_ID", deviceId)
+                    // Remove FLAG_ACTIVITY_NEW_TASK as it can cause issues with navigation
+                    // addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                
+                // Start activity with error handling
+                try {
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Log.e("ChatsFragment", "Error starting ChatDetailActivity", e)
+                    Toast.makeText(context, "Error opening chat: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+                
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error opening chat detail", e)
-                Toast.makeText(context, "Error opening chat", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error opening chat: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }
         
@@ -100,14 +140,24 @@ class ChatsFragment : Fragment() {
     private fun setupClickListeners() {
         binding.backButton.setOnClickListener {
             try {
-                activity?.onBackPressed()
+                // Use more modern navigation approach
+                activity?.onBackPressedDispatcher?.onBackPressed()
+                    ?: activity?.onBackPressed()
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error handling back press", e)
+                // Try to finish the activity as a fallback
+                try {
+                    activity?.finish()
+                } catch (ex: Exception) {
+                    Log.e("ChatsFragment", "Error finishing activity", ex)
+                }
             }
         }
         
         binding.deleteButton.setOnClickListener {
             // Handle delete if needed
+            // For now, we'll just show a toast
+            Toast.makeText(context, "Delete functionality not implemented yet", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -115,18 +165,29 @@ class ChatsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 chatRepository.getAllChats().collectLatest { chats ->
-                    chatsAdapter.submitList(chats)
-                    Log.d("ChatsFragment", "Loaded ${chats.size} chats")
+                    if (isAdded && _binding != null) {
+                        chatsAdapter.submitList(chats)
+                        Log.d("ChatsFragment", "Loaded ${chats.size} chats")
+                        
+                        // Show empty state if no chats
+                        if (chats.isEmpty()) {
+                            // You might want to show an empty state view here
+                            Log.d("ChatsFragment", "No chats available")
+                        }
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error loading chats", e)
-                Toast.makeText(context, "Error loading chats", Toast.LENGTH_SHORT).show()
+                if (isAdded) {
+                    Toast.makeText(context, "Error loading chats: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        // Clean up binding reference to avoid memory leaks
         _binding = null
     }
 }
