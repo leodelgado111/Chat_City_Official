@@ -36,12 +36,12 @@ android {
     }
     
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     
     buildFeatures {
@@ -57,6 +57,9 @@ android {
             excludes += "META-INF/LICENSE.txt"
             excludes += "META-INF/NOTICE"
             excludes += "META-INF/NOTICE.txt"
+            // Add duplicate file exclusions
+            pickFirsts += "**/*.so"
+            pickFirsts += "**/lib/*.so"
         }
     }
 }
@@ -64,6 +67,10 @@ android {
 configurations {
     all {
         exclude(group = "androidx.annotation", module = "annotation-experimental")
+        // Exclude duplicate browser module if it comes from multiple sources
+        resolutionStrategy {
+            force("androidx.browser:browser:1.5.0")
+        }
     }
 }
 
@@ -77,9 +84,16 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     
+    // Browser dependency (explicit version to avoid conflicts)
+    implementation("androidx.browser:browser:1.5.0")
+    
     // Mapbox
-    implementation("com.mapbox.maps:android:10.16.1")
-    implementation("com.mapbox.plugin:maps-locationcomponent:10.16.1")
+    implementation("com.mapbox.maps:android:10.16.1") {
+        exclude(group = "androidx.browser")
+    }
+    implementation("com.mapbox.plugin:maps-locationcomponent:10.16.1") {
+        exclude(group = "androidx.browser")
+    }
     
     // Google Maps and Location Services
     implementation("com.google.android.gms:play-services-maps:18.2.0")
