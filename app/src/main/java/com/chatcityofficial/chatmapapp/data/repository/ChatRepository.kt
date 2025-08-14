@@ -4,17 +4,23 @@ import com.chatcityofficial.chatmapapp.data.models.Chat
 import com.chatcityofficial.chatmapapp.data.models.Message
 import com.chatcityofficial.chatmapapp.data.models.User
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import android.util.Log
 
 class ChatRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val chatsCollection = firestore.collection("chats")
     private val messagesCollection = firestore.collection("messages")
     private val usersCollection = firestore.collection("users")
+
+    companion object {
+        private const val TAG = "ChatRepository"
+    }
 
     // Get or create user by device ID
     suspend fun getOrCreateUser(deviceId: String, userName: String): User {
@@ -33,6 +39,7 @@ class ChatRepository {
                 createNewUser(deviceId, userName)
             }
         } catch (e: Exception) {
+            Log.e(TAG, "Error getting/creating user", e)
             return createNewUser(deviceId, userName)
         }
     }
@@ -61,6 +68,7 @@ class ChatRepository {
                 return createTestChat(testChatId)
             }
         } catch (e: Exception) {
+            Log.e(TAG, "Error getting test chat room", e)
             return createTestChat(testChatId)
         }
     }
@@ -77,13 +85,33 @@ class ChatRepository {
         return testChat
     }
 
-    // Get all chats
+    // Get all chats - ONLY return Test Chat Room
     fun getAllChats(): Flow<List<Chat>> = callbackFlow {
+        // First, clean up any Spartan chats if they exist
+        try {
+            // Delete Spartan 111
+            chatsCollection.document("spartan_111").delete()
+            // Delete Spartan 112
+            chatsCollection.document("spartan_112").delete()
+            Log.d(TAG, "Cleaned up Spartan chat threads")
+        } catch (e: Exception) {
+            Log.d(TAG, "No Spartan threads to clean up or error cleaning: ${e.message}")
+        }
+
         val listener = chatsCollection
-            .orderBy("lastMessageTime", Query.Direction.DESCENDING)
+            .whereEqualTo("id", "test_chat_room_001") // Only get Test Chat Room
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
-                    close(error)
+                    Log.e(TAG, "Error getting chats", error)
+                    // Return only Test Chat Room as fallback
+                    val testChat = Chat(
+                        id = "test_chat_room_001",
+                        name = "Test Chat Room",
+                        lastMessage = "Welcome to the test chat!",
+                        lastMessageTime = System.currentTimeMillis(),
+                        isGroupChat = true
+                    )
+                    trySend(listOf(testChat))
                     return@addSnapshotListener
                 }
 
@@ -91,7 +119,19 @@ class ChatRepository {
                     doc.toObject(Chat::class.java)
                 } ?: emptyList()
 
-                trySend(chats)
+                // If no chats found, create and return Test Chat Room
+                if (chats.isEmpty()) {
+                    val testChat = Chat(
+                        id = "test_chat_room_001",
+                        name = "Test Chat Room",
+                        lastMessage = "Welcome to the test chat!",
+                        lastMessageTime = System.currentTimeMillis(),
+                        isGroupChat = true
+                    )
+                    trySend(listOf(testChat))
+                } else {
+                    trySend(chats)
+                }
             }
 
         awaitClose { listener.remove() }
@@ -104,7 +144,27 @@ class ChatRepository {
             .orderBy("timestamp", Query.Direction.ASCENDING)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
-                    close(error)
+                    // Check if the error is FAILED_PRECONDITION (missing index)
+                    if (error.code == FirebaseFirestoreException.Code.FAILED_PRECONDITION) {
+                        Log.e(TAG, "Missing index for messages query. Creating fallback query.", error)
+                        // Try a simpler query without ordering
+                        messagesCollection
+                            .whereEqualTo("chatId", chatId)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                val messages = documents.mapNotNull { doc ->
+                                    doc.toObject(Message::class.java)
+                                }.sortedBy { it.timestamp }
+                                trySend(messages)
+                            }
+                            .addOnFailureListener { e ->
+                                Log.e(TAG, "Fallback messages query failed", e)
+                                trySend(emptyList())
+                            }
+                    } else {
+                        Log.e(TAG, "Error getting messages", error)
+                        close(error)
+                    }
                     return@addSnapshotListener
                 }
 
@@ -120,60 +180,61 @@ class ChatRepository {
 
     // Send a message
     suspend fun sendMessage(chatId: String, senderId: String, senderName: String, text: String) {
-        val messageId = messagesCollection.document().id
-        val message = Message(
-            id = messageId,
-            chatId = chatId,
-            senderId = senderId,
-            senderName = senderName,
-            text = text,
-            timestamp = System.currentTimeMillis()
-        )
-
-        // Add message
-        messagesCollection.document(messageId).set(message).await()
-
-        // Update chat's last message
-        chatsCollection.document(chatId).update(
-            mapOf(
-                "lastMessage" to text,
-                "lastMessageTime" to message.timestamp
+        try {
+            val messageId = messagesCollection.document().id
+            val message = Message(
+                id = messageId,
+                chatId = chatId,
+                senderId = senderId,
+                senderName = senderName,
+                text = text,
+                timestamp = System.currentTimeMillis()
             )
-        ).await()
+
+            // Add message
+            messagesCollection.document(messageId).set(message).await()
+            Log.d(TAG, "Message sent successfully: $messageId")
+
+            // Update chat's last message
+            chatsCollection.document(chatId).update(
+                mapOf(
+                    "lastMessage" to text,
+                    "lastMessageTime" to message.timestamp
+                )
+            ).await()
+            Log.d(TAG, "Chat updated with last message")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error sending message", e)
+            throw e
+        }
     }
 
-    // Create sample chats for UI
+    // Create sample chats for UI - ONLY Test Chat Room now
     suspend fun createSampleChats() {
-        val sampleChats = listOf(
-            Chat(
-                id = "test_chat_room_001",
-                name = "Test Chat Room",
-                lastMessage = "Welcome to the test chat!",
-                lastMessageTime = System.currentTimeMillis(),
-                isGroupChat = true
-            ),
-            Chat(
-                id = "spartan_111",
-                name = "Spartan 111",
-                lastMessage = "I can't remember the last time I went out...",
-                lastMessageTime = System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000, // 5 days ago
-                isGroupChat = false
-            ),
-            Chat(
-                id = "spartan_112",
-                name = "Spartan 112",
-                lastMessage = "I think I'm camping this weekend...",
-                lastMessageTime = System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000, // 5 days ago
-                isGroupChat = false
-            )
+        // First, try to delete any existing Spartan chats
+        try {
+            chatsCollection.document("spartan_111").delete().await()
+            chatsCollection.document("spartan_112").delete().await()
+            Log.d(TAG, "Removed Spartan chat threads")
+        } catch (e: Exception) {
+            Log.d(TAG, "Could not remove Spartan threads: ${e.message}")
+        }
+
+        // Only create Test Chat Room
+        val testChat = Chat(
+            id = "test_chat_room_001",
+            name = "Test Chat Room",
+            lastMessage = "Welcome to the test chat!",
+            lastMessageTime = System.currentTimeMillis(),
+            isGroupChat = true
         )
 
-        sampleChats.forEach { chat ->
-            try {
-                chatsCollection.document(chat.id).set(chat).await()
-            } catch (e: Exception) {
-                // Ignore if already exists
-            }
+        try {
+            chatsCollection.document(testChat.id).set(testChat).await()
+            Log.d(TAG, "Sample chat created: ${testChat.name}")
+        } catch (e: Exception) {
+            // Ignore if already exists
+            Log.d(TAG, "Sample chat already exists or error: ${testChat.name}", e)
         }
     }
 }

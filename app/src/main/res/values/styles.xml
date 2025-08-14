@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme -->
+    <style name="Theme.ChatCityOfficial" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Enable window content transitions for smoother animations -->
+        <item name="android:windowContentTransitions">true</item>
+        <!-- Faster window animations -->
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
+    <!-- No action bar theme -->
+    <style name="Theme.ChatCityOfficial.NoActionBar" parent="Theme.ChatCityOfficial">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Set window background to prevent black flash -->
+        <item name="android:windowBackground">@color/white</item>
+        <!-- Disable preview window for faster startup -->
+        <item name="android:windowDisablePreview">false</item>
+        <!-- Use a simple background for faster rendering -->
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <!-- Splash screen theme for even faster startup -->
+    <style name="Theme.ChatCityOfficial.Splash" parent="Theme.ChatCityOfficial.NoActionBar">
+        <!-- Use the gradient background directly as window background -->
+        <item name="android:windowBackground">@drawable/gradient_background</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
+    <!-- Faster window animations -->
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <!-- App bar overlay -->
+    <style name="Theme.ChatCityOfficial.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <!-- Popup overlay -->
+    <style name="Theme.ChatCityOfficial.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+</resources>
