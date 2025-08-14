@@ -1,3 +1,58 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "java.home": "${env:JAVA_HOME}",
+    "java.compile.nullAnalysis.mode": "automatic",
+    "kotlin.compiler.jvm.target": "11",
+    "kotlin.code-style": "official",
+    "kotlin.formatter.enabled": true,
+    "kotlin.debugAdapter.enabled": true,
+    "files.exclude": {
+        "**/.gradle": true,
+        "**/.idea": true,
+        "**/build": true,
+        "**/*.iml": true,
+        ".gradle": true,
+        ".idea": true
+    },
+    "files.watcherExclude": {
+        "**/.gradle/**": true,
+        "**/build/**": true,
+        "**/.idea/**": true
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "${env:JAVA_HOME}"
+    },
+    "gradle.nestedProjects": true,
+    "gradle.autoDetect": true,
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-11",
+            "path": "${env:JAVA_HOME}",
+            "default": true
+        }
+    ],
+    "java.import.gradle.wrapper.enabled": true,
+    "java.import.gradle.version": "7.5",
+    "java.import.gradle.home": "${workspaceFolder}/gradle/wrapper",
+    "java.import.gradle.offline.enabled": false,
+    "java.server.launchMode": "Standard",
+    "java.dependency.syncWithFolderExplorer": true,
+    "java.dependency.refreshDelay": 2000,
+    "java.saveActions.organizeImports": true,
+    "java.completion.importOrder": [
+        "android",
+        "androidx",
+        "com",
+        "junit",
+        "net",
+        "org",
+        "java",
+        "javax",
+        "kotlin",
+        "kotlinx"
+    ]
 }
