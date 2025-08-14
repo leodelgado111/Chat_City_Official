@@ -195,6 +195,68 @@ val newStyle = if (isDarkMode) Style.DARK else Style.LIGHT
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-14 23:35 - Claude/Assistant
+**Category**: Bug Fix / UI
+**Files Modified**: app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Fixed location puck centering, theme flashing, and removed Mapbox branding
+**Technical Details**: 
+**Fix 1 - Location Puck Centering:**
+- Added a separate center dot annotation that stays at the exact location coordinates
+- Created `centerDotAnnotation` with 2.0 meter radius, fully opaque pink (#FB86BB)
+- Pulse animation now only affects the expanding ring, not the center dot
+- Both annotations share the same Point.fromLngLat(location.longitude, location.latitude)
+- Modified `createLocationPuck()` function to create both annotations
+- Code snippet:
+```kotlin
+// Create center dot that stays fixed
+centerDotAnnotation = manager.create(
+    CircleAnnotationOptions()
+        .withPoint(point)
+        .withCircleRadius(CENTER_DOT_RADIUS)
+        .withCircleColor(centerColor)
+        .withCircleOpacity(1.0) // Fully opaque
+)
+```
+
+**Fix 2 - Theme Flashing Prevention:**
+- Changed default map style from Style.MAPBOX_STREETS to Style.DARK
+- Changed default isDarkMode from false to true
+- Added `determinateInitialTheme()` function to pre-calculate theme before map loads
+- This prevents the white/light theme from briefly appearing on load
+- Theme is determined using last known location if available
+
+**Fix 3 - Removed Mapbox Branding:**
+- Added imports for logo and attribution plugins
+- Disabled Mapbox logo: `mapView.logo.enabled = false`
+- Disabled attribution icon: `mapView.attribution.enabled = false`
+- Re-applies these settings in onResume() to ensure they stay hidden
+- Re-applies after theme changes in updateMapThemeBasedOnTime()
+- Code snippet:
+```kotlin
+// CRITICAL: Disable all Mapbox branding and UI elements
+mapView.logo.enabled = false
+mapView.attribution.enabled = false
+mapView.scalebar.enabled = false
+```
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Location Puck Centering**:
+   - Launch app and verify center dot appears at exact user location
+   - Watch pulse animation and confirm center dot stays fixed while ring expands
+   - Move to different location and verify both elements update correctly
+2. **Theme Flashing**:
+   - Force close and restart app multiple times
+   - Verify no white/light flash appears before dark theme loads
+   - Switch between fragments and verify no theme flashing
+3. **Mapbox Branding**:
+   - Check all corners of map - no Mapbox logo should appear
+   - Verify no "i" information/attribution icon
+   - Switch between fragments and confirm branding stays hidden
+   - Change themes (day/night) and verify branding remains hidden
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
