@@ -22,7 +22,6 @@ import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
-import com.luckycatlabs.sunrisesunset.dto.LocationDTO
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
@@ -204,8 +203,9 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateMapThemeBasedOnTime(location: Location) {
-        val locationDTO = LocationDTO(location.latitude, location.longitude)
-        val calculator = SunriseSunsetCalculator(locationDTO, TimeZone.getDefault())
+        // Create Location object for the calculator
+        val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(location.latitude, location.longitude)
+        val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
         val now = Calendar.getInstance()
         
         val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
@@ -235,8 +235,9 @@ class HomeFragment : Fragment() {
     }
     
     private fun getMapStyleForCurrentTime(location: Location): String {
-        val locationDTO = LocationDTO(location.latitude, location.longitude)
-        val calculator = SunriseSunsetCalculator(locationDTO, TimeZone.getDefault())
+        // Create Location object for the calculator
+        val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(location.latitude, location.longitude)
+        val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
         val now = Calendar.getInstance()
         
         val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
