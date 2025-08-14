@@ -3,6 +3,7 @@ package com.chatcityofficial.chatmapapp.ui.home
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
@@ -33,6 +34,7 @@ import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.CameraState
 import com.mapbox.maps.MapView
+import com.mapbox.maps.plugin.LocationPuck2D
 import com.mapbox.maps.plugin.animation.MapAnimationOptions
 import com.mapbox.maps.plugin.animation.camera
 import com.mapbox.maps.plugin.gestures.OnMoveListener
@@ -365,7 +367,7 @@ class HomeFragment : Fragment() {
                     })
                 }
                 
-                // Setup location component
+                // Setup location component with custom styling
                 setupLocationComponent()
                 
                 // ALWAYS restore camera position if we have saved state
@@ -445,7 +447,7 @@ class HomeFragment : Fragment() {
                     mapView?.logo?.enabled = false
                     mapView?.attribution?.enabled = false
                     
-                    // Re-setup location component after style change
+                    // Re-setup location component after style change with custom colors
                     setupLocationComponent()
                     
                     // Restore camera position after theme change
@@ -603,17 +605,45 @@ class HomeFragment : Fragment() {
     }
     
     private fun setupLocationComponent() {
-        Log.d("HomeFragment", "⚙️ Setting up location component")
+        Log.d("HomeFragment", "⚙️ Setting up location component with custom colors")
         
-        // Enable location component
+        // Define custom colors based on the gradient
+        // Using colors from the SVG gradient: pink-purple-blue theme
+        val gradientPinkColor = Color.argb(51, 251, 134, 187)  // 20% opacity pink
+        val gradientPurpleColor = Color.argb(51, 166, 170, 213)  // 20% opacity purple
+        val gradientBlueColor = Color.argb(51, 151, 212, 240)  // 20% opacity light blue
+        val mediumLightGray = Color.argb(128, 200, 200, 200)  // Medium-light gray for accuracy circle
+        
+        // Enable location component with custom styling
         mapView?.location?.apply {
             enabled = true
             pulsingEnabled = true
             
+            // Custom location puck with gradient-inspired colors
+            // Since we can't do a true gradient, we'll use the dominant purple-blue color
+            locationPuck = LocationPuck2D(
+                // Top icon (bearing image when device has bearing)
+                topImage = null,  // Keep default or you can set a custom drawable
+                // Shadow image
+                shadowImage = null,  // Keep default shadow
+                // Scale expression - keep default size
+                scaleExpression = null
+            )
+            
+            // Set pulsing color to match the gradient theme (using the purple-blue tone)
+            pulsingColor = gradientPurpleColor
+            
+            // Set pulsing max radius (keep default or adjust as needed)
+            pulsingMaxRadius = 20f  // Adjust this value to control pulse size
+            
+            // Accuracy ring color - set to medium-light gray
+            accuracyRingColor = mediumLightGray
+            accuracyRingBorderColor = mediumLightGray
+            
             // Only add position listener
             addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
             
-            Log.d("HomeFragment", "✅ Location component enabled with pulsing")
+            Log.d("HomeFragment", "✅ Location component enabled with custom gradient-inspired colors")
         }
     }
     
