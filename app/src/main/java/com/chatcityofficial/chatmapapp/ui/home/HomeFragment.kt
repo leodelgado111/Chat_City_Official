@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home_with_search, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
         
         // Initialize views
         mapView = view.findViewById(R.id.mapView)
@@ -272,7 +272,8 @@ class HomeFragment : Fragment() {
             Place.Field.ID,
             Place.Field.NAME,
             Place.Field.LAT_LNG,
-            Place.Field.ADDRESS
+            Place.Field.ADDRESS,
+            Place.Field.ADDRESS_COMPONENTS
         )
         
         val request = FetchPlaceRequest.newInstance(placeId, placeFields)
@@ -305,15 +306,38 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateLocationTextForPlace(place: Place) {
-        // Extract city/town name from the place
-        val address = place.address ?: place.name ?: "Unknown"
-        val components = address.split(",")
+        // Try to get city name from address components first
+        var cityName: String? = null
         
-        // Try to get city name (usually second component) or use place name
-        val cityName = when {
-            components.size >= 2 -> components[components.size - 2].trim()
-            place.name != null -> place.name
-            else -> "Unknown"
+        place.addressComponents?.asList()?.forEach { component ->
+            val types = component.types
+            if (types.contains("locality") || types.contains("administrative_area_level_3")) {
+                cityName = component.name
+                return@forEach
+            }
+        }
+        
+        // If no city found in components, try parsing the address
+        if (cityName == null) {
+            val address = place.address ?: place.name ?: "Unknown"
+            val components = address.split(",")
+            
+            cityName = when {
+                components.size >= 2 -> {
+                    // Try to get the component that looks like a city (usually before state/country)
+                    val potentialCity = components[components.size - 2].trim()
+                    // Check if it's not a zip code or state abbreviation
+                    if (!potentialCity.matches(Regex("\\d+")) && potentialCity.length > 2) {
+                        potentialCity
+                    } else if (components.size >= 3) {
+                        components[components.size - 3].trim()
+                    } else {
+                        place.name
+                    }
+                }
+                place.name != null -> place.name
+                else -> "Unknown"
+            }
         }
         
         locationText.text = cityName
