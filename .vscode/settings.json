@@ -1,6 +1,6 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.home": "${env:JAVA_HOME}",
+    "java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot",
     "java.compile.nullAnalysis.mode": "automatic",
     "kotlin.compiler.jvm.target": "11",
     "kotlin.code-style": "official",
@@ -21,24 +21,25 @@
     },
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true
+        "source.organizeImports": "explicit"
     },
     "terminal.integrated.env.windows": {
-        "JAVA_HOME": "${env:JAVA_HOME}"
+        "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot"
     },
     "gradle.nestedProjects": true,
     "gradle.autoDetect": true,
     "java.configuration.runtimes": [
         {
-            "name": "JavaSE-11",
-            "path": "${env:JAVA_HOME}",
+            "name": "JavaSE-21",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot",
             "default": true
         }
     ],
     "java.import.gradle.wrapper.enabled": true,
-    "java.import.gradle.version": "7.5",
+    "java.import.gradle.version": "8.9",
     "java.import.gradle.home": "${workspaceFolder}/gradle/wrapper",
     "java.import.gradle.offline.enabled": false,
+    "java.import.gradle.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot",
     "java.server.launchMode": "Standard",
     "java.dependency.syncWithFolderExplorer": true,
     "java.dependency.refreshDelay": 2000,
@@ -54,5 +55,6 @@
         "javax",
         "kotlin",
         "kotlinx"
-    ]
+    ],
+    "java.jdt.ls.java.home": "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot"
 }
