@@ -1,21 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="50dp"
     android:height="50dp"
     android:viewportWidth="50"
     android:viewportHeight="50">
-    <group>
-        <path
-            android:pathData="M25,25m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
-            android:fillColor="@color/black" />
-        <path
-            android:pathData="M17.5 31.625C17.5 30.63 17.8951 29.677 18.5983 28.973C19.3016 28.27 20.2554 27.875 21.25 27.875H28.75C29.7446 27.875 30.6984 28.27 31.4016 28.973C32.1049 29.677 32.5 30.63 32.5 31.625C32.5 32.122 32.3025 32.599 31.9508 32.951C31.5992 33.302 31.1223 33.5 30.625 33.5H19.375C18.8777 33.5 18.4008 33.302 18.0492 32.951C17.6975 32.599 17.5 32.122 17.5 31.625Z"
-            android:strokeWidth="1.5"
-            android:strokeColor="@color/white"
-            android:strokeLineJoin="round" />
-        <path
-            android:pathData="M24.999 24.125C26.5523 24.125 27.8115 22.866 27.8115 21.313C27.8115 19.759 26.5523 18.5 24.999 18.5C23.4457 18.5 22.1865 19.759 22.1865 21.313C22.1865 22.866 23.4457 24.125 24.999 24.125Z"
-            android:strokeWidth="1.5"
-            android:strokeColor="@color/white" />
-    </group>
+    
+    <!-- Circle background -->
+    <path
+        android:pathData="M25,25m-25,0a25,25 0,1 1,50 0a25,25 0,1 1,-50 0"
+        android:fillColor="#000000" />
+    
+    <!-- User body -->
+    <path
+        android:pathData="M7.5,38.625C7.5,37.63 7.895,36.677 8.598,35.973C9.302,35.27 10.255,34.875 11.25,34.875L18.75,34.875C19.745,34.875 20.698,35.27 21.402,35.973C22.105,36.677 22.5,37.63 22.5,38.625C22.5,39.122 22.303,39.599 21.951,39.951C21.599,40.302 21.122,40.5 20.625,40.5L9.375,40.5C8.878,40.5 8.401,40.302 8.049,39.951C7.698,39.599 7.5,39.122 7.5,38.625Z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FEFEFE"
+        android:strokeLineJoin="round" />
+    
+    <!-- User head -->
+    <path
+        android:pathData="M14.999,31.125C16.552,31.125 17.812,29.866 17.812,28.313C17.812,26.759 16.552,25.5 14.999,25.5C13.446,25.5 12.187,26.759 12.187,28.313C12.187,29.866 13.446,31.125 14.999,31.125Z"
+        android:strokeWidth="1.5"
+        android:strokeColor="#FEFEFE" />
 </vector>

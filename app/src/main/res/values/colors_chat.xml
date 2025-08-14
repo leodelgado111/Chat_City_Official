@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Chat Screen Colors -->
+    <color name="chat_background_primary">#000000</color>
+    <color name="chat_gradient_start">#338E93D0</color>
+    <color name="chat_gradient_center">#3397D4F0</color>
+    <color name="chat_gradient_end">#33FB86BB</color>
+    
+    <!-- Text Colors -->
+    <color name="chat_text_primary">#FFFFFF</color>
+    <color name="chat_text_secondary">#80FFFFFF</color>
+    <color name="chat_text_hint">#4DFFFFFF</color>
+    
+    <!-- UI Element Colors -->
+    <color name="chat_divider">#66000000</color>
+    <color name="chat_input_background">#1AFFFFFF</color>
+    <color name="chat_input_border">#33FFFFFF</color>
+    
+    <!-- Button Colors -->
+    <color name="send_button_gradient_start">#8E93D0</color>
+    <color name="send_button_gradient_end">#FB86BB</color>
+</resources>
