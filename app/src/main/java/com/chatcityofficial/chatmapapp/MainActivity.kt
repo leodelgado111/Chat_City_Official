@@ -102,8 +102,9 @@ class MainActivity : AppCompatActivity() {
         }
         
         findViewById<View>(R.id.btn_create).setOnClickListener {
+            // Navigate to create screen but DON'T move the outline
             navigateToDestination(R.id.navigation_create)
-            animateOutlineToPosition(R.id.navigation_create)
+            // Note: No animateOutlineToPosition() call here
         }
         
         findViewById<View>(R.id.btn_chats).setOnClickListener {
