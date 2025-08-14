@@ -32,8 +32,10 @@ import com.mapbox.maps.plugin.annotation.generated.CircleAnnotation
 import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationManager
 import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createCircleAnnotationManager
+import com.mapbox.maps.plugin.attribution.attribution
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.scalebar.scalebar
 import kotlinx.coroutines.*
 import java.util.*
@@ -45,12 +47,13 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var logoImageView: ImageView
     private var currentLocation: Location? = null
-    private var currentMapStyle: String = Style.MAPBOX_STREETS
-    private var isDarkMode: Boolean = false
+    private var currentMapStyle: String = Style.DARK // Start with dark to prevent flashing
+    private var isDarkMode: Boolean = true // Default to dark mode to prevent flashing
     
-    // Single annotation manager and annotation for location pulse
+    // Single annotation manager and annotations for location pulse and center dot
     private var circleAnnotationManager: CircleAnnotationManager? = null
     private var pulseAnnotation: CircleAnnotation? = null
+    private var centerDotAnnotation: CircleAnnotation? = null
     private var pulseAnimator: ValueAnimator? = null
     
     // Handler for periodic theme checks
@@ -71,6 +74,7 @@ class HomeFragment : Fragment() {
         private const val PULSE_DURATION = 2000L // 2 seconds per pulse cycle
         private const val MAX_PULSE_RADIUS = 35.0 // Reduced by 30% from 50
         private const val MIN_PULSE_RADIUS = 3.5 // Reduced by 30% from 5
+        private const val CENTER_DOT_RADIUS = 2.0 // Small center dot for the location puck
     }
 
     override fun onCreateView(
@@ -88,30 +92,53 @@ class HomeFragment : Fragment() {
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         
+        // Pre-determine theme before initializing map to prevent flashing
+        determinateInitialTheme()
+        
         // Initialize map
         initializeMap()
         
         return view
     }
     
-    private fun initializeMap() {
-        // Determine initial theme based on current time if location is available
-        val initialStyle = if (currentLocation != null) {
-            getMapStyleForCurrentTime(currentLocation!!)
-        } else {
-            Style.MAPBOX_STREETS
+    private fun determinateInitialTheme() {
+        // Try to get last known location to determine theme immediately
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                location?.let {
+                    val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(it.latitude, it.longitude)
+                    val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
+                    val now = Calendar.getInstance()
+                    
+                    val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
+                    val sunset = calculator.getOfficialSunsetCalendarForDate(now)
+                    
+                    isDarkMode = now.after(sunset) || now.before(sunrise)
+                    currentMapStyle = if (isDarkMode) Style.DARK else Style.LIGHT
+                    
+                    // Update logo color immediately
+                    updateLogoColor(isDarkMode)
+                }
+            }
         }
-        
+    }
+    
+    private fun initializeMap() {
+        // Use the pre-determined style to prevent flashing
         mapView.getMapboxMap().apply {
-            loadStyleUri(initialStyle) { style ->
+            loadStyleUri(currentMapStyle) { style ->
                 // Map style loaded
-                Log.d(TAG, "Map style loaded: $initialStyle")
+                Log.d(TAG, "Map style loaded: $currentMapStyle")
                 
-                // Disable the default location component completely
+                // CRITICAL: Disable all Mapbox branding and UI elements
                 mapView.location.enabled = false
-                
-                // CRITICAL: Disable the scale bar (mile-radius bar) completely
                 mapView.scalebar.enabled = false
+                mapView.logo.enabled = false  // Disable Mapbox logo
+                mapView.attribution.enabled = false  // Disable attribution icon
                 
                 // Disable rotation gesture while keeping pinch zoom and pan
                 mapView.gestures.rotateEnabled = false
@@ -222,6 +249,11 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "Theme switched to: ${if (isDarkMode) "DARK" else "LIGHT"}")
                 currentMapStyle = newStyle
                 
+                // Re-disable all Mapbox branding after style change
+                mapView.logo.enabled = false
+                mapView.attribution.enabled = false
+                mapView.scalebar.enabled = false
+                
                 // Re-initialize annotation manager after style change
                 initializeAnnotationManager()
                 
@@ -308,11 +340,11 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateLocationPulse(location: Location) {
-        // Clear existing animation and annotation
+        // Clear existing animation and annotations
         clearPulseAnimation()
         
-        // Create single pulse effect
-        createPulseEffect(location)
+        // Create center dot and pulse effect
+        createLocationPuck(location)
     }
     
     private fun clearPulseAnimation() {
@@ -325,18 +357,33 @@ class HomeFragment : Fragment() {
             circleAnnotationManager?.delete(annotation)
         }
         pulseAnnotation = null
+        
+        // Delete existing center dot annotation
+        centerDotAnnotation?.let { annotation ->
+            circleAnnotationManager?.delete(annotation)
+        }
+        centerDotAnnotation = null
     }
     
-    private fun createPulseEffect(location: Location) {
+    private fun createLocationPuck(location: Location) {
         val point = Point.fromLngLat(location.longitude, location.latitude)
         
         circleAnnotationManager?.let { manager ->
-            // Create a single pulse ring with gradient-inspired color
-            // Using a blend of the gradient colors with transparency
-            // This approximates the conic gradient effect from your SVG
-            val pulseColor = "#33FB86BB" // Pink with 20% opacity (main gradient color)
+            // Create a center dot (the actual location puck)
+            val centerColor = "#FB86BB" // Pink color without transparency for center
             
-            // Create the pulse annotation
+            centerDotAnnotation = manager.create(
+                CircleAnnotationOptions()
+                    .withPoint(point)
+                    .withCircleRadius(CENTER_DOT_RADIUS)
+                    .withCircleColor(centerColor)
+                    .withCircleOpacity(1.0) // Fully opaque center dot
+                    .withCircleStrokeWidth(0.0)
+            )
+            
+            // Create the pulse ring animation
+            val pulseColor = "#33FB86BB" // Pink with 20% opacity for pulse
+            
             pulseAnnotation = manager.create(
                 CircleAnnotationOptions()
                     .withPoint(point)
@@ -347,7 +394,7 @@ class HomeFragment : Fragment() {
                     .withCircleBlur(0.3) // Add slight blur for softer edges
             )
             
-            // Animate the single pulse ring
+            // Animate only the pulse ring, not the center dot
             pulseAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
                 duration = PULSE_DURATION
                 repeatCount = ValueAnimator.INFINITE
@@ -365,7 +412,7 @@ class HomeFragment : Fragment() {
                     
                     try {
                         if (isAdded && circleAnnotationManager != null && pulseAnnotation != null) {
-                            // Update the annotation
+                            // Update only the pulse annotation, not the center dot
                             pulseAnnotation?.circleRadius = radius
                             pulseAnnotation?.circleOpacity = opacity
                             pulseAnnotation?.let { manager.update(it) }
@@ -414,6 +461,12 @@ class HomeFragment : Fragment() {
         super.onResume()
         // Resume animation when fragment becomes visible
         pulseAnimator?.resume()
+        
+        // Re-ensure Mapbox branding is hidden when resuming
+        mapView.logo.enabled = false
+        mapView.attribution.enabled = false
+        mapView.scalebar.enabled = false
+        
         // Resume theme updates
         currentLocation?.let {
             updateMapThemeBasedOnTime(it)
