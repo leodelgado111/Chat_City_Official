@@ -42,20 +42,19 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var currentLocation: Location? = null
     
-    // Single annotation manager and annotations for location
+    // Single annotation manager and annotation for location pulse
     private var circleAnnotationManager: CircleAnnotationManager? = null
-    private var pulseAnnotations = mutableListOf<CircleAnnotation>()
-    private val pulseAnimators = mutableListOf<ValueAnimator>()
-    private val pulseHandler = Handler(Looper.getMainLooper())
+    private var pulseAnnotation: CircleAnnotation? = null
+    private var pulseAnimator: ValueAnimator? = null
     
     private val scope = CoroutineScope(Dispatchers.Main + Job())
     
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
         private const val TAG = "HomeFragment"
-        private const val PULSE_DURATION = 3000L // 3 seconds per pulse
-        private const val PULSE_COUNT = 3 // Number of pulse rings
-        private const val PULSE_DELAY = 1000L // Delay between each pulse start
+        private const val PULSE_DURATION = 2000L // 2 seconds per pulse cycle
+        private const val MAX_PULSE_RADIUS = 35.0 // Reduced by 30% from 50
+        private const val MIN_PULSE_RADIUS = 3.5 // Reduced by 30% from 5
     }
 
     override fun onCreateView(
@@ -209,90 +208,67 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateLocationPulse(location: Location) {
-        // Clear all existing animations and annotations
-        clearPulseAnimations()
+        // Clear existing animation and annotation
+        clearPulseAnimation()
         
-        // Create pulse effect with gradient colors
+        // Create single pulse effect
         createPulseEffect(location)
     }
     
-    private fun clearPulseAnimations() {
-        // Cancel all animators
-        pulseAnimators.forEach { it.cancel() }
-        pulseAnimators.clear()
+    private fun clearPulseAnimation() {
+        // Cancel animator
+        pulseAnimator?.cancel()
+        pulseAnimator = null
         
-        // Delete all existing pulse annotations
-        circleAnnotationManager?.let { manager ->
-            pulseAnnotations.forEach { annotation ->
-                try {
-                    manager.delete(annotation)
-                } catch (e: Exception) {
-                    Log.e(TAG, "Error deleting annotation", e)
-                }
-            }
+        // Delete existing pulse annotation
+        pulseAnnotation?.let { annotation ->
+            circleAnnotationManager?.delete(annotation)
         }
-        pulseAnnotations.clear()
-        
-        // Clear any pending pulse creation
-        pulseHandler.removeCallbacksAndMessages(null)
+        pulseAnnotation = null
     }
     
     private fun createPulseEffect(location: Location) {
         val point = Point.fromLngLat(location.longitude, location.latitude)
         
-        // Create multiple pulse rings with staggered animations
-        for (i in 0 until PULSE_COUNT) {
-            pulseHandler.postDelayed({
-                if (isAdded && circleAnnotationManager != null) {
-                    createSinglePulse(point, i)
-                }
-            }, i * PULSE_DELAY)
-        }
-    }
-    
-    private fun createSinglePulse(point: Point, index: Int) {
         circleAnnotationManager?.let { manager ->
-            // Create gradient colors based on the SVG
-            // Using the three colors from the conic gradient with transparency
-            val colors = listOf(
-                "#33FB86BB", // Pink with 20% opacity
-                "#33A6AAD5", // Purple with 20% opacity  
-                "#3397D4F0"  // Blue with 20% opacity
-            )
+            // Create a single pulse ring with gradient-inspired color
+            // Using a blend of the gradient colors with transparency
+            // This approximates the conic gradient effect from your SVG
+            val pulseColor = "#33FB86BB" // Pink with 20% opacity (main gradient color)
             
-            // Create a pulse annotation
-            val pulseAnnotation = manager.create(
+            // Create the pulse annotation
+            pulseAnnotation = manager.create(
                 CircleAnnotationOptions()
                     .withPoint(point)
-                    .withCircleRadius(0.0)
-                    .withCircleColor(colors[index % colors.size])
-                    .withCircleOpacity(0.0)
+                    .withCircleRadius(MIN_PULSE_RADIUS)
+                    .withCircleColor(pulseColor)
+                    .withCircleOpacity(0.5)
                     .withCircleStrokeWidth(0.0)
+                    .withCircleBlur(0.3) // Add slight blur for softer edges
             )
             
-            pulseAnnotations.add(pulseAnnotation)
-            
-            // Animate the pulse
-            val animator = ValueAnimator.ofFloat(0f, 1f).apply {
+            // Animate the single pulse ring
+            pulseAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
                 duration = PULSE_DURATION
                 repeatCount = ValueAnimator.INFINITE
+                repeatMode = ValueAnimator.RESTART
                 interpolator = LinearInterpolator()
                 
                 addUpdateListener { animation ->
                     val progress = animation.animatedValue as Float
                     
-                    // Expand radius from 5 to 50 meters
-                    val radius = 5.0 + (45.0 * progress)
+                    // Expand radius from MIN to MAX
+                    val radius = MIN_PULSE_RADIUS + ((MAX_PULSE_RADIUS - MIN_PULSE_RADIUS) * progress)
                     
-                    // Fade out as it expands
-                    val opacity = (1.0 - progress) * 0.3 // Max 30% opacity
+                    // Fade out as it expands (start at 50% opacity, fade to 0%)
+                    val opacity = (1.0 - progress) * 0.5
                     
                     try {
-                        if (isAdded && circleAnnotationManager != null) {
+                        if (isAdded && circleAnnotationManager != null && pulseAnnotation != null) {
                             // Update the annotation
-                            pulseAnnotation.circleRadius = radius
-                            pulseAnnotation.circleOpacity = opacity
-                            manager.update(pulseAnnotation)
+                            pulseAnnotation?.circleRadius = radius
+                            pulseAnnotation?.circleOpacity = opacity
+                            pulseAnnotation?.let { manager.update(it) }
                         }
                     } catch (e: Exception) {
                         Log.e(TAG, "Error updating pulse animation", e)
@@ -300,22 +276,7 @@ class HomeFragment : Fragment() {
                 }
             }
             
-            pulseAnimators.add(animator)
-            animator.start()
-        }
-        
-        // Add center dot (always visible)
-        circleAnnotationManager?.let { manager ->
-            val centerDot = manager.create(
-                CircleAnnotationOptions()
-                    .withPoint(point)
-                    .withCircleRadius(4.0)
-                    .withCircleColor("#FB86BB") // Solid pink color for center
-                    .withCircleOpacity(1.0)
-                    .withCircleStrokeWidth(2.0)
-                    .withCircleStrokeColor("#FFFFFF")
-            )
-            pulseAnnotations.add(centerDot)
+            pulseAnimator?.start()
         }
     }
     
@@ -336,20 +297,20 @@ class HomeFragment : Fragment() {
     
     override fun onDestroy() {
         super.onDestroy()
-        clearPulseAnimations()
+        clearPulseAnimation()
         mapView.onDestroy()
         scope.cancel()
     }
     
     override fun onPause() {
         super.onPause()
-        // Pause animations when fragment is not visible
-        pulseAnimators.forEach { it.pause() }
+        // Pause animation when fragment is not visible
+        pulseAnimator?.pause()
     }
     
     override fun onResume() {
         super.onResume()
-        // Resume animations when fragment becomes visible
-        pulseAnimators.forEach { it.resume() }
+        // Resume animation when fragment becomes visible
+        pulseAnimator?.resume()
     }
 }
