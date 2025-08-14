@@ -133,6 +133,24 @@ mapView.scalebar.enabled = false
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-01-23 21:54 - Claude/Assistant
+**Category**: Bug Fix
+**Files Modified**: app/src/main/res/values/themes.xml
+**Description**: Fixed duplicate theme definition build error
+**Technical Details**: 
+- Removed duplicate `Theme.ChatCityOfficial` definition from themes.xml
+- The theme was defined in both styles.xml and themes.xml causing a resource merger conflict
+- Kept the more complete definition in styles.xml which includes all related styles
+- themes.xml now only contains the `Theme.SplashScreen` style
+- Build error was: "Duplicate resources: [style/Theme.ChatCityOfficial]"
+**Breaking Changes**: No
+**Testing Notes**: 
+1. Run `./gradlew clean` to clear build cache
+2. Run `./gradlew assembleDebug` - build should complete successfully
+3. Verify app launches normally with correct theming
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
