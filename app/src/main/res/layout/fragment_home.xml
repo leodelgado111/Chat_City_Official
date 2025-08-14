@@ -81,41 +81,47 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Zoom In Button -->
+        <!-- Zoom In Button (smaller size: 36dp) -->
         <ImageButton
             android:id="@+id/zoomInButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@drawable/circular_button_background"
             android:src="@drawable/ic_add"
             android:tint="@color/black"
             android:contentDescription="Zoom In"
+            android:scaleType="centerInside"
+            android:padding="8dp"
             android:elevation="4dp"
             android:outlineProvider="background" />
 
-        <!-- Zoom Out Button -->
+        <!-- Zoom Out Button (smaller size: 36dp) -->
         <ImageButton
             android:id="@+id/zoomOutButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/circular_button_background"
             android:src="@drawable/ic_remove"
             android:tint="@color/black"
             android:contentDescription="Zoom Out"
+            android:scaleType="centerInside"
+            android:padding="8dp"
             android:elevation="4dp"
             android:outlineProvider="background" />
 
-        <!-- My Location Button -->
+        <!-- My Location Button (smaller size: 36dp) -->
         <ImageButton
             android:id="@+id/myLocationButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/circular_button_background"
             android:src="@drawable/ic_my_location"
             android:tint="@color/black"
             android:contentDescription="My Location"
+            android:scaleType="centerInside"
+            android:padding="8dp"
             android:elevation="4dp"
             android:outlineProvider="background" />
 
