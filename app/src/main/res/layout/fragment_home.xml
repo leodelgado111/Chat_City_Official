@@ -18,7 +18,7 @@
 
     <!-- Chat City Logo with custom drop shadow (centered vertically with location container) -->
     <ImageView
-        android:id="@+id/chatCityLogo"
+        android:id="@+id/logoImageView"
         android:layout_width="138dp"
         android:layout_height="46dp"
         android:layout_marginStart="28dp"
