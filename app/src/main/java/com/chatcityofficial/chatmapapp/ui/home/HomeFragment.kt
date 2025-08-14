@@ -323,7 +323,7 @@ class HomeFragment : Fragment() {
                     pinchToZoomDecelerationEnabled = true
                     scrollDecelerationEnabled = true
                     rotateDecelerationEnabled = false  // Keep rotation disabled
-                    pitchDecelerationEnabled = false   // Keep pitch disabled
+                    // Removed pitchDecelerationEnabled as it doesn't exist
                     
                     // Increase gesture thresholds for smoother interaction
                     increasePinchToZoomThresholdWhenRotating = false  // Don't increase threshold
@@ -337,8 +337,6 @@ class HomeFragment : Fragment() {
                     // Still block rotation even though simultaneousRotateAndPinchToZoomEnabled is true
                     addOnRotateListener(object : OnRotateListener {
                         override fun onRotateBegin(detector: RotateGestureDetector) {
-                            // Immediately cancel any rotation
-                            detector.interrupt()
                             // Force bearing to 0
                             mapView?.getMapboxMap()?.setCamera(
                                 CameraOptions.Builder()
@@ -349,7 +347,6 @@ class HomeFragment : Fragment() {
                         
                         override fun onRotate(detector: RotateGestureDetector) {
                             // Block all rotation - immediately reset
-                            detector.interrupt()
                             mapView?.getMapboxMap()?.setCamera(
                                 CameraOptions.Builder()
                                     .bearing(0.0)
