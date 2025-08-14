@@ -151,6 +151,50 @@ mapView.scalebar.enabled = false
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-01-23 23:04 - Claude/Assistant
+**Category**: Feature
+**Files Modified**: 
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+- app/src/main/res/layout/fragment_home.xml
+- app/src/main/java/com/chatcityofficial/chatmapapp/SplashActivity.kt
+**Description**: Implemented sunrise/sunset-based theme switching and edge-to-edge splash screen
+**Technical Details**: 
+**Change 2 - Day/Night Theme Switching:**
+- Added SunriseSunsetCalculator integration to determine sunrise/sunset times based on location
+- Map automatically switches between Style.DARK (after sunset) and Style.LIGHT (after sunrise)
+- Logo color changes: white in dark mode, black in light mode
+- Theme checks run every 5 minutes and on location updates
+- Added proper lifecycle management for theme update handler
+- ColorFilter applied to logo ImageView based on current theme
+- Code snippet:
+```kotlin
+val shouldUseDarkTheme = now.after(sunset) || now.before(sunrise)
+val newStyle = if (isDarkMode) Style.DARK else Style.LIGHT
+```
+
+**Change 3 - Edge-to-Edge Splash Screen:**
+- Implemented WindowCompat.setDecorFitsSystemWindows(window, false) for true edge-to-edge
+- Added support for display cutouts (notches) with LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+- Made status bar and navigation bar fully transparent
+- Added proper API level checks for compatibility (API 30+ and older versions)
+- WindowInsetsControllerCompat for modern immersive mode implementation
+- Re-applies edge-to-edge on window focus changes to maintain immersive experience
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Theme Switching**: 
+   - Test app during day and night times
+   - Verify map switches to dark theme after sunset
+   - Verify logo changes to white in dark mode
+   - Check theme updates when moving to different time zones
+2. **Splash Screen**:
+   - Test on devices with notches/cutouts
+   - Verify gradient extends to all screen edges
+   - Test on different Android versions (API 24+)
+   - Ensure no black bars at top/bottom of screen
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
