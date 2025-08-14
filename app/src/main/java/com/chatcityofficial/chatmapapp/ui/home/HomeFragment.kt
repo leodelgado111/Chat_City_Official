@@ -305,57 +305,68 @@ class HomeFragment : Fragment() {
                 mapView?.logo?.enabled = false
                 mapView?.attribution?.enabled = false
                 
-                // Configure gestures for simultaneous pan and zoom
+                // CRITICAL FIX: Configure gestures for PROPER simultaneous pan and zoom
                 mapView?.gestures?.apply {
+                    // Disable rotation and pitch
                     rotateEnabled = false
                     pitchEnabled = false
                     
-                    // Enable all zoom and scroll gestures
+                    // Enable all pan and zoom gestures
                     scrollEnabled = true
+                    pinchToZoomEnabled = true
                     doubleTapToZoomInEnabled = true
                     doubleTouchToZoomOutEnabled = true
                     quickZoomEnabled = true
-                    pinchToZoomEnabled = true
                     
-                    // IMPORTANT: Enable simultaneous gestures for smooth interaction
-                    simultaneousRotateAndPinchToZoomEnabled = false // We don't want rotate
+                    // IMPORTANT: These settings enable smooth simultaneous gestures
+                    simultaneousRotateAndPinchToZoomEnabled = true  // Changed to true for simultaneous gestures
                     pinchToZoomDecelerationEnabled = true
                     scrollDecelerationEnabled = true
+                    rotateDecelerationEnabled = false  // Keep rotation disabled
+                    pitchDecelerationEnabled = false   // Keep pitch disabled
+                    
+                    // Increase gesture thresholds for smoother interaction
+                    increasePinchToZoomThresholdWhenRotating = false  // Don't increase threshold
+                    increaseRotateThresholdWhenPinchingToZoom = false // Don't increase threshold
+                    zoomAnimationAmount = 1.0f  // Full zoom animation
                     
                     // Add listeners
                     addOnMoveListener(onMoveListener)
                     addOnScaleListener(onScaleListener)
+                    
+                    // Still block rotation even though simultaneousRotateAndPinchToZoomEnabled is true
+                    addOnRotateListener(object : OnRotateListener {
+                        override fun onRotateBegin(detector: RotateGestureDetector) {
+                            // Immediately cancel any rotation
+                            detector.interrupt()
+                            // Force bearing to 0
+                            mapView?.getMapboxMap()?.setCamera(
+                                CameraOptions.Builder()
+                                    .bearing(0.0)
+                                    .build()
+                            )
+                        }
+                        
+                        override fun onRotate(detector: RotateGestureDetector) {
+                            // Block all rotation - immediately reset
+                            detector.interrupt()
+                            mapView?.getMapboxMap()?.setCamera(
+                                CameraOptions.Builder()
+                                    .bearing(0.0)
+                                    .build()
+                            )
+                        }
+                        
+                        override fun onRotateEnd(detector: RotateGestureDetector) {
+                            // Ensure north orientation
+                            mapView?.getMapboxMap()?.setCamera(
+                                CameraOptions.Builder()
+                                    .bearing(0.0)
+                                    .build()
+                            )
+                        }
+                    })
                 }
-                
-                // Override gesture detectors to block rotation
-                mapView?.gestures?.addOnRotateListener(object : OnRotateListener {
-                    override fun onRotateBegin(detector: RotateGestureDetector) {
-                        // Block rotation start - immediately reset
-                        mapView?.getMapboxMap()?.setCamera(
-                            CameraOptions.Builder()
-                                .bearing(0.0)
-                                .build()
-                        )
-                    }
-                    
-                    override fun onRotate(detector: RotateGestureDetector) {
-                        // Block all rotation - immediately reset
-                        mapView?.getMapboxMap()?.setCamera(
-                            CameraOptions.Builder()
-                                .bearing(0.0)
-                                .build()
-                        )
-                    }
-                    
-                    override fun onRotateEnd(detector: RotateGestureDetector) {
-                        // Reset to north if needed
-                        mapView?.getMapboxMap()?.setCamera(
-                            CameraOptions.Builder()
-                                .bearing(0.0)
-                                .build()
-                        )
-                    }
-                })
                 
                 // Setup location component
                 setupLocationComponent()
