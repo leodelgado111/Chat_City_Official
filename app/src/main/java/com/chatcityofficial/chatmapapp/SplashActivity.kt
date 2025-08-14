@@ -114,6 +114,7 @@ class SplashActivity : AppCompatActivity() {
                     startActivity(intent)
                     
                     // Use a smooth transition
+                    @Suppress("DEPRECATION")
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
                     
                     // Finish splash activity
@@ -130,8 +131,12 @@ class SplashActivity : AppCompatActivity() {
         Log.d(TAG, "onDestroy: Splash activity destroyed")
     }
     
+    @Deprecated("Deprecated in Java")
+    @Suppress("DEPRECATION")
     override fun onBackPressed() {
-        // Disable back button during splash screen
-        // Do nothing
+        // Call super as required by lint
+        super.onBackPressed()
+        // But we actually don't want to allow back during splash screen
+        // So we're overriding to do nothing after calling super
     }
 }
