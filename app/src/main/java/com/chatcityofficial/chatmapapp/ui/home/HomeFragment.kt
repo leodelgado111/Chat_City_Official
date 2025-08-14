@@ -14,12 +14,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
+import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
+import com.luckycatlabs.sunrisesunset.dto.LocationDTO
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.MapView
@@ -34,19 +37,32 @@ import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.scalebar.scalebar
 import kotlinx.coroutines.*
-import java.util.Locale
+import java.util.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var mapView: MapView
     private lateinit var locationText: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var logoImageView: ImageView
     private var currentLocation: Location? = null
+    private var currentMapStyle: String = Style.MAPBOX_STREETS
+    private var isDarkMode: Boolean = false
     
     // Single annotation manager and annotation for location pulse
     private var circleAnnotationManager: CircleAnnotationManager? = null
     private var pulseAnnotation: CircleAnnotation? = null
     private var pulseAnimator: ValueAnimator? = null
+    
+    // Handler for periodic theme checks
+    private val themeUpdateHandler = Handler(Looper.getMainLooper())
+    private val themeUpdateRunnable = object : Runnable {
+        override fun run() {
+            currentLocation?.let { updateMapThemeBasedOnTime(it) }
+            // Check every 5 minutes
+            themeUpdateHandler.postDelayed(this, 5 * 60 * 1000)
+        }
+    }
     
     private val scope = CoroutineScope(Dispatchers.Main + Job())
     
@@ -68,6 +84,7 @@ class HomeFragment : Fragment() {
         // Initialize views
         mapView = view.findViewById(R.id.mapView)
         locationText = view.findViewById(R.id.locationText)
+        logoImageView = view.findViewById(R.id.logoImageView)
         
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -79,10 +96,17 @@ class HomeFragment : Fragment() {
     }
     
     private fun initializeMap() {
+        // Determine initial theme based on current time if location is available
+        val initialStyle = if (currentLocation != null) {
+            getMapStyleForCurrentTime(currentLocation!!)
+        } else {
+            Style.MAPBOX_STREETS
+        }
+        
         mapView.getMapboxMap().apply {
-            loadStyleUri(Style.MAPBOX_STREETS) { style ->
+            loadStyleUri(initialStyle) { style ->
                 // Map style loaded
-                Log.d(TAG, "Map style loaded")
+                Log.d(TAG, "Map style loaded: $initialStyle")
                 
                 // Disable the default location component completely
                 mapView.location.enabled = false
@@ -141,6 +165,9 @@ class HomeFragment : Fragment() {
                 updateLocationUI(it)
                 moveToLocation(it.latitude, it.longitude, 15.0)
                 updateLocationPulse(it)
+                updateMapThemeBasedOnTime(it)
+                // Start periodic theme updates
+                startThemeUpdates()
             }
         }
     }
@@ -158,6 +185,7 @@ class HomeFragment : Fragment() {
                     currentLocation = location
                     updateLocationUI(location)
                     updateLocationPulse(location)
+                    updateMapThemeBasedOnTime(location)
                 }
             }
         }
@@ -173,6 +201,73 @@ class HomeFragment : Fragment() {
                 Looper.getMainLooper()
             )
         }
+    }
+    
+    private fun updateMapThemeBasedOnTime(location: Location) {
+        val locationDTO = LocationDTO(location.latitude, location.longitude)
+        val calculator = SunriseSunsetCalculator(locationDTO, TimeZone.getDefault())
+        val now = Calendar.getInstance()
+        
+        val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
+        val sunset = calculator.getOfficialSunsetCalendarForDate(now)
+        
+        val shouldUseDarkTheme = now.after(sunset) || now.before(sunrise)
+        
+        if (shouldUseDarkTheme != isDarkMode) {
+            isDarkMode = shouldUseDarkTheme
+            val newStyle = if (isDarkMode) Style.DARK else Style.LIGHT
+            
+            // Update map style
+            mapView.getMapboxMap().loadStyleUri(newStyle) { style ->
+                Log.d(TAG, "Theme switched to: ${if (isDarkMode) "DARK" else "LIGHT"}")
+                currentMapStyle = newStyle
+                
+                // Re-initialize annotation manager after style change
+                initializeAnnotationManager()
+                
+                // Recreate location pulse with new style
+                currentLocation?.let { updateLocationPulse(it) }
+            }
+            
+            // Update logo color
+            updateLogoColor(isDarkMode)
+        }
+    }
+    
+    private fun getMapStyleForCurrentTime(location: Location): String {
+        val locationDTO = LocationDTO(location.latitude, location.longitude)
+        val calculator = SunriseSunsetCalculator(locationDTO, TimeZone.getDefault())
+        val now = Calendar.getInstance()
+        
+        val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
+        val sunset = calculator.getOfficialSunsetCalendarForDate(now)
+        
+        isDarkMode = now.after(sunset) || now.before(sunrise)
+        
+        // Update logo color on initialization
+        updateLogoColor(isDarkMode)
+        
+        return if (isDarkMode) Style.DARK else Style.LIGHT
+    }
+    
+    private fun updateLogoColor(useDarkMode: Boolean) {
+        // Update the Chat City logo tint
+        // White for dark mode, black for light mode
+        val colorFilter = if (useDarkMode) {
+            PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        } else {
+            PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+        }
+        logoImageView.colorFilter = colorFilter
+    }
+    
+    private fun startThemeUpdates() {
+        themeUpdateHandler.removeCallbacks(themeUpdateRunnable)
+        themeUpdateHandler.post(themeUpdateRunnable)
+    }
+    
+    private fun stopThemeUpdates() {
+        themeUpdateHandler.removeCallbacks(themeUpdateRunnable)
     }
     
     private fun updateLocationUI(location: Location) {
@@ -302,6 +397,7 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         clearPulseAnimation()
+        stopThemeUpdates()
         mapView.onDestroy()
         scope.cancel()
     }
@@ -310,11 +406,17 @@ class HomeFragment : Fragment() {
         super.onPause()
         // Pause animation when fragment is not visible
         pulseAnimator?.pause()
+        stopThemeUpdates()
     }
     
     override fun onResume() {
         super.onResume()
         // Resume animation when fragment becomes visible
         pulseAnimator?.resume()
+        // Resume theme updates
+        currentLocation?.let {
+            updateMapThemeBasedOnTime(it)
+            startThemeUpdates()
+        }
     }
 }
