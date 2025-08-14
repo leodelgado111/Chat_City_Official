@@ -164,6 +164,9 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // IMPORTANT: Explicitly disable options menu to prevent three dots from appearing
+        setHasOptionsMenu(false)
+        
         // Initialize geocoder
         context?.let {
             geocoder = Geocoder(it, Locale.getDefault())
