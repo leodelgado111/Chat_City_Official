@@ -74,18 +74,37 @@ class ChatsFragment : Fragment() {
     private fun setupRecyclerView() {
         chatsAdapter = ChatsAdapter { chat ->
             try {
-                // Open chat detail with null checks
-                val intent = Intent(requireContext(), ChatDetailActivity::class.java).apply {
-                    putExtra("CHAT_ID", chat.id ?: "")
-                    putExtra("CHAT_NAME", chat.name ?: "Unknown")
-                    putExtra("DEVICE_ID", deviceId)
-                    // Add flags to prevent crashes
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                // Validate chat data before opening
+                if (chat.id.isNullOrEmpty()) {
+                    Log.e("ChatsFragment", "Chat ID is null or empty")
+                    Toast.makeText(context, "Invalid chat data", Toast.LENGTH_SHORT).show()
+                    return@ChatsAdapter
                 }
-                startActivity(intent)
+                
+                // Check if activity context is available
+                val ctx = context ?: run {
+                    Log.e("ChatsFragment", "Context is null")
+                    return@ChatsAdapter
+                }
+                
+                // Create intent with proper validation
+                val intent = Intent(ctx, ChatDetailActivity::class.java).apply {
+                    putExtra("CHAT_ID", chat.id)
+                    putExtra("CHAT_NAME", chat.name ?: "Unknown Chat")
+                    putExtra("DEVICE_ID", deviceId)
+                }
+                
+                // Try to start activity with error handling
+                try {
+                    startActivity(intent)
+                } catch (e: Exception) {
+                    Log.e("ChatsFragment", "Failed to start ChatDetailActivity", e)
+                    Toast.makeText(ctx, "Failed to open chat: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+                
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error opening chat detail", e)
-                Toast.makeText(context, "Error opening chat", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error opening chat: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
         
@@ -100,14 +119,22 @@ class ChatsFragment : Fragment() {
     private fun setupClickListeners() {
         binding.backButton.setOnClickListener {
             try {
-                activity?.onBackPressed()
+                // Use requireActivity() instead of activity?. for safer navigation
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error handling back press", e)
+                // Try alternative navigation
+                try {
+                    requireActivity().finish()
+                } catch (ex: Exception) {
+                    Log.e("ChatsFragment", "Failed to finish activity", ex)
+                }
             }
         }
         
         binding.deleteButton.setOnClickListener {
             // Handle delete if needed
+            Toast.makeText(context, "Delete functionality coming soon", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -115,12 +142,19 @@ class ChatsFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             try {
                 chatRepository.getAllChats().collectLatest { chats ->
-                    chatsAdapter.submitList(chats)
                     Log.d("ChatsFragment", "Loaded ${chats.size} chats")
+                    
+                    // Check if chats list is empty
+                    if (chats.isEmpty()) {
+                        Log.d("ChatsFragment", "No chats available, creating sample chats")
+                        // You could show an empty state here
+                    }
+                    
+                    chatsAdapter.submitList(chats)
                 }
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error loading chats", e)
-                Toast.makeText(context, "Error loading chats", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Error loading chats: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }
