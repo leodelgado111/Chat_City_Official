@@ -253,6 +253,26 @@ class HomeFragment : Fragment() {
         zoomOutButton = root.findViewById(R.id.zoomOutButton)
         myLocationButton = root.findViewById(R.id.myLocationButton)
         
+        // IMPORTANT: Immediately disable Mapbox UI elements before style loads
+        // This prevents them from appearing during screen transitions
+        mapView?.let { map ->
+            // Disable all Mapbox UI elements immediately
+            map.scalebar.enabled = false
+            map.logo.enabled = false
+            map.attribution.enabled = false
+            
+            // Set their visibility to GONE to ensure they never flash
+            map.scalebar.updateSettings {
+                enabled = false
+            }
+            map.logo.updateSettings {
+                enabled = false
+            }
+            map.attribution.updateSettings {
+                enabled = false
+            }
+        }
+        
         // Setup zoom control buttons
         setupZoomControls()
         
@@ -277,7 +297,8 @@ class HomeFragment : Fragment() {
                 // Update logo color based on initial theme
                 updateLogoColor(initialTheme)
                 
-                // Remove UI elements
+                // Double-check that UI elements are disabled after style loads
+                // This is redundant but ensures they stay hidden
                 mapView?.scalebar?.enabled = false
                 mapView?.logo?.enabled = false
                 mapView?.attribution?.enabled = false
@@ -451,8 +472,20 @@ class HomeFragment : Fragment() {
                     "mapbox://styles/mapbox/light-v11"
                 }
                 
+                // IMPORTANT: Disable UI elements BEFORE loading new style
+                mapView?.let { map ->
+                    map.scalebar.enabled = false
+                    map.logo.enabled = false
+                    map.attribution.enabled = false
+                }
+                
                 mapView?.getMapboxMap()?.loadStyleUri(newMapStyle) { style ->
                     Log.d("HomeFragment", "✅ Theme switched to ${if (isDarkTheme) "dark" else "light"}")
+                    
+                    // Ensure UI elements stay disabled after style change
+                    mapView?.scalebar?.enabled = false
+                    mapView?.logo?.enabled = false
+                    mapView?.attribution?.enabled = false
                     
                     // Re-setup location component after style change
                     setupLocationComponent()
@@ -733,6 +766,14 @@ class HomeFragment : Fragment() {
         super.onResume()
         Log.d("HomeFragment", "📱 Fragment resumed")
         
+        // IMPORTANT: Immediately hide Mapbox UI elements when resuming
+        // This prevents them from flashing when returning to the screen
+        mapView?.let { map ->
+            map.scalebar.enabled = false
+            map.logo.enabled = false
+            map.attribution.enabled = false
+        }
+        
         // Start theme update handler
         themeHandler.post(themeUpdateRunnable)
         
@@ -764,6 +805,14 @@ class HomeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        
+        // IMPORTANT: Disable UI elements immediately when starting
+        mapView?.let { map ->
+            map.scalebar.enabled = false
+            map.logo.enabled = false
+            map.attribution.enabled = false
+        }
+        
         mapView?.onStart()
     }
 
