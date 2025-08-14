@@ -1,39 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="4dp">
+    android:padding="8dp">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:background="@drawable/message_sent_background"
-        android:orientation="vertical"
-        android:padding="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/message_bubble_sent"
+        android:maxWidth="280dp"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/messageText"
+            android:id="@+id/message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="240dp"
-            android:text="Message text"
+            android:text="This is a sent message"
             android:textColor="@android:color/white"
-            android:textSize="14sp" />
+            android:textSize="16sp"
+            android:lineSpacingExtra="2dp" />
 
         <TextView
-            android:id="@+id/timeText"
+            android:id="@+id/message_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="12:34"
-            android:textColor="#E0E0E0"
-            android:textSize="11sp" />
+            android:text="10:30 AM"
+            android:textColor="#CCFFFFFF"
+            android:textSize="12sp" />
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
