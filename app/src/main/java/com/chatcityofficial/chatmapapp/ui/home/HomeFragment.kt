@@ -329,6 +329,7 @@ class HomeFragment : Fragment() {
                     
                     // Increase gesture thresholds for smoother interaction
                     increasePinchToZoomThresholdWhenRotating = false  // Don't increase threshold
+                    @Suppress("DEPRECATION")
                     increaseRotateThresholdWhenPinchingToZoom = false // Don't increase threshold
                     zoomAnimationAmount = 1.0f  // Full zoom animation
                     
@@ -439,7 +440,7 @@ class HomeFragment : Fragment() {
                     map.attribution.enabled = false
                 }
                 
-                mapView?.getMapboxMap()?.loadStyleUri(newMapStyle) { style ->
+                mapView?.getMapboxMap()?.loadStyleUri(newMapStyle) { _ ->
                     Log.d("HomeFragment", "✅ Theme switched to ${if (isDarkTheme) "dark" else "light"}")
                     
                     // Ensure UI elements stay disabled after style change
@@ -487,6 +488,7 @@ class HomeFragment : Fragment() {
         }
     }
     
+    @Suppress("DEPRECATION")
     private fun updateLocationText(latitude: Double, longitude: Double) {
         // Cancel previous geocoding job if it exists
         geocodingJob?.cancel()
@@ -609,10 +611,7 @@ class HomeFragment : Fragment() {
         
         // Define custom colors based on the gradient
         // Using colors from the SVG gradient: pink-purple-blue theme
-        val gradientPinkColor = Color.argb(51, 251, 134, 187)  // 20% opacity pink
         val gradientPurpleColor = Color.argb(51, 166, 170, 213)  // 20% opacity purple
-        val gradientBlueColor = Color.argb(51, 151, 212, 240)  // 20% opacity light blue
-        val mediumLightGray = Color.argb(128, 200, 200, 200)  // Medium-light gray for accuracy circle
         
         // Enable location component with custom styling
         mapView?.location?.apply {
@@ -636,9 +635,9 @@ class HomeFragment : Fragment() {
             // Set pulsing max radius (keep default or adjust as needed)
             pulsingMaxRadius = 20f  // Adjust this value to control pulse size
             
-            // Accuracy ring color - set to medium-light gray
-            accuracyRingColor = mediumLightGray
-            accuracyRingBorderColor = mediumLightGray
+            // NOTE: accuracyRingColor and accuracyRingBorderColor properties
+            // are not available in Mapbox SDK v10.16.1
+            // The SDK handles accuracy ring styling internally
             
             // Only add position listener
             addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
