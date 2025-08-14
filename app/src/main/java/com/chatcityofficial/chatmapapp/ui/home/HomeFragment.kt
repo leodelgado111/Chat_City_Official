@@ -55,9 +55,7 @@ class HomeFragment : Fragment() {
     private var mapView: MapView? = null
     private var locationText: TextView? = null
     private var chatCityLogo: ImageView? = null
-    private var zoomInButton: ImageButton? = null
-    private var zoomOutButton: ImageButton? = null
-    private var myLocationButton: ImageButton? = null
+    // REMOVED: References to zoom and location buttons as they're no longer in the UI
     private var isLocationPermissionGranted = false
     private var isMapReady = false
     private var hasCenteredOnLocation = false
@@ -252,15 +250,7 @@ class HomeFragment : Fragment() {
         mapView = root.findViewById(R.id.mapView)
         locationText = root.findViewById(R.id.locationText)
         chatCityLogo = root.findViewById(R.id.chatCityLogo)
-        zoomInButton = root.findViewById(R.id.zoomInButton)
-        zoomOutButton = root.findViewById(R.id.zoomOutButton)
-        myLocationButton = root.findViewById(R.id.myLocationButton)
-        
-        // Setup zoom control buttons
-        setupZoomControls()
-        
-        // Setup my location button
-        setupMyLocationButton()
+        // REMOVED: References to zoom and location buttons as they're no longer in the layout
         
         // Determine initial theme based on time (before we have location)
         val initialTheme = determineInitialTheme()
@@ -366,61 +356,6 @@ class HomeFragment : Fragment() {
         return root
     }
     
-    private fun setupZoomControls() {
-        zoomInButton?.setOnClickListener {
-            val currentZoom = mapView?.getMapboxMap()?.cameraState?.zoom ?: 15.0
-            mapView?.camera?.easeTo(
-                CameraOptions.Builder()
-                    .zoom(currentZoom + 1)
-                    .build(),
-                MapAnimationOptions.mapAnimationOptions {
-                    duration(300)
-                }
-            )
-        }
-        
-        zoomOutButton?.setOnClickListener {
-            val currentZoom = mapView?.getMapboxMap()?.cameraState?.zoom ?: 15.0
-            mapView?.camera?.easeTo(
-                CameraOptions.Builder()
-                    .zoom(currentZoom - 1)
-                    .build(),
-                MapAnimationOptions.mapAnimationOptions {
-                    duration(300)
-                }
-            )
-        }
-    }
-    
-    private fun setupMyLocationButton() {
-        myLocationButton?.setOnClickListener {
-            if (!isLocationPermissionGranted) {
-                Toast.makeText(context, "Location permission required", Toast.LENGTH_SHORT).show()
-                checkAndRequestLocationPermissions()
-                return@setOnClickListener
-            }
-            
-            // Animate to user's last known location
-            lastKnownUserLocation?.let { location ->
-                mapView?.camera?.easeTo(
-                    CameraOptions.Builder()
-                        .center(location)
-                        .zoom(15.0)
-                        .bearing(0.0)
-                        .pitch(0.0)
-                        .build(),
-                    MapAnimationOptions.mapAnimationOptions {
-                        duration(500)
-                    }
-                )
-                userHasMovedMap = false // Reset this flag when user taps my location
-            } ?: run {
-                // If we don't have a location yet, request it
-                requestCurrentLocation()
-            }
-        }
-    }
-    
     private fun determineInitialTheme(): Boolean {
         // Use a simple time-based approach for initial theme
         val calendar = Calendar.getInstance()
@@ -463,9 +398,6 @@ class HomeFragment : Fragment() {
                 
                 // Update logo color
                 updateLogoColor(isDarkTheme)
-                
-                // Update zoom control colors
-                updateZoomControlColors(isDarkTheme)
             }
             
             Log.d("HomeFragment", "🌅 Sunrise: ${officialSunrise.time}, 🌇 Sunset: ${officialSunset.time}")
@@ -476,7 +408,6 @@ class HomeFragment : Fragment() {
             // Fall back to time-based theme
             isDarkTheme = determineInitialTheme()
             updateLogoColor(isDarkTheme)
-            updateZoomControlColors(isDarkTheme)
         }
     }
     
@@ -496,21 +427,6 @@ class HomeFragment : Fragment() {
                 )
             }
         }
-    }
-    
-    private fun updateZoomControlColors(isDark: Boolean) {
-        val tintColor = if (isDark) {
-            ContextCompat.getColor(requireContext(), android.R.color.white)
-        } else {
-            ContextCompat.getColor(requireContext(), android.R.color.black)
-        }
-        
-        zoomInButton?.imageTintList = ContextCompat.getColorStateList(requireContext(), 
-            if (isDark) android.R.color.white else android.R.color.black)
-        zoomOutButton?.imageTintList = ContextCompat.getColorStateList(requireContext(), 
-            if (isDark) android.R.color.white else android.R.color.black)
-        myLocationButton?.imageTintList = ContextCompat.getColorStateList(requireContext(), 
-            if (isDark) android.R.color.white else android.R.color.black)
     }
     
     private fun updateLocationText(latitude: Double, longitude: Double) {
@@ -808,8 +724,6 @@ class HomeFragment : Fragment() {
         mapView = null
         locationText = null
         chatCityLogo = null
-        zoomInButton = null
-        zoomOutButton = null
-        myLocationButton = null
+        // REMOVED: Nulling out button references as they're no longer in use
     }
 }
