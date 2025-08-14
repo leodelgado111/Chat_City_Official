@@ -110,6 +110,29 @@ Policies established:
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-01-23 21:35 - Claude/Assistant
+**Category**: UI
+**Files Modified**: app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Disabled Mapbox scale bar (mile-radius indicator) to provide cleaner map interface
+**Technical Details**: 
+- Added import for `com.mapbox.maps.plugin.scalebar.scalebar`
+- Added `mapView.scalebar.enabled = false` in the `initializeMap()` function
+- This is set right after disabling the location component and before gesture configuration
+- The scale bar (showing distance/radius measurements like "200 ft" or "1 mi") will no longer appear on the map
+- Code snippet:
+```kotlin
+// CRITICAL: Disable the scale bar (mile-radius bar) completely
+mapView.scalebar.enabled = false
+```
+**Breaking Changes**: No
+**Testing Notes**: 
+1. Launch the app and navigate to the Home screen with the map
+2. Verify that no scale bar appears in any corner of the map
+3. Test at different zoom levels - the scale bar should never appear
+4. Pinch to zoom in/out and pan around - scale bar should remain hidden
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
