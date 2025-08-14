@@ -60,9 +60,11 @@ class HomeFragment : Fragment() {
     private var isMapReady = false
     private var hasCenteredOnLocation = false
     
-    // Camera state preservation
-    private var savedCameraState: CameraState? = null
-    private var shouldRestoreCamera = false
+    // Camera state preservation - STATIC to persist across fragment recreation
+    companion object {
+        private var savedCameraState: CameraState? = null
+        private var hasEverCentered: Boolean = false
+    }
     
     // Track if user has manually moved the map
     private var userHasMovedMap = false
@@ -98,7 +100,8 @@ class HomeFragment : Fragment() {
         // Store the last known user location
         lastKnownUserLocation = it
         
-        if (!hasCenteredOnLocation && !shouldRestoreCamera && !userHasMovedMap) {
+        // Only center on first location if we've never centered before and no saved state exists
+        if (!hasEverCentered && savedCameraState == null && !userHasMovedMap) {
             // Only center automatically on first location update with zoom level 15
             mapView?.getMapboxMap()?.setCamera(
                 CameraOptions.Builder()
@@ -108,8 +111,9 @@ class HomeFragment : Fragment() {
                     .pitch(0.0)   // No tilt
                     .build()
             )
+            hasEverCentered = true
             hasCenteredOnLocation = true
-            Log.d("HomeFragment", "📍 Centered on location from indicator: ${it.latitude()}, ${it.longitude()}")
+            Log.d("HomeFragment", "📍 First time centering on location: ${it.latitude()}, ${it.longitude()}")
             
             // Update location text for initial position
             updateLocationText(it.latitude(), it.longitude())
@@ -123,6 +127,10 @@ class HomeFragment : Fragment() {
         override fun onMoveBegin(detector: MoveGestureDetector) {
             // User has started manually moving the map
             userHasMovedMap = true
+            // Mark that we've interacted with the map
+            if (!hasEverCentered) {
+                hasEverCentered = true
+            }
         }
 
         override fun onMove(detector: MoveGestureDetector): Boolean {
@@ -140,6 +148,8 @@ class HomeFragment : Fragment() {
             val center = mapView?.getMapboxMap()?.cameraState?.center
             center?.let {
                 updateLocationText(it.latitude(), it.longitude())
+                // Save camera state after user finishes moving
+                saveCameraPosition()
             }
         }
     }
@@ -155,7 +165,8 @@ class HomeFragment : Fragment() {
         }
 
         override fun onScaleEnd(detector: StandardScaleGestureDetector) {
-            // Scale ended
+            // Save camera state after zoom ends
+            saveCameraPosition()
         }
     }
 
@@ -182,7 +193,8 @@ class HomeFragment : Fragment() {
                 // Setup location after permission granted
                 if (isMapReady) {
                     setupLocationComponent()
-                    if (!shouldRestoreCamera) {
+                    // Only request location if we don't have a saved camera state
+                    if (savedCameraState == null) {
                         requestCurrentLocation()
                     }
                 }
@@ -219,8 +231,8 @@ class HomeFragment : Fragment() {
                     // Update theme based on location
                     updateThemeBasedOnSunriseSunset(location)
                     
-                    // Center map on first location if not already centered and not restoring
-                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera && !userHasMovedMap) {
+                    // Only center if we've never centered before and no saved state
+                    if (isMapReady && !hasEverCentered && savedCameraState == null && !userHasMovedMap) {
                         centerMapOnLocation(location)
                     }
                 }
@@ -348,12 +360,12 @@ class HomeFragment : Fragment() {
                 // Setup location component
                 setupLocationComponent()
                 
-                // Check if we should restore camera position
-                if (savedCameraState != null && shouldRestoreCamera) {
-                    Log.d("HomeFragment", "📸 Restoring saved camera position")
+                // ALWAYS restore camera position if we have saved state
+                if (savedCameraState != null) {
+                    Log.d("HomeFragment", "📸 Restoring saved camera position on view creation")
                     restoreCameraPosition()
                 } else {
-                    // Check and request permissions after map is ready
+                    // Only check permissions if no saved state
                     checkAndRequestLocationPermissions()
                 }
                 
@@ -400,6 +412,9 @@ class HomeFragment : Fragment() {
             if (shouldUseDarkTheme != isDarkTheme) {
                 isDarkTheme = shouldUseDarkTheme
                 
+                // Save camera state before theme change
+                saveCameraPosition()
+                
                 // Switch map theme
                 val newMapStyle = if (isDarkTheme) {
                     "mapbox://styles/mapbox/dark-v11"
@@ -424,6 +439,9 @@ class HomeFragment : Fragment() {
                     
                     // Re-setup location component after style change
                     setupLocationComponent()
+                    
+                    // Restore camera position after theme change
+                    restoreCameraPosition()
                 }
                 
                 // Update logo color
@@ -504,8 +522,9 @@ class HomeFragment : Fragment() {
     }
     
     private fun saveCameraPosition() {
-        savedCameraState = mapView?.getMapboxMap()?.cameraState
-        savedCameraState?.let {
+        val currentState = mapView?.getMapboxMap()?.cameraState
+        currentState?.let {
+            savedCameraState = it
             Log.d("HomeFragment", "💾 Saved camera position - Center: ${it.center.latitude()}, ${it.center.longitude()}, Zoom: ${it.zoom}")
         }
     }
@@ -520,13 +539,12 @@ class HomeFragment : Fragment() {
                     .pitch(0.0)    // Always restore with no tilt
                     .build()
             )
-            Log.d("HomeFragment", "✅ Restored camera position")
+            Log.d("HomeFragment", "✅ Restored camera position - Center: ${state.center.latitude()}, ${state.center.longitude()}, Zoom: ${state.zoom}")
             hasCenteredOnLocation = true // Prevent auto-centering after restore
             
             // Update location text for restored position
             updateLocationText(state.center.latitude(), state.center.longitude())
         }
-        shouldRestoreCamera = false
     }
     
     private fun checkAndRequestLocationPermissions() {
@@ -538,7 +556,8 @@ class HomeFragment : Fragment() {
                 // Permission already granted
                 Log.d("HomeFragment", "✅ Location permission already granted")
                 isLocationPermissionGranted = true
-                if (!shouldRestoreCamera) {
+                // Only request location if no saved camera state
+                if (savedCameraState == null) {
                     requestCurrentLocation()
                 }
             }
@@ -609,7 +628,8 @@ class HomeFragment : Fragment() {
                     currentUserLocation = location
                     updateThemeBasedOnSunriseSunset(location)
                     
-                    if (isMapReady && !hasCenteredOnLocation && !shouldRestoreCamera && !userHasMovedMap) {
+                    // Only center if we don't have saved camera state
+                    if (isMapReady && savedCameraState == null && !hasEverCentered && !userHasMovedMap) {
                         centerMapOnLocation(location)
                     }
                 } else {
@@ -665,12 +685,16 @@ class HomeFragment : Fragment() {
                 .build()
         )
         
+        hasEverCentered = true
         hasCenteredOnLocation = true
         userHasMovedMap = false
         Log.d("HomeFragment", "✅ Map centered on location: ${location.latitude}, ${location.longitude}")
         
         // Update location text when centering
         updateLocationText(location.latitude, location.longitude)
+        
+        // Save this as the current camera position
+        saveCameraPosition()
         
         // Stop location updates once we've centered the map
         stopLocationUpdates()
@@ -693,27 +717,26 @@ class HomeFragment : Fragment() {
         // Start theme update handler
         themeHandler.post(themeUpdateRunnable)
         
-        // Always restore camera if we have saved state
+        // ALWAYS restore camera if we have saved state
         if (savedCameraState != null && isMapReady) {
-            shouldRestoreCamera = true
+            Log.d("HomeFragment", "📸 Restoring camera on resume")
             restoreCameraPosition()
-        } else if (isLocationPermissionGranted && !hasCenteredOnLocation && isMapReady) {
-            // Otherwise, request location if we haven't centered yet
-            Log.d("HomeFragment", "📍 Resuming - requesting location")
+        } else if (isLocationPermissionGranted && !hasEverCentered && isMapReady) {
+            // Only request location if we've never centered before
+            Log.d("HomeFragment", "📍 Resuming - requesting location for first time")
             requestCurrentLocation()
         }
     }
     
     override fun onPause() {
         super.onPause()
-        Log.d("HomeFragment", "⏸️ Fragment paused")
+        Log.d("HomeFragment", "⏸️ Fragment paused - saving camera position")
         
         // Stop theme update handler
         themeHandler.removeCallbacks(themeUpdateRunnable)
         
-        // Always save the current camera position before pausing
+        // ALWAYS save the current camera position before pausing
         saveCameraPosition()
-        shouldRestoreCamera = true
         
         // Stop location updates when fragment pauses
         stopLocationUpdates()
@@ -734,10 +757,10 @@ class HomeFragment : Fragment() {
 
     override fun onStop() {
         super.onStop()
+        Log.d("HomeFragment", "⏹️ Fragment stopped - saving camera position")
         
         // Save camera position when stopping
         saveCameraPosition()
-        shouldRestoreCamera = true
         
         mapView?.onStop()
     }
@@ -749,11 +772,10 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("HomeFragment", "🗑️ Fragment view destroyed")
+        Log.d("HomeFragment", "🗑️ Fragment view destroyed - camera position preserved in companion object")
         
         // Save camera position before destroying view
         saveCameraPosition()
-        shouldRestoreCamera = true
         
         // Stop theme update handler
         themeHandler.removeCallbacks(themeUpdateRunnable)
