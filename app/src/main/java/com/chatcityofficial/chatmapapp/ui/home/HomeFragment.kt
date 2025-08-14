@@ -32,6 +32,7 @@ import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationOptions
 import com.mapbox.maps.plugin.annotation.generated.createCircleAnnotationManager
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.location
+import com.mapbox.maps.plugin.scalebar.scalebar
 import kotlinx.coroutines.*
 import java.util.Locale
 
@@ -85,6 +86,9 @@ class HomeFragment : Fragment() {
                 
                 // Disable the default location component completely
                 mapView.location.enabled = false
+                
+                // CRITICAL: Disable the scale bar (mile-radius bar) completely
+                mapView.scalebar.enabled = false
                 
                 // Disable rotation gesture while keeping pinch zoom and pan
                 mapView.gestures.rotateEnabled = false
