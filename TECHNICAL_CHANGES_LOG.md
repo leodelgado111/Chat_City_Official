@@ -257,6 +257,76 @@ mapView.scalebar.enabled = false
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-14 19:47 - Claude/Assistant
+**Category**: UX
+**Files Modified**: app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Implemented map camera position persistence when switching between screens
+**Technical Details**: 
+**Implementation Changes:**
+- Added `savedCameraState` as a companion object variable to persist camera position across fragment lifecycle
+- Added `hasInitializedCamera` flag to track if the initial camera setup has been completed
+- Created `saveCameraState()` function to capture current map camera position, zoom, bearing, and pitch
+- Camera state is saved in `onStop()` and `onPause()` lifecycle methods
+- Camera state is restored in `initializeMap()` when the fragment is recreated
+- Modified `getCurrentLocation()` to only move camera to user location on first initialization
+- Removed automatic camera panning from location updates in `startLocationUpdates()`
+- Camera state is also saved before theme changes to maintain position during style reloads
+
+**Key Code Changes:**
+```kotlin
+// Save camera state
+private fun saveCameraState() {
+    savedCameraState = mapView.getMapboxMap().cameraState
+}
+
+// Restore camera state
+savedCameraState?.let { state ->
+    val cameraOptions = CameraOptions.Builder()
+        .center(state.center)
+        .zoom(state.zoom)
+        .bearing(state.bearing)
+        .pitch(state.pitch)
+        .build()
+    mapView.getMapboxMap().setCamera(cameraOptions)
+}
+
+// Only move to location on first load
+if (!hasInitializedCamera && savedCameraState == null) {
+    moveToLocation(it.latitude, it.longitude, 15.0)
+    hasInitializedCamera = true
+}
+```
+
+**Behavior Changes:**
+- Map now remembers the last viewed position when switching between tabs
+- Map only centers on user location on the very first load
+- User can manually pan/zoom the map and the position will be maintained
+- Location puck continues to update with current position without moving the camera
+- Camera position persists through theme changes (day/night transitions)
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Position Persistence**:
+   - Launch app and wait for map to center on current location
+   - Pan and zoom to a different area of the map
+   - Switch to another tab (Saved, Chats, Profile)
+   - Return to Home tab - map should show the last viewed area, not current location
+2. **First Load Behavior**:
+   - Force close and restart app
+   - Verify map centers on current location on first load
+   - Pan to different area and switch tabs
+   - Return to Home - should maintain panned position
+3. **Location Updates**:
+   - Pan map away from current location
+   - Wait for location updates (10 seconds)
+   - Verify location puck updates position but camera doesn't move
+4. **Theme Changes**:
+   - Pan to specific area during day/night transition time
+   - Wait for theme to change (or manually trigger by changing device time)
+   - Verify camera position is maintained after theme switch
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
