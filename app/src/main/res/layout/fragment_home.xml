@@ -16,60 +16,174 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Chat City Logo with custom drop shadow (aligned with nav bar left edge) -->
-    <ImageView
-        android:id="@+id/logoImageView"
-        android:layout_width="138dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/chat_city_logo_with_shadow"
-        android:contentDescription="Chat City"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/locationContainer"
-        app:layout_constraintBottom_toBottomOf="@id/locationContainer" />
-
-    <!-- Location Status Container with elevation (aligned with nav bar: 28dp margin) -->
+    <!-- Default View Container (Logo and Location) -->
     <LinearLayout
-        android:id="@+id/locationContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="28dp"
+        android:id="@+id/defaultViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="80dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="28dp"
         android:gravity="center_vertical"
-        android:background="@drawable/location_background"
-        android:paddingStart="12dp"
-        android:paddingEnd="16dp"
-        android:elevation="8dp"
-        android:outlineProvider="background"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Location Icon -->
+        <!-- Chat City Logo with custom drop shadow (aligned with nav bar left edge) -->
         <ImageView
-            android:id="@+id/locationIcon"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@drawable/ic_location_pin"
-            android:tint="@color/black"
-            android:layout_marginEnd="6dp" />
+            android:id="@+id/logoImageView"
+            android:layout_width="138dp"
+            android:layout_height="46dp"
+            android:src="@drawable/chat_city_logo_with_shadow"
+            android:contentDescription="Chat City" />
 
-        <!-- Location Text -->
-        <TextView
-            android:id="@+id/locationText"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <!-- Location Status Container with elevation -->
+        <LinearLayout
+            android:id="@+id/locationContainer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Locating..."
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:maxWidth="120dp" />
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/location_background"
+            android:paddingStart="12dp"
+            android:paddingEnd="16dp"
+            android:elevation="8dp"
+            android:outlineProvider="background">
+
+            <!-- Location Icon (clickable) -->
+            <ImageView
+                android:id="@+id/locationIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_location_pin"
+                android:tint="@color/black"
+                android:layout_marginEnd="6dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Location Text -->
+            <TextView
+                android:id="@+id/locationText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Locating..."
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:maxWidth="120dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <!-- NO ZOOM CONTROLS - REMOVED PERMANENTLY -->
-    <!-- NO GPS BUTTON - REMOVED PERMANENTLY -->
+    <!-- Search Container (Initially Hidden) -->
+    <LinearLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="80dp"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:visibility="gone"
+        android:alpha="0"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Search Bar with Google Places Autocomplete -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <!-- Back Arrow -->
+                <ImageView
+                    android:id="@+id/searchBackButton"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_back"
+                    android:tint="#757575"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:layout_marginEnd="12dp" />
+
+                <!-- Search Input -->
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:hint="Search for a place"
+                    android:textColorHint="#757575"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:maxLines="1" />
+
+                <!-- Clear Button -->
+                <ImageView
+                    android:id="@+id/searchClearButton"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_close"
+                    android:tint="#757575"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Powered by Google text -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Powered by Google"
+            android:textColor="#B8B6B6"
+            android:textSize="10sp"
+            android:layout_gravity="end"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp" />
+
+    </LinearLayout>
+
+    <!-- Search Results RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:visibility="gone"
+        android:alpha="0"
+        app:layout_constraintTop_toBottomOf="@id/searchContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
