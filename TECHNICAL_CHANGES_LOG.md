@@ -531,6 +531,40 @@ companion object {
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-15 02:19 - Claude/Assistant
+**Category**: Bug Fix
+**Files Modified**: app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Fixed Mapbox SDK v10 compilation error by using gestures plugin for map click listener
+**Technical Details**: 
+- Replaced deprecated `mapView.getMapboxMap().addOnMapClickListener` with `mapView.gestures.addOnMapClickListener`
+- In Mapbox SDK v10, map click listeners are accessed through the gestures plugin
+- Added import for `com.mapbox.maps.plugin.gestures.addOnMapClickListener`
+- The gestures plugin method has the same signature and behavior as the deprecated method
+- Code snippet:
+```kotlin
+// Use the gestures plugin's addOnMapClickListener
+mapView.gestures.addOnMapClickListener { point ->
+    if (isSearchVisible) {
+        hideSearchView()
+        true // Consume the click event
+    } else {
+        false // Let other click handlers process it
+    }
+}
+```
+- This fixes the compilation error: "Unresolved reference: addOnMapClickListener"
+**Breaking Changes**: No
+**Testing Notes**: 
+1. Run `./gradlew clean` to clear build cache
+2. Run `./gradlew assembleDebug` - build should complete successfully
+3. Test map tap functionality:
+   - Open search by tapping location icon
+   - Tap anywhere on the map
+   - Verify search closes properly
+4. Ensure no other click handlers are affected
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
