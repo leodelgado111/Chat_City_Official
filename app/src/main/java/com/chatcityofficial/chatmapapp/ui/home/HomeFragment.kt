@@ -1,7 +1,10 @@
 package com.chatcityofficial.chatmapapp.ui.home
 
 import android.Manifest
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
+import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.location.Geocoder
@@ -9,30 +12,40 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.chatcityofficial.chatmapapp.R
 import com.google.android.gms.location.*
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.*
+import com.google.android.libraries.places.api.net.*
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
 import com.mapbox.geojson.Point
+import com.mapbox.geojson.Polygon
 import com.mapbox.maps.CameraOptions
 import com.mapbox.maps.CameraState
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.animation.flyTo
 import com.mapbox.maps.plugin.annotation.annotations
-import com.mapbox.maps.plugin.annotation.generated.CircleAnnotation
-import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationManager
-import com.mapbox.maps.plugin.annotation.generated.CircleAnnotationOptions
-import com.mapbox.maps.plugin.annotation.generated.createCircleAnnotationManager
+import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.attribution.attribution
 import com.mapbox.maps.plugin.gestures.gestures
 import com.mapbox.maps.plugin.locationcomponent.location
@@ -48,13 +61,30 @@ class HomeFragment : Fragment() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var logoImageView: ImageView
     private var currentLocation: Location? = null
-    private var currentMapStyle: String = Style.DARK // Start with dark to prevent flashing
-    private var isDarkMode: Boolean = true // Default to dark mode to prevent flashing
+    private var currentMapStyle: String = Style.DARK
+    private var isDarkMode: Boolean = true
     
-    // Single annotation manager and annotations for location pulse and center dot
+    // Search UI elements
+    private lateinit var defaultViewContainer: LinearLayout
+    private lateinit var searchContainer: LinearLayout
+    private lateinit var searchEditText: EditText
+    private lateinit var searchBackButton: ImageView
+    private lateinit var searchClearButton: ImageView
+    private lateinit var searchResultsRecyclerView: RecyclerView
+    private lateinit var locationIcon: ImageView
+    private lateinit var locationContainer: LinearLayout
+    
+    // Places API
+    private lateinit var placesClient: PlacesClient
+    private lateinit var searchAdapter: PlaceSearchAdapter
+    private var sessionToken: AutocompleteSessionToken? = null
+    
+    // Annotation managers
     private var circleAnnotationManager: CircleAnnotationManager? = null
+    private var polygonAnnotationManager: PolygonAnnotationManager? = null
     private var pulseAnnotation: CircleAnnotation? = null
     private var centerDotAnnotation: CircleAnnotation? = null
+    private var placeOutlineAnnotation: PolygonAnnotation? = null
     private var pulseAnimator: ValueAnimator? = null
     
     // Handler for periodic theme checks
@@ -62,7 +92,6 @@ class HomeFragment : Fragment() {
     private val themeUpdateRunnable = object : Runnable {
         override fun run() {
             currentLocation?.let { updateMapThemeBasedOnTime(it) }
-            // Check every 5 minutes
             themeUpdateHandler.postDelayed(this, 5 * 60 * 1000)
         }
     }
@@ -72,10 +101,10 @@ class HomeFragment : Fragment() {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
         private const val TAG = "HomeFragment"
-        private const val PULSE_DURATION = 2000L // 2 seconds per pulse cycle
-        private const val MAX_PULSE_RADIUS = 35.0 // Reduced by 30% from 50
-        private const val MIN_PULSE_RADIUS = 3.5 // Reduced by 30% from 5
-        private const val CENTER_DOT_RADIUS = 2.0 // Small center dot for the location puck
+        private const val PULSE_DURATION = 2000L
+        private const val MAX_PULSE_RADIUS = 35.0
+        private const val MIN_PULSE_RADIUS = 3.5
+        private const val CENTER_DOT_RADIUS = 2.0
         
         // Camera state persistence
         private var savedCameraState: CameraState? = null
@@ -94,20 +123,260 @@ class HomeFragment : Fragment() {
         locationText = view.findViewById(R.id.locationText)
         logoImageView = view.findViewById(R.id.logoImageView)
         
+        // Initialize search views
+        defaultViewContainer = view.findViewById(R.id.defaultViewContainer)
+        searchContainer = view.findViewById(R.id.searchContainer)
+        searchEditText = view.findViewById(R.id.searchEditText)
+        searchBackButton = view.findViewById(R.id.searchBackButton)
+        searchClearButton = view.findViewById(R.id.searchClearButton)
+        searchResultsRecyclerView = view.findViewById(R.id.searchResultsRecyclerView)
+        locationIcon = view.findViewById(R.id.locationIcon)
+        locationContainer = view.findViewById(R.id.locationContainer)
+        
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
         
-        // Pre-determine theme before initializing map to prevent flashing
+        // Initialize Places API
+        if (!Places.isInitialized()) {
+            Places.initialize(requireContext(), getString(R.string.google_maps_api_key))
+        }
+        placesClient = Places.createClient(requireContext())
+        
+        // Setup search adapter
+        searchAdapter = PlaceSearchAdapter { prediction ->
+            onPlaceSelected(prediction)
+        }
+        searchResultsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        searchResultsRecyclerView.adapter = searchAdapter
+        
+        // Pre-determine theme before initializing map
         determinateInitialTheme()
         
         // Initialize map
         initializeMap()
         
+        // Setup click listeners
+        setupSearchListeners()
+        
         return view
     }
     
+    private fun setupSearchListeners() {
+        // Location icon click listener - show search
+        locationIcon.setOnClickListener {
+            showSearchView()
+        }
+        
+        // Back button - hide search
+        searchBackButton.setOnClickListener {
+            hideSearchView()
+        }
+        
+        // Clear button
+        searchClearButton.setOnClickListener {
+            searchEditText.text.clear()
+            searchClearButton.visibility = View.GONE
+            searchAdapter.submitList(emptyList())
+        }
+        
+        // Search text changes
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s?.toString() ?: ""
+                searchClearButton.visibility = if (query.isNotEmpty()) View.VISIBLE else View.GONE
+                
+                if (query.length > 2) {
+                    performPlaceSearch(query)
+                } else {
+                    searchAdapter.submitList(emptyList())
+                }
+            }
+            
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+    
+    private fun showSearchView() {
+        // Create new session token for billing
+        sessionToken = AutocompleteSessionToken.newInstance()
+        
+        // Fade out default views
+        defaultViewContainer.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    defaultViewContainer.visibility = View.GONE
+                    
+                    // Fade in search views
+                    searchContainer.visibility = View.VISIBLE
+                    searchResultsRecyclerView.visibility = View.VISIBLE
+                    
+                    searchContainer.animate()
+                        .alpha(1f)
+                        .setDuration(200)
+                        .setListener(null)
+                    
+                    searchResultsRecyclerView.animate()
+                        .alpha(1f)
+                        .setDuration(200)
+                        .setListener(null)
+                    
+                    // Show keyboard
+                    searchEditText.requestFocus()
+                    val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.showSoftInput(searchEditText, InputMethodManager.SHOW_IMPLICIT)
+                }
+            })
+    }
+    
+    private fun hideSearchView() {
+        // Hide keyboard
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        
+        // Clear search
+        searchEditText.text.clear()
+        searchAdapter.submitList(emptyList())
+        
+        // Remove place outline if exists
+        placeOutlineAnnotation?.let {
+            polygonAnnotationManager?.delete(it)
+            placeOutlineAnnotation = null
+        }
+        
+        // Fade out search views
+        searchContainer.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    searchContainer.visibility = View.GONE
+                    searchResultsRecyclerView.visibility = View.GONE
+                    
+                    // Fade in default views
+                    defaultViewContainer.visibility = View.VISIBLE
+                    defaultViewContainer.animate()
+                        .alpha(1f)
+                        .setDuration(200)
+                        .setListener(null)
+                }
+            })
+        
+        searchResultsRecyclerView.animate()
+            .alpha(0f)
+            .setDuration(200)
+            .setListener(null)
+    }
+    
+    private fun performPlaceSearch(query: String) {
+        // Create autocomplete request
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setQuery(query)
+            .setSessionToken(sessionToken)
+            .setLocationBias(
+                currentLocation?.let {
+                    RectangularBounds.newInstance(
+                        LatLng(it.latitude - 0.1, it.longitude - 0.1),
+                        LatLng(it.latitude + 0.1, it.longitude + 0.1)
+                    )
+                }
+            )
+            .build()
+        
+        placesClient.findAutocompletePredictions(request)
+            .addOnSuccessListener { response ->
+                searchAdapter.submitList(response.autocompletePredictions)
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Place search failed", exception)
+            }
+    }
+    
+    private fun onPlaceSelected(prediction: AutocompletePrediction) {
+        // Hide keyboard
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        
+        // Clear search results
+        searchAdapter.submitList(emptyList())
+        
+        // Fetch place details
+        val placeFields = listOf(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.LAT_LNG,
+            Place.Field.VIEWPORT
+        )
+        
+        val fetchPlaceRequest = FetchPlaceRequest.builder(prediction.placeId, placeFields)
+            .setSessionToken(sessionToken)
+            .build()
+        
+        placesClient.fetchPlace(fetchPlaceRequest)
+            .addOnSuccessListener { response ->
+                val place = response.place
+                place.latLng?.let { latLng ->
+                    // Move camera to place
+                    moveToLocation(latLng.latitude, latLng.longitude, 17.0)
+                    
+                    // Add outline around place (simplified rectangle for now)
+                    addPlaceOutline(latLng, place.viewport)
+                }
+                
+                // Update search text with selected place
+                searchEditText.setText(place.name)
+                
+                // New session token for next search
+                sessionToken = AutocompleteSessionToken.newInstance()
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Place fetch failed", exception)
+            }
+    }
+    
+    private fun addPlaceOutline(center: LatLng, viewport: LatLngBounds?) {
+        // Remove existing outline
+        placeOutlineAnnotation?.let {
+            polygonAnnotationManager?.delete(it)
+            placeOutlineAnnotation = null
+        }
+        
+        // Create polygon annotation manager if needed
+        if (polygonAnnotationManager == null) {
+            val annotationApi = mapView.annotations
+            polygonAnnotationManager = annotationApi.createPolygonAnnotationManager()
+        }
+        
+        // Create rectangle from viewport or default size
+        val bounds = viewport ?: LatLngBounds.builder()
+            .include(LatLng(center.latitude - 0.001, center.longitude - 0.001))
+            .include(LatLng(center.latitude + 0.001, center.longitude + 0.001))
+            .build()
+        
+        // Create polygon points
+        val points = listOf(
+            Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude),
+            Point.fromLngLat(bounds.northeast.longitude, bounds.southwest.latitude),
+            Point.fromLngLat(bounds.northeast.longitude, bounds.northeast.latitude),
+            Point.fromLngLat(bounds.southwest.longitude, bounds.northeast.latitude),
+            Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude)
+        )
+        
+        // Create polygon with gradient outline
+        polygonAnnotationManager?.let { manager ->
+            placeOutlineAnnotation = manager.create(
+                PolygonAnnotationOptions()
+                    .withPoints(listOf(points))
+                    .withFillOpacity(0.0) // No fill, only outline
+                    .withFillOutlineColor("#4DFB86BB") // Pink with 30% opacity
+            )
+        }
+    }
+    
     private fun determinateInitialTheme() {
-        // Try to get last known location to determine theme immediately
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -125,7 +394,6 @@ class HomeFragment : Fragment() {
                     isDarkMode = now.after(sunset) || now.before(sunrise)
                     currentMapStyle = if (isDarkMode) Style.DARK else Style.LIGHT
                     
-                    // Update logo color immediately
                     updateLogoColor(isDarkMode)
                 }
             }
@@ -133,24 +401,22 @@ class HomeFragment : Fragment() {
     }
     
     private fun initializeMap() {
-        // Use the pre-determined style to prevent flashing
         mapView.getMapboxMap().apply {
             loadStyleUri(currentMapStyle) { style ->
-                // Map style loaded
                 Log.d(TAG, "Map style loaded: $currentMapStyle")
                 
-                // CRITICAL: Disable all Mapbox branding and UI elements
+                // Disable all Mapbox branding and UI elements
                 mapView.location.enabled = false
                 mapView.scalebar.enabled = false
-                mapView.logo.enabled = false  // Disable Mapbox logo
-                mapView.attribution.enabled = false  // Disable attribution icon
+                mapView.logo.enabled = false
+                mapView.attribution.enabled = false
                 
                 // Disable rotation gesture while keeping pinch zoom and pan
                 mapView.gestures.rotateEnabled = false
                 mapView.gestures.pinchToZoomEnabled = true
                 mapView.gestures.scrollEnabled = true
                 
-                // Initialize single annotation manager
+                // Initialize annotation managers
                 initializeAnnotationManager()
                 
                 // Restore saved camera position if available
@@ -175,6 +441,7 @@ class HomeFragment : Fragment() {
     private fun initializeAnnotationManager() {
         val annotationApi = mapView.annotations
         circleAnnotationManager = annotationApi.createCircleAnnotationManager()
+        polygonAnnotationManager = annotationApi.createPolygonAnnotationManager()
     }
     
     private fun checkLocationPermission() {
@@ -208,7 +475,6 @@ class HomeFragment : Fragment() {
                 currentLocation = it
                 updateLocationUI(it)
                 
-                // Only move to location on first initialization, not when returning to screen
                 if (!hasInitializedCamera && savedCameraState == null) {
                     Log.d(TAG, "Initial camera setup - moving to current location")
                     moveToLocation(it.latitude, it.longitude, 15.0)
@@ -219,7 +485,6 @@ class HomeFragment : Fragment() {
                 
                 updateLocationPulse(it)
                 updateMapThemeBasedOnTime(it)
-                // Start periodic theme updates
                 startThemeUpdates()
             }
         }
@@ -227,8 +492,8 @@ class HomeFragment : Fragment() {
     
     private fun startLocationUpdates() {
         val locationRequest = LocationRequest.create().apply {
-            interval = 10000 // 10 seconds
-            fastestInterval = 5000 // 5 seconds
+            interval = 10000
+            fastestInterval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         
@@ -239,7 +504,6 @@ class HomeFragment : Fragment() {
                     updateLocationUI(location)
                     updateLocationPulse(location)
                     updateMapThemeBasedOnTime(location)
-                    // Note: We do NOT move the camera on location updates
                 }
             }
         }
@@ -258,7 +522,6 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateMapThemeBasedOnTime(location: Location) {
-        // Create Location object for the calculator
         val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(location.latitude, location.longitude)
         val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
         val now = Calendar.getInstance()
@@ -272,23 +535,18 @@ class HomeFragment : Fragment() {
             isDarkMode = shouldUseDarkTheme
             val newStyle = if (isDarkMode) Style.DARK else Style.LIGHT
             
-            // Save camera state before changing style
             saveCameraState()
             
-            // Update map style
             mapView.getMapboxMap().loadStyleUri(newStyle) { style ->
                 Log.d(TAG, "Theme switched to: ${if (isDarkMode) "DARK" else "LIGHT"}")
                 currentMapStyle = newStyle
                 
-                // Re-disable all Mapbox branding after style change
                 mapView.logo.enabled = false
                 mapView.attribution.enabled = false
                 mapView.scalebar.enabled = false
                 
-                // Re-initialize annotation manager after style change
                 initializeAnnotationManager()
                 
-                // Restore camera position after style change
                 savedCameraState?.let { state ->
                     val cameraOptions = CameraOptions.Builder()
                         .center(state.center)
@@ -300,35 +558,14 @@ class HomeFragment : Fragment() {
                     mapView.getMapboxMap().setCamera(cameraOptions)
                 }
                 
-                // Recreate location pulse with new style
                 currentLocation?.let { updateLocationPulse(it) }
             }
             
-            // Update logo color
             updateLogoColor(isDarkMode)
         }
     }
     
-    private fun getMapStyleForCurrentTime(location: Location): String {
-        // Create Location object for the calculator
-        val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(location.latitude, location.longitude)
-        val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
-        val now = Calendar.getInstance()
-        
-        val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
-        val sunset = calculator.getOfficialSunsetCalendarForDate(now)
-        
-        isDarkMode = now.after(sunset) || now.before(sunrise)
-        
-        // Update logo color on initialization
-        updateLogoColor(isDarkMode)
-        
-        return if (isDarkMode) Style.DARK else Style.LIGHT
-    }
-    
     private fun updateLogoColor(useDarkMode: Boolean) {
-        // Update the Chat City logo tint
-        // White for dark mode, black for light mode
         val colorFilter = if (useDarkMode) {
             PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
         } else {
@@ -361,7 +598,6 @@ class HomeFragment : Fragment() {
                 
                 if (!addresses.isNullOrEmpty()) {
                     val address = addresses[0]
-                    // Priority: locality (city) > subAdminArea (county) > adminArea (state)
                     address.locality ?: address.subAdminArea ?: address.adminArea ?: "Unknown"
                 } else {
                     "Unknown"
@@ -383,25 +619,19 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateLocationPulse(location: Location) {
-        // Clear existing animation and annotations
         clearPulseAnimation()
-        
-        // Create center dot and pulse effect
         createLocationPuck(location)
     }
     
     private fun clearPulseAnimation() {
-        // Cancel animator
         pulseAnimator?.cancel()
         pulseAnimator = null
         
-        // Delete existing pulse annotation
         pulseAnnotation?.let { annotation ->
             circleAnnotationManager?.delete(annotation)
         }
         pulseAnnotation = null
         
-        // Delete existing center dot annotation
         centerDotAnnotation?.let { annotation ->
             circleAnnotationManager?.delete(annotation)
         }
@@ -412,9 +642,8 @@ class HomeFragment : Fragment() {
         val point = Point.fromLngLat(location.longitude, location.latitude)
         
         circleAnnotationManager?.let { manager ->
-            // IMPORTANT: Create pulse FIRST so it's behind the center dot
-            // Create the pulse ring animation (underneath)
-            val pulseColor = "#33FB86BB" // Pink with 20% opacity for pulse
+            // Create pulse FIRST so it's behind the center dot
+            val pulseColor = "#33FB86BB"
             
             pulseAnnotation = manager.create(
                 CircleAnnotationOptions()
@@ -423,22 +652,22 @@ class HomeFragment : Fragment() {
                     .withCircleColor(pulseColor)
                     .withCircleOpacity(0.5)
                     .withCircleStrokeWidth(0.0)
-                    .withCircleBlur(0.3) // Add slight blur for softer edges
+                    .withCircleBlur(0.3)
             )
             
             // Create center dot AFTER pulse so it appears on top
-            val centerColor = "#FB86BB" // Pink color without transparency for center
+            val centerColor = "#FB86BB"
             
             centerDotAnnotation = manager.create(
                 CircleAnnotationOptions()
                     .withPoint(point)
                     .withCircleRadius(CENTER_DOT_RADIUS)
                     .withCircleColor(centerColor)
-                    .withCircleOpacity(1.0) // Fully opaque center dot
+                    .withCircleOpacity(1.0)
                     .withCircleStrokeWidth(0.0)
             )
             
-            // Animate only the pulse ring, not the center dot
+            // Animate only the pulse ring
             pulseAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
                 duration = PULSE_DURATION
                 repeatCount = ValueAnimator.INFINITE
@@ -448,15 +677,11 @@ class HomeFragment : Fragment() {
                 addUpdateListener { animation ->
                     val progress = animation.animatedValue as Float
                     
-                    // Expand radius from MIN to MAX
                     val radius = MIN_PULSE_RADIUS + ((MAX_PULSE_RADIUS - MIN_PULSE_RADIUS) * progress)
-                    
-                    // Fade out as it expands (start at 50% opacity, fade to 0%)
                     val opacity = (1.0 - progress) * 0.5
                     
                     try {
                         if (isAdded && circleAnnotationManager != null && pulseAnnotation != null) {
-                            // Update only the pulse annotation, not the center dot
                             pulseAnnotation?.circleRadius = radius
                             pulseAnnotation?.circleOpacity = opacity
                             pulseAnnotation?.let { manager.update(it) }
@@ -487,7 +712,6 @@ class HomeFragment : Fragment() {
     
     override fun onStop() {
         super.onStop()
-        // Save camera state when leaving the fragment
         saveCameraState()
         mapView.onStop()
     }
@@ -507,24 +731,19 @@ class HomeFragment : Fragment() {
     
     override fun onPause() {
         super.onPause()
-        // Save camera state when pausing
         saveCameraState()
-        // Pause animation when fragment is not visible
         pulseAnimator?.pause()
         stopThemeUpdates()
     }
     
     override fun onResume() {
         super.onResume()
-        // Resume animation when fragment becomes visible
         pulseAnimator?.resume()
         
-        // Re-ensure Mapbox branding is hidden when resuming
         mapView.logo.enabled = false
         mapView.attribution.enabled = false
         mapView.scalebar.enabled = false
         
-        // Resume theme updates
         currentLocation?.let {
             updateMapThemeBasedOnTime(it)
             startThemeUpdates()
