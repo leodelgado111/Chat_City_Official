@@ -48,6 +48,7 @@ import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.attribution.attribution
 import com.mapbox.maps.plugin.gestures.gestures
+import com.mapbox.maps.plugin.gestures.addOnMapClickListener
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.scalebar.scalebar
@@ -209,7 +210,8 @@ class HomeFragment : Fragment() {
         })
         
         // Add click listener to map to close search when tapping outside
-        mapView.getMapboxMap().addOnMapClickListener { point ->
+        // Use the gestures plugin's addOnMapClickListener
+        mapView.gestures.addOnMapClickListener { point ->
             if (isSearchVisible) {
                 hideSearchView()
                 true // Consume the click event
