@@ -4,7 +4,7 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,28 +17,28 @@ import java.lang.String;
 
 public final class ItemMessageReceivedBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final RelativeLayout rootView;
 
   @NonNull
   public final TextView messageText;
 
   @NonNull
-  public final TextView messageTime;
-
-  @NonNull
   public final TextView senderName;
 
-  private ItemMessageReceivedBinding(@NonNull LinearLayout rootView, @NonNull TextView messageText,
-      @NonNull TextView messageTime, @NonNull TextView senderName) {
+  @NonNull
+  public final TextView timeText;
+
+  private ItemMessageReceivedBinding(@NonNull RelativeLayout rootView,
+      @NonNull TextView messageText, @NonNull TextView senderName, @NonNull TextView timeText) {
     this.rootView = rootView;
     this.messageText = messageText;
-    this.messageTime = messageTime;
     this.senderName = senderName;
+    this.timeText = timeText;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public RelativeLayout getRoot() {
     return rootView;
   }
 
@@ -63,26 +63,26 @@ public final class ItemMessageReceivedBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.message_text;
+      id = R.id.messageText;
       TextView messageText = ViewBindings.findChildViewById(rootView, id);
       if (messageText == null) {
         break missingId;
       }
 
-      id = R.id.message_time;
-      TextView messageTime = ViewBindings.findChildViewById(rootView, id);
-      if (messageTime == null) {
-        break missingId;
-      }
-
-      id = R.id.sender_name;
+      id = R.id.senderName;
       TextView senderName = ViewBindings.findChildViewById(rootView, id);
       if (senderName == null) {
         break missingId;
       }
 
-      return new ItemMessageReceivedBinding((LinearLayout) rootView, messageText, messageTime,
-          senderName);
+      id = R.id.timeText;
+      TextView timeText = ViewBindings.findChildViewById(rootView, id);
+      if (timeText == null) {
+        break missingId;
+      }
+
+      return new ItemMessageReceivedBinding((RelativeLayout) rootView, messageText, senderName,
+          timeText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

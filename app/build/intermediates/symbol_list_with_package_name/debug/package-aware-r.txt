@@ -85,6 +85,7 @@ animator nav_default_enter_anim
 animator nav_default_exit_anim
 animator nav_default_pop_enter_anim
 animator nav_default_pop_exit_anim
+array preloaded_fonts
 attr SharedValue
 attr SharedValueId
 attr action
@@ -261,6 +262,7 @@ attr cardMaxElevation
 attr cardPreventCornerOverlap
 attr cardUseCompatPadding
 attr cardViewStyle
+attr carousel_alignment
 attr carousel_backwardTransition
 attr carousel_emptyViewsBehavior
 attr carousel_firstView
@@ -1540,12 +1542,10 @@ color abc_tint_edittext
 color abc_tint_seek_thumb
 color abc_tint_spinner
 color abc_tint_switch_track
-color accent
 color accent_material_dark
 color accent_material_light
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
-color background
 color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
@@ -1570,6 +1570,16 @@ color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
 color chat_background
+color chat_background_primary
+color chat_divider
+color chat_gradient_center
+color chat_gradient_end
+color chat_gradient_start
+color chat_input_background
+color chat_input_border
+color chat_text_hint
+color chat_text_primary
+color chat_text_secondary
 color common_google_signin_btn_text_dark
 color common_google_signin_btn_text_dark_default
 color common_google_signin_btn_text_dark_disabled
@@ -1628,6 +1638,9 @@ color error_color_material_dark
 color error_color_material_light
 color foreground_material_dark
 color foreground_material_light
+color gradient_center
+color gradient_end
+color gradient_start
 color highlighted_text_material_dark
 color highlighted_text_material_light
 color input_background
@@ -1720,15 +1733,26 @@ color m3_ref_palette_dynamic_neutral99
 color m3_ref_palette_dynamic_neutral_variant0
 color m3_ref_palette_dynamic_neutral_variant10
 color m3_ref_palette_dynamic_neutral_variant100
+color m3_ref_palette_dynamic_neutral_variant12
+color m3_ref_palette_dynamic_neutral_variant17
 color m3_ref_palette_dynamic_neutral_variant20
+color m3_ref_palette_dynamic_neutral_variant22
+color m3_ref_palette_dynamic_neutral_variant24
 color m3_ref_palette_dynamic_neutral_variant30
+color m3_ref_palette_dynamic_neutral_variant4
 color m3_ref_palette_dynamic_neutral_variant40
 color m3_ref_palette_dynamic_neutral_variant50
+color m3_ref_palette_dynamic_neutral_variant6
 color m3_ref_palette_dynamic_neutral_variant60
 color m3_ref_palette_dynamic_neutral_variant70
 color m3_ref_palette_dynamic_neutral_variant80
+color m3_ref_palette_dynamic_neutral_variant87
 color m3_ref_palette_dynamic_neutral_variant90
+color m3_ref_palette_dynamic_neutral_variant92
+color m3_ref_palette_dynamic_neutral_variant94
 color m3_ref_palette_dynamic_neutral_variant95
+color m3_ref_palette_dynamic_neutral_variant96
+color m3_ref_palette_dynamic_neutral_variant98
 color m3_ref_palette_dynamic_neutral_variant99
 color m3_ref_palette_dynamic_primary0
 color m3_ref_palette_dynamic_primary10
@@ -1902,10 +1926,14 @@ color m3_sys_color_dark_surface_variant
 color m3_sys_color_dark_tertiary
 color m3_sys_color_dark_tertiary_container
 color m3_sys_color_dynamic_dark_background
+color m3_sys_color_dynamic_dark_error
+color m3_sys_color_dynamic_dark_error_container
 color m3_sys_color_dynamic_dark_inverse_on_surface
 color m3_sys_color_dynamic_dark_inverse_primary
 color m3_sys_color_dynamic_dark_inverse_surface
 color m3_sys_color_dynamic_dark_on_background
+color m3_sys_color_dynamic_dark_on_error
+color m3_sys_color_dynamic_dark_on_error_container
 color m3_sys_color_dynamic_dark_on_primary
 color m3_sys_color_dynamic_dark_on_primary_container
 color m3_sys_color_dynamic_dark_on_secondary
@@ -1932,10 +1960,14 @@ color m3_sys_color_dynamic_dark_surface_variant
 color m3_sys_color_dynamic_dark_tertiary
 color m3_sys_color_dynamic_dark_tertiary_container
 color m3_sys_color_dynamic_light_background
+color m3_sys_color_dynamic_light_error
+color m3_sys_color_dynamic_light_error_container
 color m3_sys_color_dynamic_light_inverse_on_surface
 color m3_sys_color_dynamic_light_inverse_primary
 color m3_sys_color_dynamic_light_inverse_surface
 color m3_sys_color_dynamic_light_on_background
+color m3_sys_color_dynamic_light_on_error
+color m3_sys_color_dynamic_light_on_error_container
 color m3_sys_color_dynamic_light_on_primary
 color m3_sys_color_dynamic_light_on_primary_container
 color m3_sys_color_dynamic_light_on_secondary
@@ -2056,6 +2088,14 @@ color material_cursor_color
 color material_deep_teal_200
 color material_deep_teal_500
 color material_divider_color
+color material_dynamic_color_dark_error
+color material_dynamic_color_dark_error_container
+color material_dynamic_color_dark_on_error
+color material_dynamic_color_dark_on_error_container
+color material_dynamic_color_light_error
+color material_dynamic_color_light_error_container
+color material_dynamic_color_light_on_error
+color material_dynamic_color_light_on_error_container
 color material_dynamic_neutral0
 color material_dynamic_neutral10
 color material_dynamic_neutral100
@@ -2205,6 +2245,8 @@ color material_timepicker_button_stroke
 color material_timepicker_clock_text_color
 color material_timepicker_clockface
 color material_timepicker_modebutton_tint
+color message_received
+color message_sent
 color mtrl_btn_bg_color_selector
 color mtrl_btn_ripple_color
 color mtrl_btn_stroke_color_selector
@@ -2262,6 +2304,7 @@ color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
 color notification_action_color_filter
 color notification_icon_bg_color
+color offline_gray
 color online_green
 color place_autocomplete_prediction_primary_text
 color place_autocomplete_prediction_primary_text_highlight
@@ -2644,10 +2687,13 @@ color quantum_yellowA400
 color quantum_yellowA700
 color ripple_material_dark
 color ripple_material_light
+color secondary
 color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color send_button_gradient_end
+color send_button_gradient_start
 color switch_thumb_disabled_material_dark
 color switch_thumb_disabled_material_light
 color switch_thumb_material_dark
@@ -2661,7 +2707,6 @@ color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
 color white
-color white_70
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -3104,6 +3149,7 @@ dimen m3_large_fab_max_image_size
 dimen m3_large_fab_size
 dimen m3_large_text_vertical_offset_adjustment
 dimen m3_menu_elevation
+dimen m3_nav_badge_with_text_vertical_offset
 dimen m3_navigation_drawer_layout_corner_size
 dimen m3_navigation_item_active_indicator_label_padding
 dimen m3_navigation_item_horizontal_padding
@@ -3222,6 +3268,7 @@ dimen material_bottom_sheet_max_width
 dimen material_clock_display_height
 dimen material_clock_display_padding
 dimen material_clock_display_width
+dimen material_clock_face_margin_bottom
 dimen material_clock_face_margin_top
 dimen material_clock_hand_center_dot_radius
 dimen material_clock_hand_padding
@@ -3254,7 +3301,6 @@ dimen material_textinput_max_width
 dimen material_textinput_min_width
 dimen material_time_picker_minimum_screen_height
 dimen material_time_picker_minimum_screen_width
-dimen material_timepicker_dialog_buttons_margin_top
 dimen mtrl_alert_dialog_background_inset_bottom
 dimen mtrl_alert_dialog_background_inset_end
 dimen mtrl_alert_dialog_background_inset_start
@@ -3589,8 +3635,12 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable chat_bubble_gradient
 drawable chat_city_logo
 drawable chat_city_logo_with_shadow
+drawable chat_gradient_background
+drawable chat_input_background
+drawable circular_button_background
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -3615,10 +3665,15 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable glassmorphic_overlay
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable gradient_background
+drawable gradient_chat_background
+drawable ic_add
 drawable ic_arrow_back
 drawable ic_arrow_back_black_24
+drawable ic_back_arrow
 drawable ic_call_answer
 drawable ic_call_answer_low
 drawable ic_call_answer_video
@@ -3627,6 +3682,8 @@ drawable ic_call_decline
 drawable ic_call_decline_low
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
+drawable ic_close
+drawable ic_delete
 drawable ic_keyboard_black_24dp
 drawable ic_location_pin
 drawable ic_m3_chip_check
@@ -3636,18 +3693,22 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_my_location
 drawable ic_nav_chat
 drawable ic_nav_create
 drawable ic_nav_home
 drawable ic_nav_profile
 drawable ic_nav_saved
 drawable ic_profile_placeholder
+drawable ic_remove
 drawable ic_saved
 drawable ic_search_black_24
 drawable ic_send
+drawable ic_trash
+drawable ic_user_avatar
+drawable input_background
 drawable location_background
 drawable location_status
-drawable m3_appbar_background
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
 drawable m3_bottom_sheet_drag_handle
@@ -3689,6 +3750,8 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable message_bubble_received
+drawable message_bubble_sent
 drawable message_input_background
 drawable message_received_background
 drawable message_sent_background
@@ -3779,6 +3842,7 @@ drawable tooltip_frame_dark
 drawable tooltip_frame_light
 drawable top_bar_background
 drawable top_bar_background_no_radius
+drawable unread_badge_background
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3870,6 +3934,9 @@ id auto
 id autoComplete
 id autoCompleteToEnd
 id autoCompleteToStart
+id avatarImage
+id backButton
+id back_button
 id barrier
 id baseline
 id beginOnFirstDraw
@@ -3886,6 +3953,9 @@ id browser_actions_menu_item_icon
 id browser_actions_menu_item_text
 id browser_actions_menu_items
 id browser_actions_menu_view
+id btnBack
+id btnDelete
+id btnSend
 id btn_chats
 id btn_create
 id btn_home
@@ -3905,7 +3975,8 @@ id chain
 id chain2
 id chains
 id chatCityLogo
-id chats_recycler_view
+id chatInfoContainer
+id chatsRecyclerView
 id checkbox
 id checked
 id chronometer
@@ -3914,6 +3985,7 @@ id clear_text
 id clip_horizontal
 id clip_vertical
 id clockwise
+id closeSearchButton
 id closest
 id collapseActionView
 id compress
@@ -3941,6 +4013,8 @@ id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
 id default_viewport
+id deleteButton
+id delete_button
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3975,11 +4049,12 @@ id edit_query
 id edit_text_id
 id elastic
 id embed
-id empty_view
+id emptyState
 id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id etMessage
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -4005,11 +4080,16 @@ id ghost_view
 id ghost_view_holder
 id glide_custom_view_target_tag
 id gone
+id gradientBackground
 id graph
 id graph_wrap
 id group_divider
 id grouping
 id groups
+id header
+id headerDivider
+id headerLayout
+id headerSection
 id header_title
 id heading
 id height_only
@@ -4034,14 +4114,18 @@ id immediateStop
 id included
 id indeterminate
 id info
+id inputLayout
 id invisible
 id inward
 id italic
 id item_touch_helper_previous_elevation
+id ivAvatar
 id ivSplashImage
+id ivUserAvatar
 id jumpToEnd
 id jumpToStart
 id labeled
+id lastMessageText
 id layout
 id left
 id leftToRight
@@ -4059,6 +4143,7 @@ id locationIcon
 id locationText
 id location_puck_2_d
 id location_puck_3_d
+id logoImageView
 id ltr
 id m3_side_sheet
 id mapView
@@ -4088,9 +4173,11 @@ id material_timepicker_view
 id material_value_index
 id matrix
 id message
+id messageContainer
+id messageInput
+id messageText
 id message_input
-id message_text
-id message_time
+id messagesRecyclerView
 id messages_recycler_view
 id middle
 id mini
@@ -4126,6 +4213,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id nameText
 id nav_controller_view_tag
 id nav_host_fragment_activity_main
 id nav_host_fragment_container
@@ -4215,7 +4303,9 @@ id places_autocomplete_try_again
 id places_autocomplete_try_again_progress
 id position
 id postLayout
+id poweredByGoogle
 id pressed
+id primaryText
 id profile_image
 id progressBar
 id progress_circular
@@ -4233,6 +4323,8 @@ id rightwards
 id rounded
 id row_index_key
 id rtl
+id rvChatMessages
+id rvChats
 id satellite
 id save_non_transition_alpha
 id save_overlay_view
@@ -4244,22 +4336,27 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id searchContainer
+id searchEditText
+id searchResultsCard
+id searchResultsRecyclerView
 id search_badge
 id search_bar
 id search_button
 id search_close_btn
 id search_edit_frame
 id search_go_btn
-id search_icon
 id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
+id secondaryText
 id select_dialog_listview
 id selected
 id selection_type
+id sendButton
 id send_button
-id sender_name
+id senderName
 id shared
 id sharedValueSet
 id sharedValueUnset
@@ -4324,6 +4421,7 @@ id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTop
+id text_create
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -4338,15 +4436,17 @@ id textinput_suffix_text
 id texture_view
 id tile
 id time
+id timeText
+id timeTextView
 id title
 id titleDividerNoCustom
+id titleText
 id title_template
 id toggle
 id toolbar
 id toolbar_title
 id top
 id topPanel
-id top_bar
 id touch_outside
 id transitionToEnd
 id transitionToStart
@@ -4356,6 +4456,13 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id triangle
+id tvChatTitle
+id tvLastMessage
+id tvMessage
+id tvTime
+id tvTitle
+id tvUnreadCount
+id tvUsername
 id unchecked
 id uniform
 id unique
@@ -4503,6 +4610,8 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_chat
+layout activity_chat_detail
+layout activity_chat_modern
 layout activity_dummy
 layout activity_main
 layout activity_splash
@@ -4525,13 +4634,20 @@ layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
 layout fragment_chats
+layout fragment_chats_modern
+layout fragment_create
 layout fragment_home
+layout fragment_home_with_search
 layout fragment_profile
 layout fragment_saved
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
+layout item_chat
+layout item_chat_message_modern
+layout item_chat_modern
 layout item_message_received
 layout item_message_sent
+layout item_place_search
 layout item_user
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
@@ -5397,6 +5513,10 @@ style Theme_AppCompat_Light_DialogWhenLarge
 style Theme_AppCompat_Light_NoActionBar
 style Theme_AppCompat_NoActionBar
 style Theme_ChatCityOfficial
+style Theme_ChatCityOfficial_AppBarOverlay
+style Theme_ChatCityOfficial_NoActionBar
+style Theme_ChatCityOfficial_PopupOverlay
+style Theme_ChatCityOfficial_Splash
 style Theme_Design
 style Theme_Design_BottomSheetDialog
 style Theme_Design_Light
@@ -5690,6 +5810,7 @@ style Widget_Material3_Badge_AdjustToBounds
 style Widget_Material3_BottomAppBar
 style Widget_Material3_BottomAppBar_Button_Navigation
 style Widget_Material3_BottomAppBar_Legacy
+style Widget_Material3_BottomNavigation_Badge
 style Widget_Material3_BottomNavigationView
 style Widget_Material3_BottomNavigationView_ActiveIndicator
 style Widget_Material3_BottomSheet
@@ -5968,6 +6089,7 @@ style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
+style WindowAnimationTransition
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth
@@ -5998,7 +6120,7 @@ styleable BottomSheetBehavior_Layout android_maxWidth android_maxHeight android_
 styleable ButtonBarLayout allowStacking
 styleable Capability queryPatterns shortcutMatchRequired
 styleable CardView android_minWidth android_minHeight cardBackgroundColor cardCornerRadius cardElevation cardMaxElevation cardPreventCornerOverlap cardUseCompatPadding contentPadding contentPaddingBottom contentPaddingLeft contentPaddingRight contentPaddingTop
-styleable Carousel carousel_backwardTransition carousel_emptyViewsBehavior carousel_firstView carousel_forwardTransition carousel_infinite carousel_nextState carousel_previousState carousel_touchUpMode carousel_touchUp_dampeningFactor carousel_touchUp_velocityThreshold
+styleable Carousel carousel_alignment carousel_backwardTransition carousel_emptyViewsBehavior carousel_firstView carousel_forwardTransition carousel_infinite carousel_nextState carousel_previousState carousel_touchUpMode carousel_touchUp_dampeningFactor carousel_touchUp_velocityThreshold
 styleable CheckedTextView android_checkMark checkMarkCompat checkMarkTint checkMarkTintMode
 styleable Chip android_textAppearance android_textSize android_textColor android_ellipsize android_maxWidth android_text android_checkable checkedIcon checkedIconEnabled checkedIconTint checkedIconVisible chipBackgroundColor chipCornerRadius chipEndPadding chipIcon chipIconEnabled chipIconSize chipIconTint chipIconVisible chipMinHeight chipMinTouchTargetSize chipStartPadding chipStrokeColor chipStrokeWidth chipSurfaceColor closeIcon closeIconEnabled closeIconEndPadding closeIconSize closeIconStartPadding closeIconTint closeIconVisible ensureMinTouchTargetSize hideMotionSpec iconEndPadding iconStartPadding rippleColor shapeAppearance shapeAppearanceOverlay showMotionSpec textEndPadding textStartPadding
 styleable ChipGroup checkedChip chipSpacing chipSpacingHorizontal chipSpacingVertical selectionRequired singleLine singleSelection

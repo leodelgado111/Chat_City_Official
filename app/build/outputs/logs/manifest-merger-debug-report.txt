@@ -1,28 +1,28 @@
 -- Merging decision tree log ---
 meta-data#com.google.android.geo.API_KEY
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:21:9-23:54
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:69:9-71:54
 	android:value
 		INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:23:13-51
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:71:13-51
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:22:13-58
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:70:13-58
 manifest
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-54:12
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-54:12
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-94:12
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-94:12
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-94:12
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:1-94:12
 MERGED from [androidx.databinding:viewbinding:8.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\58a4c0215099318f95d5e27a1aa675a7\transformed\jetified-viewbinding-8.1.4\AndroidManifest.xml:2:1-7:12
 MERGED from [com.mapbox.maps:android:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\d5397c9ee41f697d1759301dd4891f69\transformed\jetified-android-10.16.1\AndroidManifest.xml:2:1-9:12
 MERGED from [com.mapbox.common:okhttp:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\76ebe4b1ce20e5addefa9265917f1160\transformed\jetified-okhttp-23.8.3\AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.navigation:navigation-common:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\d12fa04f2445dbe4b788a3c8c04d6101\transformed\navigation-common-2.7.5\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.navigation:navigation-common-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\2289b7555fb47fc006c72a173e3ffde8\transformed\navigation-common-ktx-2.7.5\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.navigation:navigation-runtime:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\18eafd95f39adf90bff51996eb1147d0\transformed\navigation-runtime-2.7.5\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\511309681ae7bb3b5fceaed8fcb9fd84\transformed\navigation-runtime-ktx-2.7.5\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.navigation:navigation-fragment:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\d415b44b42deba31b3fbd30e5b40745d\transformed\navigation-fragment-2.7.5\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\dd5ce68b3672feb3f17e570d2dd802da\transformed\navigation-fragment-ktx-2.7.5\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.navigation:navigation-ui-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\afbc3145111dc9a0c82cb88e03947027\transformed\navigation-ui-ktx-2.7.5\AndroidManifest.xml:2:1-7:12
-MERGED from [androidx.navigation:navigation-ui:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\bcc4fc7dc79420732ed2e61a0f60fac9\transformed\navigation-ui-2.7.5\AndroidManifest.xml:17:1-22:12
-MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.navigation:navigation-common:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\e306f422463dde3634dd1184ae15957d\transformed\navigation-common-2.7.6\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\94c47770cc1ead4d7e8cf18e0034ce9d\transformed\navigation-common-ktx-2.7.6\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\8549db5dc35dd792b0e01281acd8c0ab\transformed\navigation-runtime-2.7.6\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\0a78c2aeace514227909b525ee88d41c\transformed\navigation-runtime-ktx-2.7.6\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-fragment:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\60516d524675207445bb704b19ffd21e\transformed\navigation-fragment-2.7.6\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\2559b55f86911e50921b007e3d64dfba\transformed\navigation-fragment-ktx-2.7.6\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-ui-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\99e8dbe5a4e6e7a4c241cba8961f8744\transformed\navigation-ui-ktx-2.7.6\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.navigation:navigation-ui:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\178080c69f1790753a2ee8389c3de1e9\transformed\navigation-ui-2.7.6\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\Leo\.gradle\caches\8.9\transforms\df974598b1966ba8a8df58b5550e434f\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\935d5abcd4b01f37b17ecbdb92d23336\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [com.mapbox.plugin:maps-viewport:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\87d7dce1bdca22759fb05852ce22253f\transformed\jetified-maps-viewport-10.16.1\AndroidManifest.xml:2:1-9:12
 MERGED from [com.mapbox.plugin:maps-locationcomponent:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\d511f1d3343c527eb6f894d963ece79f\transformed\jetified-maps-locationcomponent-10.16.1\AndroidManifest.xml:2:1-9:12
@@ -47,8 +47,8 @@ MERGED from [androidx.viewpager2:viewpager2:1.0.0] C:\Users\Leo\.gradle\caches\8
 MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b11f9d260ac2336e854c6c0082f66842\transformed\jetified-play-services-location-21.0.1\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:firebase-storage-ktx:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\2c439ca8be9327410bfe24cdc4c5fc08\transformed\jetified-firebase-storage-ktx-20.3.0\AndroidManifest.xml:2:1-18:12
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:15:1-39:12
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:2:1-18:12
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:2:1-18:12
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:2:1-26:12
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:2:1-17:12
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:17:1-75:12
 MERGED from [com.google.firebase:firebase-appcheck:17.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\96fe8074f0cfe7624e260b8003ae2db8\transformed\jetified-firebase-appcheck-17.1.1\AndroidManifest.xml:15:1-34:12
@@ -83,6 +83,7 @@ MERGED from [androidx.fragment:fragment:1.6.2] C:\Users\Leo\.gradle\caches\8.9\t
 MERGED from [androidx.activity:activity:1.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\870e78b0ce8b9393af878d62e9feebcb\transformed\jetified-activity-1.8.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\Leo\.gradle\caches\8.9\transforms\f47f59dcbdd887835177d27b1a734212\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.core:core-ktx:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\c9e756689db8a897d8c1de944c4a31b6\transformed\jetified-core-ktx-1.12.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.browser:browser:1.5.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d26426f6cc1d3e7d887c787b4f14c2ad\transformed\browser-1.5.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\2900d8d0098d6d6ca4906117f22149db\transformed\drawerlayout-1.1.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\Leo\.gradle\caches\8.9\transforms\6f9fcc425281881d0dda935129dab4e3\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\Leo\.gradle\caches\8.9\transforms\04a412eda7262aa17a209b097c142f24\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
@@ -96,7 +97,6 @@ MERGED from [com.mapbox.maps:base:10.16.1] C:\Users\Leo\.gradle\caches\8.9\trans
 MERGED from [com.mapbox.maps:android-core:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\28ae265e9464c15d1deaab346b6bd4c2\transformed\jetified-android-core-10.16.1\AndroidManifest.xml:2:1-33:12
 MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\c716a0665699155cc6e3daaada869b6e\transformed\jetified-common-23.8.3\AndroidManifest.xml:2:1-40:12
 MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0498fdf4be036dae2ca2a3d7017db006\transformed\jetified-mapbox-android-gestures-0.8.0\AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.browser:browser:1.4.0] C:\Users\Leo\.gradle\caches\8.9\transforms\f86780c44c3898545f1389dbcbbb4284\transformed\browser-1.4.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.transition:transition:1.4.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b0f6e17ae084d061c96ea6bab31720e9\transformed\transition-1.4.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.window:window:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e83de86be3bbff32e93920c9d0645d20\transformed\jetified-window-1.0.0\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.core:core:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\20948e5456fee5d3d23666f93dc55bd6\transformed\core-1.12.0\AndroidManifest.xml:17:1-30:12
@@ -106,9 +106,10 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\Leo\.gra
 MERGED from [com.mapbox.common:logger:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\fa32eaf4218682f44fabe00247732052\transformed\jetified-logger-0.8.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.mapbox.common:loader:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\cb1a7b57909f0b7144280fb770fece14\transformed\jetified-loader-0.8.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.mapbox.base:common:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7a085b8d0d006e70f1daab47a08e21fb\transformed\jetified-common-0.8.0\AndroidManifest.xml:2:1-9:12
-MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\13975fc3269666f9ff67be51dfe5eecc\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\99357adb951d69abb2c51c25d3ae7f3e\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\b30c178296c2d12a3d78ebb5dfa5dda7\transformed\cardview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7df963c20aa76f7903716b0979654a9e\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:15:1-38:12
 MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:15:1-41:12
 MERGED from [com.github.bumptech.glide:gifdecoder:4.16.0] C:\Users\Leo\.gradle\caches\8.9\transforms\94e28d5d5e92d2c43bec1138c318e85c\transformed\jetified-gifdecoder-4.16.0\AndroidManifest.xml:2:1-9:12
@@ -117,8 +118,6 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\Leo\.gra
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\e52a912d346fc94b34cbca0b21dfea26\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\3eeea100ed6620e5ea3dcb237bd2fe84\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Leo\.gradle\caches\8.9\transforms\077fba95c972767091be00eedd6bdf8d\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:15:1-20:12
-MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7df963c20aa76f7903716b0979654a9e\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\feba376cb0baac27d3c9daf43e65d71a\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-encoders-json:16.1.0] C:\Users\Leo\.gradle\caches\8.9\transforms\2ad5f98b3ec39e203a7341413a66b0b4\transformed\jetified-firebase-encoders-json-16.1.0\AndroidManifest.xml:15:1-23:12
 MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\ee3e1181e960bd8380c3662e42e6138a\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -139,15 +138,15 @@ MERGED from [com.google.firebase:protolite-well-known-types:18.0.0] C:\Users\Leo
 	xmlns:android
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:5:5-67
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:6:5-67
 MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:12:5-67
 MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:12:5-67
 MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d5915786e9aad9797b59b03b81dcf2b7\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:24:5-67
 MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d5915786e9aad9797b59b03b81dcf2b7\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:24:5-67
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:24:5-67
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:24:5-67
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:11:5-67
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:11:5-67
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:25:5-67
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:25:5-67
 MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\Leo\.gradle\caches\8.9\transforms\15d3def3a39b35ba4d8f5e0802446560\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:7:5-67
@@ -159,48 +158,72 @@ MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\tr
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:26:5-67
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:26:5-67
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:5:22-64
-uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:6:5-79
-MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:10:5-79
-MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:10:5-79
-	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:6:22-76
-uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:7:5-81
-MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:9:5-81
-MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:9:5-81
-	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:7:22-78
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:6:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:7:5-79
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d5915786e9aad9797b59b03b81dcf2b7\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d5915786e9aad9797b59b03b81dcf2b7\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:23:5-79
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\Leo\.gradle\caches\8.9\transforms\15d3def3a39b35ba4d8f5e0802446560\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:8:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\Leo\.gradle\caches\8.9\transforms\15d3def3a39b35ba4d8f5e0802446560\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:8:5-79
+MERGED from [com.mapbox.maps:android-core:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\28ae265e9464c15d1deaab346b6bd4c2\transformed\jetified-android-core-10.16.1\AndroidManifest.xml:18:5-79
+MERGED from [com.mapbox.maps:android-core:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\28ae265e9464c15d1deaab346b6bd4c2\transformed\jetified-android-core-10.16.1\AndroidManifest.xml:18:5-79
+MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\c716a0665699155cc6e3daaada869b6e\transformed\jetified-common-23.8.3\AndroidManifest.xml:11:5-79
+MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\c716a0665699155cc6e3daaada869b6e\transformed\jetified-common-23.8.3\AndroidManifest.xml:11:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:22:5-79
+MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\Leo\.gradle\caches\8.9\transforms\66ea736fa315ef7714d2d4595dcdfb22\transformed\jetified-grpc-android-1.52.1\AndroidManifest.xml:9:5-79
+MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\Leo\.gradle\caches\8.9\transforms\66ea736fa315ef7714d2d4595dcdfb22\transformed\jetified-grpc-android-1.52.1\AndroidManifest.xml:9:5-79
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.ACCESS_FINE_LOCATION
 ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:8:5-79
-MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d5915786e9aad9797b59b03b81dcf2b7\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
-MERGED from [com.google.android.gms:play-services-maps:18.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d5915786e9aad9797b59b03b81dcf2b7\transformed\jetified-play-services-maps-18.2.0\AndroidManifest.xml:23:5-79
-MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:23:5-79
-MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:23:5-79
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:10:5-79
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:10:5-79
-MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
-MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:26:5-79
-MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\Leo\.gradle\caches\8.9\transforms\15d3def3a39b35ba4d8f5e0802446560\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:8:5-79
-MERGED from [com.google.android.recaptcha:recaptcha:18.1.2] C:\Users\Leo\.gradle\caches\8.9\transforms\15d3def3a39b35ba4d8f5e0802446560\transformed\jetified-recaptcha-18.1.2\AndroidManifest.xml:8:5-79
-MERGED from [com.mapbox.maps:android-core:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\28ae265e9464c15d1deaab346b6bd4c2\transformed\jetified-android-core-10.16.1\AndroidManifest.xml:18:5-79
-MERGED from [com.mapbox.maps:android-core:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\28ae265e9464c15d1deaab346b6bd4c2\transformed\jetified-android-core-10.16.1\AndroidManifest.xml:18:5-79
-MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\c716a0665699155cc6e3daaada869b6e\transformed\jetified-common-23.8.3\AndroidManifest.xml:11:5-79
-MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\c716a0665699155cc6e3daaada869b6e\transformed\jetified-common-23.8.3\AndroidManifest.xml:11:5-79
-MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:25:5-79
-MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:25:5-79
-MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:22:5-79
-MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\Leo\.gradle\caches\8.9\transforms\66ea736fa315ef7714d2d4595dcdfb22\transformed\jetified-grpc-android-1.52.1\AndroidManifest.xml:9:5-79
-MERGED from [io.grpc:grpc-android:1.52.1] C:\Users\Leo\.gradle\caches\8.9\transforms\66ea736fa315ef7714d2d4595dcdfb22\transformed\jetified-grpc-android-1.52.1\AndroidManifest.xml:9:5-79
+MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:10:5-79
 	android:name
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:8:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:9:5-81
+MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:9:5-81
+MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:9:5-81
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:9:22-78
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-85
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:22-82
+uses-permission#android.permission.VIBRATE
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:11:5-66
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:11:22-63
+uses-permission#android.permission.WAKE_LOCK
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:12:5-68
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:12:22-65
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:13:5-80
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:13:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:5-81
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:22-78
+uses-permission#android.permission.CAMERA
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:15:5-65
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:15:22-62
 application
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-53:19
-INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:10:5-53:19
-MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:22:5-20
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:17:5-92:19
+INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:17:5-92:19
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\Leo\.gradle\caches\8.9\transforms\df974598b1966ba8a8df58b5550e434f\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\Leo\.gradle\caches\8.9\transforms\df974598b1966ba8a8df58b5550e434f\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\935d5abcd4b01f37b17ecbdb92d23336\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\935d5abcd4b01f37b17ecbdb92d23336\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
 MERGED from [com.google.android.libraries.places:places:3.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1c9fce70210ca969a423386c8716f8e9\transformed\jetified-places-3.3.0\AndroidManifest.xml:14:5-22:19
@@ -215,10 +238,10 @@ MERGED from [com.google.firebase:firebase-storage-ktx:20.3.0] C:\Users\Leo\.grad
 MERGED from [com.google.firebase:firebase-storage-ktx:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\2c439ca8be9327410bfe24cdc4c5fc08\transformed\jetified-firebase-storage-ktx-20.3.0\AndroidManifest.xml:8:5-16:19
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:26:5-37:19
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:26:5-37:19
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:8:5-16:19
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:8:5-16:19
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:13:5-24:19
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:13:5-24:19
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:7:5-15:19
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:7:5-15:19
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:28:5-73:19
@@ -255,6 +278,8 @@ MERGED from [androidx.window:window:1.0.0] C:\Users\Leo\.gradle\caches\8.9\trans
 MERGED from [androidx.window:window:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e83de86be3bbff32e93920c9d0645d20\transformed\jetified-window-1.0.0\AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.core:core:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\20948e5456fee5d3d23666f93dc55bd6\transformed\core-1.12.0\AndroidManifest.xml:28:5-89
 MERGED from [androidx.core:core:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\20948e5456fee5d3d23666f93dc55bd6\transformed\core-1.12.0\AndroidManifest.xml:28:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:28:5-36:19
 MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:25:5-39:19
@@ -263,72 +288,116 @@ MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\Leo\.gra
 MERGED from [androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\f4b47dd048b4c5ae92e98f2b4dec7995\transformed\jetified-profileinstaller-1.3.0\AndroidManifest.xml:23:5-53:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\e52a912d346fc94b34cbca0b21dfea26\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
 MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\e52a912d346fc94b34cbca0b21dfea26\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
 	android:extractNativeLibs
 		INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\20948e5456fee5d3d23666f93dc55bd6\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:17:9-35
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:24:9-35
 	android:label
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:15:9-41
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:22:9-41
+	android:hardwareAccelerated
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:26:9-43
 	android:fullBackupContent
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:13:9-54
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:20:9-54
 	android:roundIcon
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:16:9-54
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:23:9-54
 	tools:targetApi
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:19:9-29
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:28:9-29
+	android:largeHeap
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:27:9-33
 	android:icon
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:14:9-43
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:21:9-43
 	android:allowBackup
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:11:9-35
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:18:9-35
 	android:theme
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:18:9-54
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:25:9-54
 	android:dataExtractionRules
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:12:9-65
-meta-data#MAPBOX_ACCESS_TOKEN
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:25:9-27:129
-	android:value
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:27:13-126
-	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:26:13-47
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:19:9-65
 activity#com.chatcityofficial.chatmapapp.SplashActivity
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:30:9-38:20
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:31:9-41:20
+	android:screenOrientation
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:13-49
+	android:launchMode
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:36:13-43
 	android:exported
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:33:13-36
 	android:theme
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:32:13-54
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:34:13-65
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:31:13-43
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:32:13-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:34:13-37:29
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:37:13-40:29
 action#android.intent.action.MAIN
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:17-69
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:38:17-69
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:35:25-66
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:38:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:36:17-77
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:39:17-77
 	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:36:27-74
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:39:27-74
 activity#com.chatcityofficial.chatmapapp.MainActivity
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:41:9-44:61
-	android:exported
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:43:13-36
-	android:theme
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:44:13-58
-	android:name
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:42:13-41
-activity#com.chatcityofficial.chatmapapp.ui.chat.ChatActivity
-ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:47:9-51:58
-	android:windowSoftInputMode
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:51:13-55
-	android:exported
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:49:13-37
-	android:theme
-		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:50:13-58
-	android:name
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:44:9-50:46
+	android:screenOrientation
 		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:48:13-49
+	android:launchMode
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:50:13-43
+	android:windowSoftInputMode
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:49:13-55
+	android:exported
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:46:13-37
+	android:theme
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:47:13-70
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:45:13-41
+activity#com.chatcityofficial.chatmapapp.ui.chat.ChatActivity
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:53:9-58:58
+	android:screenOrientation
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:57:13-49
+	android:windowSoftInputMode
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:58:13-55
+	android:exported
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:55:13-37
+	android:theme
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:56:13-70
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:54:13-49
+activity#com.chatcityofficial.chatmapapp.ui.chat.ChatDetailActivity
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:61:9-66:58
+	android:screenOrientation
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:65:13-49
+	android:windowSoftInputMode
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:66:13-55
+	android:exported
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:63:13-37
+	android:theme
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:64:13-70
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:62:13-55
+meta-data#com.mapbox.token
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:74:9-76:59
+	android:value
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:76:13-56
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:75:13-44
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:79:9-85:19
+	android:exported
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:81:13-37
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:80:13-82
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:82:13-84:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:83:17-78
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:83:25-75
+meta-data#preloaded_fonts
+ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:88:9-90:57
+	android:resource
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:90:13-54
+	android:name
+		ADDED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml:89:13-43
 uses-sdk
 INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\src\Chat_City_Official\app\src\main\AndroidManifest.xml
@@ -339,24 +408,24 @@ MERGED from [com.mapbox.maps:android:10.16.1] C:\Users\Leo\.gradle\caches\8.9\tr
 MERGED from [com.mapbox.maps:android:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\d5397c9ee41f697d1759301dd4891f69\transformed\jetified-android-10.16.1\AndroidManifest.xml:5:5-7:41
 MERGED from [com.mapbox.common:okhttp:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\76ebe4b1ce20e5addefa9265917f1160\transformed\jetified-okhttp-23.8.3\AndroidManifest.xml:5:5-7:41
 MERGED from [com.mapbox.common:okhttp:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\76ebe4b1ce20e5addefa9265917f1160\transformed\jetified-okhttp-23.8.3\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.navigation:navigation-common:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\d12fa04f2445dbe4b788a3c8c04d6101\transformed\navigation-common-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-common:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\d12fa04f2445dbe4b788a3c8c04d6101\transformed\navigation-common-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-common-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\2289b7555fb47fc006c72a173e3ffde8\transformed\navigation-common-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-common-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\2289b7555fb47fc006c72a173e3ffde8\transformed\navigation-common-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-runtime:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\18eafd95f39adf90bff51996eb1147d0\transformed\navigation-runtime-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-runtime:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\18eafd95f39adf90bff51996eb1147d0\transformed\navigation-runtime-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\511309681ae7bb3b5fceaed8fcb9fd84\transformed\navigation-runtime-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\511309681ae7bb3b5fceaed8fcb9fd84\transformed\navigation-runtime-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-fragment:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\d415b44b42deba31b3fbd30e5b40745d\transformed\navigation-fragment-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-fragment:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\d415b44b42deba31b3fbd30e5b40745d\transformed\navigation-fragment-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\dd5ce68b3672feb3f17e570d2dd802da\transformed\navigation-fragment-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\dd5ce68b3672feb3f17e570d2dd802da\transformed\navigation-fragment-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-ui-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\afbc3145111dc9a0c82cb88e03947027\transformed\navigation-ui-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-ui-ktx:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\afbc3145111dc9a0c82cb88e03947027\transformed\navigation-ui-ktx-2.7.5\AndroidManifest.xml:5:5-44
-MERGED from [androidx.navigation:navigation-ui:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\bcc4fc7dc79420732ed2e61a0f60fac9\transformed\navigation-ui-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [androidx.navigation:navigation-ui:2.7.5] C:\Users\Leo\.gradle\caches\8.9\transforms\bcc4fc7dc79420732ed2e61a0f60fac9\transformed\navigation-ui-2.7.5\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.material:material:1.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\12a8ccd650a3e74bf0db845aab98730d\transformed\material-1.10.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\e306f422463dde3634dd1184ae15957d\transformed\navigation-common-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\e306f422463dde3634dd1184ae15957d\transformed\navigation-common-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\94c47770cc1ead4d7e8cf18e0034ce9d\transformed\navigation-common-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-common-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\94c47770cc1ead4d7e8cf18e0034ce9d\transformed\navigation-common-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\8549db5dc35dd792b0e01281acd8c0ab\transformed\navigation-runtime-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\8549db5dc35dd792b0e01281acd8c0ab\transformed\navigation-runtime-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\0a78c2aeace514227909b525ee88d41c\transformed\navigation-runtime-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-runtime-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\0a78c2aeace514227909b525ee88d41c\transformed\navigation-runtime-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\60516d524675207445bb704b19ffd21e\transformed\navigation-fragment-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\60516d524675207445bb704b19ffd21e\transformed\navigation-fragment-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\2559b55f86911e50921b007e3d64dfba\transformed\navigation-fragment-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-fragment-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\2559b55f86911e50921b007e3d64dfba\transformed\navigation-fragment-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-ui-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\99e8dbe5a4e6e7a4c241cba8961f8744\transformed\navigation-ui-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-ui-ktx:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\99e8dbe5a4e6e7a4c241cba8961f8744\transformed\navigation-ui-ktx-2.7.6\AndroidManifest.xml:5:5-44
+MERGED from [androidx.navigation:navigation-ui:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\178080c69f1790753a2ee8389c3de1e9\transformed\navigation-ui-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [androidx.navigation:navigation-ui:2.7.6] C:\Users\Leo\.gradle\caches\8.9\transforms\178080c69f1790753a2ee8389c3de1e9\transformed\navigation-ui-2.7.6\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\Leo\.gradle\caches\8.9\transforms\df974598b1966ba8a8df58b5550e434f\transformed\material-1.11.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.11.0] C:\Users\Leo\.gradle\caches\8.9\transforms\df974598b1966ba8a8df58b5550e434f\transformed\material-1.11.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\935d5abcd4b01f37b17ecbdb92d23336\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\Leo\.gradle\caches\8.9\transforms\935d5abcd4b01f37b17ecbdb92d23336\transformed\constraintlayout-2.1.4\AndroidManifest.xml:5:5-7:41
 MERGED from [com.mapbox.plugin:maps-viewport:10.16.1] C:\Users\Leo\.gradle\caches\8.9\transforms\87d7dce1bdca22759fb05852ce22253f\transformed\jetified-maps-viewport-10.16.1\AndroidManifest.xml:5:5-7:41
@@ -405,10 +474,10 @@ MERGED from [com.google.firebase:firebase-storage-ktx:20.3.0] C:\Users\Leo\.grad
 MERGED from [com.google.firebase:firebase-storage-ktx:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\2c439ca8be9327410bfe24cdc4c5fc08\transformed\jetified-firebase-storage-ktx-20.3.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:19:5-44
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:19:5-44
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:5:5-44
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:5:5-44
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:6:5-44
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:6:5-44
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:21:5-23:64
@@ -477,6 +546,8 @@ MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\L
 MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\Leo\.gradle\caches\8.9\transforms\f47f59dcbdd887835177d27b1a734212\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.core:core-ktx:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\c9e756689db8a897d8c1de944c4a31b6\transformed\jetified-core-ktx-1.12.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-ktx:1.12.0] C:\Users\Leo\.gradle\caches\8.9\transforms\c9e756689db8a897d8c1de944c4a31b6\transformed\jetified-core-ktx-1.12.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.browser:browser:1.5.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d26426f6cc1d3e7d887c787b4f14c2ad\transformed\browser-1.5.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.browser:browser:1.5.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d26426f6cc1d3e7d887c787b4f14c2ad\transformed\browser-1.5.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\2900d8d0098d6d6ca4906117f22149db\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.drawerlayout:drawerlayout:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\2900d8d0098d6d6ca4906117f22149db\transformed\drawerlayout-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0] C:\Users\Leo\.gradle\caches\8.9\transforms\6f9fcc425281881d0dda935129dab4e3\transformed\coordinatorlayout-1.1.0\AndroidManifest.xml:20:5-22:41
@@ -503,8 +574,6 @@ MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\tr
 MERGED from [com.mapbox.common:common:23.8.3] C:\Users\Leo\.gradle\caches\8.9\transforms\c716a0665699155cc6e3daaada869b6e\transformed\jetified-common-23.8.3\AndroidManifest.xml:6:5-8:41
 MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0498fdf4be036dae2ca2a3d7017db006\transformed\jetified-mapbox-android-gestures-0.8.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.mapbox.mapboxsdk:mapbox-android-gestures:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0498fdf4be036dae2ca2a3d7017db006\transformed\jetified-mapbox-android-gestures-0.8.0\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.browser:browser:1.4.0] C:\Users\Leo\.gradle\caches\8.9\transforms\f86780c44c3898545f1389dbcbbb4284\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.browser:browser:1.4.0] C:\Users\Leo\.gradle\caches\8.9\transforms\f86780c44c3898545f1389dbcbbb4284\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.transition:transition:1.4.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b0f6e17ae084d061c96ea6bab31720e9\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.transition:transition:1.4.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b0f6e17ae084d061c96ea6bab31720e9\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e83de86be3bbff32e93920c9d0645d20\transformed\jetified-window-1.0.0\AndroidManifest.xml:20:5-22:41
@@ -523,12 +592,14 @@ MERGED from [com.mapbox.common:loader:0.8.0] C:\Users\Leo\.gradle\caches\8.9\tra
 MERGED from [com.mapbox.common:loader:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\cb1a7b57909f0b7144280fb770fece14\transformed\jetified-loader-0.8.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.mapbox.base:common:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7a085b8d0d006e70f1daab47a08e21fb\transformed\jetified-common-0.8.0\AndroidManifest.xml:5:5-7:41
 MERGED from [com.mapbox.base:common:0.8.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7a085b8d0d006e70f1daab47a08e21fb\transformed\jetified-common-0.8.0\AndroidManifest.xml:5:5-7:41
-MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\13975fc3269666f9ff67be51dfe5eecc\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.annotation:annotation-experimental:1.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\13975fc3269666f9ff67be51dfe5eecc\transformed\jetified-annotation-experimental-1.3.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\99357adb951d69abb2c51c25d3ae7f3e\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\99357adb951d69abb2c51c25d3ae7f3e\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\b30c178296c2d12a3d78ebb5dfa5dda7\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cardview:cardview:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\b30c178296c2d12a3d78ebb5dfa5dda7\transformed\cardview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7df963c20aa76f7903716b0979654a9e\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7df963c20aa76f7903716b0979654a9e\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\caa62f81cc1baa1e0747a4ecdec4896f\transformed\jetified-transport-backend-cct-2.3.0\AndroidManifest.xml:19:5-21:41
 MERGED from [com.google.android.datatransport:transport-runtime:2.2.3] C:\Users\Leo\.gradle\caches\8.9\transforms\28911bbf1d6b21c9ef3076547a5c4ca8\transformed\jetified-transport-runtime-2.2.3\AndroidManifest.xml:18:5-20:41
@@ -545,10 +616,6 @@ MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Leo\.gradle\caches\8.9\tra
 MERGED from [androidx.tracing:tracing:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\3eeea100ed6620e5ea3dcb237bd2fe84\transformed\jetified-tracing-1.0.0\AndroidManifest.xml:20:5-22:41
 MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Leo\.gradle\caches\8.9\transforms\077fba95c972767091be00eedd6bdf8d\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:18:5-44
 MERGED from [com.google.firebase:firebase-components:17.1.5] C:\Users\Leo\.gradle\caches\8.9\transforms\077fba95c972767091be00eedd6bdf8d\transformed\jetified-firebase-components-17.1.5\AndroidManifest.xml:18:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7df963c20aa76f7903716b0979654a9e\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\Leo\.gradle\caches\8.9\transforms\7df963c20aa76f7903716b0979654a9e\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
-MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\Leo\.gradle\caches\8.9\transforms\308c7b7a3e3ac540add6553c4acd0b2b\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\feba376cb0baac27d3c9daf43e65d71a\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\Leo\.gradle\caches\8.9\transforms\feba376cb0baac27d3c9daf43e65d71a\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-encoders-json:16.1.0] C:\Users\Leo\.gradle\caches\8.9\transforms\2ad5f98b3ec39e203a7341413a66b0b4\transformed\jetified-firebase-encoders-json-16.1.0\AndroidManifest.xml:19:5-21:41
@@ -615,10 +682,10 @@ service#com.google.firebase.components.ComponentDiscoveryService
 ADDED from [com.google.firebase:firebase-storage-ktx:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\2c439ca8be9327410bfe24cdc4c5fc08\transformed\jetified-firebase-storage-ktx-20.3.0\AndroidManifest.xml:9:9-15:19
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:27:9-36:19
 MERGED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:27:9-36:19
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:9:9-15:19
-MERGED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:9:9-15:19
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:14:9-23:19
-MERGED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:14:9-23:19
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:8:9-14:19
 MERGED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:8:9-14:19
 MERGED from [com.google.firebase:firebase-auth:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\84a3ff41abf3b74f79c2f5e9f2320d79\transformed\jetified-firebase-auth-22.3.0\AndroidManifest.xml:66:9-72:19
@@ -656,23 +723,23 @@ ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\ca
 	android:name
 		ADDED from [com.google.firebase:firebase-storage:20.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\e6d721893cbf446a8d184ec65f84a881\transformed\jetified-firebase-storage-20.3.0\AndroidManifest.xml:34:17-107
 meta-data#com.google.firebase.components:com.google.firebase.firestore.ktx.FirebaseFirestoreLegacyRegistrar
-ADDED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:12:13-14:85
+ADDED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:12:13-14:85
 	android:value
-		ADDED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:14:17-82
+		ADDED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:14:17-82
 	android:name
-		ADDED from [com.google.firebase:firebase-firestore-ktx:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\b46ca7beaac828e183b75b25485fc69b\transformed\jetified-firebase-firestore-ktx-24.9.1\AndroidManifest.xml:13:17-129
+		ADDED from [com.google.firebase:firebase-firestore-ktx:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\1f058b74ee852198d527dd90ca18c657\transformed\jetified-firebase-firestore-ktx-24.10.0\AndroidManifest.xml:13:17-129
 meta-data#com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar
-ADDED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:17:13-19:85
+ADDED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:17:13-19:85
 	android:value
-		ADDED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:19:17-82
+		ADDED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:19:17-82
 	android:name
-		ADDED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:18:17-122
+		ADDED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:18:17-122
 meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
-ADDED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:20:13-22:85
+ADDED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:20:13-22:85
 	android:value
-		ADDED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:22:17-82
+		ADDED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:22:17-82
 	android:name
-		ADDED from [com.google.firebase:firebase-firestore:24.9.1] C:\Users\Leo\.gradle\caches\8.9\transforms\ebfee1266ca50ca8be0a62bf8eb73eee\transformed\jetified-firebase-firestore-24.9.1\AndroidManifest.xml:21:17-111
+		ADDED from [com.google.firebase:firebase-firestore:24.10.0] C:\Users\Leo\.gradle\caches\8.9\transforms\0f586376854570f0afd3e9fa1272e487\transformed\jetified-firebase-firestore-24.10.0\AndroidManifest.xml:21:17-111
 meta-data#com.google.firebase.components:com.google.firebase.auth.ktx.FirebaseAuthLegacyRegistrar
 ADDED from [com.google.firebase:firebase-auth-ktx:22.3.0] C:\Users\Leo\.gradle\caches\8.9\transforms\d1eb92d182ca5d39e9b9079198fb8bf3\transformed\jetified-firebase-auth-ktx-22.3.0\AndroidManifest.xml:11:13-13:85
 	android:value

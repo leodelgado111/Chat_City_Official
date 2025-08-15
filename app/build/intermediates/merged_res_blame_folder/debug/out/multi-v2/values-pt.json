@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/values-pt/values-pt.xml",
+            "outputFile": "com.chatcityofficial.chatmapapp-mergeDebugResources-63:/values-pt/values-pt.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\20948e5456fee5d3d23666f93dc55bd6\\transformed\\core-1.12.0\\res\\values-pt\\values-pt.xml",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\f86780c44c3898545f1389dbcbbb4284\\transformed\\browser-1.4.0\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\d26426f6cc1d3e7d887c787b4f14c2ad\\transformed\\browser-1.5.0\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\bcc4fc7dc79420732ed2e61a0f60fac9\\transformed\\navigation-ui-2.7.5\\res\\values-pt\\values-pt.xml",
+                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\178080c69f1790753a2ee8389c3de1e9\\transformed\\navigation-ui-2.7.6\\res\\values-pt\\values-pt.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

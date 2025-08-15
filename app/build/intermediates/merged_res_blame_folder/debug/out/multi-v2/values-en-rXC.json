@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/values-en-rXC/values-en-rXC.xml",
+            "outputFile": "com.chatcityofficial.chatmapapp-mergeDebugResources-63:/values-en-rXC/values-en-rXC.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\34214e06e2e9eb854e14fc935f4f21df\\transformed\\appcompat-1.6.1\\res\\values-en-rXC\\values-en-rXC.xml",
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\f86780c44c3898545f1389dbcbbb4284\\transformed\\browser-1.4.0\\res\\values-en-rXC\\values-en-rXC.xml",
+                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\d26426f6cc1d3e7d887c787b4f14c2ad\\transformed\\browser-1.5.0\\res\\values-en-rXC\\values-en-rXC.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

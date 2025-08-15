@@ -8,10 +8,17 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="34" />
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <uses-feature
@@ -41,23 +48,21 @@
         android:debuggable="true"
         android:extractNativeLibs="false"
         android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatCityOfficial" >
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDG9OSQU6lrj6Ecz2KwPPCvjV9MAGx5Wgc" />
-        <meta-data
-            android:name="MAPBOX_ACCESS_TOKEN"
-            android:value="pk.eyJ1IjoibGVvZGVsZ2FkbzExMSIsImEiOiJjbWRqMDF2OGswZjF1MmpzYjdtbThuam94In0.QlS3L22SRl7Iw8vRdNnUzw" />
 
-        <!-- Splash Screen Activity (launches first) -->
+        <!-- Splash Activity with optimized theme -->
         <activity
             android:name="com.chatcityofficial.chatmapapp.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.SplashScreen" >
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChatCityOfficial.Splash" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,15 +73,52 @@
         <!-- Main Activity -->
         <activity
             android:name="com.chatcityofficial.chatmapapp.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ChatCityOfficial" />
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Chat Activity -->
         <activity
             android:name="com.chatcityofficial.chatmapapp.ui.chat.ChatActivity"
             android:exported="false"
-            android:theme="@style/Theme.ChatCityOfficial"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+
+        <!-- Chat Detail Activity -->
+        <activity
+            android:name="com.chatcityofficial.chatmapapp.ui.chat.ChatDetailActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDG9OSQU6lrj6Ecz2KwPPCvjV9MAGx5Wgc" />
+
+        <!-- Mapbox -->
+        <meta-data
+            android:name="com.mapbox.token"
+            android:value="@string/mapbox_access_token" />
+
+        <!-- Firebase -->
+        <service
+            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Preload classes for faster startup -->
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
         <activity
             android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
             android:exported="false"

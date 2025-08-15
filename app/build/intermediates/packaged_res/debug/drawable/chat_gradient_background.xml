@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Black background base -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF000000" />
+        </shape>
+    </item>
+    
+    <!-- Gradient overlay with blur effect simulation -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="100%p"
+                android:centerX="0.3"
+                android:centerY="0.4"
+                android:startColor="#668E93D0"
+                android:centerColor="#4497D4F0"
+                android:endColor="#22FB86BB" />
+        </shape>
+    </item>
+    
+    <!-- Second gradient layer for depth -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="80%p"
+                android:centerX="0.7"
+                android:centerY="0.6"
+                android:startColor="#44FB86BB"
+                android:centerColor="#3397D4F0"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+    
+</layer-list>

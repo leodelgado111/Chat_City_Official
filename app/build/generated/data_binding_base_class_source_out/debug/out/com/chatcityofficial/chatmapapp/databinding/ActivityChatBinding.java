@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
@@ -21,16 +21,19 @@ import java.lang.String;
 
 public final class ActivityChatBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ConstraintLayout rootView;
+
+  @NonNull
+  public final ImageButton backButton;
+
+  @NonNull
+  public final ImageButton deleteButton;
 
   @NonNull
   public final EditText messageInput;
 
   @NonNull
   public final RecyclerView messagesRecyclerView;
-
-  @NonNull
-  public final View onlineIndicator;
 
   @NonNull
   public final ImageButton sendButton;
@@ -41,13 +44,15 @@ public final class ActivityChatBinding implements ViewBinding {
   @NonNull
   public final TextView toolbarTitle;
 
-  private ActivityChatBinding(@NonNull LinearLayout rootView, @NonNull EditText messageInput,
-      @NonNull RecyclerView messagesRecyclerView, @NonNull View onlineIndicator,
-      @NonNull ImageButton sendButton, @NonNull Toolbar toolbar, @NonNull TextView toolbarTitle) {
+  private ActivityChatBinding(@NonNull ConstraintLayout rootView, @NonNull ImageButton backButton,
+      @NonNull ImageButton deleteButton, @NonNull EditText messageInput,
+      @NonNull RecyclerView messagesRecyclerView, @NonNull ImageButton sendButton,
+      @NonNull Toolbar toolbar, @NonNull TextView toolbarTitle) {
     this.rootView = rootView;
+    this.backButton = backButton;
+    this.deleteButton = deleteButton;
     this.messageInput = messageInput;
     this.messagesRecyclerView = messagesRecyclerView;
-    this.onlineIndicator = onlineIndicator;
     this.sendButton = sendButton;
     this.toolbar = toolbar;
     this.toolbarTitle = toolbarTitle;
@@ -55,7 +60,7 @@ public final class ActivityChatBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -80,6 +85,18 @@ public final class ActivityChatBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.back_button;
+      ImageButton backButton = ViewBindings.findChildViewById(rootView, id);
+      if (backButton == null) {
+        break missingId;
+      }
+
+      id = R.id.delete_button;
+      ImageButton deleteButton = ViewBindings.findChildViewById(rootView, id);
+      if (deleteButton == null) {
+        break missingId;
+      }
+
       id = R.id.message_input;
       EditText messageInput = ViewBindings.findChildViewById(rootView, id);
       if (messageInput == null) {
@@ -89,12 +106,6 @@ public final class ActivityChatBinding implements ViewBinding {
       id = R.id.messages_recycler_view;
       RecyclerView messagesRecyclerView = ViewBindings.findChildViewById(rootView, id);
       if (messagesRecyclerView == null) {
-        break missingId;
-      }
-
-      id = R.id.online_indicator;
-      View onlineIndicator = ViewBindings.findChildViewById(rootView, id);
-      if (onlineIndicator == null) {
         break missingId;
       }
 
@@ -116,8 +127,8 @@ public final class ActivityChatBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityChatBinding((LinearLayout) rootView, messageInput, messagesRecyclerView,
-          onlineIndicator, sendButton, toolbar, toolbarTitle);
+      return new ActivityChatBinding((ConstraintLayout) rootView, backButton, deleteButton,
+          messageInput, messagesRecyclerView, sendButton, toolbar, toolbarTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -23,9 +23,6 @@ public final class FragmentHomeBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ImageView chatCityLogo;
-
-  @NonNull
   public final LinearLayout locationContainer;
 
   @NonNull
@@ -35,16 +32,19 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final TextView locationText;
 
   @NonNull
+  public final ImageView logoImageView;
+
+  @NonNull
   public final MapView mapView;
 
-  private FragmentHomeBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView chatCityLogo,
+  private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
       @NonNull LinearLayout locationContainer, @NonNull ImageView locationIcon,
-      @NonNull TextView locationText, @NonNull MapView mapView) {
+      @NonNull TextView locationText, @NonNull ImageView logoImageView, @NonNull MapView mapView) {
     this.rootView = rootView;
-    this.chatCityLogo = chatCityLogo;
     this.locationContainer = locationContainer;
     this.locationIcon = locationIcon;
     this.locationText = locationText;
+    this.logoImageView = logoImageView;
     this.mapView = mapView;
   }
 
@@ -75,12 +75,6 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.chatCityLogo;
-      ImageView chatCityLogo = ViewBindings.findChildViewById(rootView, id);
-      if (chatCityLogo == null) {
-        break missingId;
-      }
-
       id = R.id.locationContainer;
       LinearLayout locationContainer = ViewBindings.findChildViewById(rootView, id);
       if (locationContainer == null) {
@@ -99,14 +93,20 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.logoImageView;
+      ImageView logoImageView = ViewBindings.findChildViewById(rootView, id);
+      if (logoImageView == null) {
+        break missingId;
+      }
+
       id = R.id.mapView;
       MapView mapView = ViewBindings.findChildViewById(rootView, id);
       if (mapView == null) {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, chatCityLogo, locationContainer,
-          locationIcon, locationText, mapView);
+      return new FragmentHomeBinding((ConstraintLayout) rootView, locationContainer, locationIcon,
+          locationText, logoImageView, mapView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

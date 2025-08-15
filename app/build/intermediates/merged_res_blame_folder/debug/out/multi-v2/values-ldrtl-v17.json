@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/values-ldrtl-v17/values-ldrtl-v17.xml",
+            "outputFile": "com.chatcityofficial.chatmapapp-mergeDebugResources-63:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\12a8ccd650a3e74bf0db845aab98730d\\transformed\\material-1.10.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "source": "C:\\Users\\Leo\\.gradle\\caches\\8.9\\transforms\\df974598b1966ba8a8df58b5550e434f\\transformed\\material-1.11.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

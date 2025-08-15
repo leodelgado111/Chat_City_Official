@@ -1,318 +1,430 @@
 [
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_saved.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_saved.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_activity_chat.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_chat.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_custom_background_v2.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_custom_background_v2.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_chat_gradient_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/chat_gradient_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_splash_logo.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/splash_logo.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_saved.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_saved.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_activity_main.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/activity_main.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_unread_badge_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/unread_badge_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_gradient_layer_v2.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_gradient_layer_v2.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_user_avatar.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_user_avatar.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_message_received_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/message_received_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_user.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_user.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/navigation_mobile_navigation.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/navigation/mobile_navigation.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_nav_chat.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_nav_chat.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_message_sent_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/message_sent_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_nav_create.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_nav_create.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_custom_background_v2.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_custom_background_v2.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_splash_screen.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/splash_screen.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxhdpi_ic_launcher_monochrome.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxhdpi/ic_launcher_monochrome.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_arrow_back.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_arrow_back.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/navigation_mobile_navigation.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/navigation/mobile_navigation.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_fragment_profile.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_profile.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_saved.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_saved.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxxhdpi_ic_launcher_monochrome.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxxhdpi/ic_launcher_monochrome.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_arrow_back.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_arrow_back.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-hdpi/ic_launcher.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_home_with_search.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_home_with_search.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxhdpi/ic_launcher_foreground.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_delete.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_delete.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_send_button_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/send_button_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_online_indicator.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/online_indicator.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/xml_data_extraction_rules.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/xml/data_extraction_rules.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable-v24_splash_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable-v24/splash_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_activity_chat.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/activity_chat.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_chat_input_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/chat_input_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_splash_screen_vector.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/splash_screen_vector.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_nav_create.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_nav_create.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_nav_home.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_nav_home.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_profile.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_profile.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-mdpi_ic_launcher_foreground.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-mdpi/ic_launcher_foreground.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_activity_main.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_main.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_white_bg_simple.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_white_bg_simple.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_glassmorphic_overlay.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/glassmorphic_overlay.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable-v24_splash_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable-v24/splash_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxhdpi_ic_launcher_background.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxhdpi/ic_launcher_background.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_item_message_received.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/item_message_received.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_top_bar_background_no_radius.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/top_bar_background_no_radius.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_top_bar_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/top_bar_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_nav_profile.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_nav_profile.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xhdpi_ic_launcher_foreground.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xhdpi/ic_launcher_foreground.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_white_background_v2.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_white_background_v2.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable-v24_splash_window_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable-v24/splash_window_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_white_bg_simple.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_white_bg_simple.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xhdpi_ic_launcher_monochrome.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xhdpi/ic_launcher_monochrome.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxxhdpi/ic_launcher_foreground.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_gradient_icons.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_gradient_icons.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_gradient_chat_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/gradient_chat_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_send.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_send.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_message_received.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_message_received.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_message_sent_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/message_sent_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_nav_chat.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_nav_chat.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_custom_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_custom_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_location_status.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/location_status.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-hdpi_ic_launcher_background.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-hdpi/ic_launcher_background.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_activity_chat_detail.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_chat_detail.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxhdpi_ic_launcher_monochrome.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxhdpi/ic_launcher_monochrome.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/xml_data_extraction_rules.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_nav_saved.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_nav_saved.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_selection_outline.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_selection_outline.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_chat_city_logo_with_shadow.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/chat_city_logo_with_shadow.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_remove.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_remove.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xhdpi_ic_launcher_background.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xhdpi/ic_launcher_background.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_chat_message_modern.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_chat_message_modern.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_message_input_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/message_input_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_splash_logo.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/splash_logo.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-mdpi/ic_launcher.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_chat_city_logo.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/chat_city_logo.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_chat_city_logo.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/chat_city_logo.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_send.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_send.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_item_user.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/item_user.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_chat_bubble_gradient.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/chat_bubble_gradient.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_white_background_v2.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_white_background_v2.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_message_sent.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_message_sent.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable-v24_splash_window_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable-v24/splash_window_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-mdpi_ic_launcher_monochrome.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-mdpi/ic_launcher_monochrome.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_top_bar_background_no_radius.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/top_bar_background_no_radius.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_white_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_white_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_selection_outline.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_selection_outline.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher_monochrome.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxxhdpi/ic_launcher_monochrome.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_item_message_sent.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/item_message_sent.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_splash_screen_simple.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/splash_screen_simple.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_online_indicator.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/online_indicator.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-mdpi_ic_launcher_monochrome.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-mdpi/ic_launcher_monochrome.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxxhdpi/ic_launcher_foreground.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_activity_splash.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_splash.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxxhdpi_ic_launcher_background.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxxhdpi/ic_launcher_background.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_chat_modern.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_chat_modern.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_location_pin.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_location_pin.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_home.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_home.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_fragment_home.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_home.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_gradient_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/gradient_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_gradient_layer.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_gradient_layer.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_splash_screen_vector.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/splash_screen_vector.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_nav_bar_white_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/nav_bar_white_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_add.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_add.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_message_bubble_received.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/message_bubble_received.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/menu_bottom_nav_menu.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/menu/bottom_nav_menu.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_close.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_close.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_nav_profile.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_nav_profile.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_message_bubble_sent.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/message_bubble_sent.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_fragment_saved.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_saved.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_splash_test.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/splash_test.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_activity_chat_modern.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_chat_modern.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_activity_splash.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/activity_splash.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_trash.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_trash.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_splash_window_background_fill.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/splash_window_background_fill.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_create.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_create.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/xml_backup_rules.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/xml/backup_rules.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_message_input_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/message_input_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_ic_profile_placeholder.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/ic_profile_placeholder.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_my_location.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_my_location.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-mdpi_ic_launcher_background.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-mdpi/ic_launcher_background.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_splash_test.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/splash_test.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_splash_screen.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/splash_screen.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-hdpi_ic_launcher_monochrome.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-hdpi/ic_launcher_monochrome.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xhdpi_ic_launcher_background.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xhdpi/ic_launcher_background.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-mdpi_ic_launcher_background.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-mdpi/ic_launcher_background.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_location_background.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/location_background.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_chat_city_logo_with_shadow.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/chat_city_logo_with_shadow.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/layout_fragment_chats.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_chats.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_profile_placeholder.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_profile_placeholder.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_location_status.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/location_status.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_message_received_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/message_received_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/drawable_splash_screen_simple.xml.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/drawable/splash_screen_simple.xml"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_chats.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_chats.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xxhdpi_ic_launcher_background.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xxhdpi/ic_launcher_background.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-hdpi_ic_launcher_monochrome.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-hdpi/ic_launcher_monochrome.png"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-hdpi_ic_launcher_foreground.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-hdpi/ic_launcher_foreground.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_top_bar_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/top_bar_background.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-merged_res-66:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_splash_window_background_fill.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/splash_window_background_fill.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_input_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/input_background.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_chat.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_chat.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_gradient_layer.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_gradient_layer.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_circular_button_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/circular_button_background.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/xml_backup_rules.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/menu_bottom_nav_menu.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/menu/bottom_nav_menu.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_nav_home.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_nav_home.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xhdpi_ic_launcher_monochrome.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xhdpi/ic_launcher_monochrome.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_location_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/location_background.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_gradient_layer_v2.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_gradient_layer_v2.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_back_arrow.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_back_arrow.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_fragment_chats_modern.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_chats_modern.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xxxhdpi_ic_launcher_background.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xxxhdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_location_pin.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_location_pin.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/layout_item_place_search.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_place_search.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/mipmap-hdpi_ic_launcher_background.png.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/mipmap-hdpi/ic_launcher_background.png"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_custom_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_custom_background.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_send_button_background.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/send_button_background.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_nav_bar_gradient_icons.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/nav_bar_gradient_icons.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_nav_saved.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_nav_saved.xml"
     }
 ]

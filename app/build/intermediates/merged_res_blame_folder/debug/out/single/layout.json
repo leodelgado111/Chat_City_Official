@@ -1,42 +1,78 @@
 [
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/item_user.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/item_user.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/activity_chat_modern.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_chat_modern.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/activity_chat.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/activity_chat.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_home.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_home.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/item_message_received.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/item_message_received.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_home_with_search.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_home_with_search.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/activity_splash.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/activity_splash.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_chat_message_modern.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_chat_message_modern.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/item_message_sent.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/item_message_sent.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/activity_chat.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_chat.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/fragment_home.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_home.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_message_sent.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_message_sent.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/activity_main.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/activity_main.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_profile.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_profile.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/fragment_chats.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_chats.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_place_search.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_place_search.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/fragment_profile.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_profile.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_chats.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_chats.xml"
     },
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-65:/layout/fragment_saved.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-68:/layout/fragment_saved.xml"
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_user.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_user.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_message_received.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_message_received.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_chat.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_chat.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_create.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_create.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_chats_modern.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_chats_modern.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/activity_chat_detail.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_chat_detail.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/activity_splash.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/item_chat_modern.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/item_chat_modern.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/activity_main.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-64:/layout/fragment_saved.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_saved.xml"
     }
 ]
