@@ -565,6 +565,81 @@ mapView.gestures.addOnMapClickListener { point ->
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-15 14:06 - Claude/Assistant
+**Category**: UX/Feature
+**Files Modified**: 
+- app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Implemented improved back button behavior and fixed initial app launch to center on user location
+**Technical Details**: 
+**Change 1 - Back Button Behavior (MainActivity.kt):**
+- Added `OnBackPressedCallback` to handle system back button presses
+- Added `currentDestinationId` tracking to know which screen is active
+- When on home screen: back button minimizes app using `moveTaskToBack(true)`
+- When on other screens: back button navigates to home and moves outline
+- Import added: `androidx.activity.OnBackPressedCallback`
+- Code snippet:
+```kotlin
+onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+    override fun handleOnBackPressed() {
+        if (currentDestinationId == R.id.navigation_home) {
+            moveTaskToBack(true) // Minimize app
+        } else {
+            navigateToDestination(R.id.navigation_home)
+            animateOutlineToPosition(R.id.navigation_home)
+        }
+    }
+})
+```
+
+**Change 2 - Search Bar Already Working:**
+- Confirmed existing implementation: tapping anywhere on map closes search bar when open
+- This was already properly implemented with `mapView.gestures.addOnMapClickListener`
+- No changes needed - working as requested
+
+**Change 3 - Initial Location Centering (HomeFragment.kt):**
+- Reset `hasInitializedCamera` flag to false in `onCreateView()` for fresh fragment creation
+- This ensures app always centers on user location when launched
+- Modified camera initialization logic to prioritize initial centering over saved state
+- Only skip centering if both: hasInitializedCamera is true AND savedCameraState exists
+- Added fallback: if initialized but no saved state, still center on location
+- Added public methods for potential search handling: `isSearchViewVisible()` and `hideSearchViewIfVisible()`
+- Code changes:
+```kotlin
+// In onCreateView
+hasInitializedCamera = false // Reset for fresh launch
+
+// In getCurrentLocation
+if (!hasInitializedCamera) {
+    moveToLocation(it.latitude, it.longitude, 15.0)
+    hasInitializedCamera = true
+} else if (savedCameraState != null) {
+    // Use saved state
+} else {
+    // Fallback to centering
+    moveToLocation(it.latitude, it.longitude, 15.0)
+}
+```
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Back Button Behavior**:
+   - From Home screen: Press back button - app should minimize (go to background)
+   - From Saved/Chats/Profile: Press back - should return to Home with outline animation
+   - Verify outline moves correctly when navigating via back button
+2. **Search Bar Map Tap**:
+   - Open search by tapping location icon
+   - Tap anywhere on the map
+   - Verify search closes and default UI returns
+3. **Initial Location Centering**:
+   - Force close app completely
+   - Launch app fresh
+   - Verify map centers on current user location
+   - Switch tabs and return - position should persist
+   - Force close and relaunch - should center on location again
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
