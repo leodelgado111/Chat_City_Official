@@ -43,7 +43,7 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <!-- Location Status Container with elevation -->
+        <!-- Location Status Container with elevation (ENTIRE CONTAINER IS CLICKABLE) -->
         <LinearLayout
             android:id="@+id/locationContainer"
             android:layout_width="wrap_content"
@@ -54,9 +54,12 @@
             android:paddingStart="12dp"
             android:paddingEnd="16dp"
             android:elevation="8dp"
-            android:outlineProvider="background">
+            android:outlineProvider="background"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground">
 
-            <!-- Location Icon (clickable) -->
+            <!-- Location Icon (also clickable for redundancy) -->
             <ImageView
                 android:id="@+id/locationIcon"
                 android:layout_width="16dp"
@@ -90,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="70dp"
         android:paddingStart="28dp"
         android:paddingEnd="28dp"
         android:visibility="gone"
@@ -98,6 +101,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Powered by Google text (ABOVE the search bar) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Powered by Google"
+            android:textColor="#B8B6B6"
+            android:textSize="10sp"
+            android:layout_gravity="end"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="8dp" />
 
         <!-- Search Bar with Google Places Autocomplete -->
         <androidx.cardview.widget.CardView
@@ -157,17 +171,6 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-        <!-- Powered by Google text -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Powered by Google"
-            android:textColor="#B8B6B6"
-            android:textSize="10sp"
-            android:layout_gravity="end"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp" />
 
     </LinearLayout>
 

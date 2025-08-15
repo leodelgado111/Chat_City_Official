@@ -78,6 +78,7 @@ class HomeFragment : Fragment() {
     private lateinit var placesClient: PlacesClient
     private lateinit var searchAdapter: PlaceSearchAdapter
     private var sessionToken: AutocompleteSessionToken? = null
+    private var isSearchVisible = false
     
     // Annotation managers
     private var circleAnnotationManager: CircleAnnotationManager? = null
@@ -105,6 +106,7 @@ class HomeFragment : Fragment() {
         private const val MAX_PULSE_RADIUS = 35.0
         private const val MIN_PULSE_RADIUS = 3.5
         private const val CENTER_DOT_RADIUS = 2.0
+        private const val ANIMATION_DURATION = 100L // Changed from 200ms to 100ms
         
         // Camera state persistence
         private var savedCameraState: CameraState? = null
@@ -162,9 +164,18 @@ class HomeFragment : Fragment() {
     }
     
     private fun setupSearchListeners() {
-        // Location icon click listener - show search
+        // Make the entire location container clickable, not just the icon
+        locationContainer.setOnClickListener {
+            if (!isSearchVisible) {
+                showSearchView()
+            }
+        }
+        
+        // Also keep the icon clickable for better touch target
         locationIcon.setOnClickListener {
-            showSearchView()
+            if (!isSearchVisible) {
+                showSearchView()
+            }
         }
         
         // Back button - hide search
@@ -196,16 +207,29 @@ class HomeFragment : Fragment() {
             
             override fun afterTextChanged(s: Editable?) {}
         })
+        
+        // Add click listener to map to close search when tapping outside
+        mapView.getMapboxMap().addOnMapClickListener { point ->
+            if (isSearchVisible) {
+                hideSearchView()
+                true // Consume the click event
+            } else {
+                false // Let other click handlers process it
+            }
+        }
     }
     
     private fun showSearchView() {
+        if (isSearchVisible) return
+        isSearchVisible = true
+        
         // Create new session token for billing
         sessionToken = AutocompleteSessionToken.newInstance()
         
         // Fade out default views
         defaultViewContainer.animate()
             .alpha(0f)
-            .setDuration(200)
+            .setDuration(ANIMATION_DURATION)
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     defaultViewContainer.visibility = View.GONE
@@ -216,12 +240,12 @@ class HomeFragment : Fragment() {
                     
                     searchContainer.animate()
                         .alpha(1f)
-                        .setDuration(200)
+                        .setDuration(ANIMATION_DURATION)
                         .setListener(null)
                     
                     searchResultsRecyclerView.animate()
                         .alpha(1f)
-                        .setDuration(200)
+                        .setDuration(ANIMATION_DURATION)
                         .setListener(null)
                     
                     // Show keyboard
@@ -233,6 +257,9 @@ class HomeFragment : Fragment() {
     }
     
     private fun hideSearchView() {
+        if (!isSearchVisible) return
+        isSearchVisible = false
+        
         // Hide keyboard
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
@@ -241,16 +268,10 @@ class HomeFragment : Fragment() {
         searchEditText.text.clear()
         searchAdapter.submitList(emptyList())
         
-        // Remove place outline if exists
-        placeOutlineAnnotation?.let {
-            polygonAnnotationManager?.delete(it)
-            placeOutlineAnnotation = null
-        }
-        
         // Fade out search views
         searchContainer.animate()
             .alpha(0f)
-            .setDuration(200)
+            .setDuration(ANIMATION_DURATION)
             .setListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
                     searchContainer.visibility = View.GONE
@@ -260,14 +281,14 @@ class HomeFragment : Fragment() {
                     defaultViewContainer.visibility = View.VISIBLE
                     defaultViewContainer.animate()
                         .alpha(1f)
-                        .setDuration(200)
+                        .setDuration(ANIMATION_DURATION)
                         .setListener(null)
                 }
             })
         
         searchResultsRecyclerView.animate()
             .alpha(0f)
-            .setDuration(200)
+            .setDuration(ANIMATION_DURATION)
             .setListener(null)
     }
     
@@ -300,8 +321,8 @@ class HomeFragment : Fragment() {
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         
-        // Clear search results
-        searchAdapter.submitList(emptyList())
+        // Update search text with selected place
+        searchEditText.setText(prediction.getPrimaryText(null).toString())
         
         // Fetch place details
         val placeFields = listOf(
@@ -322,18 +343,20 @@ class HomeFragment : Fragment() {
                     // Move camera to place
                     moveToLocation(latLng.latitude, latLng.longitude, 17.0)
                     
-                    // Add outline around place (simplified rectangle for now)
+                    // Add outline around place
                     addPlaceOutline(latLng, place.viewport)
                 }
                 
-                // Update search text with selected place
-                searchEditText.setText(place.name)
+                // Hide search view after selection
+                hideSearchView()
                 
                 // New session token for next search
                 sessionToken = AutocompleteSessionToken.newInstance()
             }
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Place fetch failed", exception)
+                // Still hide search view even if fetch fails
+                hideSearchView()
             }
     }
     
@@ -356,7 +379,7 @@ class HomeFragment : Fragment() {
             .include(LatLng(center.latitude + 0.001, center.longitude + 0.001))
             .build()
         
-        // Create polygon points
+        // Create polygon points for the outline
         val points = listOf(
             Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude),
             Point.fromLngLat(bounds.northeast.longitude, bounds.southwest.latitude),
@@ -365,14 +388,18 @@ class HomeFragment : Fragment() {
             Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude)
         )
         
-        // Create polygon with gradient outline
+        // Create polygon with gradient-like outline (using multiple colors)
         polygonAnnotationManager?.let { manager ->
+            // Create the outline with a gradient appearance using stroke
             placeOutlineAnnotation = manager.create(
                 PolygonAnnotationOptions()
                     .withPoints(listOf(points))
                     .withFillOpacity(0.0) // No fill, only outline
-                    .withFillOutlineColor("#4DFB86BB") // Pink with 30% opacity
+                    .withFillOutlineColor("#4DFB86BB") // Pink with 30% opacity for outline
             )
+            
+            // Note: For true gradient effect, we'd need multiple overlapping polygons
+            // or custom shader implementation. This provides a solid color outline.
         }
     }
     
