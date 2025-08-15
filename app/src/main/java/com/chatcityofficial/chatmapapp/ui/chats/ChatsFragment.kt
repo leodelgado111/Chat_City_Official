@@ -67,7 +67,7 @@ class ChatsFragment : Fragment() {
             }
         } catch (e: Exception) {
             Log.e("ChatsFragment", "Error in onViewCreated", e)
-            Toast.makeText(context, "Error initializing chats", Toast.LENGTH_SHORT).show()
+            // Removed Toast error message - silent failure
         }
     }
 
@@ -77,7 +77,7 @@ class ChatsFragment : Fragment() {
                 // Validate chat data before opening
                 if (chat.id.isNullOrEmpty()) {
                     Log.e("ChatsFragment", "Chat ID is null or empty")
-                    Toast.makeText(context, "Invalid chat data", Toast.LENGTH_SHORT).show()
+                    // Removed Toast error message - silent failure
                     return@ChatsAdapter
                 }
                 
@@ -99,12 +99,12 @@ class ChatsFragment : Fragment() {
                     startActivity(intent)
                 } catch (e: Exception) {
                     Log.e("ChatsFragment", "Failed to start ChatDetailActivity", e)
-                    Toast.makeText(ctx, "Failed to open chat: ${e.message}", Toast.LENGTH_LONG).show()
+                    // Removed Toast error message - silent failure
                 }
                 
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error opening chat detail", e)
-                Toast.makeText(context, "Error opening chat: ${e.message}", Toast.LENGTH_LONG).show()
+                // Removed Toast error message - silent failure
             }
         }
         
@@ -133,8 +133,8 @@ class ChatsFragment : Fragment() {
         }
         
         binding.deleteButton.setOnClickListener {
-            // Handle delete if needed
-            Toast.makeText(context, "Delete functionality coming soon", Toast.LENGTH_SHORT).show()
+            // Handle delete if needed - removed Toast message for coming soon
+            Log.d("ChatsFragment", "Delete functionality not yet implemented")
         }
     }
 
@@ -154,7 +154,7 @@ class ChatsFragment : Fragment() {
                 }
             } catch (e: Exception) {
                 Log.e("ChatsFragment", "Error loading chats", e)
-                Toast.makeText(context, "Error loading chats: ${e.message}", Toast.LENGTH_LONG).show()
+                // Removed Toast error message - silent failure
             }
         }
     }
