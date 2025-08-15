@@ -412,19 +412,8 @@ class HomeFragment : Fragment() {
         val point = Point.fromLngLat(location.longitude, location.latitude)
         
         circleAnnotationManager?.let { manager ->
-            // Create a center dot (the actual location puck)
-            val centerColor = "#FB86BB" // Pink color without transparency for center
-            
-            centerDotAnnotation = manager.create(
-                CircleAnnotationOptions()
-                    .withPoint(point)
-                    .withCircleRadius(CENTER_DOT_RADIUS)
-                    .withCircleColor(centerColor)
-                    .withCircleOpacity(1.0) // Fully opaque center dot
-                    .withCircleStrokeWidth(0.0)
-            )
-            
-            // Create the pulse ring animation
+            // IMPORTANT: Create pulse FIRST so it's behind the center dot
+            // Create the pulse ring animation (underneath)
             val pulseColor = "#33FB86BB" // Pink with 20% opacity for pulse
             
             pulseAnnotation = manager.create(
@@ -435,6 +424,18 @@ class HomeFragment : Fragment() {
                     .withCircleOpacity(0.5)
                     .withCircleStrokeWidth(0.0)
                     .withCircleBlur(0.3) // Add slight blur for softer edges
+            )
+            
+            // Create center dot AFTER pulse so it appears on top
+            val centerColor = "#FB86BB" // Pink color without transparency for center
+            
+            centerDotAnnotation = manager.create(
+                CircleAnnotationOptions()
+                    .withPoint(point)
+                    .withCircleRadius(CENTER_DOT_RADIUS)
+                    .withCircleColor(centerColor)
+                    .withCircleOpacity(1.0) // Fully opaque center dot
+                    .withCircleStrokeWidth(0.0)
             )
             
             // Animate only the pulse ring, not the center dot
