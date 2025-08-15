@@ -2507,6 +2507,7 @@
     <string name="google_api_key" translatable="false">AIzaSyA1dJ7330MfDAQkBaTaS-5V2Or8U1kcMEk</string>
     <string name="google_app_id" translatable="false">1:984199978830:android:e8e46cfae19a5b2bdfc81f</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA1dJ7330MfDAQkBaTaS-5V2Or8U1kcMEk</string>
+    <string name="google_maps_api_key">AIzaSyDG9OSQU6lrj6Ecz2KwPPCvjV9MAGx5Wgc</string>
     <string name="google_storage_bucket" translatable="false">chat-city-82dad.firebasestorage.app</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>

@@ -4,10 +4,10 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.chatcityofficial.chatmapapp.R;
@@ -17,24 +17,24 @@ import java.lang.String;
 
 public final class ItemPlaceSearchBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final CardView rootView;
 
   @NonNull
-  public final TextView primaryText;
+  public final TextView placeAddressTextView;
 
   @NonNull
-  public final TextView secondaryText;
+  public final TextView placeNameTextView;
 
-  private ItemPlaceSearchBinding(@NonNull LinearLayout rootView, @NonNull TextView primaryText,
-      @NonNull TextView secondaryText) {
+  private ItemPlaceSearchBinding(@NonNull CardView rootView, @NonNull TextView placeAddressTextView,
+      @NonNull TextView placeNameTextView) {
     this.rootView = rootView;
-    this.primaryText = primaryText;
-    this.secondaryText = secondaryText;
+    this.placeAddressTextView = placeAddressTextView;
+    this.placeNameTextView = placeNameTextView;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public CardView getRoot() {
     return rootView;
   }
 
@@ -59,19 +59,20 @@ public final class ItemPlaceSearchBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.primaryText;
-      TextView primaryText = ViewBindings.findChildViewById(rootView, id);
-      if (primaryText == null) {
+      id = R.id.placeAddressTextView;
+      TextView placeAddressTextView = ViewBindings.findChildViewById(rootView, id);
+      if (placeAddressTextView == null) {
         break missingId;
       }
 
-      id = R.id.secondaryText;
-      TextView secondaryText = ViewBindings.findChildViewById(rootView, id);
-      if (secondaryText == null) {
+      id = R.id.placeNameTextView;
+      TextView placeNameTextView = ViewBindings.findChildViewById(rootView, id);
+      if (placeNameTextView == null) {
         break missingId;
       }
 
-      return new ItemPlaceSearchBinding((LinearLayout) rootView, primaryText, secondaryText);
+      return new ItemPlaceSearchBinding((CardView) rootView, placeAddressTextView,
+          placeNameTextView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

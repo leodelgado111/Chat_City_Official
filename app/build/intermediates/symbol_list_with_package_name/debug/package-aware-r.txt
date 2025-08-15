@@ -3702,6 +3702,7 @@ drawable ic_nav_saved
 drawable ic_profile_placeholder
 drawable ic_remove
 drawable ic_saved
+drawable ic_search_bar
 drawable ic_search_black_24
 drawable ic_send
 drawable ic_trash
@@ -4011,6 +4012,7 @@ id date_picker_actions
 id decelerate
 id decelerateAndComplete
 id decor_content_parent
+id defaultViewContainer
 id default_activity_button
 id default_viewport
 id deleteButton
@@ -4275,6 +4277,8 @@ id pathRelative
 id peekHeight
 id percent
 id pin
+id placeAddressTextView
+id placeNameTextView
 id place_autocomplete_clear_button
 id place_autocomplete_powered_by_google
 id place_autocomplete_prediction_primary_text
@@ -4305,7 +4309,6 @@ id position
 id postLayout
 id poweredByGoogle
 id pressed
-id primaryText
 id profile_image
 id progressBar
 id progress_circular
@@ -4336,6 +4339,8 @@ id scrollIndicatorDown
 id scrollIndicatorUp
 id scrollView
 id scrollable
+id searchBackButton
+id searchClearButton
 id searchContainer
 id searchEditText
 id searchResultsCard
@@ -4350,7 +4355,6 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id secondaryText
 id select_dialog_listview
 id selected
 id selection_type
@@ -4812,6 +4816,7 @@ string gcm_defaultSenderId
 string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
+string google_maps_api_key
 string google_storage_bucket
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description

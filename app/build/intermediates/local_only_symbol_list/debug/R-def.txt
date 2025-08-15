@@ -59,6 +59,7 @@ drawable ic_nav_saved
 drawable ic_profile_placeholder
 drawable ic_remove
 drawable ic_saved
+drawable ic_search_bar
 drawable ic_send
 drawable ic_trash
 drawable ic_user_avatar
@@ -110,6 +111,7 @@ id chatsRecyclerView
 id closeSearchButton
 id container
 id custom_nav_bar
+id defaultViewContainer
 id deleteButton
 id delete_button
 id emptyState
@@ -145,17 +147,19 @@ id navigation_home
 id navigation_profile
 id navigation_saved
 id online_indicator
+id placeAddressTextView
+id placeNameTextView
 id poweredByGoogle
-id primaryText
 id profile_image
 id progressBar
 id rvChatMessages
 id rvChats
+id searchBackButton
+id searchClearButton
 id searchContainer
 id searchEditText
 id searchResultsCard
 id searchResultsRecyclerView
-id secondaryText
 id sendButton
 id send_button
 id senderName
@@ -207,6 +211,7 @@ string gcm_defaultSenderId
 string google_api_key
 string google_app_id
 string google_crash_reporting_api_key
+string google_maps_api_key
 string google_storage_bucket
 string mapbox_access_token
 string project_id

@@ -4,12 +4,14 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.chatcityofficial.chatmapapp.R;
@@ -21,6 +23,9 @@ import java.lang.String;
 public final class FragmentHomeBinding implements ViewBinding {
   @NonNull
   private final ConstraintLayout rootView;
+
+  @NonNull
+  public final LinearLayout defaultViewContainer;
 
   @NonNull
   public final LinearLayout locationContainer;
@@ -37,15 +42,40 @@ public final class FragmentHomeBinding implements ViewBinding {
   @NonNull
   public final MapView mapView;
 
+  @NonNull
+  public final ImageView searchBackButton;
+
+  @NonNull
+  public final ImageView searchClearButton;
+
+  @NonNull
+  public final LinearLayout searchContainer;
+
+  @NonNull
+  public final EditText searchEditText;
+
+  @NonNull
+  public final RecyclerView searchResultsRecyclerView;
+
   private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
-      @NonNull LinearLayout locationContainer, @NonNull ImageView locationIcon,
-      @NonNull TextView locationText, @NonNull ImageView logoImageView, @NonNull MapView mapView) {
+      @NonNull LinearLayout defaultViewContainer, @NonNull LinearLayout locationContainer,
+      @NonNull ImageView locationIcon, @NonNull TextView locationText,
+      @NonNull ImageView logoImageView, @NonNull MapView mapView,
+      @NonNull ImageView searchBackButton, @NonNull ImageView searchClearButton,
+      @NonNull LinearLayout searchContainer, @NonNull EditText searchEditText,
+      @NonNull RecyclerView searchResultsRecyclerView) {
     this.rootView = rootView;
+    this.defaultViewContainer = defaultViewContainer;
     this.locationContainer = locationContainer;
     this.locationIcon = locationIcon;
     this.locationText = locationText;
     this.logoImageView = logoImageView;
     this.mapView = mapView;
+    this.searchBackButton = searchBackButton;
+    this.searchClearButton = searchClearButton;
+    this.searchContainer = searchContainer;
+    this.searchEditText = searchEditText;
+    this.searchResultsRecyclerView = searchResultsRecyclerView;
   }
 
   @Override
@@ -75,6 +105,12 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.defaultViewContainer;
+      LinearLayout defaultViewContainer = ViewBindings.findChildViewById(rootView, id);
+      if (defaultViewContainer == null) {
+        break missingId;
+      }
+
       id = R.id.locationContainer;
       LinearLayout locationContainer = ViewBindings.findChildViewById(rootView, id);
       if (locationContainer == null) {
@@ -105,8 +141,39 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, locationContainer, locationIcon,
-          locationText, logoImageView, mapView);
+      id = R.id.searchBackButton;
+      ImageView searchBackButton = ViewBindings.findChildViewById(rootView, id);
+      if (searchBackButton == null) {
+        break missingId;
+      }
+
+      id = R.id.searchClearButton;
+      ImageView searchClearButton = ViewBindings.findChildViewById(rootView, id);
+      if (searchClearButton == null) {
+        break missingId;
+      }
+
+      id = R.id.searchContainer;
+      LinearLayout searchContainer = ViewBindings.findChildViewById(rootView, id);
+      if (searchContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.searchEditText;
+      EditText searchEditText = ViewBindings.findChildViewById(rootView, id);
+      if (searchEditText == null) {
+        break missingId;
+      }
+
+      id = R.id.searchResultsRecyclerView;
+      RecyclerView searchResultsRecyclerView = ViewBindings.findChildViewById(rootView, id);
+      if (searchResultsRecyclerView == null) {
+        break missingId;
+      }
+
+      return new FragmentHomeBinding((ConstraintLayout) rootView, defaultViewContainer,
+          locationContainer, locationIcon, locationText, logoImageView, mapView, searchBackButton,
+          searchClearButton, searchContainer, searchEditText, searchResultsRecyclerView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

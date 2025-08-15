@@ -42,6 +42,7 @@
     <string name="google_api_key" translatable="false">AIzaSyA1dJ7330MfDAQkBaTaS-5V2Or8U1kcMEk</string>
     <string name="google_app_id" translatable="false">1:984199978830:android:e8e46cfae19a5b2bdfc81f</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA1dJ7330MfDAQkBaTaS-5V2Or8U1kcMEk</string>
+    <string name="google_maps_api_key">AIzaSyDG9OSQU6lrj6Ecz2KwPPCvjV9MAGx5Wgc</string>
     <string name="google_storage_bucket" translatable="false">chat-city-82dad.firebasestorage.app</string>
     <string name="mapbox_access_token">pk.eyJ1IjoibGVvZGVsZ2FkbzExMSIsImEiOiJjbWRqMDF2OGswZjF1MmpzYjdtbThuam94In0.QlS3L22SRl7Iw8vRdNnUzw</string>
     <string name="project_id" translatable="false">chat-city-82dad</string>

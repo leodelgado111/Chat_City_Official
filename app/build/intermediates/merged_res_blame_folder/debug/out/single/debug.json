@@ -52,6 +52,10 @@
         "source": "com.chatcityofficial.chatmapapp-main-67:/layout/fragment_saved.xml"
     },
     {
+        "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_search_bar.xml.flat",
+        "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_search_bar.xml"
+    },
+    {
         "merged": "com.chatcityofficial.chatmapapp-merged_res-65:/drawable_ic_arrow_back.xml.flat",
         "source": "com.chatcityofficial.chatmapapp-main-67:/drawable/ic_arrow_back.xml"
     },
