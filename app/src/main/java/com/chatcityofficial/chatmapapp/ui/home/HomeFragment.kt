@@ -24,6 +24,7 @@ import com.google.android.gms.location.*
 import com.luckycatlabs.sunrisesunset.SunriseSunsetCalculator
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions
+import com.mapbox.maps.CameraState
 import com.mapbox.maps.MapView
 import com.mapbox.maps.Style
 import com.mapbox.maps.plugin.animation.flyTo
@@ -75,6 +76,10 @@ class HomeFragment : Fragment() {
         private const val MAX_PULSE_RADIUS = 35.0 // Reduced by 30% from 50
         private const val MIN_PULSE_RADIUS = 3.5 // Reduced by 30% from 5
         private const val CENTER_DOT_RADIUS = 2.0 // Small center dot for the location puck
+        
+        // Camera state persistence
+        private var savedCameraState: CameraState? = null
+        private var hasInitializedCamera = false
     }
 
     override fun onCreateView(
@@ -148,6 +153,19 @@ class HomeFragment : Fragment() {
                 // Initialize single annotation manager
                 initializeAnnotationManager()
                 
+                // Restore saved camera position if available
+                savedCameraState?.let { state ->
+                    Log.d(TAG, "Restoring saved camera position")
+                    val cameraOptions = CameraOptions.Builder()
+                        .center(state.center)
+                        .zoom(state.zoom)
+                        .bearing(state.bearing)
+                        .pitch(state.pitch)
+                        .build()
+                    
+                    mapView.getMapboxMap().setCamera(cameraOptions)
+                }
+                
                 // Check permissions and get location
                 checkLocationPermission()
             }
@@ -189,7 +207,16 @@ class HomeFragment : Fragment() {
             location?.let {
                 currentLocation = it
                 updateLocationUI(it)
-                moveToLocation(it.latitude, it.longitude, 15.0)
+                
+                // Only move to location on first initialization, not when returning to screen
+                if (!hasInitializedCamera && savedCameraState == null) {
+                    Log.d(TAG, "Initial camera setup - moving to current location")
+                    moveToLocation(it.latitude, it.longitude, 15.0)
+                    hasInitializedCamera = true
+                } else {
+                    Log.d(TAG, "Camera already initialized or saved state exists - not moving camera")
+                }
+                
                 updateLocationPulse(it)
                 updateMapThemeBasedOnTime(it)
                 // Start periodic theme updates
@@ -212,6 +239,7 @@ class HomeFragment : Fragment() {
                     updateLocationUI(location)
                     updateLocationPulse(location)
                     updateMapThemeBasedOnTime(location)
+                    // Note: We do NOT move the camera on location updates
                 }
             }
         }
@@ -244,6 +272,9 @@ class HomeFragment : Fragment() {
             isDarkMode = shouldUseDarkTheme
             val newStyle = if (isDarkMode) Style.DARK else Style.LIGHT
             
+            // Save camera state before changing style
+            saveCameraState()
+            
             // Update map style
             mapView.getMapboxMap().loadStyleUri(newStyle) { style ->
                 Log.d(TAG, "Theme switched to: ${if (isDarkMode) "DARK" else "LIGHT"}")
@@ -256,6 +287,18 @@ class HomeFragment : Fragment() {
                 
                 // Re-initialize annotation manager after style change
                 initializeAnnotationManager()
+                
+                // Restore camera position after style change
+                savedCameraState?.let { state ->
+                    val cameraOptions = CameraOptions.Builder()
+                        .center(state.center)
+                        .zoom(state.zoom)
+                        .bearing(state.bearing)
+                        .pitch(state.pitch)
+                        .build()
+                    
+                    mapView.getMapboxMap().setCamera(cameraOptions)
+                }
                 
                 // Recreate location pulse with new style
                 currentLocation?.let { updateLocationPulse(it) }
@@ -427,6 +470,15 @@ class HomeFragment : Fragment() {
         }
     }
     
+    private fun saveCameraState() {
+        try {
+            savedCameraState = mapView.getMapboxMap().cameraState
+            Log.d(TAG, "Camera state saved: center=${savedCameraState?.center}, zoom=${savedCameraState?.zoom}")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error saving camera state", e)
+        }
+    }
+    
     override fun onStart() {
         super.onStart()
         mapView.onStart()
@@ -434,6 +486,8 @@ class HomeFragment : Fragment() {
     
     override fun onStop() {
         super.onStop()
+        // Save camera state when leaving the fragment
+        saveCameraState()
         mapView.onStop()
     }
     
@@ -452,6 +506,8 @@ class HomeFragment : Fragment() {
     
     override fun onPause() {
         super.onPause()
+        // Save camera state when pausing
+        saveCameraState()
         // Pause animation when fragment is not visible
         pulseAnimator?.pause()
         stopThemeUpdates()
