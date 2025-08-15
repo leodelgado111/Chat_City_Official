@@ -327,6 +327,73 @@ if (!hasInitializedCamera && savedCameraState == null) {
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-14 20:04 - Claude/Assistant
+**Category**: UI/UX
+**Files Modified**: 
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+- app/src/main/res/layout/fragment_home.xml
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/chats/ChatsFragment.kt
+**Description**: Fixed location puck layering, aligned Chat City logo with navigation bar, and removed error messages from Chats screen
+**Technical Details**: 
+**Fix 1 - Location Puck Layering:**
+- Changed the order of annotation creation in `createLocationPuck()` function
+- Pulse animation is now created FIRST, then center dot is created AFTER
+- This ensures the center dot appears on top of the pulse animation
+- Annotations are rendered in the order they are created (first = bottom, last = top)
+- Code snippet:
+```kotlin
+// IMPORTANT: Create pulse FIRST so it's behind the center dot
+pulseAnnotation = manager.create(
+    CircleAnnotationOptions()
+        .withPoint(point)
+        .withCircleRadius(MIN_PULSE_RADIUS)
+        // ... pulse settings
+)
+
+// Create center dot AFTER pulse so it appears on top
+centerDotAnnotation = manager.create(
+    CircleAnnotationOptions()
+        .withPoint(point)
+        .withCircleRadius(CENTER_DOT_RADIUS)
+        // ... center dot settings
+)
+```
+
+**Fix 2 - Chat City Logo Alignment:**
+- Changed logo left margin from 28dp to 16dp in fragment_home.xml
+- This aligns the leftmost edge of the "C" in Chat City with the navigation bar edge
+- Navigation bar icons have 28dp margin, but the logo needs 16dp due to its internal spacing
+- Ensures visual consistency between top logo and bottom navigation
+
+**Fix 3 - Removed Error Toast Messages:**
+- Commented out all Toast.makeText() calls in ChatsFragment.kt
+- Errors are still logged with Log.e() for debugging purposes
+- Prevents user-facing error messages from appearing when navigating to Chats
+- Affected areas:
+  - onViewCreated error handling
+  - Chat item click validation
+  - Activity launch failures
+  - Delete button placeholder message
+  - Chat loading errors
+- Silent failures provide cleaner UX while maintaining debug capability
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Location Puck Layering**:
+   - Launch app and observe the location indicator
+   - Verify the pink center dot is clearly visible on top of the expanding pulse
+   - The pulse should expand behind the center dot, not cover it
+2. **Logo Alignment**:
+   - Check that the leftmost curve of the "C" in Chat City aligns with the left edge of navigation icons
+   - Compare visual alignment between logo and saved/home/chats/profile icons
+3. **Chats Error Handling**:
+   - Navigate to Chats tab
+   - No error toasts should appear even if there are issues
+   - Try clicking on chat items - failures should be silent
+   - Check logcat for error messages (they should still be logged)
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
