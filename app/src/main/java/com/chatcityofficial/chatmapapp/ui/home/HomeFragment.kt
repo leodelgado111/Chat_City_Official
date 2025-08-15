@@ -111,6 +111,7 @@ class HomeFragment : Fragment() {
         
         // Camera state persistence
         private var savedCameraState: CameraState? = null
+        // Reset this flag when fragment is created to ensure initial location centering
         private var hasInitializedCamera = false
     }
 
@@ -120,6 +121,10 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        
+        // Reset the initialization flag for fresh fragment creation
+        // This ensures the app centers on user location when launched
+        hasInitializedCamera = false
         
         // Initialize views
         mapView = view.findViewById(R.id.mapView)
@@ -210,7 +215,7 @@ class HomeFragment : Fragment() {
         })
         
         // Add click listener to map to close search when tapping outside
-        // Use the gestures plugin's addOnMapClickListener
+        // This is already properly implemented with gestures plugin
         mapView.gestures.addOnMapClickListener { point ->
             if (isSearchVisible) {
                 hideSearchView()
@@ -218,6 +223,19 @@ class HomeFragment : Fragment() {
             } else {
                 false // Let other click handlers process it
             }
+        }
+    }
+    
+    // Add a public method to check if search is visible (for potential back button handling in fragment)
+    fun isSearchViewVisible(): Boolean = isSearchVisible
+    
+    // Add a public method to hide search (for potential back button handling in fragment)
+    fun hideSearchViewIfVisible(): Boolean {
+        return if (isSearchVisible) {
+            hideSearchView()
+            true
+        } else {
+            false
         }
     }
     
@@ -448,17 +466,20 @@ class HomeFragment : Fragment() {
                 // Initialize annotation managers
                 initializeAnnotationManager()
                 
-                // Restore saved camera position if available
-                savedCameraState?.let { state ->
-                    Log.d(TAG, "Restoring saved camera position")
-                    val cameraOptions = CameraOptions.Builder()
-                        .center(state.center)
-                        .zoom(state.zoom)
-                        .bearing(state.bearing)
-                        .pitch(state.pitch)
-                        .build()
-                    
-                    mapView.getMapboxMap().setCamera(cameraOptions)
+                // Only restore saved camera position if we're not on initial launch
+                // On initial launch (hasInitializedCamera = false), we want to center on user location
+                if (hasInitializedCamera && savedCameraState != null) {
+                    savedCameraState?.let { state ->
+                        Log.d(TAG, "Restoring saved camera position")
+                        val cameraOptions = CameraOptions.Builder()
+                            .center(state.center)
+                            .zoom(state.zoom)
+                            .bearing(state.bearing)
+                            .pitch(state.pitch)
+                            .build()
+                        
+                        mapView.getMapboxMap().setCamera(cameraOptions)
+                    }
                 }
                 
                 // Check permissions and get location
@@ -504,12 +525,18 @@ class HomeFragment : Fragment() {
                 currentLocation = it
                 updateLocationUI(it)
                 
-                if (!hasInitializedCamera && savedCameraState == null) {
+                // Always center on user location on initial app launch
+                // Only skip centering if we've already initialized AND have saved state
+                if (!hasInitializedCamera) {
                     Log.d(TAG, "Initial camera setup - moving to current location")
                     moveToLocation(it.latitude, it.longitude, 15.0)
                     hasInitializedCamera = true
+                } else if (savedCameraState != null) {
+                    Log.d(TAG, "Camera already initialized with saved state - not moving camera")
                 } else {
-                    Log.d(TAG, "Camera already initialized or saved state exists - not moving camera")
+                    // If somehow we've initialized but have no saved state, still move to location
+                    Log.d(TAG, "Camera initialized but no saved state - moving to current location")
+                    moveToLocation(it.latitude, it.longitude, 15.0)
                 }
                 
                 updateLocationPulse(it)
