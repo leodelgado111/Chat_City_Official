@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.navigation.findNavController
+import androidx.activity.OnBackPressedCallback
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navSelectionOutline: ImageView
     private lateinit var customNavBar: FrameLayout
     private var currentOutlinePosition = 74.5f
+    
+    // Track the current destination
+    private var currentDestinationId = R.id.navigation_home
     
     // FINAL POSITIONS - Based on actual SVG icon positions
     // Icons in SVG are at: 41, 103, 165, 227, 289
@@ -86,8 +90,27 @@ class MainActivity : AppCompatActivity() {
             setOutlinePosition(currentOutlinePosition)
         }
         
+        // Setup back button behavior
+        setupBackButtonBehavior()
+        
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
+    }
+    
+    private fun setupBackButtonBehavior() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // If we're on the home screen, minimize the app
+                if (currentDestinationId == R.id.navigation_home) {
+                    // Move task to back (minimize the app)
+                    moveTaskToBack(true)
+                } else {
+                    // Navigate to home screen
+                    navigateToDestination(R.id.navigation_home)
+                    animateOutlineToPosition(R.id.navigation_home)
+                }
+            }
+        })
     }
     
     private fun setupNavigationButtons() {
@@ -120,6 +143,7 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToDestination(destinationId: Int) {
         try {
             navController.navigate(destinationId)
+            currentDestinationId = destinationId
         } catch (e: Exception) {
             e.printStackTrace()
         }
