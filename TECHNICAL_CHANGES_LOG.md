@@ -394,6 +394,143 @@ centerDotAnnotation = manager.create(
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-15 01:35 - Claude/Assistant
+**Category**: Feature
+**Files Modified**: 
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+- app/src/main/res/layout/fragment_home.xml
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/PlaceSearchAdapter.kt (created)
+- app/src/main/res/layout/item_place_search.xml (created)
+- app/src/main/res/drawable/ic_search_bar.xml (created)
+- app/src/main/res/drawable/ic_close.xml (created)
+- app/src/main/res/drawable/ic_arrow_back.xml (created)
+- app/src/main/res/values/strings.xml
+**Description**: Implemented Google Places search functionality with animated UI transitions
+**Technical Details**: 
+**Core Implementation:**
+- Integrated Google Places API for location search with autocomplete
+- Added session tokens for optimized billing with Places API
+- Location-biased search results prioritizing places near current location
+- Support for searching: addresses, zip codes, cities, towns, parks, bodies of water, businesses
+
+**UI Components:**
+- Custom search bar that fades in when location icon is tapped
+- RecyclerView with PlaceSearchAdapter for displaying autocomplete results
+- Material Design CardView for search results with location icons
+- "Powered by Google" attribution text above search bar
+
+**Animations:**
+- Initial implementation with 200ms fade in/out animations
+- Smooth transitions between default view and search view
+- Keyboard automatically shows when entering search mode
+
+**Place Selection:**
+- When place selected, camera flies to location with 17.0 zoom level
+- Attempts to outline selected place with pink (#4DFB86BB) 30% opacity border
+- Uses place viewport for determining outline bounds
+- Polygon annotation for place outlining (no fill, only stroke)
+
+**Search Adapter:**
+- ListAdapter with DiffUtil for efficient updates
+- Displays primary text (place name) and secondary text (address)
+- Click handler triggers place selection and map navigation
+
+**API Key Configuration:**
+- Added Google Maps API key to strings.xml: AIzaSyDG9OSQU6lrj6Ecz2KwPPCvjV9MAGx5Wgc
+
+**Code Snippets:**
+```kotlin
+// Initialize Places API
+if (!Places.isInitialized()) {
+    Places.initialize(requireContext(), getString(R.string.google_maps_api_key))
+}
+placesClient = Places.createClient(requireContext())
+
+// Perform place search
+val request = FindAutocompletePredictionsRequest.builder()
+    .setQuery(query)
+    .setSessionToken(sessionToken)
+    .setLocationBias(/* current location bounds */)
+    .build()
+```
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. Tap location icon to open search
+2. Type any location (minimum 3 characters)
+3. Select from autocomplete results
+4. Verify map flies to selected location
+5. Check that place is outlined with pink border
+**Related Issues/PRs**: N/A
+---
+
+### 2025-08-15 01:50 - Claude/Assistant
+**Category**: UX
+**Files Modified**: 
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+- app/src/main/res/layout/fragment_home.xml
+**Description**: Improved search functionality UX with better tap detection, faster animations, and map tap to close
+**Technical Details**: 
+**Improved Tap Detection:**
+- Made entire location container clickable with `android:clickable="true"` and `android:focusable="true"`
+- Added `android:foreground="?attr/selectableItemBackground"` for touch feedback
+- Both container and icon are clickable for redundancy
+- Added `isSearchVisible` flag to prevent double triggers and track state
+
+**UI Layout Changes:**
+- Moved "Powered by Google" text ABOVE search bar (was below)
+- Positioned at right with proper margins
+- Search container marginTop adjusted to 70dp for better spacing
+
+**Map Interaction:**
+- Added `mapView.getMapboxMap().addOnMapClickListener` to close search on map tap
+- When search is visible and user taps map, search closes automatically
+- Logo and location icons fade back in when search closes
+
+**Animation Improvements:**
+- Reduced animation duration from 200ms to 100ms (ANIMATION_DURATION constant)
+- All fade in/out animations now use 100ms for snappier response
+- Better perceived performance with faster transitions
+
+**Search Flow Enhancement:**
+- Search automatically hides after place selection
+- Clear search results when hiding search view
+- Proper keyboard management (hide on selection, show on open)
+- Session token regenerated after each place selection
+
+**Code Snippets:**
+```kotlin
+// Map click to close search
+mapView.getMapboxMap().addOnMapClickListener { point ->
+    if (isSearchVisible) {
+        hideSearchView()
+        true // Consume the click event
+    } else {
+        false // Let other handlers process it
+    }
+}
+
+// Animation duration constant
+companion object {
+    private const val ANIMATION_DURATION = 100L // Changed from 200ms
+}
+```
+
+**Place Outline Refinement:**
+- Ensured outline uses 30% opacity (#4DFB86BB)
+- No fill, only outline as specified
+- Outline removed when search closes or new search begins
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Tap Detection**: Tap anywhere on location container (not just icon)
+2. **Animation Speed**: Verify 100ms transitions feel responsive
+3. **Map Tap**: Open search, then tap on map - should close search
+4. **Search Flow**: Select a place - verify search closes and map moves
+5. **Powered by Google**: Check text appears above search bar
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
