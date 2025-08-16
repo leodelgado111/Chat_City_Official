@@ -640,6 +640,114 @@ if (!hasInitializedCamera) {
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-16 15:30 - Claude/Assistant
+**Category**: UX/Feature
+**Files Modified**: 
+- app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt
+- app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Enhanced navigation stack handling and implemented persistent camera view across app sessions
+**Technical Details**: 
+**Change 1 - Enhanced Back Navigation (MainActivity.kt):**
+- Improved `OnBackPressedCallback` to properly handle navigation stack
+- Added check for HomeFragment search visibility before navigation
+- Uses `navController.popBackStack()` for proper back stack handling
+- Handles nested navigation (like chat threads, settings) before returning to root tabs
+- Clear back stack when navigating to new root destination with `popBackStack(destinationId, false)`
+- Code snippet:
+```kotlin
+// Check if HomeFragment search is visible first
+val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+val currentFragment = navHostFragment?.childFragmentManager?.fragments?.firstOrNull()
+
+if (currentFragment is HomeFragment) {
+    if (currentFragment.hideSearchViewIfVisible()) {
+        return // Search was hidden, don't navigate
+    }
+}
+
+// Try to pop back stack for nested navigation
+if (!navController.popBackStack()) {
+    // No more back stack - handle root navigation
+    if (currentDestinationId == R.id.navigation_home) {
+        moveTaskToBack(true) // Minimize app
+    } else {
+        navigateToDestination(R.id.navigation_home)
+    }
+}
+```
+
+**Change 2 - Search Bar Behavior (Confirmed Working):**
+- Map tap to close search is working correctly via `mapView.gestures.addOnMapClickListener`
+- Search closes when tapping anywhere on the map
+- No modifications needed
+
+**Change 3 - Persistent Camera View (HomeFragment.kt):**
+- Implemented SharedPreferences to persist camera state across app sessions
+- Camera position saved to disk on every change (lat, lng, zoom, bearing, pitch)
+- On app launch, loads last saved camera position instead of centering on user location
+- Only centers on user location on very first app install (no saved camera state)
+- Added `loadPersistedCameraState()` and `persistCameraState()` functions
+- SharedPreferences keys: KEY_CAMERA_LAT, KEY_CAMERA_LNG, KEY_CAMERA_ZOOM, KEY_CAMERA_BEARING, KEY_CAMERA_PITCH
+- Code snippet:
+```kotlin
+// Save camera state to SharedPreferences
+private fun persistCameraState() {
+    val currentState = mapView.getMapboxMap().cameraState
+    val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    
+    currentState.center?.let { center ->
+        prefs.edit().apply {
+            putFloat(KEY_CAMERA_LAT, center.latitude().toFloat())
+            putFloat(KEY_CAMERA_LNG, center.longitude().toFloat())
+            putFloat(KEY_CAMERA_ZOOM, currentState.zoom.toFloat())
+            putFloat(KEY_CAMERA_BEARING, currentState.bearing.toFloat())
+            putFloat(KEY_CAMERA_PITCH, currentState.pitch.toFloat())
+            putBoolean(KEY_HAS_SAVED_CAMERA, true)
+            apply()
+        }
+    }
+}
+
+// Load persisted camera state on app launch
+val hasSavedCamera = prefs.getBoolean(KEY_HAS_SAVED_CAMERA, false)
+if (hasSavedCamera) {
+    // Restore saved camera position
+    val lat = prefs.getFloat(KEY_CAMERA_LAT, 0f).toDouble()
+    val lng = prefs.getFloat(KEY_CAMERA_LNG, 0f).toDouble()
+    // ... apply camera position
+}
+```
+
+**Change 4 - Consistent Camera View Across Navigation:**
+- Camera state is saved in onPause() and onStop() lifecycle methods
+- Camera state is persisted to SharedPreferences for cross-session persistence
+- Camera position remains unchanged when navigating between tabs
+- Camera position maintained when using back button navigation
+- hasEverInitialized flag tracks whether app has ever been launched before
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Back Navigation Stack**:
+   - Navigate to Chats > Open a chat thread > Press back → Returns to Chats list
+   - From Chats list > Press back → Returns to Home with outline animation
+   - From Home > Press back → App minimizes
+   - Test with nested screens like Settings, Archives, etc.
+2. **Search Bar Closing**:
+   - Open search > Tap on map → Search closes
+   - Open search > Press back button → Search closes
+   - Search should close before any navigation occurs
+3. **Camera Persistence Across Sessions**:
+   - Pan/zoom to specific location
+   - Force close app completely
+   - Relaunch app → Map shows last viewed location (not user location)
+   - Only on first install should map center on user location
+4. **Camera Consistency**:
+   - Pan to location > Switch to Chats > Return to Home → Same camera view
+   - Pan to location > Press Android back → Camera view unchanged
+   - Camera should never jump to user location unless manually triggered
+**Related Issues/PRs**: N/A
+---
+
 ## Notes Section
 
 ### Important Reminders
