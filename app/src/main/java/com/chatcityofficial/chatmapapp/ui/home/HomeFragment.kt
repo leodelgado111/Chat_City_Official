@@ -168,8 +168,8 @@ class HomeFragment : Fragment() {
         // Initialize map
         initializeMap()
         
-        // Setup click listeners
-        setupSearchListeners()
+        // Setup click listeners - moved after map initialization
+        // Will be called after map is ready
         
         return view
     }
@@ -262,14 +262,43 @@ class HomeFragment : Fragment() {
             override fun afterTextChanged(s: Editable?) {}
         })
         
+        // Setup map click listener to close search
+        setupMapClickListener()
+    }
+    
+    private fun setupMapClickListener() {
         // Add click listener to map to close search when tapping outside
-        mapView.gestures.addOnMapClickListener { point ->
-            if (isSearchVisible) {
-                hideSearchView()
-                true // Consume the click event
-            } else {
-                false // Let other click handlers process it
+        // This is called after map is ready and will properly register the listener
+        try {
+            mapView.gestures.addOnMapClickListener { point ->
+                Log.d(TAG, "Map clicked, isSearchVisible: $isSearchVisible")
+                if (isSearchVisible) {
+                    hideSearchView()
+                    true // Consume the click event
+                } else {
+                    false // Let other click handlers process it
+                }
             }
+            Log.d(TAG, "Map click listener successfully registered")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error setting up map click listener", e)
+            // Try again after a short delay
+            Handler(Looper.getMainLooper()).postDelayed({
+                try {
+                    mapView.gestures.addOnMapClickListener { point ->
+                        Log.d(TAG, "Map clicked (delayed), isSearchVisible: $isSearchVisible")
+                        if (isSearchVisible) {
+                            hideSearchView()
+                            true
+                        } else {
+                            false
+                        }
+                    }
+                    Log.d(TAG, "Map click listener successfully registered (delayed)")
+                } catch (e2: Exception) {
+                    Log.e(TAG, "Error setting up map click listener (delayed)", e2)
+                }
+            }, 500)
         }
     }
     
@@ -289,6 +318,8 @@ class HomeFragment : Fragment() {
     private fun showSearchView() {
         if (isSearchVisible) return
         isSearchVisible = true
+        
+        Log.d(TAG, "Showing search view")
         
         // Create new session token for billing
         sessionToken = AutocompleteSessionToken.newInstance()
@@ -326,6 +357,8 @@ class HomeFragment : Fragment() {
     private fun hideSearchView() {
         if (!isSearchVisible) return
         isSearchVisible = false
+        
+        Log.d(TAG, "Hiding search view")
         
         // Hide keyboard
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -545,6 +578,9 @@ class HomeFragment : Fragment() {
                     }
                 }
                 
+                // Setup search listeners AFTER map is ready
+                setupSearchListeners()
+                
                 // Check permissions and get location
                 checkLocationPermission()
             }
@@ -677,6 +713,9 @@ class HomeFragment : Fragment() {
                 }
                 
                 currentLocation?.let { updateLocationPulse(it) }
+                
+                // Re-setup map click listener after theme change
+                setupMapClickListener()
             }
             
             updateLogoColor(isDarkMode)
@@ -862,6 +901,11 @@ class HomeFragment : Fragment() {
         mapView.logo.enabled = false
         mapView.attribution.enabled = false
         mapView.scalebar.enabled = false
+        
+        // Re-setup map click listener when resuming
+        Handler(Looper.getMainLooper()).postDelayed({
+            setupMapClickListener()
+        }, 100)
         
         currentLocation?.let {
             updateMapThemeBasedOnTime(it)
