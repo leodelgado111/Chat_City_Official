@@ -48,8 +48,6 @@ import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.attribution.attribution
 import com.mapbox.maps.plugin.gestures.gestures
-import com.mapbox.maps.plugin.gestures.addOnMapClickListener
-import com.mapbox.maps.plugin.gestures.OnMapClickListener
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.scalebar.scalebar
@@ -76,17 +74,14 @@ class HomeFragment : Fragment() {
     private lateinit var locationIcon: ImageView
     private lateinit var locationContainer: LinearLayout
     
-    // Add invisible overlay view
-    private var mapClickOverlay: View? = null
+    // Click interceptor view
+    private lateinit var mapClickInterceptor: View
     
     // Places API
     private lateinit var placesClient: PlacesClient
     private lateinit var searchAdapter: PlaceSearchAdapter
     private var sessionToken: AutocompleteSessionToken? = null
     private var isSearchVisible = false
-    
-    // Map click listener reference
-    private var mapClickListener: OnMapClickListener? = null
     
     // Annotation managers
     private var circleAnnotationManager: CircleAnnotationManager? = null
@@ -153,8 +148,16 @@ class HomeFragment : Fragment() {
         locationIcon = view.findViewById(R.id.locationIcon)
         locationContainer = view.findViewById(R.id.locationContainer)
         
-        // Create invisible overlay for detecting map clicks
-        createMapClickOverlay(view as ViewGroup)
+        // Initialize the click interceptor view from the layout
+        mapClickInterceptor = view.findViewById(R.id.mapClickInterceptor)
+        
+        // Set up the click interceptor
+        mapClickInterceptor.setOnClickListener {
+            Log.d(TAG, "Map click interceptor clicked! isSearchVisible: $isSearchVisible")
+            if (isSearchVisible) {
+                hideSearchView()
+            }
+        }
         
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -184,26 +187,6 @@ class HomeFragment : Fragment() {
         return view
     }
     
-    private fun createMapClickOverlay(parent: ViewGroup) {
-        // Create an invisible view that covers the map
-        mapClickOverlay = View(requireContext()).apply {
-            layoutParams = ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            visibility = View.GONE
-            isClickable = true
-            isFocusable = false
-            setOnClickListener {
-                Log.d(TAG, "Overlay clicked, isSearchVisible: $isSearchVisible")
-                if (isSearchVisible) {
-                    hideSearchView()
-                }
-            }
-        }
-        parent.addView(mapClickOverlay)
-    }
-    
     private fun loadPersistedCameraState() {
         val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val hasSavedCamera = prefs.getBoolean(KEY_HAS_SAVED_CAMERA, false)
@@ -215,8 +198,6 @@ class HomeFragment : Fragment() {
             val bearing = prefs.getFloat(KEY_CAMERA_BEARING, 0f).toDouble()
             val pitch = prefs.getFloat(KEY_CAMERA_PITCH, 0f).toDouble()
             
-            // Create a mock CameraState with the loaded values
-            // We'll apply these values when the map is ready
             savedCameraState = null // Will be set properly when map loads
             hasEverInitialized = true
             
@@ -291,35 +272,6 @@ class HomeFragment : Fragment() {
             
             override fun afterTextChanged(s: Editable?) {}
         })
-        
-        // Setup map click listeners
-        setupMapClickListener()
-    }
-    
-    private fun setupMapClickListener() {
-        try {
-            // Remove existing listener if any
-            mapClickListener?.let {
-                mapView.gestures.removeOnMapClickListener(it)
-            }
-            
-            // Create new listener
-            mapClickListener = OnMapClickListener { point ->
-                Log.d(TAG, "Map clicked at: ${point.latitude()}, ${point.longitude()}, isSearchVisible: $isSearchVisible")
-                if (isSearchVisible) {
-                    hideSearchView()
-                    true // Consume the click event
-                } else {
-                    false // Let other handlers process it
-                }
-            }
-            
-            // Add the listener
-            mapView.gestures.addOnMapClickListener(mapClickListener!!)
-            Log.d(TAG, "Map click listener registered successfully")
-        } catch (e: Exception) {
-            Log.e(TAG, "Error setting up map click listener", e)
-        }
     }
     
     // Public method to check if search is visible (for back button handling)
@@ -339,15 +291,11 @@ class HomeFragment : Fragment() {
         if (isSearchVisible) return
         isSearchVisible = true
         
-        Log.d(TAG, "Showing search view")
+        Log.d(TAG, "Showing search view - activating click interceptor")
         
-        // Show the overlay to capture clicks outside search area
-        mapClickOverlay?.visibility = View.VISIBLE
-        mapClickOverlay?.bringToFront()
-        
-        // Bring search container to front
-        searchContainer.bringToFront()
-        searchResultsRecyclerView.bringToFront()
+        // CRITICAL: Show the interceptor BEFORE animating anything
+        mapClickInterceptor.visibility = View.VISIBLE
+        mapClickInterceptor.isClickable = true
         
         // Create new session token for billing
         sessionToken = AutocompleteSessionToken.newInstance()
@@ -386,10 +334,11 @@ class HomeFragment : Fragment() {
         if (!isSearchVisible) return
         isSearchVisible = false
         
-        Log.d(TAG, "Hiding search view")
+        Log.d(TAG, "Hiding search view - deactivating click interceptor")
         
-        // Hide the overlay
-        mapClickOverlay?.visibility = View.GONE
+        // CRITICAL: Hide the interceptor
+        mapClickInterceptor.visibility = View.GONE
+        mapClickInterceptor.isClickable = false
         
         // Hide keyboard
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -609,11 +558,6 @@ class HomeFragment : Fragment() {
                     }
                 }
                 
-                // Setup map click listener after map is ready
-                Handler(Looper.getMainLooper()).postDelayed({
-                    setupMapClickListener()
-                }, 200)
-                
                 // Check permissions and get location
                 checkLocationPermission()
             }
@@ -746,11 +690,6 @@ class HomeFragment : Fragment() {
                 }
                 
                 currentLocation?.let { updateLocationPulse(it) }
-                
-                // Re-setup map click listener after theme change
-                Handler(Looper.getMainLooper()).postDelayed({
-                    setupMapClickListener()
-                }, 200)
             }
             
             updateLogoColor(isDarkMode)
@@ -918,10 +857,6 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         clearPulseAnimation()
         stopThemeUpdates()
-        // Remove map click listener
-        mapClickListener?.let {
-            mapView.gestures.removeOnMapClickListener(it)
-        }
         mapView.onDestroy()
         scope.cancel()
     }
@@ -940,11 +875,6 @@ class HomeFragment : Fragment() {
         mapView.logo.enabled = false
         mapView.attribution.enabled = false
         mapView.scalebar.enabled = false
-        
-        // Re-setup map click listener when resuming
-        Handler(Looper.getMainLooper()).postDelayed({
-            setupMapClickListener()
-        }, 200)
         
         currentLocation?.let {
             updateMapThemeBasedOnTime(it)
