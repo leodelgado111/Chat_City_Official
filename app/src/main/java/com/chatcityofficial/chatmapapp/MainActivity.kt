@@ -100,14 +100,29 @@ class MainActivity : AppCompatActivity() {
     private fun setupBackButtonBehavior() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // If we're on the home screen, minimize the app
-                if (currentDestinationId == R.id.navigation_home) {
-                    // Move task to back (minimize the app)
-                    moveTaskToBack(true)
-                } else {
-                    // Navigate to home screen
-                    navigateToDestination(R.id.navigation_home)
-                    animateOutlineToPosition(R.id.navigation_home)
+                // First check if the current fragment can handle back press
+                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+                val currentFragment = navHostFragment?.childFragmentManager?.fragments?.firstOrNull()
+                
+                // Check if it's HomeFragment and if search is visible
+                if (currentFragment is com.chatcityofficial.chatmapapp.ui.home.HomeFragment) {
+                    if (currentFragment.hideSearchViewIfVisible()) {
+                        // Search was visible and is now hidden, don't do anything else
+                        return
+                    }
+                }
+                
+                // Try to pop the back stack first (for any nested navigation)
+                if (!navController.popBackStack()) {
+                    // No more back stack, we're at a root destination
+                    if (currentDestinationId == R.id.navigation_home) {
+                        // We're on home screen, minimize the app
+                        moveTaskToBack(true)
+                    } else {
+                        // We're on another root tab, go to home
+                        navigateToDestination(R.id.navigation_home)
+                        animateOutlineToPosition(R.id.navigation_home)
+                    }
                 }
             }
         })
@@ -142,6 +157,8 @@ class MainActivity : AppCompatActivity() {
     
     private fun navigateToDestination(destinationId: Int) {
         try {
+            // Clear back stack when navigating to a new root destination
+            navController.popBackStack(destinationId, false)
             navController.navigate(destinationId)
             currentDestinationId = destinationId
         } catch (e: Exception) {
