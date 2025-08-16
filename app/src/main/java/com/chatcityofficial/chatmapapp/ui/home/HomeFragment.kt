@@ -107,12 +107,18 @@ class HomeFragment : Fragment() {
         private const val MAX_PULSE_RADIUS = 35.0
         private const val MIN_PULSE_RADIUS = 3.5
         private const val CENTER_DOT_RADIUS = 2.0
-        private const val ANIMATION_DURATION = 100L // Changed from 200ms to 100ms
+        private const val ANIMATION_DURATION = 100L
         
-        // Camera state persistence
+        // Camera state persistence - PERSISTENT across app lifecycle
         private var savedCameraState: CameraState? = null
-        // Reset this flag when fragment is created to ensure initial location centering
-        private var hasInitializedCamera = false
+        private var hasEverInitialized = false
+        private const val PREFS_NAME = "ChatCityPrefs"
+        private const val KEY_CAMERA_LAT = "camera_lat"
+        private const val KEY_CAMERA_LNG = "camera_lng"
+        private const val KEY_CAMERA_ZOOM = "camera_zoom"
+        private const val KEY_CAMERA_BEARING = "camera_bearing"
+        private const val KEY_CAMERA_PITCH = "camera_pitch"
+        private const val KEY_HAS_SAVED_CAMERA = "has_saved_camera"
     }
 
     override fun onCreateView(
@@ -122,9 +128,8 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         
-        // Reset the initialization flag for fresh fragment creation
-        // This ensures the app centers on user location when launched
-        hasInitializedCamera = false
+        // Load persisted camera state from SharedPreferences
+        loadPersistedCameraState()
         
         // Initialize views
         mapView = view.findViewById(R.id.mapView)
@@ -167,6 +172,49 @@ class HomeFragment : Fragment() {
         setupSearchListeners()
         
         return view
+    }
+    
+    private fun loadPersistedCameraState() {
+        val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        val hasSavedCamera = prefs.getBoolean(KEY_HAS_SAVED_CAMERA, false)
+        
+        if (hasSavedCamera) {
+            val lat = prefs.getFloat(KEY_CAMERA_LAT, 0f).toDouble()
+            val lng = prefs.getFloat(KEY_CAMERA_LNG, 0f).toDouble()
+            val zoom = prefs.getFloat(KEY_CAMERA_ZOOM, 15f).toDouble()
+            val bearing = prefs.getFloat(KEY_CAMERA_BEARING, 0f).toDouble()
+            val pitch = prefs.getFloat(KEY_CAMERA_PITCH, 0f).toDouble()
+            
+            // Create a mock CameraState with the loaded values
+            // We'll apply these values when the map is ready
+            savedCameraState = null // Will be set properly when map loads
+            hasEverInitialized = true
+            
+            Log.d(TAG, "Loaded persisted camera state: lat=$lat, lng=$lng, zoom=$zoom")
+        }
+    }
+    
+    private fun persistCameraState() {
+        try {
+            val currentState = mapView.getMapboxMap().cameraState
+            val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            
+            currentState.center?.let { center ->
+                prefs.edit().apply {
+                    putFloat(KEY_CAMERA_LAT, center.latitude().toFloat())
+                    putFloat(KEY_CAMERA_LNG, center.longitude().toFloat())
+                    putFloat(KEY_CAMERA_ZOOM, currentState.zoom.toFloat())
+                    putFloat(KEY_CAMERA_BEARING, currentState.bearing.toFloat())
+                    putFloat(KEY_CAMERA_PITCH, currentState.pitch.toFloat())
+                    putBoolean(KEY_HAS_SAVED_CAMERA, true)
+                    apply()
+                }
+                
+                Log.d(TAG, "Persisted camera state: lat=${center.latitude()}, lng=${center.longitude()}, zoom=${currentState.zoom}")
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error persisting camera state", e)
+        }
     }
     
     private fun setupSearchListeners() {
@@ -215,7 +263,6 @@ class HomeFragment : Fragment() {
         })
         
         // Add click listener to map to close search when tapping outside
-        // This is already properly implemented with gestures plugin
         mapView.gestures.addOnMapClickListener { point ->
             if (isSearchVisible) {
                 hideSearchView()
@@ -226,10 +273,10 @@ class HomeFragment : Fragment() {
         }
     }
     
-    // Add a public method to check if search is visible (for potential back button handling in fragment)
+    // Public method to check if search is visible (for back button handling)
     fun isSearchViewVisible(): Boolean = isSearchVisible
     
-    // Add a public method to hide search (for potential back button handling in fragment)
+    // Public method to hide search (for back button handling)
     fun hideSearchViewIfVisible(): Boolean {
         return if (isSearchVisible) {
             hideSearchView()
@@ -408,18 +455,14 @@ class HomeFragment : Fragment() {
             Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude)
         )
         
-        // Create polygon with gradient-like outline (using multiple colors)
+        // Create polygon with gradient-like outline
         polygonAnnotationManager?.let { manager ->
-            // Create the outline with a gradient appearance using stroke
             placeOutlineAnnotation = manager.create(
                 PolygonAnnotationOptions()
                     .withPoints(listOf(points))
                     .withFillOpacity(0.0) // No fill, only outline
                     .withFillOutlineColor("#4DFB86BB") // Pink with 30% opacity for outline
             )
-            
-            // Note: For true gradient effect, we'd need multiple overlapping polygons
-            // or custom shader implementation. This provides a solid color outline.
         }
     }
     
@@ -466,11 +509,31 @@ class HomeFragment : Fragment() {
                 // Initialize annotation managers
                 initializeAnnotationManager()
                 
-                // Only restore saved camera position if we're not on initial launch
-                // On initial launch (hasInitializedCamera = false), we want to center on user location
-                if (hasInitializedCamera && savedCameraState != null) {
+                // Load saved camera position from SharedPreferences if available
+                val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                val hasSavedCamera = prefs.getBoolean(KEY_HAS_SAVED_CAMERA, false)
+                
+                if (hasSavedCamera) {
+                    val lat = prefs.getFloat(KEY_CAMERA_LAT, 0f).toDouble()
+                    val lng = prefs.getFloat(KEY_CAMERA_LNG, 0f).toDouble()
+                    val zoom = prefs.getFloat(KEY_CAMERA_ZOOM, 15f).toDouble()
+                    val bearing = prefs.getFloat(KEY_CAMERA_BEARING, 0f).toDouble()
+                    val pitch = prefs.getFloat(KEY_CAMERA_PITCH, 0f).toDouble()
+                    
+                    Log.d(TAG, "Restoring persisted camera position")
+                    val cameraOptions = CameraOptions.Builder()
+                        .center(Point.fromLngLat(lng, lat))
+                        .zoom(zoom)
+                        .bearing(bearing)
+                        .pitch(pitch)
+                        .build()
+                    
+                    mapView.getMapboxMap().setCamera(cameraOptions)
+                    hasEverInitialized = true
+                } else if (savedCameraState != null) {
+                    // Fallback to in-memory saved state
+                    Log.d(TAG, "Restoring in-memory camera position")
                     savedCameraState?.let { state ->
-                        Log.d(TAG, "Restoring saved camera position")
                         val cameraOptions = CameraOptions.Builder()
                             .center(state.center)
                             .zoom(state.zoom)
@@ -525,18 +588,17 @@ class HomeFragment : Fragment() {
                 currentLocation = it
                 updateLocationUI(it)
                 
-                // Always center on user location on initial app launch
-                // Only skip centering if we've already initialized AND have saved state
-                if (!hasInitializedCamera) {
-                    Log.d(TAG, "Initial camera setup - moving to current location")
+                // Only center on location if this is the very first time ever
+                // Check SharedPreferences to see if we have any saved camera state
+                val prefs = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                val hasSavedCamera = prefs.getBoolean(KEY_HAS_SAVED_CAMERA, false)
+                
+                if (!hasSavedCamera && !hasEverInitialized) {
+                    Log.d(TAG, "First time ever - centering on current location")
                     moveToLocation(it.latitude, it.longitude, 15.0)
-                    hasInitializedCamera = true
-                } else if (savedCameraState != null) {
-                    Log.d(TAG, "Camera already initialized with saved state - not moving camera")
+                    hasEverInitialized = true
                 } else {
-                    // If somehow we've initialized but have no saved state, still move to location
-                    Log.d(TAG, "Camera initialized but no saved state - moving to current location")
-                    moveToLocation(it.latitude, it.longitude, 15.0)
+                    Log.d(TAG, "Using saved camera position - not centering on location")
                 }
                 
                 updateLocationPulse(it)
@@ -755,6 +817,7 @@ class HomeFragment : Fragment() {
     private fun saveCameraState() {
         try {
             savedCameraState = mapView.getMapboxMap().cameraState
+            persistCameraState() // Also persist to SharedPreferences
             Log.d(TAG, "Camera state saved: center=${savedCameraState?.center}, zoom=${savedCameraState?.zoom}")
         } catch (e: Exception) {
             Log.e(TAG, "Error saving camera state", e)
