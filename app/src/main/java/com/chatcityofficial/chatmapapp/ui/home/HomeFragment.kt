@@ -16,6 +16,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
@@ -74,8 +75,8 @@ class HomeFragment : Fragment() {
     private lateinit var locationIcon: ImageView
     private lateinit var locationContainer: LinearLayout
     
-    // Click interceptor view
-    private lateinit var mapClickInterceptor: View
+    // Root view for touch interception
+    private lateinit var rootView: View
     
     // Places API
     private lateinit var placesClient: PlacesClient
@@ -129,6 +130,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+        rootView = view
         
         // Load persisted camera state from SharedPreferences
         loadPersistedCameraState()
@@ -148,15 +150,35 @@ class HomeFragment : Fragment() {
         locationIcon = view.findViewById(R.id.locationIcon)
         locationContainer = view.findViewById(R.id.locationContainer)
         
-        // Initialize the click interceptor view from the layout
-        mapClickInterceptor = view.findViewById(R.id.mapClickInterceptor)
-        
-        // Set up the click interceptor
-        mapClickInterceptor.setOnClickListener {
-            Log.d(TAG, "Map click interceptor clicked! isSearchVisible: $isSearchVisible")
-            if (isSearchVisible) {
-                hideSearchView()
+        // CRITICAL FIX: Set up touch interception on the MapView directly
+        mapView.setOnTouchListener { _, event ->
+            if (event.action == MotionEvent.ACTION_DOWN && isSearchVisible) {
+                // Check if the touch is outside the search UI elements
+                val searchContainerLocation = IntArray(2)
+                val searchResultsLocation = IntArray(2)
+                searchContainer.getLocationOnScreen(searchContainerLocation)
+                searchResultsRecyclerView.getLocationOnScreen(searchResultsLocation)
+                
+                val touchX = event.rawX.toInt()
+                val touchY = event.rawY.toInt()
+                
+                // Check if touch is NOT on search container
+                val notOnSearchContainer = searchContainer.visibility != View.VISIBLE || 
+                    touchY < searchContainerLocation[1] || 
+                    touchY > searchContainerLocation[1] + searchContainer.height
+                
+                // Check if touch is NOT on search results
+                val notOnSearchResults = searchResultsRecyclerView.visibility != View.VISIBLE ||
+                    touchY < searchResultsLocation[1] ||
+                    touchY > searchResultsLocation[1] + searchResultsRecyclerView.height
+                
+                if (notOnSearchContainer && notOnSearchResults) {
+                    Log.d(TAG, "Touch detected outside search UI - closing search")
+                    hideSearchView()
+                    return@setOnTouchListener true // Consume the touch
+                }
             }
+            false // Don't consume touch if search is not visible or touch is on search UI
         }
         
         // Initialize location services
@@ -198,7 +220,7 @@ class HomeFragment : Fragment() {
             val bearing = prefs.getFloat(KEY_CAMERA_BEARING, 0f).toDouble()
             val pitch = prefs.getFloat(KEY_CAMERA_PITCH, 0f).toDouble()
             
-            savedCameraState = null // Will be set properly when map loads
+            savedCameraState = null
             hasEverInitialized = true
             
             Log.d(TAG, "Loaded persisted camera state: lat=$lat, lng=$lng, zoom=$zoom")
@@ -291,11 +313,7 @@ class HomeFragment : Fragment() {
         if (isSearchVisible) return
         isSearchVisible = true
         
-        Log.d(TAG, "Showing search view - activating click interceptor")
-        
-        // CRITICAL: Show the interceptor BEFORE animating anything
-        mapClickInterceptor.visibility = View.VISIBLE
-        mapClickInterceptor.isClickable = true
+        Log.d(TAG, "SEARCH VIEW OPENING - Touch interception ACTIVE")
         
         // Create new session token for billing
         sessionToken = AutocompleteSessionToken.newInstance()
@@ -334,11 +352,7 @@ class HomeFragment : Fragment() {
         if (!isSearchVisible) return
         isSearchVisible = false
         
-        Log.d(TAG, "Hiding search view - deactivating click interceptor")
-        
-        // CRITICAL: Hide the interceptor
-        mapClickInterceptor.visibility = View.GONE
-        mapClickInterceptor.isClickable = false
+        Log.d(TAG, "SEARCH VIEW CLOSING - Touch interception INACTIVE")
         
         // Hide keyboard
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
