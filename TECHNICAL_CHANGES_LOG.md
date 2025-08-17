@@ -4,6 +4,7 @@
 This file serves as a permanent record of all technical changes made to the Chat City Official project. 
 **IMPORTANT**: This is an append-only log. Never delete or modify existing entries. Only add new entries at the bottom.
 **CRITICAL**: Every time changes are made, update this log with those changes.
+**NOTE FOR AI/ASSISTANTS**: When updating this file, make changes directly without displaying the full file content in the conversation thread to keep discussions focused and clean.
 
 ---
 
