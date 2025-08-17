@@ -748,6 +748,60 @@ if (hasSavedCamera) {
 **Related Issues/PRs**: N/A
 ---
 
+### 2025-08-17 17:43 - Claude/Assistant
+**Category**: Bug Fix
+**Files Modified**: app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt
+**Description**: Fixed map tap to close search functionality by properly implementing Mapbox gestures plugin
+**Technical Details**: 
+**Issue**: Map tap to close search was not working despite being documented as implemented. The previous implementation used `setOnTouchListener` which doesn't properly integrate with Mapbox's gesture system.
+
+**Solution Implemented**:
+- Removed the problematic `setOnTouchListener` implementation that was intercepting touch events
+- Properly implemented `mapView.gestures.addOnMapClickListener` using Mapbox SDK v10's gestures plugin
+- Added the necessary import: `com.mapbox.maps.plugin.gestures.addOnMapClickListener`
+- The click listener is added in two places to ensure it persists:
+  1. In `initializeMap()` after the map style loads
+  2. In `updateMapThemeBasedOnTime()` after theme changes (to re-attach the listener)
+
+**Code Implementation**:
+```kotlin
+// CRITICAL FIX: Add map click listener using the gestures plugin
+mapView.gestures.addOnMapClickListener { point ->
+    if (isSearchVisible) {
+        Log.d(TAG, "Map clicked while search is visible - closing search")
+        hideSearchView()
+        true // Consume the click event
+    } else {
+        false // Let other click handlers process it
+    }
+}
+```
+
+**Why Previous Implementation Failed**:
+- `setOnTouchListener` intercepts raw touch events before Mapbox processes them
+- This approach conflicts with Mapbox's internal gesture handling
+- The gestures plugin provides the proper API for map interactions in SDK v10
+
+**Breaking Changes**: No
+**Testing Notes**: 
+1. **Map Tap to Close Search**:
+   - Open search by tapping the location icon
+   - Tap anywhere on the map (not on search UI)
+   - Verify search closes immediately
+   - Verify default UI (logo, location text) fades back in
+2. **Search UI Still Works**:
+   - Open search and interact with search bar and results
+   - Verify you can still type and select results normally
+3. **Theme Changes**:
+   - Open search, wait for theme change (or trigger manually)
+   - After theme changes, verify map tap still closes search
+4. **Multiple Scenarios**:
+   - Test with keyboard open and closed
+   - Test after selecting a place
+   - Test after clearing search text
+**Related Issues/PRs**: User reported issue with map tap not closing search
+---
+
 ## Notes Section
 
 ### Important Reminders
