@@ -49,6 +49,7 @@ import com.mapbox.maps.plugin.annotation.annotations
 import com.mapbox.maps.plugin.annotation.generated.*
 import com.mapbox.maps.plugin.attribution.attribution
 import com.mapbox.maps.plugin.gestures.gestures
+import com.mapbox.maps.plugin.gestures.addOnMapClickListener
 import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.plugin.logo.logo
 import com.mapbox.maps.plugin.scalebar.scalebar
@@ -149,37 +150,6 @@ class HomeFragment : Fragment() {
         searchResultsRecyclerView = view.findViewById(R.id.searchResultsRecyclerView)
         locationIcon = view.findViewById(R.id.locationIcon)
         locationContainer = view.findViewById(R.id.locationContainer)
-        
-        // CRITICAL FIX: Set up touch interception on the MapView directly
-        mapView.setOnTouchListener { _, event ->
-            if (event.action == MotionEvent.ACTION_DOWN && isSearchVisible) {
-                // Check if the touch is outside the search UI elements
-                val searchContainerLocation = IntArray(2)
-                val searchResultsLocation = IntArray(2)
-                searchContainer.getLocationOnScreen(searchContainerLocation)
-                searchResultsRecyclerView.getLocationOnScreen(searchResultsLocation)
-                
-                val touchX = event.rawX.toInt()
-                val touchY = event.rawY.toInt()
-                
-                // Check if touch is NOT on search container
-                val notOnSearchContainer = searchContainer.visibility != View.VISIBLE || 
-                    touchY < searchContainerLocation[1] || 
-                    touchY > searchContainerLocation[1] + searchContainer.height
-                
-                // Check if touch is NOT on search results
-                val notOnSearchResults = searchResultsRecyclerView.visibility != View.VISIBLE ||
-                    touchY < searchResultsLocation[1] ||
-                    touchY > searchResultsLocation[1] + searchResultsRecyclerView.height
-                
-                if (notOnSearchContainer && notOnSearchResults) {
-                    Log.d(TAG, "Touch detected outside search UI - closing search")
-                    hideSearchView()
-                    return@setOnTouchListener true // Consume the touch
-                }
-            }
-            false // Don't consume touch if search is not visible or touch is on search UI
-        }
         
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -313,7 +283,7 @@ class HomeFragment : Fragment() {
         if (isSearchVisible) return
         isSearchVisible = true
         
-        Log.d(TAG, "SEARCH VIEW OPENING - Touch interception ACTIVE")
+        Log.d(TAG, "SEARCH VIEW OPENING - Map click listener will be active")
         
         // Create new session token for billing
         sessionToken = AutocompleteSessionToken.newInstance()
@@ -352,7 +322,7 @@ class HomeFragment : Fragment() {
         if (!isSearchVisible) return
         isSearchVisible = false
         
-        Log.d(TAG, "SEARCH VIEW CLOSING - Touch interception INACTIVE")
+        Log.d(TAG, "SEARCH VIEW CLOSING")
         
         // Hide keyboard
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -533,6 +503,17 @@ class HomeFragment : Fragment() {
                 mapView.gestures.pinchToZoomEnabled = true
                 mapView.gestures.scrollEnabled = true
                 
+                // CRITICAL FIX: Add map click listener using the gestures plugin
+                mapView.gestures.addOnMapClickListener { point ->
+                    if (isSearchVisible) {
+                        Log.d(TAG, "Map clicked while search is visible - closing search")
+                        hideSearchView()
+                        true // Consume the click event
+                    } else {
+                        false // Let other click handlers process it
+                    }
+                }
+                
                 // Initialize annotation managers
                 initializeAnnotationManager()
                 
@@ -689,6 +670,17 @@ class HomeFragment : Fragment() {
                 mapView.logo.enabled = false
                 mapView.attribution.enabled = false
                 mapView.scalebar.enabled = false
+                
+                // Re-add map click listener after style change
+                mapView.gestures.addOnMapClickListener { point ->
+                    if (isSearchVisible) {
+                        Log.d(TAG, "Map clicked while search is visible - closing search")
+                        hideSearchView()
+                        true // Consume the click event
+                    } else {
+                        false // Let other click handlers process it
+                    }
+                }
                 
                 initializeAnnotationManager()
                 
