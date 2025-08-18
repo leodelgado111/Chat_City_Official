@@ -130,6 +130,7 @@ id locationContainer
 id locationIcon
 id locationText
 id logoImageView
+id mapClickInterceptor
 id mapView
 id messageContainer
 id messageInput

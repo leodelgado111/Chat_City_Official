@@ -4148,6 +4148,7 @@ id location_puck_3_d
 id logoImageView
 id ltr
 id m3_side_sheet
+id mapClickInterceptor
 id mapView
 id marquee
 id masked

@@ -40,6 +40,9 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final ImageView logoImageView;
 
   @NonNull
+  public final View mapClickInterceptor;
+
+  @NonNull
   public final MapView mapView;
 
   @NonNull
@@ -60,7 +63,7 @@ public final class FragmentHomeBinding implements ViewBinding {
   private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
       @NonNull LinearLayout defaultViewContainer, @NonNull LinearLayout locationContainer,
       @NonNull ImageView locationIcon, @NonNull TextView locationText,
-      @NonNull ImageView logoImageView, @NonNull MapView mapView,
+      @NonNull ImageView logoImageView, @NonNull View mapClickInterceptor, @NonNull MapView mapView,
       @NonNull ImageView searchBackButton, @NonNull ImageView searchClearButton,
       @NonNull LinearLayout searchContainer, @NonNull EditText searchEditText,
       @NonNull RecyclerView searchResultsRecyclerView) {
@@ -70,6 +73,7 @@ public final class FragmentHomeBinding implements ViewBinding {
     this.locationIcon = locationIcon;
     this.locationText = locationText;
     this.logoImageView = logoImageView;
+    this.mapClickInterceptor = mapClickInterceptor;
     this.mapView = mapView;
     this.searchBackButton = searchBackButton;
     this.searchClearButton = searchClearButton;
@@ -135,6 +139,12 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.mapClickInterceptor;
+      View mapClickInterceptor = ViewBindings.findChildViewById(rootView, id);
+      if (mapClickInterceptor == null) {
+        break missingId;
+      }
+
       id = R.id.mapView;
       MapView mapView = ViewBindings.findChildViewById(rootView, id);
       if (mapView == null) {
@@ -172,8 +182,9 @@ public final class FragmentHomeBinding implements ViewBinding {
       }
 
       return new FragmentHomeBinding((ConstraintLayout) rootView, defaultViewContainer,
-          locationContainer, locationIcon, locationText, logoImageView, mapView, searchBackButton,
-          searchClearButton, searchContainer, searchEditText, searchResultsRecyclerView);
+          locationContainer, locationIcon, locationText, logoImageView, mapClickInterceptor,
+          mapView, searchBackButton, searchClearButton, searchContainer, searchEditText,
+          searchResultsRecyclerView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
