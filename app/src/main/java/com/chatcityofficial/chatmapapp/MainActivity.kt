@@ -18,6 +18,8 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
 import androidx.navigation.findNavController
 import androidx.activity.OnBackPressedCallback
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 
 class MainActivity : AppCompatActivity() {
 
@@ -90,6 +92,21 @@ class MainActivity : AppCompatActivity() {
             setOutlinePosition(currentOutlinePosition)
         }
         
+        // Add navigation destination change listener to track current screen
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            // Update current destination when navigation changes
+            when (destination.id) {
+                R.id.navigation_saved,
+                R.id.navigation_home,
+                R.id.navigation_chats,
+                R.id.navigation_profile -> {
+                    currentDestinationId = destination.id
+                    // Update outline position when destination changes
+                    animateOutlineToPosition(destination.id)
+                }
+            }
+        }
+        
         // Setup back button behavior
         setupBackButtonBehavior()
         
@@ -112,31 +129,48 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 
-                // Try to pop the back stack first (for any nested navigation)
-                if (!navController.popBackStack()) {
-                    // No more back stack, we're at a root destination
-                    if (currentDestinationId == R.id.navigation_home) {
-                        // We're on home screen, minimize the app
-                        moveTaskToBack(true)
-                    } else {
-                        // We're on another root tab, go to home
-                        navigateToDestination(R.id.navigation_home)
-                        animateOutlineToPosition(R.id.navigation_home)
+                // Check if we can pop the back stack (for nested navigation)
+                val popped = navController.popBackStack()
+                
+                if (!popped) {
+                    // We're at a root destination (no back stack to pop)
+                    when (currentDestinationId) {
+                        R.id.navigation_home -> {
+                            // We're on home screen, minimize the app
+                            moveTaskToBack(true)
+                        }
+                        R.id.navigation_saved,
+                        R.id.navigation_chats,
+                        R.id.navigation_profile -> {
+                            // Navigate back to home from other root destinations
+                            navigateToHome()
+                        }
                     }
                 }
+                // If popped is true, the navigation controller handled it and will update the destination
             }
         })
+    }
+    
+    private fun navigateToHome() {
+        // Navigate to home and clear any back stack
+        navController.navigate(R.id.navigation_home) {
+            popUpTo(navController.graph.startDestinationId) {
+                inclusive = false
+            }
+            launchSingleTop = true
+        }
+        currentDestinationId = R.id.navigation_home
+        animateOutlineToPosition(R.id.navigation_home)
     }
     
     private fun setupNavigationButtons() {
         findViewById<View>(R.id.btn_saved).setOnClickListener {
             navigateToDestination(R.id.navigation_saved)
-            animateOutlineToPosition(R.id.navigation_saved)
         }
         
         findViewById<View>(R.id.btn_home).setOnClickListener {
             navigateToDestination(R.id.navigation_home)
-            animateOutlineToPosition(R.id.navigation_home)
         }
         
         findViewById<View>(R.id.btn_create).setOnClickListener {
@@ -146,21 +180,32 @@ class MainActivity : AppCompatActivity() {
         
         findViewById<View>(R.id.btn_chats).setOnClickListener {
             navigateToDestination(R.id.navigation_chats)
-            animateOutlineToPosition(R.id.navigation_chats)
         }
         
         findViewById<View>(R.id.btn_profile).setOnClickListener {
             navigateToDestination(R.id.navigation_profile)
-            animateOutlineToPosition(R.id.navigation_profile)
         }
     }
     
     private fun navigateToDestination(destinationId: Int) {
         try {
-            // Clear back stack when navigating to a new root destination
-            navController.popBackStack(destinationId, false)
-            navController.navigate(destinationId)
-            currentDestinationId = destinationId
+            // Only navigate if we're not already at this destination
+            if (currentDestinationId != destinationId) {
+                // Use navigate with options to ensure proper navigation
+                navController.navigate(destinationId) {
+                    // Pop up to the start destination but don't include it
+                    popUpTo(navController.graph.startDestinationId) {
+                        inclusive = false
+                        saveState = true
+                    }
+                    // Avoid multiple copies of the same destination
+                    launchSingleTop = true
+                    // Restore state when navigating back to a destination
+                    restoreState = true
+                }
+                currentDestinationId = destinationId
+                animateOutlineToPosition(destinationId)
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -168,6 +213,9 @@ class MainActivity : AppCompatActivity() {
     
     private fun animateOutlineToPosition(destinationId: Int) {
         val targetPosition = iconPositions[destinationId] ?: return
+        
+        // Only animate if we're actually moving to a different position
+        if (currentOutlinePosition == targetPosition) return
         
         // Animate with proper dp to pixel conversion
         ValueAnimator.ofFloat(currentOutlinePosition, targetPosition).apply {
