@@ -20,6 +20,7 @@ import androidx.navigation.findNavController
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
+import androidx.navigation.NavOptions
 
 class MainActivity : AppCompatActivity() {
 
@@ -153,13 +154,13 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun navigateToHome() {
-        // Navigate to home and clear any back stack
-        navController.navigate(R.id.navigation_home) {
-            popUpTo(navController.graph.startDestinationId) {
-                inclusive = false
-            }
-            launchSingleTop = true
-        }
+        // Navigate to home and clear any back stack using NavOptions
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(navController.graph.startDestinationId, false)
+            .setLaunchSingleTop(true)
+            .build()
+            
+        navController.navigate(R.id.navigation_home, null, navOptions)
         currentDestinationId = R.id.navigation_home
         animateOutlineToPosition(R.id.navigation_home)
     }
@@ -191,18 +192,14 @@ class MainActivity : AppCompatActivity() {
         try {
             // Only navigate if we're not already at this destination
             if (currentDestinationId != destinationId) {
-                // Use navigate with options to ensure proper navigation
-                navController.navigate(destinationId) {
-                    // Pop up to the start destination but don't include it
-                    popUpTo(navController.graph.startDestinationId) {
-                        inclusive = false
-                        saveState = true
-                    }
-                    // Avoid multiple copies of the same destination
-                    launchSingleTop = true
-                    // Restore state when navigating back to a destination
-                    restoreState = true
-                }
+                // Use NavOptions builder for proper navigation
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(navController.graph.startDestinationId, false, true)
+                    .setLaunchSingleTop(true)
+                    .setRestoreState(true)
+                    .build()
+                
+                navController.navigate(destinationId, null, navOptions)
                 currentDestinationId = destinationId
                 animateOutlineToPosition(destinationId)
             }
