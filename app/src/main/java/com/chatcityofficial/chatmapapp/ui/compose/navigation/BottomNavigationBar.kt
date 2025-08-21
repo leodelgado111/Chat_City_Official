@@ -1,5 +1,7 @@
 package com.chatcityofficial.chatmapapp.ui.compose.navigation
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -109,13 +111,35 @@ fun BottomNavigationBar(
         )
         
         // Layer 4: Outline that moves to selected tab (except CREATE)
-        val outlineXPosition = when (selectedTab) {
+        // Remember the last non-CREATE tab
+        var lastNonCreateTab by remember { mutableStateOf(NavigationTab.SAVED) }
+        
+        // Update lastNonCreateTab immediately when a non-CREATE tab is selected
+        if (selectedTab != NavigationTab.CREATE) {
+            lastNonCreateTab = selectedTab
+        }
+        
+        // Use either the current tab or the last non-CREATE tab for outline position
+        val outlineTab = if (selectedTab == NavigationTab.CREATE) {
+            lastNonCreateTab
+        } else {
+            selectedTab
+        }
+        
+        val targetXPosition = when (outlineTab) {
             NavigationTab.SAVED -> 43.dp - 37.dp    // 43dp is center of saved icon
             NavigationTab.HOME -> 105.dp - 37.dp    // 105dp is center of home icon
-            NavigationTab.CREATE -> 43.dp - 37.dp   // Default to saved position when create is selected
+            NavigationTab.CREATE -> 43.dp - 37.dp   // Should never happen, but default to saved
             NavigationTab.CHATS -> 229.dp - 37.dp   // 229dp is center of chats icon
             NavigationTab.PROFILE -> 291.dp - 37.dp // 291dp is center of profile icon
         }
+        
+        // Animate the X position with a smooth transition
+        val animatedXPosition by animateDpAsState(
+            targetValue = targetXPosition,
+            animationSpec = tween(durationMillis = 100),
+            label = "outline_animation"
+        )
         
         Box(
             modifier = Modifier
@@ -125,7 +149,7 @@ fun BottomNavigationBar(
             Box(
                 modifier = Modifier
                     .size(74.dp, 56.dp)
-                    .offset(x = outlineXPosition, y = 6.dp),
+                    .offset(x = animatedXPosition, y = 6.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -313,7 +337,7 @@ private val CreateIcon: ImageVector
         }
     }.build()
 
-// Chats icon vector (two overlapping chat bubbles)
+// Chats icon vector (two overlapping chat bubbles - updated version)
 private val ChatsIcon: ImageVector
     get() = ImageVector.Builder(
         name = "chats",
@@ -322,6 +346,7 @@ private val ChatsIcon: ImageVector
         viewportWidth = 24f,
         viewportHeight = 24f
     ).apply {
+        // First chat bubble with tail
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
@@ -329,32 +354,51 @@ private val ChatsIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            // First chat bubble
-            moveTo(3f, 15f)
+            moveTo(17f, 11f)
+            curveTo(17f, 11.5304f, 16.7893f, 12.0391f, 16.4142f, 12.4142f)
+            curveTo(16.0391f, 12.7893f, 15.5304f, 13f, 15f, 13f)
+            lineTo(7.828f, 13f)
+            curveTo(7.29761f, 13.0001f, 6.78899f, 13.2109f, 6.414f, 13.586f)
+            lineTo(4.212f, 15.788f)
+            curveTo(4.1127f, 15.8873f, 3.9862f, 15.9549f, 3.84849f, 15.9823f)
+            curveTo(3.71077f, 16.0097f, 3.56803f, 15.9956f, 3.43831f, 15.9419f)
+            curveTo(3.30858f, 15.8881f, 3.1977f, 15.7971f, 3.11969f, 15.6804f)
+            curveTo(3.04167f, 15.5637f, 3.00002f, 15.4264f, 3f, 15.286f)
             lineTo(3f, 5f)
-            arcTo(2f, 2f, 0f, false, true, 5f, 3f)
+            curveTo(3f, 4.46957f, 3.21071f, 3.96086f, 3.58579f, 3.58579f)
+            curveTo(3.96086f, 3.21071f, 4.46957f, 3f, 5f, 3f)
             lineTo(15f, 3f)
-            arcTo(2f, 2f, 0f, false, true, 17f, 5f)
+            curveTo(15.5304f, 3f, 16.0391f, 3.21071f, 16.4142f, 3.58579f)
+            curveTo(16.7893f, 3.96086f, 17f, 4.46957f, 17f, 5f)
             lineTo(17f, 11f)
-            arcTo(2f, 2f, 0f, false, true, 15f, 13f)
-            lineTo(8f, 13f)
-            lineTo(3f, 16f)
-            lineTo(3f, 15f)
             close()
-            // Second chat bubble
-            moveTo(8f, 16f)
+        }
+        // Second chat bubble with tail
+        path(
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 2f,
+            strokeLineCap = StrokeCap.Round,
+            strokeLineJoin = StrokeJoin.Round,
+            fill = null
+        ) {
+            moveTo(18f, 7f)
+            curveTo(18.5304f, 7f, 19.0391f, 7.21071f, 19.4142f, 7.58579f)
+            curveTo(19.7893f, 7.96086f, 20f, 8.46957f, 20f, 9f)
+            lineTo(20f, 19.286f)
+            curveTo(20f, 19.4264f, 19.9583f, 19.5637f, 19.8803f, 19.6804f)
+            curveTo(19.8023f, 19.7971f, 19.6914f, 19.8881f, 19.5617f, 19.9419f)
+            curveTo(19.432f, 19.9956f, 19.2892f, 20.0097f, 19.1515f, 19.9823f)
+            curveTo(19.0138f, 19.9549f, 18.8873f, 19.8873f, 18.788f, 19.788f)
+            lineTo(16.586f, 17.586f)
+            curveTo(16.211f, 17.2109f, 15.7024f, 17.0001f, 15.172f, 17f)
             lineTo(8f, 17f)
-            arcTo(2f, 2f, 0f, false, false, 10f, 19f)
-            lineTo(17f, 19f)
-            lineTo(22f, 22f)
-            lineTo(22f, 21f)
-            lineTo(22f, 11f)
-            arcTo(2f, 2f, 0f, false, false, 20f, 9f)
-            lineTo(20f, 9f)
+            curveTo(7.46957f, 17f, 6.96086f, 16.7893f, 6.58579f, 16.4142f)
+            curveTo(6.21071f, 16.0391f, 6f, 15.5304f, 6f, 15f)
+            lineTo(6f, 14f)
         }
     }.build()
 
-// Profile icon vector
+// Profile icon vector (updated with profile_icon_5)
 private val ProfileIcon: ImageVector
     get() = ImageVector.Builder(
         name = "profile",
@@ -363,6 +407,10 @@ private val ProfileIcon: ImageVector
         viewportWidth = 24f,
         viewportHeight = 24f
     ).apply {
+        // Note: Original SVG is 16x21, centering it in 24x24 viewport
+        // Offset: x by 4 (to center 16 in 24), y by 1.5 (to center 21 in 24)
+        
+        // Head circle
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
@@ -370,18 +418,31 @@ private val ProfileIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            // Head circle
-            moveTo(16f, 6f)
-            arcTo(4f, 4f, 0f, true, true, 8f, 6f)
-            arcTo(4f, 4f, 0f, true, true, 16f, 6f)
+            moveTo(12f, 10.5f)  // 8 + 4 = 12, 9 + 1.5 = 10.5
+            curveTo(14.2091f, 10.5f, 16f, 8.70914f, 16f, 6.5f)  // 5 + 1.5 = 6.5
+            curveTo(16f, 4.29086f, 14.2091f, 2.5f, 12f, 2.5f)  // 1 + 1.5 = 2.5
+            curveTo(9.79086f, 2.5f, 8f, 4.29086f, 8f, 6.5f)
+            curveTo(8f, 8.70914f, 9.79086f, 10.5f, 12f, 10.5f)
             close()
-            // Body/shoulders
-            moveTo(5f, 21f)
-            lineTo(5f, 19f)
-            arcTo(4f, 4f, 0f, false, true, 9f, 15f)
-            lineTo(15f, 15f)
-            arcTo(4f, 4f, 0f, false, true, 19f, 19f)
-            lineTo(19f, 21f)
+        }
+        // Body/shoulders path
+        path(
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 2f,
+            strokeLineCap = StrokeCap.Round,
+            strokeLineJoin = StrokeJoin.Round,
+            fill = null
+        ) {
+            moveTo(9f, 14.5f)  // 5 + 4 = 9, 13 + 1.5 = 14.5
+            lineTo(15f, 14.5f)  // 11 + 4 = 15
+            curveTo(17.2091f, 14.5f, 19f, 16.2909f, 19f, 18.5f)  // 15 + 4 = 19, 17 + 1.5 = 18.5
+            lineTo(19f, 19.5f)  // 18 + 1.5 = 19.5
+            curveTo(19f, 20.6046f, 18.1046f, 21.5f, 17f, 21.5f)  // 13 + 4 = 17, 20 + 1.5 = 21.5
+            lineTo(7f, 21.5f)  // 3 + 4 = 7
+            curveTo(5.89543f, 21.5f, 5f, 20.6046f, 5f, 19.5f)  // 1 + 4 = 5
+            lineTo(5f, 18.5f)
+            curveTo(5f, 16.2909f, 6.79086f, 14.5f, 9f, 14.5f)
+            close()
         }
     }.build()
 
