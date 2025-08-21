@@ -1098,6 +1098,146 @@
           "code": "// ChatsComposeActivity: Use startActivityForResult\nstartActivityForResult(intent, CHAT_ACTIVITY_REQUEST_CODE)\n\n// ChatComposeActivity: Set result before finishing\nsetResult(RESULT_OK)\nsuper.onBackPressed()"
         }
       ]
+    },
+    {
+      "id": 27,
+      "date": "2025-08-21",
+      "time": "01:00",
+      "author": "Claude/Assistant",
+      "category": "Performance/Bug Fix",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt",
+        "app/src/main/res/layout/activity_main.xml"
+      ],
+      "description": "Fixed navigation lag by keeping fragments alive in memory instead of recreating them",
+      "technical_details": {
+        "issue": "User reported lag when selecting the home icon in navigation, caused by fragment recreation on each navigation",
+        "solution": [
+          "Replaced NavHostFragment with FrameLayout container for manual fragment management",
+          "Created persistent fragment instances (homeFragment, savedFragment, profileFragment)",
+          "Implemented hide/show pattern instead of replace for fragment transactions",
+          "Added initializeFragments() to create and add all fragments once at startup",
+          "Modified navigateToFragment() to hide current and show target fragment"
+        ],
+        "implementation": [
+          "Removed Navigation Component dependency from activity_main.xml",
+          "Added fragment state tracking with activeFragment variable",
+          "Fragments added to container once and reused throughout app lifecycle",
+          "Animation transitions preserved using setCustomAnimations()"
+        ],
+        "performance_impact": "Eliminated fragment recreation overhead, resulting in instant navigation between screens"
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Navigate rapidly between tabs - should be instant",
+        "Verify fragments maintain their state when switching",
+        "Check that animations still work correctly"
+      ],
+      "related_issues": "User reported: 'why is there a lag when selecting the home icon?'",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Hide current fragment, show target fragment\nactiveFragment?.let { transaction.hide(it) }\ntransaction.show(newFragment)\ntransaction.commit()"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "date": "2025-08-21",
+      "time": "01:15",
+      "author": "Claude/Assistant",
+      "category": "Bug Fix",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt"
+      ],
+      "description": "Fixed issue where map was showing on all screens instead of just home",
+      "technical_details": {
+        "issue": "Map was visible on every screen (saved, profile) instead of being confined to home screen",
+        "root_cause": "Fragments were all being shown simultaneously without proper hiding",
+        "solution": [
+          "Added proper fragment visibility management in initializeFragments()",
+          "Initially hide savedFragment and profileFragment after adding them",
+          "Only homeFragment starts visible",
+          "Each navigation properly hides previous and shows new fragment"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Navigate to saved/profile screens",
+        "Verify map only shows on home screen",
+        "Check that each screen displays its own content properly"
+      ],
+      "related_issues": "User reported: 'it seems the map is persistent on every screen, rather than only showing on the home screen'",
+      "code_snippets": null
+    },
+    {
+      "id": 29,
+      "date": "2025-08-21",
+      "time": "01:30",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/res/layout/fragment_home.xml"
+      ],
+      "description": "Fixed Chat City logo vertical alignment with location container",
+      "technical_details": {
+        "adjustments": [
+          "Initially added 5dp top margin to push logo down for better visual alignment",
+          "Later removed the 5dp margin for cleaner alignment",
+          "Finally added 2dp top margin per user request for fine-tuned positioning",
+          "Removed unnecessary FrameLayout wrapper from location container"
+        ],
+        "final_state": [
+          "Logo wrapped in FrameLayout with 46dp height",
+          "Logo ImageView has 2dp top margin for slight downward offset",
+          "Location container is 36dp height with center_vertical gravity",
+          "Both elements properly aligned within horizontal LinearLayout"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify Chat City logo aligns visually with location container",
+        "Check alignment remains consistent across different screen sizes"
+      ],
+      "related_issues": "User reported: 'right now it looks like the chat city logo is still not aligned vertically with the location container'",
+      "code_snippets": null
+    },
+    {
+      "id": 30,
+      "date": "2025-08-21",
+      "time": "01:40",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/res/layout/activity_main.xml",
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/navigation/BottomNavigationBar.kt",
+        "app/src/main/res/layout/fragment_profile.xml"
+      ],
+      "description": "Attempted to add drop shadow to navigation bar, ultimately using Android native elevation",
+      "technical_details": {
+        "attempts": [
+          "First increased elevation from 12dp to 24dp",
+          "Made profile page white background to better see shadow effect",
+          "User reported no visible drop shadow",
+          "Attempted custom Compose drop shadow with drawBehind - looked terrible per user",
+          "Removed custom shadow code and increased native elevation to 32dp",
+          "Added android:outlineProvider=\"bounds\" to ensure proper shadow rendering"
+        ],
+        "final_implementation": [
+          "Using Android native elevation at 32dp",
+          "No custom shadow drawing code",
+          "Clean implementation relying on system shadow rendering",
+          "Profile page background set to white (#FFFFFF) for testing shadow visibility"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Navigate to profile page with white background",
+        "Check if navigation bar shadow is visible",
+        "Verify shadow appearance on different Android versions"
+      ],
+      "related_issues": "User requested: 'raise the bottom navigation bar to create a dropshadow'",
+      "code_snippets": null
     }
   ]
 }
