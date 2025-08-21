@@ -36,9 +36,6 @@ public final class ActivityChatModernBinding implements ViewBinding {
   public final EditText etMessage;
 
   @NonNull
-  public final View gradientBackground;
-
-  @NonNull
   public final ConstraintLayout header;
 
   @NonNull
@@ -55,8 +52,7 @@ public final class ActivityChatModernBinding implements ViewBinding {
 
   private ActivityChatModernBinding(@NonNull ConstraintLayout rootView,
       @NonNull ImageButton btnBack, @NonNull ImageButton btnDelete, @NonNull ImageButton btnSend,
-      @NonNull EditText etMessage, @NonNull View gradientBackground,
-      @NonNull ConstraintLayout header, @NonNull View headerDivider,
+      @NonNull EditText etMessage, @NonNull ConstraintLayout header, @NonNull View headerDivider,
       @NonNull LinearLayout inputLayout, @NonNull RecyclerView rvChatMessages,
       @NonNull TextView tvChatTitle) {
     this.rootView = rootView;
@@ -64,7 +60,6 @@ public final class ActivityChatModernBinding implements ViewBinding {
     this.btnDelete = btnDelete;
     this.btnSend = btnSend;
     this.etMessage = etMessage;
-    this.gradientBackground = gradientBackground;
     this.header = header;
     this.headerDivider = headerDivider;
     this.inputLayout = inputLayout;
@@ -123,12 +118,6 @@ public final class ActivityChatModernBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.gradientBackground;
-      View gradientBackground = ViewBindings.findChildViewById(rootView, id);
-      if (gradientBackground == null) {
-        break missingId;
-      }
-
       id = R.id.header;
       ConstraintLayout header = ViewBindings.findChildViewById(rootView, id);
       if (header == null) {
@@ -160,8 +149,7 @@ public final class ActivityChatModernBinding implements ViewBinding {
       }
 
       return new ActivityChatModernBinding((ConstraintLayout) rootView, btnBack, btnDelete, btnSend,
-          etMessage, gradientBackground, header, headerDivider, inputLayout, rvChatMessages,
-          tvChatTitle);
+          etMessage, header, headerDivider, inputLayout, rvChatMessages, tvChatTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- GPS Arrow/Triangle pointing northeast -->
+    <!-- Triangle path that forms an arrow pointing to upper-right (northeast) -->
+    <path
+        android:pathData="M7,17 L17,7 L17,17 Z"
+        android:fillColor="#000000" />
+    
+</vector>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Base black background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#000000" />
+        </shape>
+    </item>
+    
+    <!-- Very subtle gradient overlay with low opacity -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="sweep"
+                android:centerX="0.3"
+                android:centerY="0.2"
+                android:startColor="#1A97D4F0"
+                android:centerColor="#1A8D93D0"
+                android:endColor="#1AFB86BB"
+                android:angle="0" />
+        </shape>
+    </item>
+    
+</layer-list>

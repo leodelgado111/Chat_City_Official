@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.chatcityofficial.chatmapapp.R;
+import com.chatcityofficial.chatmapapp.ui.compose.components.ThemedLocationContainerView;
 import com.mapbox.maps.MapView;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -28,13 +28,7 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final LinearLayout defaultViewContainer;
 
   @NonNull
-  public final LinearLayout locationContainer;
-
-  @NonNull
-  public final ImageView locationIcon;
-
-  @NonNull
-  public final TextView locationText;
+  public final ThemedLocationContainerView locationContainer;
 
   @NonNull
   public final ImageView logoImageView;
@@ -61,17 +55,15 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final RecyclerView searchResultsRecyclerView;
 
   private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
-      @NonNull LinearLayout defaultViewContainer, @NonNull LinearLayout locationContainer,
-      @NonNull ImageView locationIcon, @NonNull TextView locationText,
-      @NonNull ImageView logoImageView, @NonNull View mapClickInterceptor, @NonNull MapView mapView,
+      @NonNull LinearLayout defaultViewContainer,
+      @NonNull ThemedLocationContainerView locationContainer, @NonNull ImageView logoImageView,
+      @NonNull View mapClickInterceptor, @NonNull MapView mapView,
       @NonNull ImageView searchBackButton, @NonNull ImageView searchClearButton,
       @NonNull LinearLayout searchContainer, @NonNull EditText searchEditText,
       @NonNull RecyclerView searchResultsRecyclerView) {
     this.rootView = rootView;
     this.defaultViewContainer = defaultViewContainer;
     this.locationContainer = locationContainer;
-    this.locationIcon = locationIcon;
-    this.locationText = locationText;
     this.logoImageView = logoImageView;
     this.mapClickInterceptor = mapClickInterceptor;
     this.mapView = mapView;
@@ -116,20 +108,8 @@ public final class FragmentHomeBinding implements ViewBinding {
       }
 
       id = R.id.locationContainer;
-      LinearLayout locationContainer = ViewBindings.findChildViewById(rootView, id);
+      ThemedLocationContainerView locationContainer = ViewBindings.findChildViewById(rootView, id);
       if (locationContainer == null) {
-        break missingId;
-      }
-
-      id = R.id.locationIcon;
-      ImageView locationIcon = ViewBindings.findChildViewById(rootView, id);
-      if (locationIcon == null) {
-        break missingId;
-      }
-
-      id = R.id.locationText;
-      TextView locationText = ViewBindings.findChildViewById(rootView, id);
-      if (locationText == null) {
         break missingId;
       }
 
@@ -182,9 +162,8 @@ public final class FragmentHomeBinding implements ViewBinding {
       }
 
       return new FragmentHomeBinding((ConstraintLayout) rootView, defaultViewContainer,
-          locationContainer, locationIcon, locationText, logoImageView, mapClickInterceptor,
-          mapView, searchBackButton, searchClearButton, searchContainer, searchEditText,
-          searchResultsRecyclerView);
+          locationContainer, logoImageView, mapClickInterceptor, mapView, searchBackButton,
+          searchClearButton, searchContainer, searchEditText, searchResultsRecyclerView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

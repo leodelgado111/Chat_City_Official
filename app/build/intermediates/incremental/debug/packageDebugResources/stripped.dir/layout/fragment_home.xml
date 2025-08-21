@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0D0D0D"
     tools:context=".ui.home.HomeFragment">
 
     <com.mapbox.maps.MapView
@@ -37,7 +38,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="80dp"
         android:paddingStart="16dp"
-        android:paddingEnd="28dp"
+        android:paddingEnd="16dp"
         android:gravity="center_vertical"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,47 +57,17 @@
             android:layout_height="1dp"
             android:layout_weight="1" />
 
-        <!-- Location Status Container with elevation (ENTIRE CONTAINER IS CLICKABLE) -->
-        <LinearLayout
-            android:id="@+id/locationContainer"
+        <!-- Themed Location Container matching navigation bar style -->
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/location_background"
-            android:paddingStart="12dp"
-            android:paddingEnd="16dp"
-            android:elevation="8dp"
-            android:outlineProvider="background"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground">
-
-            <!-- Location Icon (also clickable for redundancy) -->
-            <ImageView
-                android:id="@+id/locationIcon"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_location_pin"
-                android:tint="@color/black"
-                android:layout_marginEnd="6dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <!-- Location Text -->
-            <TextView
-                android:id="@+id/locationText"
+            android:layout_height="wrap_content">
+            
+            <com.chatcityofficial.chatmapapp.ui.compose.components.ThemedLocationContainerView
+                android:id="@+id/locationContainer"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Locating..."
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:maxWidth="120dp" />
-
-        </LinearLayout>
+                android:layout_height="36dp" />
+                
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -201,5 +172,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

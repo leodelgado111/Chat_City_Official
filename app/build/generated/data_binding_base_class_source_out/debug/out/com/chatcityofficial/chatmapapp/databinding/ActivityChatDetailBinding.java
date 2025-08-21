@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
@@ -33,6 +34,9 @@ public final class ActivityChatDetailBinding implements ViewBinding {
   public final RecyclerView messagesRecyclerView;
 
   @NonNull
+  public final TextView morphingText;
+
+  @NonNull
   public final ImageButton sendButton;
 
   @NonNull
@@ -40,12 +44,13 @@ public final class ActivityChatDetailBinding implements ViewBinding {
 
   private ActivityChatDetailBinding(@NonNull ConstraintLayout rootView,
       @NonNull LinearLayout inputLayout, @NonNull EditText messageInput,
-      @NonNull RecyclerView messagesRecyclerView, @NonNull ImageButton sendButton,
-      @NonNull Toolbar toolbar) {
+      @NonNull RecyclerView messagesRecyclerView, @NonNull TextView morphingText,
+      @NonNull ImageButton sendButton, @NonNull Toolbar toolbar) {
     this.rootView = rootView;
     this.inputLayout = inputLayout;
     this.messageInput = messageInput;
     this.messagesRecyclerView = messagesRecyclerView;
+    this.morphingText = morphingText;
     this.sendButton = sendButton;
     this.toolbar = toolbar;
   }
@@ -95,6 +100,12 @@ public final class ActivityChatDetailBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.morphingText;
+      TextView morphingText = ViewBindings.findChildViewById(rootView, id);
+      if (morphingText == null) {
+        break missingId;
+      }
+
       id = R.id.sendButton;
       ImageButton sendButton = ViewBindings.findChildViewById(rootView, id);
       if (sendButton == null) {
@@ -108,7 +119,7 @@ public final class ActivityChatDetailBinding implements ViewBinding {
       }
 
       return new ActivityChatDetailBinding((ConstraintLayout) rootView, inputLayout, messageInput,
-          messagesRecyclerView, sendButton, toolbar);
+          messagesRecyclerView, morphingText, sendButton, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

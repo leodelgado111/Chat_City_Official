@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="5d"
-                android:textColor="#80FFFFFF"
+                android:textColor="#66FFFFFF"
                 android:textSize="12sp" />
 
         </LinearLayout>

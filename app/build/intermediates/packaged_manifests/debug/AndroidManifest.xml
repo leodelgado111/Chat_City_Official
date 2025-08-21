@@ -95,6 +95,22 @@
             android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Chat Compose Activity -->
+        <activity
+            android:name="com.chatcityofficial.chatmapapp.ui.compose.chat.ChatComposeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Chats Compose Activity -->
+        <activity
+            android:name="com.chatcityofficial.chatmapapp.ui.compose.chats.ChatsComposeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -125,7 +141,13 @@
             android:label="@string/places_autocomplete_label"
             android:theme="@style/PlacesAutocompleteOverlay"
             android:windowSoftInputMode="adjustResize" >
-        </activity> <!-- Needs to be explicitly declared on P+ -->
+        </activity>
+        <activity
+            android:name="androidx.compose.ui.tooling.PreviewActivity"
+            android:exported="true" />
+        <activity
+            android:name="androidx.activity.ComponentActivity"
+            android:exported="true" /> <!-- Needs to be explicitly declared on P+ -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

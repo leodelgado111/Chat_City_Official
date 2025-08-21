@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background"
+    android:background="#0D0D0D"
     tools:context=".ui.chat.ChatDetailActivity">
 
     <!-- Toolbar -->
@@ -12,8 +12,12 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/white"
+        android:background="#0D0D0D"
         android:elevation="4dp"
+        app:titleTextColor="@android:color/white"
+        app:titleCentered="true"
+        app:navigationIconTint="@android:color/white"
+        android:layout_marginTop="15dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -35,7 +39,7 @@
         android:id="@+id/inputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="#0D0D0D"
         android:elevation="8dp"
         android:orientation="horizontal"
         android:padding="8dp"
@@ -54,8 +58,8 @@
             android:inputType="textMultiLine"
             android:maxLines="4"
             android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#80000000" />
+            android:textColor="@android:color/white"
+            android:textColorHint="#80FFFFFF" />
 
         <ImageButton
             android:id="@+id/sendButton"
@@ -67,5 +71,19 @@
             android:contentDescription="Send message" />
 
     </LinearLayout>
+
+    <!-- Morphing text view for animation -->
+    <TextView
+        android:id="@+id/morphingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_bubble_sent"
+        android:textColor="@android:color/black"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:visibility="gone"
+        android:elevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

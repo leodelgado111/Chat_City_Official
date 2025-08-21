@@ -4,22 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#0D0D0D"
     tools:context=".ChatActivity">
 
-    <!-- Gradient background overlay -->
-    <View
-        android:id="@+id/gradientBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_chat_background"
-        android:alpha="0.9" />
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:padding="16dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -66,7 +60,7 @@
         android:id="@+id/headerDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#66000000"
+        android:background="#2A2A2A"
         app:layout_constraintTop_toBottomOf="@id/header" />
 
     <!-- Chat Messages RecyclerView -->
@@ -87,7 +81,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="12dp"
-        android:background="#CC000000"
+        android:background="@android:color/transparent"
         android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent">
 

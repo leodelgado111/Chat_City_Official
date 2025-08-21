@@ -2,6 +2,7 @@ package com.chatcityofficial.chatmapapp
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
@@ -21,29 +22,30 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavOptions
+import com.chatcityofficial.chatmapapp.ui.compose.chats.ChatsComposeActivity
+import com.chatcityofficial.chatmapapp.ui.compose.navigation.ComposeBottomNavigationView
+import com.chatcityofficial.chatmapapp.ui.compose.navigation.NavigationTab
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: androidx.navigation.NavController
-    private lateinit var navSelectionOutline: ImageView
-    private lateinit var customNavBar: FrameLayout
-    private var currentOutlinePosition = 74.5f
+    private lateinit var composeNavBar: ComposeBottomNavigationView
     
     // Track the current destination
     private var currentDestinationId = R.id.navigation_home
+    private var previousDestinationId = R.id.navigation_home
     
-    // FINAL POSITIONS - Based on actual SVG icon positions
-    // Icons in SVG are at: 41, 103, 165, 227, 289
-    // Container is 334dp, gradient is 330dp centered (2dp offset)
-    // Outline is 57dp wide, needs 28.5dp offset to center
-    // Final formula: (icon_position_in_svg * scale_factor) + container_offset - outline_centering
-    // Scale factor = 1 (since we're using dp directly)
-    private val iconPositions = mapOf(
-        R.id.navigation_saved to 14.5f,    // 41 + 2 - 28.5 = 14.5
-        R.id.navigation_home to 76.5f,     // 103 + 2 - 28.5 = 76.5
-        R.id.navigation_create to 138.5f,  // 165 + 2 - 28.5 = 138.5
-        R.id.navigation_chats to 200.5f,   // 227 + 2 - 28.5 = 200.5
-        R.id.navigation_profile to 262.5f  // 289 + 2 - 28.5 = 262.5
+    companion object {
+        private const val CHATS_ACTIVITY_REQUEST_CODE = 1001
+    }
+    
+    // Map between navigation IDs and NavigationTab enum
+    private val navigationTabMap = mapOf(
+        R.id.navigation_saved to NavigationTab.SAVED,
+        R.id.navigation_home to NavigationTab.HOME,
+        R.id.navigation_create to NavigationTab.CREATE,
+        R.id.navigation_chats to NavigationTab.CHATS,
+        R.id.navigation_profile to NavigationTab.PROFILE
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,11 +69,10 @@ class MainActivity : AppCompatActivity() {
         
         // Get references
         navController = findNavController(R.id.nav_host_fragment_activity_main)
-        navSelectionOutline = findViewById(R.id.nav_selection_outline)
-        customNavBar = findViewById(R.id.custom_nav_bar)
+        composeNavBar = findViewById(R.id.compose_nav_bar)
         
         // Apply window insets to position the nav bar correctly above the system navigation bar
-        ViewCompat.setOnApplyWindowInsetsListener(customNavBar) { view, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(composeNavBar) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             
             // Set the bottom margin to be system navigation bar height + 12dp (22dp - 10dp additional adjustment)
@@ -87,11 +88,8 @@ class MainActivity : AppCompatActivity() {
         // Request that insets be applied
         ViewCompat.requestApplyInsets(window.decorView)
         
-        // Set initial position to home
-        currentOutlinePosition = iconPositions[R.id.navigation_home] ?: 76.5f
-        navSelectionOutline.post {
-            setOutlinePosition(currentOutlinePosition)
-        }
+        // Set initial tab to home
+        composeNavBar.setSelectedTab(NavigationTab.HOME)
         
         // Add navigation destination change listener to track current screen
         navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -102,8 +100,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_chats,
                 R.id.navigation_profile -> {
                     currentDestinationId = destination.id
-                    // Update outline position when destination changes
-                    animateOutlineToPosition(destination.id)
+                    // Update selected tab when destination changes
+                    navigationTabMap[destination.id]?.let { tab ->
+                        composeNavBar.setSelectedTab(tab)
+                    }
                 }
             }
         }
@@ -162,29 +162,32 @@ class MainActivity : AppCompatActivity() {
             
         navController.navigate(R.id.navigation_home, null, navOptions)
         currentDestinationId = R.id.navigation_home
-        animateOutlineToPosition(R.id.navigation_home)
+        composeNavBar.setSelectedTab(NavigationTab.HOME)
     }
     
     private fun setupNavigationButtons() {
-        findViewById<View>(R.id.btn_saved).setOnClickListener {
-            navigateToDestination(R.id.navigation_saved)
-        }
-        
-        findViewById<View>(R.id.btn_home).setOnClickListener {
-            navigateToDestination(R.id.navigation_home)
-        }
-        
-        findViewById<View>(R.id.btn_create).setOnClickListener {
-            // Do nothing when create button is tapped (for now)
-            // No navigation, no outline movement, no action at all
-        }
-        
-        findViewById<View>(R.id.btn_chats).setOnClickListener {
-            navigateToDestination(R.id.navigation_chats)
-        }
-        
-        findViewById<View>(R.id.btn_profile).setOnClickListener {
-            navigateToDestination(R.id.navigation_profile)
+        composeNavBar.setOnTabSelectedListener { tab ->
+            when (tab) {
+                NavigationTab.SAVED -> navigateToDestination(R.id.navigation_saved)
+                NavigationTab.HOME -> navigateToDestination(R.id.navigation_home)
+                NavigationTab.CREATE -> {
+                    // Do nothing when create button is tapped (for now)
+                    // No navigation, no action at all
+                }
+                NavigationTab.CHATS -> {
+                    // Store the previous destination before updating
+                    previousDestinationId = currentDestinationId
+                    
+                    // Launch ChatsComposeActivity instead of navigating to fragment
+                    val intent = Intent(this, ChatsComposeActivity::class.java)
+                    startActivityForResult(intent, CHATS_ACTIVITY_REQUEST_CODE)
+                    overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left)
+                    
+                    // Update the selected tab to show chats is selected
+                    currentDestinationId = R.id.navigation_chats
+                }
+                NavigationTab.PROFILE -> navigateToDestination(R.id.navigation_profile)
+            }
         }
     }
     
@@ -192,47 +195,102 @@ class MainActivity : AppCompatActivity() {
         try {
             // Only navigate if we're not already at this destination
             if (currentDestinationId != destinationId) {
-                // Use NavOptions builder for proper navigation
+                // Determine animation direction based on current and target destinations
+                val animations = getNavigationAnimations(currentDestinationId, destinationId)
+                
+                // Use enhanced NavOptions with Fragment Transition API optimizations
                 val navOptions = NavOptions.Builder()
                     .setPopUpTo(navController.graph.startDestinationId, false, true)
                     .setLaunchSingleTop(true)
                     .setRestoreState(true)
+                    .setEnterAnim(animations[0])      // enter
+                    .setExitAnim(animations[1])       // exit  
+                    .setPopEnterAnim(animations[2])   // popEnter
+                    .setPopExitAnim(animations[3])    // popExit
                     .build()
                 
+                // Navigate with optimized settings
                 navController.navigate(destinationId, null, navOptions)
+                
+                previousDestinationId = currentDestinationId
                 currentDestinationId = destinationId
-                animateOutlineToPosition(destinationId)
+                navigationTabMap[destinationId]?.let { tab ->
+                    composeNavBar.setSelectedTab(tab)
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
     
-    private fun animateOutlineToPosition(destinationId: Int) {
-        val targetPosition = iconPositions[destinationId] ?: return
+    private fun getNavigationAnimations(currentId: Int, targetId: Int): List<Int> {
+        // Define tab order for determining slide direction
+        val tabOrder = listOf(
+            R.id.navigation_saved,
+            R.id.navigation_home,
+            R.id.navigation_create,
+            R.id.navigation_chats,
+            R.id.navigation_profile
+        )
         
-        // Only animate if we're actually moving to a different position
-        if (currentOutlinePosition == targetPosition) return
+        val currentIndex = tabOrder.indexOf(currentId)
+        val targetIndex = tabOrder.indexOf(targetId)
         
-        // Animate with proper dp to pixel conversion
-        ValueAnimator.ofFloat(currentOutlinePosition, targetPosition).apply {
-            duration = 100 // 100ms animation
-            addUpdateListener { animator ->
-                val value = animator.animatedValue as Float
-                setOutlinePosition(value)
-            }
-            start()
+        // Log for debugging
+        android.util.Log.d("MainActivity", "Navigation from index $currentIndex to $targetIndex")
+        
+        return if (targetIndex > currentIndex) {
+            // Moving right (to higher index) - new screen slides in from right
+            android.util.Log.d("MainActivity", "Sliding right: fragment optimized animations")
+            listOf(
+                R.anim.fragment_slide_in_right,     // enter
+                R.anim.fragment_slide_out_left,     // exit
+                R.anim.fragment_slide_in_left,      // popEnter (back animation)
+                R.anim.fragment_slide_out_right     // popExit (back animation)
+            )
+        } else {
+            // Moving left (to lower index) - new screen slides in from left  
+            android.util.Log.d("MainActivity", "Sliding left: fragment optimized animations")
+            listOf(
+                R.anim.fragment_slide_in_left,      // enter
+                R.anim.fragment_slide_out_right,    // exit
+                R.anim.fragment_slide_in_right,     // popEnter (back animation)
+                R.anim.fragment_slide_out_left      // popExit (back animation)
+            )
         }
-        
-        currentOutlinePosition = targetPosition
     }
     
-    private fun setOutlinePosition(positionDp: Float) {
-        val density = resources.displayMetrics.density
-        val positionPx = (positionDp * density).toInt()
+    
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         
-        val layoutParams = navSelectionOutline.layoutParams as FrameLayout.LayoutParams
-        layoutParams.marginStart = positionPx
-        navSelectionOutline.layoutParams = layoutParams
+        if (requestCode == CHATS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            // When returning from ChatsComposeActivity, restore the previous screen
+            if (previousDestinationId != R.id.navigation_chats && previousDestinationId != 0) {
+                // Restore the previous destination
+                val destinationToRestore = previousDestinationId
+                currentDestinationId = destinationToRestore
+                navigationTabMap[destinationToRestore]?.let { tab ->
+                    composeNavBar.setSelectedTab(tab)
+                }
+                
+                // Navigate to the previous destination with a small delay to ensure smooth transition
+                window.decorView.postDelayed({
+                    when (destinationToRestore) {
+                        R.id.navigation_saved, R.id.navigation_home, R.id.navigation_profile -> {
+                            try {
+                                navController.navigate(destinationToRestore)
+                            } catch (e: Exception) {
+                                android.util.Log.e("MainActivity", "Failed to navigate back from chats", e)
+                            }
+                        }
+                    }
+                }, 50)
+            } else {
+                // Default to home if no previous destination
+                currentDestinationId = R.id.navigation_home
+                composeNavBar.setSelectedTab(NavigationTab.HOME)
+            }
+        }
     }
 }

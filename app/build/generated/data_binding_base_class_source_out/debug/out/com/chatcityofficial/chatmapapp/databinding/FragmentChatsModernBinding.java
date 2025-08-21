@@ -4,6 +4,8 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -19,16 +21,16 @@ import java.lang.String;
 
 public final class FragmentChatsModernBinding implements ViewBinding {
   @NonNull
-  private final ConstraintLayout rootView;
+  private final FrameLayout rootView;
+
+  @NonNull
+  public final ImageView archiveButton;
 
   @NonNull
   public final LinearLayout emptyState;
 
   @NonNull
-  public final View gradientBackground;
-
-  @NonNull
-  public final LinearLayout headerSection;
+  public final ConstraintLayout headerSection;
 
   @NonNull
   public final RecyclerView rvChats;
@@ -36,13 +38,13 @@ public final class FragmentChatsModernBinding implements ViewBinding {
   @NonNull
   public final TextView tvTitle;
 
-  private FragmentChatsModernBinding(@NonNull ConstraintLayout rootView,
-      @NonNull LinearLayout emptyState, @NonNull View gradientBackground,
-      @NonNull LinearLayout headerSection, @NonNull RecyclerView rvChats,
+  private FragmentChatsModernBinding(@NonNull FrameLayout rootView,
+      @NonNull ImageView archiveButton, @NonNull LinearLayout emptyState,
+      @NonNull ConstraintLayout headerSection, @NonNull RecyclerView rvChats,
       @NonNull TextView tvTitle) {
     this.rootView = rootView;
+    this.archiveButton = archiveButton;
     this.emptyState = emptyState;
-    this.gradientBackground = gradientBackground;
     this.headerSection = headerSection;
     this.rvChats = rvChats;
     this.tvTitle = tvTitle;
@@ -50,7 +52,7 @@ public final class FragmentChatsModernBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public ConstraintLayout getRoot() {
+  public FrameLayout getRoot() {
     return rootView;
   }
 
@@ -75,20 +77,20 @@ public final class FragmentChatsModernBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.archiveButton;
+      ImageView archiveButton = ViewBindings.findChildViewById(rootView, id);
+      if (archiveButton == null) {
+        break missingId;
+      }
+
       id = R.id.emptyState;
       LinearLayout emptyState = ViewBindings.findChildViewById(rootView, id);
       if (emptyState == null) {
         break missingId;
       }
 
-      id = R.id.gradientBackground;
-      View gradientBackground = ViewBindings.findChildViewById(rootView, id);
-      if (gradientBackground == null) {
-        break missingId;
-      }
-
       id = R.id.headerSection;
-      LinearLayout headerSection = ViewBindings.findChildViewById(rootView, id);
+      ConstraintLayout headerSection = ViewBindings.findChildViewById(rootView, id);
       if (headerSection == null) {
         break missingId;
       }
@@ -105,8 +107,8 @@ public final class FragmentChatsModernBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentChatsModernBinding((ConstraintLayout) rootView, emptyState,
-          gradientBackground, headerSection, rvChats, tvTitle);
+      return new FragmentChatsModernBinding((FrameLayout) rootView, archiveButton, emptyState,
+          headerSection, rvChats, tvTitle);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

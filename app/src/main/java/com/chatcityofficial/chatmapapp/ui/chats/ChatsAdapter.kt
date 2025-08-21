@@ -7,14 +7,41 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.chatcityofficial.chatmapapp.data.models.Chat
-import com.chatcityofficial.chatmapapp.databinding.ItemChatBinding
+import com.chatcityofficial.chatmapapp.databinding.ItemChatModernBinding
+import kotlinx.coroutines.*
 
 class ChatsAdapter(
     private val onChatClick: (Chat) -> Unit
 ) : ListAdapter<Chat, ChatsAdapter.ChatViewHolder>(ChatDiffCallback()) {
 
+    private var updateJob: Job? = null
+    
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
+        super.onAttachedToRecyclerView(recyclerView)
+        startTimestampUpdates()
+    }
+    
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView)
+        stopTimestampUpdates()
+    }
+    
+    private fun startTimestampUpdates() {
+        updateJob = CoroutineScope(Dispatchers.Main).launch {
+            while (isActive) {
+                delay(60000) // Update every minute
+                notifyDataSetChanged() // Refresh all visible items
+            }
+        }
+    }
+    
+    private fun stopTimestampUpdates() {
+        updateJob?.cancel()
+        updateJob = null
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val binding = ItemChatBinding.inflate(
+        val binding = ItemChatModernBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -27,22 +54,16 @@ class ChatsAdapter(
     }
 
     class ChatViewHolder(
-        private val binding: ItemChatBinding,
+        private val binding: ItemChatModernBinding,
         private val onChatClick: (Chat) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(chat: Chat) {
-            binding.nameText.text = chat.name
-            binding.lastMessageText.text = chat.lastMessage
+            binding.tvUsername.text = chat.name
+            binding.tvLastMessage.text = chat.lastMessage
             
             // Format time
-            val timeAgo = DateUtils.getRelativeTimeSpanString(
-                chat.lastMessageTime,
-                System.currentTimeMillis(),
-                DateUtils.MINUTE_IN_MILLIS,
-                DateUtils.FORMAT_ABBREV_RELATIVE
-            )
-            binding.timeTextView.text = formatTimeAgo(chat.lastMessageTime)
+            binding.tvTime.text = formatTimeAgo(chat.lastMessageTime)
             
             // Set click listener
             binding.root.setOnClickListener {
@@ -58,19 +79,23 @@ class ChatsAdapter(
                 diff < DateUtils.MINUTE_IN_MILLIS -> "now"
                 diff < DateUtils.HOUR_IN_MILLIS -> {
                     val minutes = (diff / DateUtils.MINUTE_IN_MILLIS).toInt()
-                    "${minutes}m"
+                    if (minutes == 1) "1m" else "${minutes}m"
                 }
                 diff < DateUtils.DAY_IN_MILLIS -> {
                     val hours = (diff / DateUtils.HOUR_IN_MILLIS).toInt()
-                    "${hours}h"
+                    if (hours == 1) "1h" else "${hours}h"
                 }
                 diff < DateUtils.WEEK_IN_MILLIS -> {
                     val days = (diff / DateUtils.DAY_IN_MILLIS).toInt()
-                    "${days}d"
+                    if (days == 1) "1d" else "${days}d"
+                }
+                diff < 4 * DateUtils.WEEK_IN_MILLIS -> {
+                    val weeks = (diff / DateUtils.WEEK_IN_MILLIS).toInt()
+                    if (weeks == 1) "1w" else "${weeks}w"
                 }
                 else -> {
-                    val weeks = (diff / DateUtils.WEEK_IN_MILLIS).toInt()
-                    "${weeks}w"
+                    val months = (diff / (30 * DateUtils.DAY_IN_MILLIS)).toInt()
+                    if (months == 1) "1mo" else "${months}mo"
                 }
             }
         }

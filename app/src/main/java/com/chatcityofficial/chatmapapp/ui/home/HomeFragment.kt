@@ -31,6 +31,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chatcityofficial.chatmapapp.R
+import com.chatcityofficial.chatmapapp.ui.compose.components.LocationButtonView
+import com.chatcityofficial.chatmapapp.ui.compose.components.ThemedLocationContainerView
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
@@ -59,7 +61,6 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private lateinit var mapView: MapView
-    private lateinit var locationText: TextView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var logoImageView: ImageView
     private var currentLocation: Location? = null
@@ -73,8 +74,7 @@ class HomeFragment : Fragment() {
     private lateinit var searchBackButton: ImageView
     private lateinit var searchClearButton: ImageView
     private lateinit var searchResultsRecyclerView: RecyclerView
-    private lateinit var locationIcon: ImageView
-    private lateinit var locationContainer: LinearLayout
+    private lateinit var locationContainer: ThemedLocationContainerView
     
     // Root view for touch interception
     private lateinit var rootView: View
@@ -88,13 +88,15 @@ class HomeFragment : Fragment() {
     // Annotation managers
     private var circleAnnotationManager: CircleAnnotationManager? = null
     private var polygonAnnotationManager: PolygonAnnotationManager? = null
+    private var pointAnnotationManager: PointAnnotationManager? = null
     private var pulseAnnotation: CircleAnnotation? = null
     private var centerDotAnnotation: CircleAnnotation? = null
-    private var placeOutlineAnnotation: PolygonAnnotation? = null
+    private var placeMarkerAnnotation: PointAnnotation? = null
     private var pulseAnimator: ValueAnimator? = null
     
     // Handler for periodic theme checks
     private val themeUpdateHandler = Handler(Looper.getMainLooper())
+    private var cameraUpdateJob: Job? = null
     private val themeUpdateRunnable = object : Runnable {
         override fun run() {
             currentLocation?.let { updateMapThemeBasedOnTime(it) }
@@ -138,7 +140,6 @@ class HomeFragment : Fragment() {
         
         // Initialize views
         mapView = view.findViewById(R.id.mapView)
-        locationText = view.findViewById(R.id.locationText)
         logoImageView = view.findViewById(R.id.logoImageView)
         
         // Initialize search views
@@ -148,7 +149,6 @@ class HomeFragment : Fragment() {
         searchBackButton = view.findViewById(R.id.searchBackButton)
         searchClearButton = view.findViewById(R.id.searchClearButton)
         searchResultsRecyclerView = view.findViewById(R.id.searchResultsRecyclerView)
-        locationIcon = view.findViewById(R.id.locationIcon)
         locationContainer = view.findViewById(R.id.locationContainer)
         
         // Initialize location services
@@ -221,19 +221,13 @@ class HomeFragment : Fragment() {
     }
     
     private fun setupSearchListeners() {
-        // Make the entire location container clickable, not just the icon
-        locationContainer.setOnClickListener {
+        // Make the entire location container clickable
+        locationContainer.setOnLocationClickListener {
             if (!isSearchVisible) {
                 showSearchView()
             }
         }
         
-        // Also keep the icon clickable for better touch target
-        locationIcon.setOnClickListener {
-            if (!isSearchVisible) {
-                showSearchView()
-            }
-        }
         
         // Back button - hide search
         searchBackButton.setOnClickListener {
@@ -408,7 +402,7 @@ class HomeFragment : Fragment() {
                     moveToLocation(latLng.latitude, latLng.longitude, 17.0)
                     
                     // Add outline around place
-                    addPlaceOutline(latLng, place.viewport)
+                    addPlaceMarker(latLng, place.viewport)
                 }
                 
                 // Hide search view after selection
@@ -424,42 +418,53 @@ class HomeFragment : Fragment() {
             }
     }
     
-    private fun addPlaceOutline(center: LatLng, viewport: LatLngBounds?) {
-        // Remove existing outline
-        placeOutlineAnnotation?.let {
-            polygonAnnotationManager?.delete(it)
-            placeOutlineAnnotation = null
+    private fun addPlaceMarker(center: LatLng, viewport: LatLngBounds?) {
+        // Remove existing marker
+        placeMarkerAnnotation?.let {
+            pointAnnotationManager?.delete(it)
+            placeMarkerAnnotation = null
         }
         
-        // Create polygon annotation manager if needed
-        if (polygonAnnotationManager == null) {
+        // Create point annotation manager if needed
+        if (pointAnnotationManager == null) {
             val annotationApi = mapView.annotations
-            polygonAnnotationManager = annotationApi.createPolygonAnnotationManager()
+            pointAnnotationManager = annotationApi.createPointAnnotationManager()
         }
         
-        // Create rectangle from viewport or default size
-        val bounds = viewport ?: LatLngBounds.builder()
-            .include(LatLng(center.latitude - 0.001, center.longitude - 0.001))
-            .include(LatLng(center.latitude + 0.001, center.longitude + 0.001))
-            .build()
-        
-        // Create polygon points for the outline
-        val points = listOf(
-            Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude),
-            Point.fromLngLat(bounds.northeast.longitude, bounds.southwest.latitude),
-            Point.fromLngLat(bounds.northeast.longitude, bounds.northeast.latitude),
-            Point.fromLngLat(bounds.southwest.longitude, bounds.northeast.latitude),
-            Point.fromLngLat(bounds.southwest.longitude, bounds.southwest.latitude)
-        )
-        
-        // Create polygon with gradient-like outline
-        polygonAnnotationManager?.let { manager ->
-            placeOutlineAnnotation = manager.create(
-                PolygonAnnotationOptions()
-                    .withPoints(listOf(points))
-                    .withFillOpacity(0.0) // No fill, only outline
-                    .withFillOutlineColor("#4DFB86BB") // Pink with 30% opacity for outline
-            )
+        // Create the marker at the center of the place
+        pointAnnotationManager?.let { manager ->
+            try {
+                // Create custom bitmap from vector drawable
+                val drawable = androidx.core.content.ContextCompat.getDrawable(
+                    requireContext(), 
+                    R.drawable.ic_map_marker_layered
+                )
+                
+                if (drawable != null) {
+                    val bitmap = android.graphics.Bitmap.createBitmap(
+                        drawable.intrinsicWidth,
+                        drawable.intrinsicHeight,
+                        android.graphics.Bitmap.Config.ARGB_8888
+                    )
+                    val canvas = android.graphics.Canvas(bitmap)
+                    drawable.setBounds(0, 0, canvas.width, canvas.height)
+                    drawable.draw(canvas)
+                    
+                    // Create the marker annotation
+                    placeMarkerAnnotation = manager.create(
+                        PointAnnotationOptions()
+                            .withPoint(Point.fromLngLat(center.longitude, center.latitude))
+                            .withIconImage(bitmap)
+                            .withIconSize(1.2) // Slightly larger for visibility
+                    )
+                    
+                    Log.d(TAG, "Place marker created at ${center.latitude}, ${center.longitude}")
+                } else {
+                    Log.e(TAG, "Failed to load marker drawable")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error creating place marker", e)
+            }
         }
     }
     
@@ -489,6 +494,14 @@ class HomeFragment : Fragment() {
     
     private fun initializeMap() {
         mapView.getMapboxMap().apply {
+            // Add camera change listener to update location text
+            addOnCameraChangeListener {
+                val center = cameraState.center
+                center?.let {
+                    updateLocationUIFromCamera(it.latitude(), it.longitude())
+                }
+            }
+            
             loadStyleUri(currentMapStyle) { style ->
                 Log.d(TAG, "Map style loaded: $currentMapStyle")
                 
@@ -618,9 +631,10 @@ class HomeFragment : Fragment() {
     
     private fun startLocationUpdates() {
         val locationRequest = LocationRequest.create().apply {
-            interval = 10000
-            fastestInterval = 5000
+            interval = 5000  // Update every 5 seconds instead of 10
+            fastestInterval = 2000  // Allow updates as fast as every 2 seconds
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+            smallestDisplacement = 5f  // Update only if moved at least 5 meters
         }
         
         val locationCallback = object : LocationCallback() {
@@ -723,7 +737,17 @@ class HomeFragment : Fragment() {
     private fun updateLocationUI(location: Location) {
         scope.launch {
             val cityName = getCityName(location.latitude, location.longitude)
-            locationText.text = cityName
+            locationContainer.setLocationText(cityName)
+        }
+    }
+    
+    private fun updateLocationUIFromCamera(latitude: Double, longitude: Double) {
+        // Cancel previous job to debounce rapid camera changes
+        cameraUpdateJob?.cancel()
+        cameraUpdateJob = scope.launch {
+            delay(500) // Wait 500ms to avoid too many geocoding requests
+            val cityName = getCityName(latitude, longitude)
+            locationContainer.setLocationText(cityName)
         }
     }
     
@@ -755,9 +779,37 @@ class HomeFragment : Fragment() {
         mapView.getMapboxMap().flyTo(cameraOptions)
     }
     
+    private fun animateToCurrentLocation() {
+        currentLocation?.let { location ->
+            val cameraOptions = CameraOptions.Builder()
+                .center(Point.fromLngLat(location.longitude, location.latitude))
+                .zoom(16.0)
+                .build()
+            
+            mapView.getMapboxMap().flyTo(cameraOptions)
+        } ?: run {
+            // If no current location, try to get it
+            getCurrentLocation()
+        }
+    }
+    
     private fun updateLocationPulse(location: Location) {
-        clearPulseAnimation()
-        createLocationPuck(location)
+        val point = Point.fromLngLat(location.longitude, location.latitude)
+        
+        // If annotations exist, just update their position
+        if (centerDotAnnotation != null && pulseAnnotation != null && circleAnnotationManager != null) {
+            centerDotAnnotation?.point = point
+            pulseAnnotation?.point = point
+            
+            circleAnnotationManager?.let { manager ->
+                centerDotAnnotation?.let { manager.update(it) }
+                pulseAnnotation?.let { manager.update(it) }
+            }
+        } else {
+            // Only create new annotations if they don't exist
+            clearPulseAnimation()
+            createLocationPuck(location)
+        }
     }
     
     private fun clearPulseAnimation() {

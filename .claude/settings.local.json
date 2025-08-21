@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm:*)",
+      "Bash(./gradlew:*)",
+      "Bash(adb install:*)",
+      "Bash(mv:*)",
+      "Bash(adb:*)",
+      "Bash(.gradlew assembleDebug)",
+      "Bash(gradlew.bat assembleDebug:*)",
+      "WebFetch(domain:docs.anthropic.com)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
+
+{
+    "model": "claude-4.1-opus"
+  }

@@ -4,14 +4,13 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.chatcityofficial.chatmapapp.R;
+import com.chatcityofficial.chatmapapp.ui.compose.navigation.ComposeBottomNavigationView;
 import java.lang.NullPointerException;
 import java.lang.Override;
 import java.lang.String;
@@ -21,42 +20,16 @@ public final class ActivityMainBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final View btnChats;
-
-  @NonNull
-  public final View btnCreate;
-
-  @NonNull
-  public final View btnHome;
-
-  @NonNull
-  public final View btnProfile;
-
-  @NonNull
-  public final View btnSaved;
+  public final ComposeBottomNavigationView composeNavBar;
 
   @NonNull
   public final ConstraintLayout container;
 
-  @NonNull
-  public final FrameLayout customNavBar;
-
-  @NonNull
-  public final ImageView navSelectionOutline;
-
-  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull View btnChats,
-      @NonNull View btnCreate, @NonNull View btnHome, @NonNull View btnProfile,
-      @NonNull View btnSaved, @NonNull ConstraintLayout container,
-      @NonNull FrameLayout customNavBar, @NonNull ImageView navSelectionOutline) {
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView,
+      @NonNull ComposeBottomNavigationView composeNavBar, @NonNull ConstraintLayout container) {
     this.rootView = rootView;
-    this.btnChats = btnChats;
-    this.btnCreate = btnCreate;
-    this.btnHome = btnHome;
-    this.btnProfile = btnProfile;
-    this.btnSaved = btnSaved;
+    this.composeNavBar = composeNavBar;
     this.container = container;
-    this.customNavBar = customNavBar;
-    this.navSelectionOutline = navSelectionOutline;
   }
 
   @Override
@@ -86,52 +59,15 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btn_chats;
-      View btnChats = ViewBindings.findChildViewById(rootView, id);
-      if (btnChats == null) {
-        break missingId;
-      }
-
-      id = R.id.btn_create;
-      View btnCreate = ViewBindings.findChildViewById(rootView, id);
-      if (btnCreate == null) {
-        break missingId;
-      }
-
-      id = R.id.btn_home;
-      View btnHome = ViewBindings.findChildViewById(rootView, id);
-      if (btnHome == null) {
-        break missingId;
-      }
-
-      id = R.id.btn_profile;
-      View btnProfile = ViewBindings.findChildViewById(rootView, id);
-      if (btnProfile == null) {
-        break missingId;
-      }
-
-      id = R.id.btn_saved;
-      View btnSaved = ViewBindings.findChildViewById(rootView, id);
-      if (btnSaved == null) {
+      id = R.id.compose_nav_bar;
+      ComposeBottomNavigationView composeNavBar = ViewBindings.findChildViewById(rootView, id);
+      if (composeNavBar == null) {
         break missingId;
       }
 
       ConstraintLayout container = (ConstraintLayout) rootView;
 
-      id = R.id.custom_nav_bar;
-      FrameLayout customNavBar = ViewBindings.findChildViewById(rootView, id);
-      if (customNavBar == null) {
-        break missingId;
-      }
-
-      id = R.id.nav_selection_outline;
-      ImageView navSelectionOutline = ViewBindings.findChildViewById(rootView, id);
-      if (navSelectionOutline == null) {
-        break missingId;
-      }
-
-      return new ActivityMainBinding((ConstraintLayout) rootView, btnChats, btnCreate, btnHome,
-          btnProfile, btnSaved, container, customNavBar, navSelectionOutline);
+      return new ActivityMainBinding((ConstraintLayout) rootView, composeNavBar, container);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

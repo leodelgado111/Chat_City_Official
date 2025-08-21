@@ -65,6 +65,22 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- Chat Compose Activity -->
+        <activity
+            android:name=".ui.compose.chat.ChatComposeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- Chats Compose Activity -->
+        <activity
+            android:name=".ui.compose.chats.ChatsComposeActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ChatCityOfficial.NoActionBar"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- Google Maps API Key -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"

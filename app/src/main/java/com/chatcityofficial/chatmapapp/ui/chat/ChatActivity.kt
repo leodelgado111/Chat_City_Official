@@ -40,7 +40,7 @@ class ChatActivity : AppCompatActivity() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.activity_chat_modern)
         
         // Get data from intent
         recipientId = intent.getStringExtra("RECIPIENT_ID") ?: ""
@@ -68,19 +68,17 @@ class ChatActivity : AppCompatActivity() {
     }
     
     private fun setupViews() {
-        toolbar = findViewById(R.id.toolbar)
-        titleTextView = findViewById(R.id.toolbar_title)
-        recyclerView = findViewById(R.id.messages_recycler_view)
-        messageInput = findViewById(R.id.message_input)
-        sendButton = findViewById(R.id.send_button)
+        recyclerView = findViewById(R.id.rvChatMessages)
+        messageInput = findViewById(R.id.etMessage)
+        sendButton = findViewById(R.id.btnSend)
+        titleTextView = findViewById(R.id.tvChatTitle)
         
-        // Setup toolbar
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        // Setup title
         titleTextView.text = recipientName
         
-        toolbar.setNavigationOnClickListener {
+        // Setup back button
+        val backButton = findViewById<ImageButton>(R.id.btnBack)
+        backButton.setOnClickListener {
             finish()
         }
         

@@ -141,30 +141,11 @@ class ChatRepository {
     fun getMessages(chatId: String): Flow<List<Message>> = callbackFlow {
         val listener = messagesCollection
             .whereEqualTo("chatId", chatId)
-            .orderBy("timestamp", Query.Direction.ASCENDING)
             .addSnapshotListener { snapshot, error ->
                 if (error != null) {
-                    // Check if the error is FAILED_PRECONDITION (missing index)
-                    if (error.code == FirebaseFirestoreException.Code.FAILED_PRECONDITION) {
-                        Log.e(TAG, "Missing index for messages query. Creating fallback query.", error)
-                        // Try a simpler query without ordering
-                        messagesCollection
-                            .whereEqualTo("chatId", chatId)
-                            .get()
-                            .addOnSuccessListener { documents ->
-                                val messages = documents.mapNotNull { doc ->
-                                    doc.toObject(Message::class.java)
-                                }.sortedBy { it.timestamp }
-                                trySend(messages)
-                            }
-                            .addOnFailureListener { e ->
-                                Log.e(TAG, "Fallback messages query failed", e)
-                                trySend(emptyList())
-                            }
-                    } else {
-                        Log.e(TAG, "Error getting messages", error)
-                        close(error)
-                    }
+                    Log.e(TAG, "Error getting messages for chatId: $chatId", error)
+                    // Try to continue with empty list instead of closing
+                    trySend(emptyList())
                     return@addSnapshotListener
                 }
 
@@ -172,7 +153,9 @@ class ChatRepository {
                     doc.toObject(Message::class.java)
                 } ?: emptyList()
 
-                trySend(messages)
+                // Sort by timestamp manually to avoid index requirement
+                val sortedMessages = messages.sortedBy { it.timestamp }
+                trySend(sortedMessages)
             }
 
         awaitClose { listener.remove() }
@@ -193,7 +176,6 @@ class ChatRepository {
 
             // Add message
             messagesCollection.document(messageId).set(message).await()
-            Log.d(TAG, "Message sent successfully: $messageId")
 
             // Update chat's last message
             chatsCollection.document(chatId).update(
@@ -202,7 +184,6 @@ class ChatRepository {
                     "lastMessageTime" to message.timestamp
                 )
             ).await()
-            Log.d(TAG, "Chat updated with last message")
         } catch (e: Exception) {
             Log.e(TAG, "Error sending message", e)
             throw e

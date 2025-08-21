@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
 import com.chatcityofficial.chatmapapp.R;
@@ -18,7 +18,7 @@ import java.lang.String;
 
 public final class ItemChatModernBinding implements ViewBinding {
   @NonNull
-  private final CardView rootView;
+  private final ConstraintLayout rootView;
 
   @NonNull
   public final ImageView ivAvatar;
@@ -35,7 +35,7 @@ public final class ItemChatModernBinding implements ViewBinding {
   @NonNull
   public final TextView tvUsername;
 
-  private ItemChatModernBinding(@NonNull CardView rootView, @NonNull ImageView ivAvatar,
+  private ItemChatModernBinding(@NonNull ConstraintLayout rootView, @NonNull ImageView ivAvatar,
       @NonNull TextView tvLastMessage, @NonNull TextView tvTime, @NonNull TextView tvUnreadCount,
       @NonNull TextView tvUsername) {
     this.rootView = rootView;
@@ -48,7 +48,7 @@ public final class ItemChatModernBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public CardView getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -103,7 +103,7 @@ public final class ItemChatModernBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ItemChatModernBinding((CardView) rootView, ivAvatar, tvLastMessage, tvTime,
+      return new ItemChatModernBinding((ConstraintLayout) rootView, ivAvatar, tvLastMessage, tvTime,
           tvUnreadCount, tvUsername);
     }
     String missingId = rootView.getResources().getResourceName(id);

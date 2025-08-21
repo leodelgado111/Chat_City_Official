@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="John Doe"
-            android:textColor="#97D4F0"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             android:layout_marginBottom="4dp"

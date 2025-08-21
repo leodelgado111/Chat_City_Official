@@ -12,14 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chatcityofficial.chatmapapp.data.repository.ChatRepository
-import com.chatcityofficial.chatmapapp.databinding.FragmentChatsBinding
-import com.chatcityofficial.chatmapapp.ui.chat.ChatDetailActivity
+import com.chatcityofficial.chatmapapp.databinding.FragmentChatsModernBinding
+import com.chatcityofficial.chatmapapp.ui.compose.chat.ChatComposeActivity
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class ChatsFragment : Fragment() {
 
-    private var _binding: FragmentChatsBinding? = null
+    private var _binding: FragmentChatsModernBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var chatRepository: ChatRepository
@@ -31,7 +31,7 @@ class ChatsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentChatsBinding.inflate(inflater, container, false)
+        _binding = FragmentChatsModernBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -88,17 +88,21 @@ class ChatsFragment : Fragment() {
                 }
                 
                 // Create intent with proper validation
-                val intent = Intent(ctx, ChatDetailActivity::class.java).apply {
-                    putExtra("CHAT_ID", chat.id)
-                    putExtra("CHAT_NAME", chat.name ?: "Unknown Chat")
-                    putExtra("DEVICE_ID", deviceId)
+                val intent = Intent(ctx, ChatComposeActivity::class.java).apply {
+                    putExtra(ChatComposeActivity.EXTRA_CHAT_ID, chat.id)
+                    putExtra(ChatComposeActivity.EXTRA_CHAT_NAME, chat.name ?: "Unknown Chat")
                 }
                 
-                // Try to start activity with error handling
+                // Try to start activity with error handling and animations
                 try {
                     startActivity(intent)
+                    // Add slide transition animation
+                    requireActivity().overridePendingTransition(
+                        com.chatcityofficial.chatmapapp.R.anim.slide_in_right,
+                        com.chatcityofficial.chatmapapp.R.anim.slide_out_left
+                    )
                 } catch (e: Exception) {
-                    Log.e("ChatsFragment", "Failed to start ChatDetailActivity", e)
+                    Log.e("ChatsFragment", "Failed to start ChatComposeActivity", e)
                     // Removed Toast error message - silent failure
                 }
                 
@@ -108,7 +112,7 @@ class ChatsFragment : Fragment() {
             }
         }
         
-        binding.chatsRecyclerView.apply {
+        binding.rvChats.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = chatsAdapter
             // Add item decoration for better UI
@@ -117,24 +121,9 @@ class ChatsFragment : Fragment() {
     }
 
     private fun setupClickListeners() {
-        binding.backButton.setOnClickListener {
-            try {
-                // Use requireActivity() instead of activity?. for safer navigation
-                requireActivity().onBackPressedDispatcher.onBackPressed()
-            } catch (e: Exception) {
-                Log.e("ChatsFragment", "Error handling back press", e)
-                // Try alternative navigation
-                try {
-                    requireActivity().finish()
-                } catch (ex: Exception) {
-                    Log.e("ChatsFragment", "Failed to finish activity", ex)
-                }
-            }
-        }
-        
-        binding.deleteButton.setOnClickListener {
-            // Handle delete if needed - removed Toast message for coming soon
-            Log.d("ChatsFragment", "Delete functionality not yet implemented")
+        binding.archiveButton.setOnClickListener {
+            // Handle archive functionality - placeholder for now
+            Log.d("ChatsFragment", "Archive functionality not yet implemented")
         }
     }
 
