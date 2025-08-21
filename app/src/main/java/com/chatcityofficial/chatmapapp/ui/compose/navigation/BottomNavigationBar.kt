@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.ImageVector.Builder
 import androidx.compose.ui.graphics.vector.path
@@ -33,6 +34,7 @@ import androidx.compose.ui.unit.dp
 enum class NavigationTab {
     SAVED, HOME, CREATE, CHATS, PROFILE
 }
+
 
 @Composable
 fun BottomNavigationBar(
@@ -99,7 +101,30 @@ fun BottomNavigationBar(
                 }
         )
         
-        // Layer 3: White stroke outline on top
+        // Layer 3: Base layer with icon cutouts (transparent holes)
+        // This layer will show the gradient through the cutouts
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .drawBehind {
+                    // Draw a semi-transparent overlay with icon cutouts
+                    drawIntoCanvas { canvas ->
+                        val paint = androidx.compose.ui.graphics.Paint().apply {
+                            color = Color.Black.copy(alpha = 0.05f) // Very light overlay
+                            blendMode = BlendMode.SrcOver
+                        }
+                        
+                        // Draw base rectangle
+                        canvas.drawRoundRect(
+                            0f, 0f, size.width, size.height,
+                            20.dp.toPx(), 20.dp.toPx(),
+                            paint
+                        )
+                    }
+                }
+        )
+        
+        // Layer 4: White stroke outline on top
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -141,11 +166,12 @@ fun BottomNavigationBar(
             label = "outline_animation"
         )
         
+        // Layer 4: Black filled outline that moves with selected tab
         Box(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            // Selection outline that moves with selected tab
+            // Selection outline (filled black)
             Box(
                 modifier = Modifier
                     .size(74.dp, 56.dp)
@@ -161,12 +187,21 @@ fun BottomNavigationBar(
             }
         }
         
-        // Layer 5: All icons positioned with consistent spacing
+        // Layer 5: Icons with gradient colors when selected
         Box(
             modifier = Modifier
                 .fillMaxSize()
         ) {
+            // Define colors for each icon based on selection state
+            // When selected, use gradient colors; when not selected, use black
+            
             // Saved icon - 43dp from left
+            val savedIconColor = if (outlineTab == NavigationTab.SAVED) {
+                Color(171, 177, 212)  // Same blue-ish color as profile
+            } else {
+                Color.Black
+            }
+            
             Image(
                 painter = rememberVectorPainter(image = SavedIcon),
                 contentDescription = "Saved",
@@ -177,10 +212,16 @@ fun BottomNavigationBar(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onTabSelected(NavigationTab.SAVED) },
-                colorFilter = ColorFilter.tint(Color.Black)
+                colorFilter = ColorFilter.tint(savedIconColor)
             )
             
             // Home icon - 105dp from left
+            val homeIconColor = if (outlineTab == NavigationTab.HOME) {
+                Color(171, 177, 212)  // Same blue-ish color as profile
+            } else {
+                Color.Black
+            }
+            
             Image(
                 painter = rememberVectorPainter(image = HomeIcon),
                 contentDescription = "Home",
@@ -191,10 +232,16 @@ fun BottomNavigationBar(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onTabSelected(NavigationTab.HOME) },
-                colorFilter = ColorFilter.tint(Color.Black)
+                colorFilter = ColorFilter.tint(homeIconColor)
             )
             
             // Chats icon - 229dp from left
+            val chatsIconColor = if (outlineTab == NavigationTab.CHATS) {
+                Color(171, 177, 212)  // Same blue-ish color as profile
+            } else {
+                Color.Black
+            }
+            
             Image(
                 painter = rememberVectorPainter(image = ChatsIcon),
                 contentDescription = "Chats",
@@ -205,10 +252,16 @@ fun BottomNavigationBar(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onTabSelected(NavigationTab.CHATS) },
-                colorFilter = ColorFilter.tint(Color.Black)
+                colorFilter = ColorFilter.tint(chatsIconColor)
             )
             
             // Profile icon - 291dp from left
+            val profileIconColor = if (outlineTab == NavigationTab.PROFILE) {
+                Color(171, 177, 212)  // Blue-ish color
+            } else {
+                Color.Black
+            }
+            
             Image(
                 painter = rememberVectorPainter(image = ProfileIcon),
                 contentDescription = "Profile",
@@ -219,7 +272,7 @@ fun BottomNavigationBar(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
                     ) { onTabSelected(NavigationTab.PROFILE) },
-                colorFilter = ColorFilter.tint(Color.Black)
+                colorFilter = ColorFilter.tint(profileIconColor)
             )
         }
         
@@ -337,7 +390,7 @@ private val CreateIcon: ImageVector
         }
     }.build()
 
-// Chats icon vector (two overlapping chat bubbles - updated version)
+// Chats icon vector (original chats_icon_3)
 private val ChatsIcon: ImageVector
     get() = ImageVector.Builder(
         name = "chats",
@@ -373,7 +426,7 @@ private val ChatsIcon: ImageVector
             lineTo(17f, 11f)
             close()
         }
-        // Second chat bubble with tail
+        // Second chat bubble
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
@@ -381,24 +434,24 @@ private val ChatsIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            moveTo(18f, 7f)
-            curveTo(18.5304f, 7f, 19.0391f, 7.21071f, 19.4142f, 7.58579f)
-            curveTo(19.7893f, 7.96086f, 20f, 8.46957f, 20f, 9f)
-            lineTo(20f, 19.286f)
-            curveTo(20f, 19.4264f, 19.9583f, 19.5637f, 19.8803f, 19.6804f)
-            curveTo(19.8023f, 19.7971f, 19.6914f, 19.8881f, 19.5617f, 19.9419f)
-            curveTo(19.432f, 19.9956f, 19.2892f, 20.0097f, 19.1515f, 19.9823f)
-            curveTo(19.0138f, 19.9549f, 18.8873f, 19.8873f, 18.788f, 19.788f)
-            lineTo(16.586f, 17.586f)
-            curveTo(16.211f, 17.2109f, 15.7024f, 17.0001f, 15.172f, 17f)
-            lineTo(8f, 17f)
-            curveTo(7.46957f, 17f, 6.96086f, 16.7893f, 6.58579f, 16.4142f)
-            curveTo(6.21071f, 16.0391f, 6f, 15.5304f, 6f, 15f)
-            lineTo(6f, 14f)
+            moveTo(20f, 9f)
+            curveTo(20.5304f, 9f, 21.0391f, 9.21071f, 21.4142f, 9.58579f)
+            curveTo(21.7893f, 9.96086f, 22f, 10.4696f, 22f, 11f)
+            lineTo(22f, 21.286f)
+            curveTo(22f, 21.4264f, 21.9583f, 21.5637f, 21.8803f, 21.6804f)
+            curveTo(21.8023f, 21.7971f, 21.6914f, 21.8881f, 21.5617f, 21.9419f)
+            curveTo(21.432f, 21.9956f, 21.2892f, 22.0097f, 21.1515f, 21.9823f)
+            curveTo(21.0138f, 21.9549f, 20.8873f, 21.8873f, 20.788f, 21.788f)
+            lineTo(18.586f, 19.586f)
+            curveTo(18.211f, 19.2109f, 17.7024f, 19.0001f, 17.172f, 19f)
+            lineTo(10f, 19f)
+            curveTo(9.46957f, 19f, 8.96086f, 18.7893f, 8.58579f, 18.4142f)
+            curveTo(8.21071f, 18.0391f, 8f, 17.5304f, 8f, 17f)
+            lineTo(8f, 16f)
         }
     }.build()
 
-// Profile icon vector (updated with profile_icon_5)
+// Profile icon vector (original profile_icon_3)
 private val ProfileIcon: ImageVector
     get() = ImageVector.Builder(
         name = "profile",
@@ -407,9 +460,6 @@ private val ProfileIcon: ImageVector
         viewportWidth = 24f,
         viewportHeight = 24f
     ).apply {
-        // Note: Original SVG is 16x21, centering it in 24x24 viewport
-        // Offset: x by 4 (to center 16 in 24), y by 1.5 (to center 21 in 24)
-        
         // Head circle
         path(
             stroke = SolidColor(Color.Black),
@@ -418,11 +468,11 @@ private val ProfileIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            moveTo(12f, 10.5f)  // 8 + 4 = 12, 9 + 1.5 = 10.5
-            curveTo(14.2091f, 10.5f, 16f, 8.70914f, 16f, 6.5f)  // 5 + 1.5 = 6.5
-            curveTo(16f, 4.29086f, 14.2091f, 2.5f, 12f, 2.5f)  // 1 + 1.5 = 2.5
-            curveTo(9.79086f, 2.5f, 8f, 4.29086f, 8f, 6.5f)
-            curveTo(8f, 8.70914f, 9.79086f, 10.5f, 12f, 10.5f)
+            moveTo(12f, 10f)
+            curveTo(14.2091f, 10f, 16f, 8.20914f, 16f, 6f)
+            curveTo(16f, 3.79086f, 14.2091f, 2f, 12f, 2f)
+            curveTo(9.79086f, 2f, 8f, 3.79086f, 8f, 6f)
+            curveTo(8f, 8.20914f, 9.79086f, 10f, 12f, 10f)
             close()
         }
         // Body/shoulders path
@@ -433,20 +483,18 @@ private val ProfileIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            moveTo(9f, 14.5f)  // 5 + 4 = 9, 13 + 1.5 = 14.5
-            lineTo(15f, 14.5f)  // 11 + 4 = 15
-            curveTo(17.2091f, 14.5f, 19f, 16.2909f, 19f, 18.5f)  // 15 + 4 = 19, 17 + 1.5 = 18.5
-            lineTo(19f, 19.5f)  // 18 + 1.5 = 19.5
-            curveTo(19f, 20.6046f, 18.1046f, 21.5f, 17f, 21.5f)  // 13 + 4 = 17, 20 + 1.5 = 21.5
-            lineTo(7f, 21.5f)  // 3 + 4 = 7
-            curveTo(5.89543f, 21.5f, 5f, 20.6046f, 5f, 19.5f)  // 1 + 4 = 5
-            lineTo(5f, 18.5f)
-            curveTo(5f, 16.2909f, 6.79086f, 14.5f, 9f, 14.5f)
-            close()
+            moveTo(19f, 21f)
+            lineTo(19f, 18.6667f)
+            curveTo(19f, 17.429f, 18.5786f, 16.242f, 17.8284f, 15.3668f)
+            curveTo(17.0783f, 14.4917f, 16.0609f, 14f, 15f, 14f)
+            lineTo(9f, 14f)
+            curveTo(7.93913f, 14f, 6.92172f, 14.4917f, 6.17157f, 15.3668f)
+            curveTo(5.42143f, 16.242f, 5f, 17.429f, 5f, 18.6667f)
+            lineTo(5f, 21f)
         }
     }.build()
 
-// Selection outline vector
+// Selection outline vector (filled with black)
 private val SelectionOutline: ImageVector
     get() = ImageVector.Builder(
         name = "outline",
@@ -458,7 +506,7 @@ private val SelectionOutline: ImageVector
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
-            fill = null
+            fill = SolidColor(Color.Black)  // Added black fill
         ) {
             // Rectangle with rounded corners
             moveTo(15f, 1f)

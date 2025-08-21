@@ -4,6 +4,7 @@ package com.chatcityofficial.chatmapapp.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -25,11 +26,16 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final ConstraintLayout container;
 
+  @NonNull
+  public final FrameLayout navHostFragmentActivityMain;
+
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ComposeBottomNavigationView composeNavBar, @NonNull ConstraintLayout container) {
+      @NonNull ComposeBottomNavigationView composeNavBar, @NonNull ConstraintLayout container,
+      @NonNull FrameLayout navHostFragmentActivityMain) {
     this.rootView = rootView;
     this.composeNavBar = composeNavBar;
     this.container = container;
+    this.navHostFragmentActivityMain = navHostFragmentActivityMain;
   }
 
   @Override
@@ -67,7 +73,14 @@ public final class ActivityMainBinding implements ViewBinding {
 
       ConstraintLayout container = (ConstraintLayout) rootView;
 
-      return new ActivityMainBinding((ConstraintLayout) rootView, composeNavBar, container);
+      id = R.id.nav_host_fragment_activity_main;
+      FrameLayout navHostFragmentActivityMain = ViewBindings.findChildViewById(rootView, id);
+      if (navHostFragmentActivityMain == null) {
+        break missingId;
+      }
+
+      return new ActivityMainBinding((ConstraintLayout) rootView, composeNavBar, container,
+          navHostFragmentActivityMain);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

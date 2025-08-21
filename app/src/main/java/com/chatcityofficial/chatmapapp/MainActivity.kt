@@ -17,23 +17,30 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updateMargins
-import androidx.navigation.findNavController
 import androidx.activity.OnBackPressedCallback
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavOptions
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.chatcityofficial.chatmapapp.ui.compose.chats.ChatsComposeActivity
 import com.chatcityofficial.chatmapapp.ui.compose.navigation.ComposeBottomNavigationView
 import com.chatcityofficial.chatmapapp.ui.compose.navigation.NavigationTab
+import com.chatcityofficial.chatmapapp.ui.home.HomeFragment
+import com.chatcityofficial.chatmapapp.ui.saved.SavedFragment
+import com.chatcityofficial.chatmapapp.ui.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: androidx.navigation.NavController
     private lateinit var composeNavBar: ComposeBottomNavigationView
     
     // Track the current destination
     private var currentDestinationId = R.id.navigation_home
     private var previousDestinationId = R.id.navigation_home
+    
+    // Fragment instances to keep alive
+    private var homeFragment: HomeFragment? = null
+    private var savedFragment: SavedFragment? = null
+    private var profileFragment: ProfileFragment? = null
+    private var activeFragment: Fragment? = null
     
     companion object {
         private const val CHATS_ACTIVITY_REQUEST_CODE = 1001
@@ -68,8 +75,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         
         // Get references
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
         composeNavBar = findViewById(R.id.compose_nav_bar)
+        
+        // Initialize fragments with manual management
+        initializeFragments()
         
         // Apply window insets to position the nav bar correctly above the system navigation bar
         ViewCompat.setOnApplyWindowInsetsListener(composeNavBar) { view, windowInsets ->
@@ -91,22 +100,8 @@ class MainActivity : AppCompatActivity() {
         // Set initial tab to home
         composeNavBar.setSelectedTab(NavigationTab.HOME)
         
-        // Add navigation destination change listener to track current screen
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            // Update current destination when navigation changes
-            when (destination.id) {
-                R.id.navigation_saved,
-                R.id.navigation_home,
-                R.id.navigation_chats,
-                R.id.navigation_profile -> {
-                    currentDestinationId = destination.id
-                    // Update selected tab when destination changes
-                    navigationTabMap[destination.id]?.let { tab ->
-                        composeNavBar.setSelectedTab(tab)
-                    }
-                }
-            }
-        }
+        // Note: We're no longer using NavController's destination listener 
+        // since we're managing fragments manually
         
         // Setup back button behavior
         setupBackButtonBehavior()
@@ -118,58 +113,83 @@ class MainActivity : AppCompatActivity() {
     private fun setupBackButtonBehavior() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                // First check if the current fragment can handle back press
-                val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
-                val currentFragment = navHostFragment?.childFragmentManager?.fragments?.firstOrNull()
+                // Check if the current active fragment can handle back press
+                val currentFragment = activeFragment
                 
                 // Check if it's HomeFragment and if search is visible
-                if (currentFragment is com.chatcityofficial.chatmapapp.ui.home.HomeFragment) {
+                if (currentFragment is HomeFragment) {
                     if (currentFragment.hideSearchViewIfVisible()) {
                         // Search was visible and is now hidden, don't do anything else
                         return
                     }
                 }
                 
-                // Check if we can pop the back stack (for nested navigation)
-                val popped = navController.popBackStack()
-                
-                if (!popped) {
-                    // We're at a root destination (no back stack to pop)
-                    when (currentDestinationId) {
-                        R.id.navigation_home -> {
-                            // We're on home screen, minimize the app
-                            moveTaskToBack(true)
-                        }
-                        R.id.navigation_saved,
-                        R.id.navigation_chats,
-                        R.id.navigation_profile -> {
-                            // Navigate back to home from other root destinations
-                            navigateToHome()
-                        }
+                // Handle navigation based on current destination
+                when (currentDestinationId) {
+                    R.id.navigation_home -> {
+                        // We're on home screen, minimize the app
+                        moveTaskToBack(true)
+                    }
+                    R.id.navigation_saved,
+                    R.id.navigation_chats,
+                    R.id.navigation_profile -> {
+                        // Navigate back to home from other root destinations
+                        navigateToHome()
                     }
                 }
-                // If popped is true, the navigation controller handled it and will update the destination
             }
         })
     }
     
     private fun navigateToHome() {
-        // Navigate to home and clear any back stack using NavOptions
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(navController.graph.startDestinationId, false)
-            .setLaunchSingleTop(true)
-            .build()
-            
-        navController.navigate(R.id.navigation_home, null, navOptions)
-        currentDestinationId = R.id.navigation_home
-        composeNavBar.setSelectedTab(NavigationTab.HOME)
+        // Use fragment navigation for home
+        navigateToFragment(R.id.navigation_home)
+    }
+    
+    private fun initializeFragments() {
+        // Create fragment instances if not already created
+        if (homeFragment == null) {
+            homeFragment = HomeFragment()
+        }
+        if (savedFragment == null) {
+            savedFragment = SavedFragment()
+        }
+        if (profileFragment == null) {
+            profileFragment = ProfileFragment()
+        }
+        
+        // Add all fragments to the container but hide non-active ones
+        val fragmentManager = supportFragmentManager
+        val transaction = fragmentManager.beginTransaction()
+        
+        // Add fragments if not already added
+        homeFragment?.let {
+            if (!it.isAdded) {
+                transaction.add(R.id.nav_host_fragment_activity_main, it, "home")
+            }
+        }
+        savedFragment?.let {
+            if (!it.isAdded) {
+                transaction.add(R.id.nav_host_fragment_activity_main, it, "saved")
+                transaction.hide(it)
+            }
+        }
+        profileFragment?.let {
+            if (!it.isAdded) {
+                transaction.add(R.id.nav_host_fragment_activity_main, it, "profile")
+                transaction.hide(it)
+            }
+        }
+        
+        transaction.commit()
+        activeFragment = homeFragment
     }
     
     private fun setupNavigationButtons() {
         composeNavBar.setOnTabSelectedListener { tab ->
             when (tab) {
-                NavigationTab.SAVED -> navigateToDestination(R.id.navigation_saved)
-                NavigationTab.HOME -> navigateToDestination(R.id.navigation_home)
+                NavigationTab.SAVED -> navigateToFragment(R.id.navigation_saved)
+                NavigationTab.HOME -> navigateToFragment(R.id.navigation_home)
                 NavigationTab.CREATE -> {
                     // Do nothing when create button is tapped (for now)
                     // No navigation, no action at all
@@ -186,42 +206,55 @@ class MainActivity : AppCompatActivity() {
                     // Update the selected tab to show chats is selected
                     currentDestinationId = R.id.navigation_chats
                 }
-                NavigationTab.PROFILE -> navigateToDestination(R.id.navigation_profile)
+                NavigationTab.PROFILE -> navigateToFragment(R.id.navigation_profile)
             }
         }
     }
     
-    private fun navigateToDestination(destinationId: Int) {
+    private fun navigateToFragment(destinationId: Int) {
         try {
             // Only navigate if we're not already at this destination
             if (currentDestinationId != destinationId) {
-                // Determine animation direction based on current and target destinations
-                val animations = getNavigationAnimations(currentDestinationId, destinationId)
+                val targetFragment = when (destinationId) {
+                    R.id.navigation_home -> homeFragment
+                    R.id.navigation_saved -> savedFragment
+                    R.id.navigation_profile -> profileFragment
+                    else -> null
+                }
                 
-                // Use enhanced NavOptions with Fragment Transition API optimizations
-                val navOptions = NavOptions.Builder()
-                    .setPopUpTo(navController.graph.startDestinationId, false, true)
-                    .setLaunchSingleTop(true)
-                    .setRestoreState(true)
-                    .setEnterAnim(animations[0])      // enter
-                    .setExitAnim(animations[1])       // exit  
-                    .setPopEnterAnim(animations[2])   // popEnter
-                    .setPopExitAnim(animations[3])    // popExit
-                    .build()
-                
-                // Navigate with optimized settings
-                navController.navigate(destinationId, null, navOptions)
-                
-                previousDestinationId = currentDestinationId
-                currentDestinationId = destinationId
-                navigationTabMap[destinationId]?.let { tab ->
-                    composeNavBar.setSelectedTab(tab)
+                targetFragment?.let { newFragment ->
+                    val transaction = supportFragmentManager.beginTransaction()
+                    
+                    // Apply animations based on navigation direction
+                    val animations = getNavigationAnimations(currentDestinationId, destinationId)
+                    transaction.setCustomAnimations(
+                        animations[0],  // enter
+                        animations[1],  // exit
+                        animations[2],  // popEnter
+                        animations[3]   // popExit
+                    )
+                    
+                    // Hide current fragment
+                    activeFragment?.let { transaction.hide(it) }
+                    
+                    // Show target fragment
+                    transaction.show(newFragment)
+                    transaction.commit()
+                    
+                    // Update tracking variables
+                    activeFragment = newFragment
+                    previousDestinationId = currentDestinationId
+                    currentDestinationId = destinationId
+                    navigationTabMap[destinationId]?.let { tab ->
+                        composeNavBar.setSelectedTab(tab)
+                    }
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
+    
     
     private fun getNavigationAnimations(currentId: Int, targetId: Int): List<Int> {
         // Define tab order for determining slide direction
@@ -278,11 +311,7 @@ class MainActivity : AppCompatActivity() {
                 window.decorView.postDelayed({
                     when (destinationToRestore) {
                         R.id.navigation_saved, R.id.navigation_home, R.id.navigation_profile -> {
-                            try {
-                                navController.navigate(destinationToRestore)
-                            } catch (e: Exception) {
-                                android.util.Log.e("MainActivity", "Failed to navigate back from chats", e)
-                            }
+                            navigateToFragment(destinationToRestore)
                         }
                     }
                 }, 50)
@@ -290,6 +319,7 @@ class MainActivity : AppCompatActivity() {
                 // Default to home if no previous destination
                 currentDestinationId = R.id.navigation_home
                 composeNavBar.setSelectedTab(NavigationTab.HOME)
+                navigateToFragment(R.id.navigation_home)
             }
         }
     }

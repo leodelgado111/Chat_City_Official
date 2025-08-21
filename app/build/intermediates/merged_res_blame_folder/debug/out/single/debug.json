@@ -68,12 +68,12 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_add.xml"
     },
     {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_chat_gradient_background.xml.flat",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\chat_gradient_background.xml"
-    },
-    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\mipmap-xxxhdpi_ic_launcher_background.png.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\mipmap-xxxhdpi\\ic_launcher_background.png"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_chat_gradient_background.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\chat_gradient_background.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
