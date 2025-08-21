@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
@@ -107,78 +108,93 @@ fun BottomNavigationBar(
                 )
         )
         
-        // Layer 4: Outline on the left side with even margins
+        // Layer 4: Outline that moves to selected tab (except CREATE)
+        val outlineXPosition = when (selectedTab) {
+            NavigationTab.SAVED -> 43.dp - 37.dp    // 43dp is center of saved icon
+            NavigationTab.HOME -> 105.dp - 37.dp    // 105dp is center of home icon
+            NavigationTab.CREATE -> 43.dp - 37.dp   // Default to saved position when create is selected
+            NavigationTab.CHATS -> 229.dp - 37.dp   // 229dp is center of chats icon
+            NavigationTab.PROFILE -> 291.dp - 37.dp // 291dp is center of profile icon
+        }
+        
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 6.dp, top = 6.dp, bottom = 6.dp), // Even margins: top, left, bottom
-            contentAlignment = Alignment.CenterStart
         ) {
-            // Container for outline and saved icon
+            // Selection outline that moves with selected tab
             Box(
-                modifier = Modifier.size(74.dp, 56.dp),
-                contentAlignment = Alignment.Center // Centers the saved icon inside the outline
+                modifier = Modifier
+                    .size(74.dp, 56.dp)
+                    .offset(x = outlineXPosition, y = 6.dp),
+                contentAlignment = Alignment.Center
             ) {
-                // Selection outline positioned on the left
                 Image(
                     painter = rememberVectorPainter(image = SelectionOutline),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
                     colorFilter = ColorFilter.tint(Color.Black)
                 )
-                // Saved icon centered inside the outline
-                Image(
-                    painter = rememberVectorPainter(image = SavedIcon),
-                    contentDescription = "Saved",
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { onTabSelected(NavigationTab.SAVED) },
-                    colorFilter = ColorFilter.tint(Color.Black)
-                )
             }
         }
         
-        // Layer 5: Home, Chats, and Profile icons positioned with consistent spacing
+        // Layer 5: All icons positioned with consistent spacing
         Box(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            // Calculate position: saved icon is at 6dp + 37dp (center of 74dp box) = 43dp from left
-            // Create icon is at center (167dp from left for 334dp width)
-            // Home should be at midpoint: (43dp + 167dp) / 2 = 105dp from left
+            // Saved icon - 43dp from left
+            Image(
+                painter = rememberVectorPainter(image = SavedIcon),
+                contentDescription = "Saved",
+                modifier = Modifier
+                    .size(24.dp)
+                    .offset(x = 43.dp - 12.dp, y = 34.dp - 12.dp)
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) { onTabSelected(NavigationTab.SAVED) },
+                colorFilter = ColorFilter.tint(Color.Black)
+            )
+            
+            // Home icon - 105dp from left
             Image(
                 painter = rememberVectorPainter(image = HomeIcon),
                 contentDescription = "Home",
                 modifier = Modifier
                     .size(24.dp)
-                    .offset(x = 105.dp - 12.dp, y = 34.dp - 12.dp) // Offset to center the 24dp icon at position (105, 34)
-                    .clickable { onTabSelected(NavigationTab.HOME) },
+                    .offset(x = 105.dp - 12.dp, y = 34.dp - 12.dp)
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) { onTabSelected(NavigationTab.HOME) },
                 colorFilter = ColorFilter.tint(Color.Black)
             )
             
-            // Chats icon - positioned between create and profile
-            // Create is at 167dp, profile will be at 291dp (334dp - 43dp from right to mirror saved)
-            // Chats should be at midpoint: (167dp + 291dp) / 2 = 229dp from left
+            // Chats icon - 229dp from left
             Image(
                 painter = rememberVectorPainter(image = ChatsIcon),
                 contentDescription = "Chats",
                 modifier = Modifier
                     .size(24.dp)
                     .offset(x = 229.dp - 12.dp, y = 34.dp - 12.dp)
-                    .clickable { onTabSelected(NavigationTab.CHATS) },
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) { onTabSelected(NavigationTab.CHATS) },
                 colorFilter = ColorFilter.tint(Color.Black)
             )
             
-            // Profile icon - positioned at far right, mirroring saved icon distance from left
-            // Saved is 43dp from left, so profile should be 43dp from right
-            // 334dp - 43dp = 291dp from left
+            // Profile icon - 291dp from left
             Image(
                 painter = rememberVectorPainter(image = ProfileIcon),
                 contentDescription = "Profile",
                 modifier = Modifier
                     .size(24.dp)
                     .offset(x = 291.dp - 12.dp, y = 34.dp - 12.dp)
-                    .clickable { onTabSelected(NavigationTab.PROFILE) },
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) { onTabSelected(NavigationTab.PROFILE) },
                 colorFilter = ColorFilter.tint(Color.Black)
             )
         }
@@ -194,7 +210,10 @@ fun BottomNavigationBar(
                 contentDescription = "Create",
                 modifier = Modifier
                     .size(24.dp)
-                    .clickable { onTabSelected(NavigationTab.CREATE) },
+                    .clickable(
+                        indication = null,
+                        interactionSource = remember { MutableInteractionSource() }
+                    ) { onTabSelected(NavigationTab.CREATE) },
                 colorFilter = ColorFilter.tint(Color.Black)
             )
         }
