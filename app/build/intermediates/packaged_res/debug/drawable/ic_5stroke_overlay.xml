@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="50dp"
+    android:height="50dp"
+    android:viewportWidth="50"
+    android:viewportHeight="50">
+    
+    <!-- 1dp stroke outline matching the white base layer -->
+    <path
+        android:pathData="M15,0.5 L35,0.5 Q49.5,0.5 49.5,15 L49.5,35 Q49.5,49.5 35,49.5 L15,49.5 Q0.5,49.5 0.5,35 L0.5,15 Q0.5,0.5 15,0.5 Z"
+        android:strokeWidth="1"
+        android:strokeColor="#40000000"
+        android:fillColor="@android:color/transparent"/>
+</vector>

@@ -25,6 +25,9 @@ public final class FragmentHomeBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
+  public final ImageView chatBubbleOverlay;
+
+  @NonNull
   public final LinearLayout defaultViewContainer;
 
   @NonNull
@@ -55,13 +58,14 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final RecyclerView searchResultsRecyclerView;
 
   private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
-      @NonNull LinearLayout defaultViewContainer,
+      @NonNull ImageView chatBubbleOverlay, @NonNull LinearLayout defaultViewContainer,
       @NonNull ThemedLocationContainerView locationContainer, @NonNull ImageView logoImageView,
       @NonNull View mapClickInterceptor, @NonNull MapView mapView,
       @NonNull ImageView searchBackButton, @NonNull ImageView searchClearButton,
       @NonNull LinearLayout searchContainer, @NonNull EditText searchEditText,
       @NonNull RecyclerView searchResultsRecyclerView) {
     this.rootView = rootView;
+    this.chatBubbleOverlay = chatBubbleOverlay;
     this.defaultViewContainer = defaultViewContainer;
     this.locationContainer = locationContainer;
     this.logoImageView = logoImageView;
@@ -101,6 +105,12 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
+      id = R.id.chatBubbleOverlay;
+      ImageView chatBubbleOverlay = ViewBindings.findChildViewById(rootView, id);
+      if (chatBubbleOverlay == null) {
+        break missingId;
+      }
+
       id = R.id.defaultViewContainer;
       LinearLayout defaultViewContainer = ViewBindings.findChildViewById(rootView, id);
       if (defaultViewContainer == null) {
@@ -161,9 +171,10 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, defaultViewContainer,
-          locationContainer, logoImageView, mapClickInterceptor, mapView, searchBackButton,
-          searchClearButton, searchContainer, searchEditText, searchResultsRecyclerView);
+      return new FragmentHomeBinding((ConstraintLayout) rootView, chatBubbleOverlay,
+          defaultViewContainer, locationContainer, logoImageView, mapClickInterceptor, mapView,
+          searchBackButton, searchClearButton, searchContainer, searchEditText,
+          searchResultsRecyclerView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

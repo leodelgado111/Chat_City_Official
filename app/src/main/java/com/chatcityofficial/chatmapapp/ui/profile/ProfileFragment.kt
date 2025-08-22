@@ -20,4 +20,5 @@ class ProfileFragment : Fragment() {
         textView.text = "This is profile fragment"
         return root
     }
+    
 }

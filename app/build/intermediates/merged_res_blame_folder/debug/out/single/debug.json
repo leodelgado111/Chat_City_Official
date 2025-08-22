@@ -16,6 +16,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable-hdpi\\next_icon.png"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5whitebase.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5whitebase.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_fragment_chats.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_chats.xml"
     },
@@ -24,8 +28,20 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\splash_logo.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_group320.png.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\group320.png"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_chat_bubble_background.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\chat_bubble_background.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_item_user.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\item_user.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5rightarrow.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5rightarrow.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\mipmap-xhdpi_ic_launcher_background.png.flat",
@@ -116,6 +132,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\activity_chat_detail.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_photo.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_photo.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_nav_saved.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_nav_saved.xml"
     },
@@ -148,6 +168,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_trash.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5strongergradient_upper.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5strongergradient_upper.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\mipmap-xxxhdpi_ic_launcher_monochrome.png.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\mipmap-xxxhdpi\\ic_launcher_monochrome.png"
     },
@@ -160,12 +184,12 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\unread_badge_background.xml"
     },
     {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\xml_data_extraction_rules.xml.flat",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\xml\\data_extraction_rules.xml"
-    },
-    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_item_chat_modern.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\item_chat_modern.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\xml\\data_extraction_rules.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_gps_button_layered.xml.flat",
@@ -252,6 +276,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\nav_bar_white_background.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5stroke_overlay.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5stroke_overlay.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\anim_fragment_slide_out_right.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\anim\\fragment_slide_out_right.xml"
     },
@@ -270,6 +298,14 @@
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_splash_screen.png.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\splash_screen.png"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_layout_chat_bubble.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\layout_chat_bubble.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_tap_animation_overlay.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\tap_animation_overlay.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\mipmap-hdpi_ic_launcher_monochrome.png.flat",
@@ -312,6 +348,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\mipmap-xhdpi\\ic_launcher_foreground.png"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_chat_bubble_example.png.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\chat_bubble_example.png"
+    },
+    {
         "merged": "com.chatcityofficial.chatmapapp-merged_res-89:/layout_activity_main.xml.flat",
         "source": "com.chatcityofficial.chatmapapp-main-91:/layout/activity_main.xml"
     },
@@ -344,6 +384,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5strongergradient_top.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5strongergradient_top.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\anim_slide_out_right.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\anim\\slide_out_right.xml"
     },
@@ -364,8 +408,16 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_saved.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_chat_city_logo_white.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\chat_city_logo_white.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\anim_slide_out_left.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\anim\\slide_out_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5leftarrow.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5leftarrow.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_fragment_home.xml.flat",
@@ -378,6 +430,10 @@
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_message_bubble_sent.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\message_bubble_sent.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5whitebase_upper.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5whitebase_upper.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_gradient_background.xml.flat",
@@ -424,6 +480,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_remove.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5whitebase_top.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5whitebase_top.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_close.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_close.xml"
     },
@@ -434,6 +494,10 @@
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_activity_chat_modern.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\activity_chat_modern.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_5strongergradient.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_5strongergradient.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable-xxhdpi_next_icon.png.flat",
@@ -472,6 +536,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_archive.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_bubble_chat_example.png.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\bubble_chat_example.png"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\navigation_mobile_navigation.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\navigation\\mobile_navigation.xml"
     },
@@ -508,6 +576,10 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\top_bar_background.xml"
     },
     {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_chat_city_logo_pure_white.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\chat_city_logo_pure_white.xml"
+    },
+    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_fragment_chats_modern.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_chats_modern.xml"
     },
@@ -520,12 +592,12 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_fragment_profile.xml.flat",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_profile.xml"
-    },
-    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\drawable_ic_map_marker_layered.xml.flat",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\drawable\\ic_map_marker_layered.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\layout_fragment_profile.xml.flat",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_profile.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-merged_res-89:\\mipmap-hdpi_ic_launcher.png.flat",

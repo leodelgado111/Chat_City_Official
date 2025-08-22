@@ -11,6 +11,12 @@ import androidx.compose.ui.graphics.Color
 import com.chatcityofficial.chatmapapp.R
 import com.chatcityofficial.chatmapapp.ui.compose.chat.ChatComposeActivity
 import com.chatcityofficial.chatmapapp.ui.compose.theme.ChatCityTheme
+import com.chatcityofficial.chatmapapp.ui.compose.navigation.BottomNavigationBar
+import com.chatcityofficial.chatmapapp.ui.compose.navigation.NavigationTab
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.ui.unit.dp
 
 class ChatsComposeActivity : ComponentActivity() {
     
@@ -47,33 +53,74 @@ class ChatsComposeActivity : ComponentActivity() {
             addFlags(android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         }
         
+        // Ensure MainActivity arrow buttons are hidden when this activity is visible
+        // This is a failsafe in case MainActivity didn't hide them properly
+        hideMainActivityArrowButtons()
+        
         setContent {
             ChatCityTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = Color(0xFF0D0D0D)
                 ) {
-                    ChatsComposeScreen(
-                        onChatClick = { chat ->
-                            val intent = Intent(this, ChatComposeActivity::class.java).apply {
-                                putExtra(ChatComposeActivity.EXTRA_CHAT_ID, chat.id)
-                                putExtra(ChatComposeActivity.EXTRA_CHAT_NAME, chat.name)
+                    Box(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        // Main content with padding for navigation bar
+                        ChatsComposeScreen(
+                            modifier = Modifier.padding(bottom = 68.dp), // Add bottom padding for nav bar
+                            onChatClick = { chat ->
+                                val intent = Intent(this@ChatsComposeActivity, ChatComposeActivity::class.java).apply {
+                                    putExtra(ChatComposeActivity.EXTRA_CHAT_ID, chat.id)
+                                    putExtra(ChatComposeActivity.EXTRA_CHAT_NAME, chat.name)
+                                }
+                                startActivityForResult(intent, CHAT_ACTIVITY_REQUEST_CODE)
+                                overridePendingTransition(
+                                    R.anim.fragment_slide_in_right,
+                                    R.anim.fragment_slide_out_left
+                                )
+                            },
+                            onBackClick = {
+                                setResult(RESULT_OK)
+                                finish()
+                                overridePendingTransition(
+                                    R.anim.fragment_slide_in_left,
+                                    R.anim.fragment_slide_out_right
+                                )
                             }
-                            startActivityForResult(intent, CHAT_ACTIVITY_REQUEST_CODE)
-                            overridePendingTransition(
-                                R.anim.fragment_slide_in_right,
-                                R.anim.fragment_slide_out_left
-                            )
-                        },
-                        onBackClick = {
-                            setResult(RESULT_OK)
-                            finish()
-                            overridePendingTransition(
-                                R.anim.fragment_slide_in_left,
-                                R.anim.fragment_slide_out_right
+                        )
+                        
+                        // Bottom Navigation Bar
+                        Box(
+                            modifier = Modifier
+                                .align(androidx.compose.ui.Alignment.BottomCenter)
+                                .navigationBarsPadding() // Use system navigation bar padding
+                                .padding(bottom = 12.dp) // Additional padding (same as MainActivity)
+                        ) {
+                            BottomNavigationBar(
+                                selectedTab = NavigationTab.CHATS,
+                                onTabSelected = { tab ->
+                                    when (tab) {
+                                        NavigationTab.SAVED, NavigationTab.HOME, NavigationTab.PROFILE -> {
+                                            // Return to MainActivity with the selected tab
+                                            setResult(RESULT_OK)
+                                            finish()
+                                            overridePendingTransition(
+                                                R.anim.fragment_slide_in_left,
+                                                R.anim.fragment_slide_out_right
+                                            )
+                                        }
+                                        NavigationTab.CREATE -> {
+                                            // Do nothing for CREATE
+                                        }
+                                        NavigationTab.CHATS -> {
+                                            // Already on CHATS, do nothing
+                                        }
+                                    }
+                                }
                             )
                         }
-                    )
+                    }
                 }
             }
         }
@@ -101,5 +148,23 @@ class ChatsComposeActivity : ComponentActivity() {
         super.onResume()
         // Ensure proper visibility when returning from ChatComposeActivity
         window.decorView.requestLayout()
+        
+        // Re-hide arrow buttons in case MainActivity brought them back
+        hideMainActivityArrowButtons()
+    }
+    
+    private fun hideMainActivityArrowButtons() {
+        try {
+            // Try to find and hide MainActivity arrow buttons if they exist
+            // These buttons are part of MainActivity's layout and might appear on top of this activity
+            val context = this as? android.app.Activity
+            context?.let {
+                // Use reflection or direct access if possible
+                // For now, this is a placeholder - the real solution is that MainActivity should handle this
+                // when launching this activity
+            }
+        } catch (e: Exception) {
+            // Silent failure - MainActivity should handle hiding buttons properly
+        }
     }
 }

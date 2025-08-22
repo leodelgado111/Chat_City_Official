@@ -63,6 +63,7 @@ class HomeFragment : Fragment() {
     private lateinit var mapView: MapView
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var logoImageView: ImageView
+    private lateinit var chatBubbleOverlay: ImageView
     private var currentLocation: Location? = null
     private var currentMapStyle: String = Style.DARK
     private var isDarkMode: Boolean = true
@@ -92,6 +93,40 @@ class HomeFragment : Fragment() {
     private var pulseAnnotation: CircleAnnotation? = null
     private var centerDotAnnotation: CircleAnnotation? = null
     private var placeMarkerAnnotation: PointAnnotation? = null
+    
+    // Chat bubbles
+    private val chatBubbles = mutableListOf<PointAnnotation>()
+    private var currentChatBubbleIndex = 0
+    private var currentZoomLevel = 10.0
+    private val ZOOM_THRESHOLD = 17.0  // Zoom level below which bubbles are minimized
+    private var zoomTransitionAnimator: ValueAnimator? = null
+    private var currentBubbleScale = 0f
+    
+    // Cluj-Napoca chat bubble locations with text
+    data class ChatBubbleData(val location: Point, val text: String, val author: String)
+    
+    private val clujChatBubbleData = listOf(
+        ChatBubbleData(
+            Point.fromLngLat(23.5897, 46.7712), 
+            "Central Park is amazing in the morning! Perfect for jogging 🏃‍♂️",
+            "Alex M."
+        ),
+        ChatBubbleData(
+            Point.fromLngLat(23.5924, 46.7684), 
+            "Best coffee shop near Union Square! Try the espresso ☕",
+            "Maria P."
+        ),
+        ChatBubbleData(
+            Point.fromLngLat(23.5862, 46.7731),
+            "The Botanical Garden has beautiful roses this season 🌹",
+            "Stefan R."
+        ),
+        ChatBubbleData(
+            Point.fromLngLat(23.5955, 46.7698),  // Near Cluj Arena area
+            "Hey everyone! It's super sunny outside - make sure to wear sunscreen today.",
+            "Community"
+        )
+    )
     private var pulseAnimator: ValueAnimator? = null
     
     // Handler for periodic theme checks
@@ -141,6 +176,11 @@ class HomeFragment : Fragment() {
         // Initialize views
         mapView = view.findViewById(R.id.mapView)
         logoImageView = view.findViewById(R.id.logoImageView)
+        chatBubbleOverlay = view.findViewById(R.id.chatBubbleOverlay)
+        
+        // Set initial logo color based on current theme (defaults to dark)
+        Log.d(TAG, "Setting initial logo color, isDarkMode: $isDarkMode")
+        updateLogoColor(isDarkMode)
         
         // Initialize search views
         defaultViewContainer = view.findViewById(R.id.defaultViewContainer)
@@ -153,6 +193,9 @@ class HomeFragment : Fragment() {
         
         // Initialize location services
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        
+        // Determine initial theme after location client is initialized
+        determinateInitialTheme()
         
         // Initialize Places API
         if (!Places.isInitialized()) {
@@ -167,10 +210,7 @@ class HomeFragment : Fragment() {
         searchResultsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         searchResultsRecyclerView.adapter = searchAdapter
         
-        // Pre-determine theme before initializing map
-        determinateInitialTheme()
-        
-        // Initialize map
+        // Initialize map (theme already determined above)
         initializeMap()
         
         // Setup click listeners
@@ -475,35 +515,103 @@ class HomeFragment : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                location?.let {
-                    val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(it.latitude, it.longitude)
-                    val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
-                    val now = Calendar.getInstance()
-                    
-                    val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
-                    val sunset = calculator.getOfficialSunsetCalendarForDate(now)
-                    
-                    isDarkMode = now.after(sunset) || now.before(sunrise)
-                    currentMapStyle = if (isDarkMode) Style.DARK else Style.LIGHT
-                    
-                    updateLogoColor(isDarkMode)
+                if (location != null) {
+                    determineThemeFromLocation(location)
+                } else {
+                    Log.w(TAG, "Location is null, trying to get current location")
+                    // If no location, try to get current location
+                    getCurrentLocation()
+                    // For now, determine theme based on current time for a default location (Cluj-Napoca)
+                    val defaultLocation = Location("default").apply {
+                        latitude = 46.7712  // Cluj-Napoca
+                        longitude = 23.6236
+                    }
+                    determineThemeFromLocation(defaultLocation)
                 }
+            }
+        } else {
+            Log.w(TAG, "No location permission, using default dark theme")
+            updateLogoColor(isDarkMode)
+        }
+    }
+    
+    private fun determineThemeFromLocation(location: Location) {
+        try {
+            val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(location.latitude, location.longitude)
+            val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
+            val now = Calendar.getInstance()
+            
+            val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
+            val sunset = calculator.getOfficialSunsetCalendarForDate(now)
+            
+            val wasInDarkMode = isDarkMode
+            
+            // Check if current time is between sunset and sunrise (next day)
+            val currentTimeInMinutes = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
+            val sunriseInMinutes = sunrise.get(Calendar.HOUR_OF_DAY) * 60 + sunrise.get(Calendar.MINUTE)
+            val sunsetInMinutes = sunset.get(Calendar.HOUR_OF_DAY) * 60 + sunset.get(Calendar.MINUTE)
+            
+            // Dark mode should be active from sunset to sunrise
+            isDarkMode = currentTimeInMinutes >= sunsetInMinutes || currentTimeInMinutes < sunriseInMinutes
+            currentMapStyle = if (isDarkMode) Style.DARK else Style.LIGHT
+            
+            Log.d(TAG, "Location: lat=${location.latitude}, lng=${location.longitude}")
+            Log.d(TAG, "Theme determined - Dark mode: $isDarkMode (was: $wasInDarkMode)")
+            Log.d(TAG, "Current time: ${now.get(Calendar.HOUR_OF_DAY)}:${String.format("%02d", now.get(Calendar.MINUTE))} ($currentTimeInMinutes min)")
+            Log.d(TAG, "Sunrise: ${sunrise.get(Calendar.HOUR_OF_DAY)}:${String.format("%02d", sunrise.get(Calendar.MINUTE))} ($sunriseInMinutes min)")
+            Log.d(TAG, "Sunset: ${sunset.get(Calendar.HOUR_OF_DAY)}:${String.format("%02d", sunset.get(Calendar.MINUTE))} ($sunsetInMinutes min)")
+            
+            // Always update logo color
+            view?.post {
+                updateLogoColor(isDarkMode)
+            }
+            
+            // Update map style if it's different
+            if (wasInDarkMode != isDarkMode) {
+                mapView.getMapboxMap().loadStyleUri(currentMapStyle) { style ->
+                    Log.d(TAG, "Map style changed to: $currentMapStyle")
+                    view?.post {
+                        updateLogoColor(isDarkMode)
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error determining theme from location", e)
+            // Default to dark mode on error
+            isDarkMode = true
+            currentMapStyle = Style.DARK
+            view?.post {
+                updateLogoColor(isDarkMode)
             }
         }
     }
     
     private fun initializeMap() {
         mapView.getMapboxMap().apply {
-            // Add camera change listener to update location text
+            // Add camera change listener to update location text and handle zoom
             addOnCameraChangeListener {
                 val center = cameraState.center
                 center?.let {
                     updateLocationUIFromCamera(it.latitude(), it.longitude())
                 }
+                
+                // Check zoom level and update chat bubbles
+                val newZoomLevel = cameraState.zoom
+                if ((currentZoomLevel >= ZOOM_THRESHOLD && newZoomLevel < ZOOM_THRESHOLD) ||
+                    (currentZoomLevel < ZOOM_THRESHOLD && newZoomLevel >= ZOOM_THRESHOLD)) {
+                    currentZoomLevel = newZoomLevel
+                    updateChatBubblesForZoom()
+                }
+                currentZoomLevel = newZoomLevel
             }
             
             loadStyleUri(currentMapStyle) { style ->
                 Log.d(TAG, "Map style loaded: $currentMapStyle")
+                
+                // Force update logo color based on current theme
+                view?.post {
+                    updateLogoColor(isDarkMode)
+                }
                 
                 // Disable all Mapbox branding and UI elements
                 mapView.location.enabled = false
@@ -576,6 +684,9 @@ class HomeFragment : Fragment() {
         val annotationApi = mapView.annotations
         circleAnnotationManager = annotationApi.createCircleAnnotationManager()
         polygonAnnotationManager = annotationApi.createPolygonAnnotationManager()
+        
+        // Add chat bubbles in Cluj-Napoca
+        addChatBubbles()
     }
     
     private fun checkLocationPermission() {
@@ -662,67 +773,24 @@ class HomeFragment : Fragment() {
     }
     
     private fun updateMapThemeBasedOnTime(location: Location) {
-        val sunLocation = com.luckycatlabs.sunrisesunset.dto.Location(location.latitude, location.longitude)
-        val calculator = SunriseSunsetCalculator(sunLocation, TimeZone.getDefault())
-        val now = Calendar.getInstance()
-        
-        val sunrise = calculator.getOfficialSunriseCalendarForDate(now)
-        val sunset = calculator.getOfficialSunsetCalendarForDate(now)
-        
-        val shouldUseDarkTheme = now.after(sunset) || now.before(sunrise)
-        
-        if (shouldUseDarkTheme != isDarkMode) {
-            isDarkMode = shouldUseDarkTheme
-            val newStyle = if (isDarkMode) Style.DARK else Style.LIGHT
-            
-            saveCameraState()
-            
-            mapView.getMapboxMap().loadStyleUri(newStyle) { style ->
-                Log.d(TAG, "Theme switched to: ${if (isDarkMode) "DARK" else "LIGHT"}")
-                currentMapStyle = newStyle
-                
-                mapView.logo.enabled = false
-                mapView.attribution.enabled = false
-                mapView.scalebar.enabled = false
-                
-                // Re-add map click listener after style change
-                mapView.gestures.addOnMapClickListener { point ->
-                    if (isSearchVisible) {
-                        Log.d(TAG, "Map clicked while search is visible - closing search")
-                        hideSearchView()
-                        true // Consume the click event
-                    } else {
-                        false // Let other click handlers process it
-                    }
-                }
-                
-                initializeAnnotationManager()
-                
-                savedCameraState?.let { state ->
-                    val cameraOptions = CameraOptions.Builder()
-                        .center(state.center)
-                        .zoom(state.zoom)
-                        .bearing(state.bearing)
-                        .pitch(state.pitch)
-                        .build()
-                    
-                    mapView.getMapboxMap().setCamera(cameraOptions)
-                }
-                
-                currentLocation?.let { updateLocationPulse(it) }
-            }
-            
-            updateLogoColor(isDarkMode)
-        }
+        determineThemeFromLocation(location)
     }
     
     private fun updateLogoColor(useDarkMode: Boolean) {
-        val colorFilter = if (useDarkMode) {
-            PorterDuffColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        // Switch between white and black logo drawables
+        val logoResource = if (useDarkMode) {
+            R.drawable.chat_city_logo_pure_white  // Use pure white logo for dark mode
         } else {
-            PorterDuffColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+            R.drawable.chat_city_logo_with_shadow
         }
-        logoImageView.colorFilter = colorFilter
+        logoImageView.setImageResource(logoResource)
+        logoImageView.invalidate() // Force redraw
+        logoImageView.requestLayout() // Force layout update
+        Log.d(TAG, "Logo switched to: ${if (useDarkMode) "PURE WHITE" else "BLACK"} version, resource ID: $logoResource")
+        
+        // Log the actual drawable being used
+        val drawable = logoImageView.drawable
+        Log.d(TAG, "Logo drawable: $drawable")
     }
     
     private fun startThemeUpdates() {
@@ -938,5 +1006,282 @@ class HomeFragment : Fragment() {
             updateMapThemeBasedOnTime(it)
             startThemeUpdates()
         }
+    }
+    
+    private fun addChatBubbles() {
+        // Create point annotation manager if needed
+        if (pointAnnotationManager == null) {
+            val annotationApi = mapView.annotations
+            pointAnnotationManager = annotationApi.createPointAnnotationManager()
+        }
+        
+        pointAnnotationManager?.let { manager ->
+            // Clear existing chat bubbles
+            chatBubbles.forEach { manager.delete(it) }
+            chatBubbles.clear()
+            
+            // Determine if we should show full or minimized bubbles
+            val showFullBubbles = currentZoomLevel >= ZOOM_THRESHOLD
+            
+            // Add chat bubbles for Cluj-Napoca locations
+            clujChatBubbleData.forEach { bubbleData ->
+                try {
+                    val bitmap = if (showFullBubbles) {
+                        // Create bitmap for chat bubble with text
+                        createChatBubbleBitmap(bubbleData.text, bubbleData.author)
+                    } else {
+                        // Create minimized bubble (just a dot)
+                        createMinimizedBubbleBitmap()
+                    }
+                    
+                    val annotation = manager.create(
+                        PointAnnotationOptions()
+                            .withPoint(bubbleData.location)
+                            .withIconImage(bitmap)
+                            .withIconSize(1.0)
+                            .withIconOffset(if (showFullBubbles) listOf(0.0, -20.0) else listOf(0.0, 0.0))
+                    )
+                    chatBubbles.add(annotation)
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error creating chat bubble", e)
+                }
+            }
+            
+            Log.d(TAG, "Added ${chatBubbles.size} chat bubbles (${if (showFullBubbles) "full" else "minimized"})")
+        }
+    }
+    
+    private fun updateChatBubblesForZoom() {
+        // Animate transition between minimized and full bubbles
+        val targetScale = if (currentZoomLevel >= ZOOM_THRESHOLD) 1f else 0f
+        
+        zoomTransitionAnimator?.cancel()
+        zoomTransitionAnimator = ValueAnimator.ofFloat(currentBubbleScale, targetScale).apply {
+            duration = 300  // 300ms smooth transition
+            interpolator = android.view.animation.DecelerateInterpolator()
+            addUpdateListener { animator ->
+                currentBubbleScale = animator.animatedValue as Float
+                // Re-create chat bubbles with new scale
+                addChatBubbles()
+            }
+            start()
+        }
+    }
+    
+    private fun createMinimizedBubbleBitmap(): android.graphics.Bitmap {
+        // Create a small dot for minimized view that scales based on transition
+        val baseSize = 30
+        val expandedSize = 60
+        val size = (baseSize + (expandedSize - baseSize) * currentBubbleScale).toInt()
+        
+        val bitmap = android.graphics.Bitmap.createBitmap(
+            size.coerceAtLeast(10),
+            size.coerceAtLeast(10),
+            android.graphics.Bitmap.Config.ARGB_8888
+        )
+        val canvas = android.graphics.Canvas(bitmap)
+        
+        // Draw a small colored circle that fades as it expands
+        val paint = android.graphics.Paint().apply {
+            color = android.graphics.Color.parseColor("#FF9ED4F5")
+            style = android.graphics.Paint.Style.FILL
+            isAntiAlias = true
+            alpha = (255 * (1f - currentBubbleScale * 0.7f)).toInt().coerceIn(0, 255)
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f - 2f, paint)
+        
+        // Add white border that also fades
+        paint.apply {
+            color = android.graphics.Color.WHITE
+            style = android.graphics.Paint.Style.STROKE
+            strokeWidth = 2f
+            alpha = (255 * (1f - currentBubbleScale * 0.7f)).toInt().coerceIn(0, 255)
+        }
+        canvas.drawCircle(size / 2f, size / 2f, size / 2f - 2f, paint)
+        
+        return bitmap
+    }
+    
+    private fun createChatBubbleBitmap(text: String, author: String): android.graphics.Bitmap {
+        // Create a text paint - smaller size
+        val textPaint = android.graphics.Paint().apply {
+            color = android.graphics.Color.BLACK
+            textSize = 28f  // Reduced from 36f
+            isAntiAlias = true
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
+        }
+        
+        val authorPaint = android.graphics.Paint().apply {
+            color = android.graphics.Color.parseColor("#666666")
+            textSize = 22f  // Reduced from 28f
+            isAntiAlias = true
+        }
+        
+        // Measure text - smaller max width
+        val maxWidth = 300  // Reduced from 400
+        val padding = 24  // Reduced from 32
+        val lines = mutableListOf<String>()
+        val words = text.split(" ")
+        var currentLine = ""
+        
+        for (word in words) {
+            val testLine = if (currentLine.isEmpty()) word else "$currentLine $word"
+            val textWidth = textPaint.measureText(testLine)
+            if (textWidth > maxWidth - padding * 2) {
+                if (currentLine.isNotEmpty()) {
+                    lines.add(currentLine)
+                    currentLine = word
+                } else {
+                    lines.add(word)
+                }
+            } else {
+                currentLine = testLine
+            }
+        }
+        if (currentLine.isNotEmpty()) {
+            lines.add(currentLine)
+        }
+        
+        // Calculate bitmap size - smaller dimensions
+        val lineHeight = 35  // Reduced from 45
+        val authorHeight = 28  // Reduced from 35
+        val bitmapHeight = padding * 2 + lines.size * lineHeight + authorHeight + 15
+        val bitmapWidth = maxWidth
+        
+        // Apply scale for transition animation
+        val scaledWidth = (bitmapWidth * (0.3f + currentBubbleScale * 0.7f)).toInt()
+        val scaledHeight = (bitmapHeight * (0.3f + currentBubbleScale * 0.7f)).toInt()
+        
+        // Create bitmap and canvas
+        val bitmap = android.graphics.Bitmap.createBitmap(
+            scaledWidth.coerceAtLeast(30),
+            scaledHeight.coerceAtLeast(30),
+            android.graphics.Bitmap.Config.ARGB_8888
+        )
+        val canvas = android.graphics.Canvas(bitmap)
+        
+        // Scale canvas for smooth transition
+        val scale = 0.3f + currentBubbleScale * 0.7f
+        canvas.scale(scale, scale)
+        
+        // Draw chat bubble background with more rounded corners
+        val backgroundPaint = android.graphics.Paint().apply {
+            color = android.graphics.Color.WHITE
+            style = android.graphics.Paint.Style.FILL
+            isAntiAlias = true
+            alpha = (255 * currentBubbleScale).toInt().coerceIn(0, 255)
+        }
+        
+        val rect = android.graphics.RectF(0f, 0f, bitmapWidth.toFloat(), bitmapHeight.toFloat() - 10f)
+        val cornerRadius = 40f  // Increased from 24f for more rounded corners
+        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, backgroundPaint)
+        
+        // Draw border
+        val borderPaint = android.graphics.Paint().apply {
+            color = android.graphics.Color.parseColor("#E0E0E0")
+            style = android.graphics.Paint.Style.STROKE
+            strokeWidth = 2f  // Reduced from 3f
+            isAntiAlias = true
+            alpha = (255 * currentBubbleScale).toInt().coerceIn(0, 255)
+        }
+        canvas.drawRoundRect(rect, cornerRadius, cornerRadius, borderPaint)
+        
+        // Draw tail (speech bubble pointer) - only if mostly visible
+        if (currentBubbleScale > 0.5f) {
+            val tailPath = android.graphics.Path().apply {
+                moveTo(bitmapWidth / 2f - 10f, bitmapHeight.toFloat() - 10f)
+                lineTo(bitmapWidth / 2f, bitmapHeight.toFloat())
+                lineTo(bitmapWidth / 2f + 10f, bitmapHeight.toFloat() - 10f)
+                close()
+            }
+            canvas.drawPath(tailPath, backgroundPaint)
+        }
+        
+        // Draw text - only if scale is significant
+        if (currentBubbleScale > 0.3f) {
+            textPaint.alpha = (255 * currentBubbleScale).toInt().coerceIn(0, 255)
+            authorPaint.alpha = (255 * currentBubbleScale).toInt().coerceIn(0, 255)
+            
+            var y = padding.toFloat() + 28f
+            for (line in lines) {
+                canvas.drawText(line, padding.toFloat(), y, textPaint)
+                y += lineHeight
+            }
+            
+            // Draw author
+            canvas.drawText("- $author", padding.toFloat(), y + 8f, authorPaint)
+        }
+        
+        return bitmap
+    }
+    
+    fun navigateToNextChatBubble() {
+        if (chatBubbles.isEmpty()) {
+            addChatBubbles()
+        }
+        
+        if (chatBubbles.isNotEmpty()) {
+            currentChatBubbleIndex = (currentChatBubbleIndex + 1) % chatBubbles.size
+            val nextBubble = chatBubbles[currentChatBubbleIndex]
+            
+            // Hide any overlay since we're using actual PNG annotations on the map
+            hideChatBubbleOverlay()
+            
+            // Fly to the next chat bubble location
+            val cameraOptions = CameraOptions.Builder()
+                .center(nextBubble.point)
+                .zoom(18.0)
+                .build()
+            mapView.getMapboxMap().flyTo(cameraOptions)
+            
+            Log.d(TAG, "Navigating to chat bubble $currentChatBubbleIndex")
+        }
+    }
+    
+    fun navigateToPreviousChatBubble() {
+        if (chatBubbles.isEmpty()) {
+            addChatBubbles()
+        }
+        
+        if (chatBubbles.isNotEmpty()) {
+            currentChatBubbleIndex = if (currentChatBubbleIndex > 0) {
+                currentChatBubbleIndex - 1
+            } else {
+                chatBubbles.size - 1
+            }
+            val prevBubble = chatBubbles[currentChatBubbleIndex]
+            
+            // Hide any overlay since we're using actual PNG annotations on the map
+            hideChatBubbleOverlay()
+            
+            // Fly to the previous chat bubble location
+            val cameraOptions = CameraOptions.Builder()
+                .center(prevBubble.point)
+                .zoom(18.0)
+                .build()
+            mapView.getMapboxMap().flyTo(cameraOptions)
+            
+            Log.d(TAG, "Navigating to chat bubble $currentChatBubbleIndex")
+        }
+    }
+    
+    private fun showChatBubbleOverlay() {
+        chatBubbleOverlay.animate()
+            .alpha(1f)
+            .setDuration(300)
+            .withStartAction {
+                chatBubbleOverlay.visibility = View.VISIBLE
+            }
+            .start()
+    }
+    
+    private fun hideChatBubbleOverlay() {
+        chatBubbleOverlay.animate()
+            .alpha(0f)
+            .setDuration(300)
+            .withEndAction {
+                chatBubbleOverlay.visibility = View.GONE
+            }
+            .start()
     }
 }

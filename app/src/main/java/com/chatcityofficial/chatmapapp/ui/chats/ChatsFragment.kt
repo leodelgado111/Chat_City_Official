@@ -148,6 +148,12 @@ class ChatsFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // Arrow buttons should remain hidden when on chats screen
+        // MainActivity's updateArrowButtonVisibility will handle this properly
+    }
+    
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

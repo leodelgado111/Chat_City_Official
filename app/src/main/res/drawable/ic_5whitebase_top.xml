@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="50dp"
+    android:height="50dp"
+    android:viewportWidth="50"
+    android:viewportHeight="50"
+    android:alpha="0.95">
+    
+    <!-- Drop shadow effect simulated with a slightly offset darker shape -->
+    <path
+        android:pathData="M0,15C0,6.716 6.716,0 15,0H35C43.284,0 50,6.716 50,15V35C50,43.284 43.284,50 35,50H15C6.716,50 0,43.284 0,35V15Z"
+        android:fillColor="#40000000"/>
+    
+    <!-- Main white rounded rectangle with 95% opacity -->
+    <path
+        android:pathData="M0,15C0,6.716 6.716,0 15,0H35C43.284,0 50,6.716 50,15V35C50,43.284 43.284,50 35,50H15C6.716,50 0,43.284 0,35V15Z"
+        android:fillColor="#F2FFFFFF"/>
+</vector>

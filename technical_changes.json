@@ -4,7 +4,9 @@
     "purpose": "Permanent record of all technical changes",
     "rules": [
       "Append-only log - never delete or modify existing entries",
-      "Every change must be documented"
+      "Every change must be documented",
+      "CRITICAL: Future AIs MUST update this file with any technical changes made to the project",
+      "Always add a new entry with incremented ID when making code changes"
     ],
     "categories": [
       "Feature",
@@ -1238,6 +1240,629 @@
       ],
       "related_issues": "User requested: 'raise the bottom navigation bar to create a dropshadow'",
       "code_snippets": null
+    },
+    {
+      "id": 31,
+      "date": "2025-08-22",
+      "time": "14:45",
+      "author": "Claude/Assistant",
+      "category": "Feature",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt"
+      ],
+      "description": "Added chat_bubble_example.png overlay at random location on Cluj-Napoca map",
+      "technical_details": {
+        "implementation": [
+          "Modified addChatBubbles() function to include custom PNG overlay",
+          "Loads chat_bubble_example.png from drawable resources",
+          "Converts drawable to bitmap for use as map annotation",
+          "Places bubble at random coordinates within Cluj-Napoca bounds"
+        ],
+        "random_placement": [
+          "Longitude range: 23.51 to 23.65",
+          "Latitude range: 46.73 to 46.81",
+          "Uses Math.random() for coordinate generation",
+          "New random location generated each time map loads or chat bubbles refresh"
+        ],
+        "annotation_properties": [
+          "Uses PointAnnotationOptions for placement",
+          "Icon size set to 0.5 for appropriate scaling",
+          "Icon offset of (0, -20) to properly position above location point",
+          "Added to chatBubbles list for proper lifecycle management"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Launch app and navigate to Home screen with map",
+        "Look for chat_bubble_example.png overlay somewhere in Cluj-Napoca area",
+        "Zoom in/out to verify bubble remains visible and properly positioned",
+        "Navigate away and return to verify new random position on reload"
+      ],
+      "related_issues": null,
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Generate random location within Cluj-Napoca bounds\nval randomLongitude = 23.51 + Math.random() * (23.65 - 23.51)\nval randomLatitude = 46.73 + Math.random() * (46.81 - 46.73)\nval randomPoint = Point.fromLngLat(randomLongitude, randomLatitude)"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "date": "2025-08-22",
+      "time": "21:00",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt",
+        "app/src/main/res/drawable/chat_bubble_example.png (replaced)"
+      ],
+      "description": "Updated bubble_chat_example placement to be near the other four chat bubbles in Cluj-Napoca",
+      "technical_details": {
+        "file_update": [
+          "Replaced chat_bubble_example.png in drawable folder with bubble_chat_example.png from figma folder",
+          "File size changed from 51KB to 14KB - using the newer, optimized version"
+        ],
+        "location_adjustment": [
+          "Changed bubble position from (23.5910, 46.7705) to (23.5905, 46.7707)",
+          "New position is more centrally located among the four existing chat bubbles",
+          "Maintains visual balance with other bubble locations"
+        ],
+        "existing_bubble_locations": [
+          "Bubble 1: (23.5897, 46.7712) - Central Park message",
+          "Bubble 2: (23.5924, 46.7684) - Coffee shop message",
+          "Bubble 3: (23.5862, 46.7731) - Botanical Garden message",
+          "Bubble 4: (23.5955, 46.7698) - Community weather message",
+          "Example bubble: (23.5905, 46.7707) - Positioned centrally"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Launch app and navigate to Cluj-Napoca area on the map",
+        "Verify bubble_chat_example.png appears near the other four chat bubbles",
+        "Check that the bubble is visually balanced among the group",
+        "Zoom in/out to verify bubble scales appropriately"
+      ],
+      "related_issues": "User requested to place bubble_chat_example near the other four chat bubbles",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Position centrally among the other four chat bubbles\nval staticLongitude = 23.5905\nval staticLatitude = 46.7707\nval staticPoint = Point.fromLngLat(staticLongitude, staticLatitude)"
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "date": "2025-08-22",
+      "time": "21:10",
+      "author": "Claude/Assistant",
+      "category": "UI/Feature",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt",
+        "app/src/main/res/drawable/group320.png (added)"
+      ],
+      "description": "Added group320.png as an additional chat bubble overlay near the existing bubbles in Cluj-Napoca",
+      "technical_details": {
+        "implementation": [
+          "Copied group320.png from figma folder to drawable folder",
+          "Added code to load and display group320.png as a map annotation",
+          "Positioned at coordinates (23.5920, 46.7715) near other chat bubbles",
+          "Set to 0.5x size with -20 pixel vertical offset for proper positioning"
+        ],
+        "bubble_locations": [
+          "Bubble 1: (23.5897, 46.7712) - Central Park message",
+          "Bubble 2: (23.5924, 46.7684) - Coffee shop message",
+          "Bubble 3: (23.5862, 46.7731) - Botanical Garden message",
+          "Bubble 4: (23.5955, 46.7698) - Community weather message",
+          "chat_bubble_example: (23.5905, 46.7707) - Example bubble",
+          "group320: (23.5920, 46.7715) - New group320 overlay"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Launch app and navigate to Cluj-Napoca area",
+        "Verify group320.png appears near the cluster of other bubbles",
+        "Check that all 6 bubble overlays are visible and properly positioned",
+        "Zoom in/out to verify proper scaling behavior"
+      ],
+      "related_issues": "User requested to place group320.png near the other bubbles",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Position near the other bubbles, slightly offset\nval group320Longitude = 23.5920\nval group320Latitude = 46.7715\nval group320Point = Point.fromLngLat(group320Longitude, group320Latitude)"
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "date": "2025-08-22",
+      "time": "21:15",
+      "author": "Claude/Assistant",
+      "category": "UI/Bug Fix",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt",
+        "app/src/main/res/drawable/chat_bubble_example.png (updated from figma/bubble_chat_example.png)"
+      ],
+      "description": "Fixed bubble_chat_example.png placement and file naming issues",
+      "technical_details": {
+        "issue": "bubble_chat_example.png was not appearing on the map despite being added in previous change",
+        "root_cause": "File was named bubble_chat_example.png in figma folder but code was looking for chat_bubble_example.png",
+        "solution": [
+          "Copied figma/bubble_chat_example.png over existing chat_bubble_example.png in drawable folder",
+          "File size changed from 51KB to 14KB - using the newer optimized version from figma",
+          "Adjusted position to (23.5905, 46.7707) for better placement among other bubbles"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify bubble appears at the correct location in Cluj-Napoca",
+        "Check that the bubble scales appropriately with zoom"
+      ],
+      "related_issues": "User reported bubble PNG was not displaying"
+    },
+    {
+      "id": 35,
+      "date": "2025-08-22", 
+      "time": "21:20",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/navigation/BottomNavigationBar.kt",
+        "app/src/main/res/drawable/ic_nav_saved.xml (updated but not used)"
+      ],
+      "description": "Updated saved icon in navigation bar to wallet with dollar sign design from group325",
+      "technical_details": {
+        "discovery": "Found that navigation bar uses hardcoded Compose ImageVector icons, not XML drawables",
+        "implementation": [
+          "Updated SavedIcon ImageVector in BottomNavigationBar.kt",
+          "Converted group325.svg design to Compose path commands",
+          "New icon shows wallet/card shape with dollar sign in center",
+          "Changed from bookmark design to financial/wallet theme"
+        ],
+        "key_finding": "Navigation icons are defined as Compose ImageVectors directly in BottomNavigationBar.kt, not using the XML drawable files"
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify saved icon shows wallet with dollar sign",
+        "Check icon colors change when selected/unselected",
+        "Ensure icon scales properly on different screen sizes"
+      ],
+      "related_issues": "User reported saved icon was not updating when ic_nav_saved.xml was changed"
+    },
+    {
+      "id": 36,
+      "date": "2025-08-22",
+      "time": "21:25",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/home/HomeFragment.kt"
+      ],
+      "description": "Removed chat_bubble_example.png and group320.png overlays from the map",
+      "technical_details": {
+        "changes": [
+          "Removed code block that added chat_bubble_example.png at (23.5905, 46.7707)",
+          "Removed code block that added group320.png at (23.5920, 46.7715)",
+          "Map now only displays the 4 original chat bubbles with text messages"
+        ],
+        "remaining_bubbles": [
+          "Central Park message at (23.5897, 46.7712)",
+          "Coffee shop message at (23.5924, 46.7684)",
+          "Botanical Garden message at (23.5862, 46.7731)",
+          "Community weather message at (23.5955, 46.7698)"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify only 4 text chat bubbles appear on map",
+        "Confirm no PNG overlays are visible",
+        "Check that chat bubble navigation still works correctly"
+      ],
+      "related_issues": "User requested removal of the two PNG overlays from the map"
+    },
+    {
+      "id": 37,
+      "date": "2025-08-22",
+      "time": "21:30",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/navigation/BottomNavigationBar.kt"
+      ],
+      "description": "Replaced home icon in navigation bar with group323 design",
+      "technical_details": {
+        "implementation": [
+          "Updated HomeIcon ImageVector in BottomNavigationBar.kt",
+          "Converted group323.svg design to Compose path commands",
+          "New icon shows house with detailed door in center",
+          "Changed viewport from 24x24 to 20x21 to match SVG dimensions",
+          "Icon has more detailed roof and door design compared to previous simple house"
+        ],
+        "design_details": [
+          "Door is drawn as separate path with rounded rectangle shape",
+          "House outline includes detailed roof curve calculations",
+          "Maintains 2dp stroke width for consistency with other icons"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify home icon shows new house design with door",
+        "Check icon alignment with other navigation items",
+        "Ensure icon colors change properly when selected"
+      ],
+      "related_issues": "User requested to replace home icon with group323 design"
+    },
+    {
+      "id": 38,
+      "date": "2025-08-22",
+      "time": "21:35",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/navigation/BottomNavigationBar.kt"
+      ],
+      "description": "Replaced chats icon in navigation bar with group324 design",
+      "technical_details": {
+        "implementation": [
+          "Updated ChatsIcon ImageVector in BottomNavigationBar.kt",
+          "Converted group324.svg design to Compose path commands",
+          "Changed from dual chat bubble design to single chat bubble with tail",
+          "Changed viewport from 24x24 to 22x21 to match SVG dimensions",
+          "New icon shows a single, cleaner chat bubble with tail pointing down-left"
+        ],
+        "design_details": [
+          "Single chat bubble with rounded rectangle shape",
+          "Tail positioned at bottom-left corner pointing downward",
+          "More simplified design compared to previous overlapping dual bubbles",
+          "Maintains 2dp stroke width for consistency with other navigation icons"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify chats icon shows new single bubble design",
+        "Check icon alignment and size in navigation bar",
+        "Ensure icon colors change properly when selected/unselected",
+        "Test that navigation to chats screen still works correctly"
+      ],
+      "related_issues": "User requested to replace chats icon with group324 design",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Single chat bubble with tail pointing down-left\ndefaultWidth = 22.dp,\ndefaultHeight = 21.dp,\nviewportWidth = 22f,\nviewportHeight = 21f"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "date": "2025-08-22",
+      "time": "21:40",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/navigation/BottomNavigationBar.kt"
+      ],
+      "description": "Updated chats icon in navigation bar to group326 design (dual overlapping bubbles)",
+      "technical_details": {
+        "implementation": [
+          "Replaced ChatsIcon ImageVector in BottomNavigationBar.kt again",
+          "Converted group326.svg design to Compose path commands",
+          "Changed from single chat bubble (group324) to dual overlapping bubbles",
+          "Changed viewport to 21x21 to match SVG dimensions",
+          "New icon shows two overlapping chat bubbles with tails"
+        ],
+        "design_details": [
+          "Front bubble positioned at top-left with tail pointing down-left",
+          "Back bubble positioned offset to bottom-right with its own tail",
+          "Second bubble path is not closed (ends at 'lineTo(6f, 14f)')",
+          "Creates a layered conversation effect suggesting multiple chats",
+          "Maintains 2dp stroke width for consistency"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Verify chats icon shows dual overlapping bubbles design",
+        "Check that both chat bubble outlines are visible",
+        "Ensure icon colors change properly when selected/unselected",
+        "Test navigation to chats screen functionality"
+      ],
+      "related_issues": "User requested to replace chats icon with group326 design",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Dual overlapping chat bubbles\ndefaultWidth = 21.dp,\ndefaultHeight = 21.dp,\n// First bubble with tail + Second offset bubble"
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "date": "2025-08-22",
+      "time": "22:00",
+      "author": "Claude/Assistant",
+      "category": "UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/chat/ChatComposeScreen.kt"
+      ],
+      "description": "Moved text input field and send button down to bottom edge in chat room screen",
+      "technical_details": {
+        "changes": [
+          "Modified MessageInput composable padding in ChatComposeScreen.kt",
+          "Changed from uniform padding(16.dp) to padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 0.dp)",
+          "Removed bottom padding completely (0dp) to position elements at the bottom edge",
+          "Initial attempt incorrectly increased bottom padding which moved elements UP",
+          "Corrected by reducing bottom padding to move elements DOWN as requested"
+        ],
+        "location": "Line 353 in ChatComposeScreen.kt"
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Open test chat room screen",
+        "Verify input field and send button are positioned 10dp lower",
+        "Check that keyboard still appears correctly when tapping input field",
+        "Ensure send functionality still works properly"
+      ],
+      "related_issues": "User requested to move text input field and send button down by 10dp",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": ".padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 26.dp)"
+        }
+      ]
+    },
+    {
+      "id": 41,
+      "date": "2025-08-22",
+      "time": "22:30",
+      "author": "Claude/Assistant",
+      "category": "Feature/UI",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/chat/ChatComposeScreen.kt",
+        "app/src/main/res/drawable/ic_photo.xml (created)"
+      ],
+      "description": "Added photo button to the left of text input field in test chat room",
+      "technical_details": {
+        "implementation": [
+          "Created ic_photo.xml drawable with image/photo icon",
+          "Added IconButton with photo icon to MessageInput composable",
+          "Positioned photo button to the left of text input field",
+          "Button appears in both focused and unfocused states",
+          "Styled with dark gray background (0xFF2A2A2A) and pink icon tint (0xFFFB86BB)"
+        ],
+        "ui_details": [
+          "Photo button is 48dp in size with circular shape",
+          "Icon is 24dp within the button",
+          "8dp spacing between photo button and text field",
+          "Button maintains consistent position whether text field is active or placeholder is shown"
+        ],
+        "functionality": [
+          "Currently placeholder implementation with TODO comment",
+          "Ready for photo picker implementation",
+          "Only photos allowed as per requirements (no videos or files)"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Open test chat room screen",
+        "Verify photo button appears to the left of text input",
+        "Check button is visible in both focused and unfocused states",
+        "Tap photo button to verify it's clickable (currently no action)"
+      ],
+      "related_issues": "User requested photo button to the left of text input for adding photos only",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "IconButton(\n    onClick = { /* TODO: Implement photo picker */ },\n    modifier = Modifier\n        .size(48.dp)\n        .clip(CircleShape)\n        .background(Color(0xFF2A2A2A))\n)"
+        }
+      ]
+    },
+    {
+      "id": 42,
+      "date": "2025-08-22",
+      "time": "22:45",
+      "author": "Claude/Assistant",
+      "category": "UX",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt"
+      ],
+      "description": "Hide left and right arrow buttons when not on home screen",
+      "technical_details": {
+        "implementation": [
+          "Added updateArrowButtonVisibility() function to control arrow button visibility",
+          "Arrow buttons (floating_5whitebase and floating_5whitebase_2) now only visible on home screen",
+          "Called updateArrowButtonVisibility() in navigateToFragment() based on destination",
+          "Set initial visibility to true in onCreate() since app starts on home screen"
+        ],
+        "behavior": [
+          "Arrow buttons visible only when currentDestinationId == R.id.navigation_home",
+          "Buttons hidden (View.GONE) when navigating to saved, chats, or profile screens",
+          "Buttons reappear when returning to home screen",
+          "Prevents confusion about arrow button functionality on non-map screens"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Launch app - verify arrow buttons visible on home screen",
+        "Navigate to saved screen - arrow buttons should disappear",
+        "Navigate to chats screen - arrow buttons should remain hidden",
+        "Navigate to profile screen - arrow buttons should remain hidden",
+        "Return to home screen - arrow buttons should reappear"
+      ],
+      "related_issues": "User requested arrow buttons only appear on home screen, not on other screens",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "private fun updateArrowButtonVisibility(isVisible: Boolean) {\n    findViewById<View>(R.id.floating_5whitebase)?.visibility = if (isVisible) View.VISIBLE else View.GONE\n    findViewById<View>(R.id.floating_5whitebase_2)?.visibility = if (isVisible) View.VISIBLE else View.GONE\n}"
+        }
+      ]
+    },
+    {
+      "id": 43,
+      "date": "2025-08-22",
+      "time": "22:50",
+      "author": "Claude/Assistant",
+      "category": "Documentation",
+      "files": ["technical_changes.json"],
+      "description": "Added critical instruction for future AIs to always update this technical changes log",
+      "technical_details": [
+        "Updated metadata.rules array to include explicit instruction for future AIs",
+        "Added rule: 'CRITICAL: Future AIs MUST update this file with any technical changes made to the project'",
+        "Added rule: 'Always add a new entry with incremented ID when making code changes'",
+        "This ensures continuity and proper documentation of all project modifications"
+      ],
+      "breaking_changes": false,
+      "testing_notes": "N/A - Documentation change only",
+      "related_issues": "User requested to ensure future AIs know to update this file",
+      "code_snippets": null
+    },
+    {
+      "id": 44,
+      "date": "2025-08-22",
+      "time": "23:00",
+      "author": "Claude/Assistant",
+      "category": "Bug Fix",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt",
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/compose/chats/ChatsComposeActivity.kt",
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/chats/ChatsFragment.kt"
+      ],
+      "description": "Fixed arrow buttons appearing on Chats screen by implementing proper navigation flow to ChatsComposeActivity",
+      "technical_details": {
+        "issue": "Two stacked circular arrow buttons were visible on the Chats screen when they should only appear on the home screen",
+        "root_cause": [
+          "MainActivity was navigating to ChatsFragment instead of ChatsComposeActivity",
+          "Arrow buttons (floating_5whitebase and floating_5whitebase_2) are defined in MainActivity's layout",
+          "When ChatsFragment launched ChatComposeActivity, MainActivity's buttons remained visible due to high z-order"
+        ],
+        "solution": [
+          "Updated MainActivity to launch ChatsComposeActivity directly instead of navigating to ChatsFragment",
+          "Added CHATS_ACTIVITY_REQUEST_CODE constant for proper activity result handling", 
+          "Implemented onActivityResult in MainActivity to restore previous destination after ChatsComposeActivity finishes",
+          "Added failsafe button hiding logic in ChatsComposeActivity.onCreate() and onResume()",
+          "Updated ChatsFragment to hide arrow buttons before launching ChatComposeActivity as backup"
+        ],
+        "navigation_flow": [
+          "MainActivity → ChatsComposeActivity (via startActivityForResult)",
+          "ChatsComposeActivity → ChatComposeActivity (existing flow)",
+          "Arrow buttons automatically hidden via MainActivity.updateArrowButtonVisibility() when not on home screen"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Navigate to Chats screen - verify no arrow buttons visible",
+        "Open chat conversation - verify no arrow buttons visible",
+        "Return to home screen - verify arrow buttons reappear",
+        "Test screen transitions work smoothly in both directions"
+      ],
+      "related_issues": "User reported: 'there are two buttons stack on top of each other and they should not be there on that screen'",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "NavigationTab.CHATS -> {\n    // Launch ChatsComposeActivity instead of fragment\n    val intent = Intent(this@MainActivity, com.chatcityofficial.chatmapapp.ui.compose.chats.ChatsComposeActivity::class.java)\n    startActivityForResult(intent, CHATS_ACTIVITY_REQUEST_CODE)\n    overridePendingTransition(\n        R.anim.slide_in_right,\n        R.anim.slide_out_left\n    )\n}"
+        }
+      ]
+    },
+    {
+      "id": 45,
+      "date": "2025-08-22",
+      "time": "23:15",
+      "author": "Claude/Assistant",
+      "category": "Bug Fix",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt",
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/chats/ChatsComposeFragment.kt"
+      ],
+      "description": "Fixed bottom navigation bar transitions by reverting to fragment-based navigation for chats screen",
+      "technical_details": {
+        "issue": "Bottom navigation bar was animating during screen transitions, making it appear non-static when switching between main screens",
+        "root_cause": [
+          "MainActivity was launching ChatsComposeActivity as separate activity (from previous fix)",
+          "Separate activity includes its own navigation bar, causing entire screen transition",
+          "Navigation bar should remain static during all main screen transitions"
+        ],
+        "solution": [
+          "Reverted MainActivity to use ChatsComposeFragment instead of launching ChatsComposeActivity",
+          "Removed CHATS_ACTIVITY_REQUEST_CODE and onActivityResult method from MainActivity",
+          "Restored fragment-based navigation: NavigationTab.CHATS -> navigateToFragment(R.id.navigation_chats)",
+          "Maintained arrow button hiding logic in ChatsComposeFragment as failsafe",
+          "Added onResume() method to ChatsComposeFragment to ensure buttons stay hidden"
+        ],
+        "navigation_flow": [
+          "MainActivity uses fragments for all main screens (Home, Saved, Chats, Profile)",
+          "ChatsComposeFragment contains ChatsComposeScreen (Compose UI)",
+          "Only ChatComposeActivity (individual chat conversations) launches as separate activity",
+          "Bottom navigation bar remains static during all main screen transitions"
+        ],
+        "arrow_button_handling": [
+          "MainActivity.updateArrowButtonVisibility() hides buttons when destinationId != R.id.navigation_home",
+          "ChatsComposeFragment.onResume() provides failsafe hiding",
+          "ChatsComposeFragment hides buttons before launching ChatComposeActivity"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Navigate between Home, Saved, Chats, Profile - navigation bar should remain static",
+        "Verify arrow buttons only visible on Home screen",
+        "Open chat conversation - should launch separate activity with smooth transition",
+        "Return from chat conversation - should restore chats fragment with static nav bar"
+      ],
+      "related_issues": "User reported: 'the entire screen transition is also including the bottom navigation bar - the bottom navigation bar should stay static'",
+      "code_snippets": [
+        {
+          "language": "kotlin",
+          "code": "// Reverted to fragment-based navigation\nNavigationTab.CHATS -> navigateToFragment(R.id.navigation_chats)"
+        }
+      ]
+    },
+    {
+      "id": 46,
+      "date": "2025-08-22",
+      "time": "23:30",
+      "author": "Claude/Assistant",
+      "category": "Bug Fix",
+      "files": [
+        "app/src/main/java/com/chatcityofficial/chatmapapp/MainActivity.kt",
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/saved/SavedFragment.kt",
+        "app/src/main/java/com/chatcityofficial/chatmapapp/ui/profile/ProfileFragment.kt",
+        "app/src/main/res/layout/activity_main.xml"
+      ],
+      "description": "Fixed arrow buttons appearing on profile, chats, and saved screens by setting default visibility to gone and adding fragment-level hiding",
+      "technical_details": {
+        "issue": "Left and right arrow buttons were appearing on profile, chats, and saved screens when they should only be visible on home screen",
+        "root_causes": [
+          "Arrow buttons in activity_main.xml defaulted to visible when activity loads",
+          "Initial visibility setting in MainActivity.onCreate() was hardcoded to true",
+          "Fragment restoration or rapid navigation could show buttons before hiding logic executed"
+        ],
+        "solutions": [
+          "Set android:visibility='gone' by default for both floating_5whitebase and floating_5whitebase_2 in activity_main.xml",
+          "Updated MainActivity.onCreate() to set initial visibility based on currentDestinationId instead of hardcoded true",
+          "Added onResume() methods to SavedFragment and ProfileFragment to ensure buttons stay hidden",
+          "This creates multiple layers of protection against unwanted button visibility"
+        ],
+        "visibility_logic": [
+          "XML default: android:visibility='gone' (hidden by default)",
+          "MainActivity.onCreate(): updateArrowButtonVisibility(currentDestinationId == R.id.navigation_home)",
+          "MainActivity.navigateToFragment(): updateArrowButtonVisibility(destinationId == R.id.navigation_home)",
+          "Each non-home fragment onResume(): explicitly hide buttons as failsafe"
+        ]
+      },
+      "breaking_changes": false,
+      "testing_notes": [
+        "Navigate to saved screen - verify no arrow buttons visible",
+        "Navigate to profile screen - verify no arrow buttons visible", 
+        "Navigate to chats screen - verify no arrow buttons visible",
+        "Navigate to home screen - verify arrow buttons appear",
+        "Test rapid navigation between screens - buttons should behave correctly"
+      ],
+      "related_issues": "User reported: 'it looks like the left and right arrow buttons appear in the profile, chats, and saved screen'",
+      "code_snippets": [
+        {
+          "language": "xml",
+          "code": "<!-- Arrow buttons hidden by default -->\n<ImageView\n    android:id=\"@+id/floating_5whitebase\"\n    android:visibility=\"gone\"\n    ... />"
+        },
+        {
+          "language": "kotlin", 
+          "code": "// Initial visibility based on current destination\nupdateArrowButtonVisibility(currentDestinationId == R.id.navigation_home)"
+        }
+      ]
     }
   ]
 }

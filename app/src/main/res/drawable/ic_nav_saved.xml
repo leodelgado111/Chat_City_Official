@@ -1,27 +1,22 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="13dp"
-    android:height="16dp"
-    android:viewportWidth="13"
-    android:viewportHeight="16">
-  <path
-      android:pathData="M1,2.091C1,1.814 1.11,1.548 1.305,1.352C1.501,1.156 1.767,1.045 2.045,1.045H10.955C11.232,1.045 11.499,1.156 11.695,1.352C11.89,1.548 12,1.814 12,2.091V14.306C12,14.405 11.976,14.502 11.929,14.588C11.883,14.674 11.816,14.747 11.734,14.8C11.653,14.853 11.559,14.884 11.462,14.891C11.365,14.898 11.268,14.88 11.179,14.84L6.5,12.704L1.821,14.84C1.732,14.88 1.635,14.898 1.538,14.891C1.441,14.884 1.347,14.853 1.266,14.8C1.184,14.747 1.117,14.674 1.071,14.588C1.024,14.502 1,14.405 1,14.306V2.091Z"
-      android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"
-      android:strokeLineJoin="round"/>
-  <path
-      android:pathData="M4.5,4.5H8.5"
-      android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"
-      android:strokeLineJoin="round"/>
-  <path
-      android:pathData="M4.5,7.5H8.5"
-      android:strokeWidth="2"
-      android:fillColor="#00000000"
-      android:strokeColor="#000000"
-      android:strokeLineCap="round"
-      android:strokeLineJoin="round"/>
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Wallet/Card shape with rounded corners -->
+    <path
+        android:pathData="M16 6.8C16 5.0083 16 4.1134 15.414 3.5567C14.828 3 13.886 3 12 3C10.114 3 9.172 3 8.586 3.5567C8 4.1134 8 5.0083 8 6.8M2 14.4C2 10.8175 2 9.02585 3.172 7.9134C4.344 6.80095 6.229 6.8 10 6.8H14C17.771 6.8 19.657 6.8 20.828 7.9134C21.999 9.0268 22 10.8175 22 14.4C22 17.9824 22 19.7741 20.828 20.8866C19.656 21.999 17.771 22 14 22H10C6.229 22 4.343 22 3.172 20.8866C2.001 19.7732 2 17.9824 2 14.4Z"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"/>
+    
+    <!-- Dollar sign in the center -->
+    <path
+        android:pathData="M12 17.4164C13.105 17.4164 14 16.7636 14 15.9586C14 15.1536 13.105 14.5 12 14.5C10.895 14.5 10 13.8473 10 13.0414C10 12.2364 10.895 11.5836 12 11.5836M12 17.4164C10.895 17.4164 10 16.7636 10 15.9586M12 17.4164V18M12 11.5836V11M12 11.5836C13.105 11.5836 14 12.2364 14 13.0414"
+        android:strokeColor="#000000"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+        
 </vector>

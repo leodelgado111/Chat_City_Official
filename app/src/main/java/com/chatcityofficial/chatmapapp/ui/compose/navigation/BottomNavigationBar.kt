@@ -197,7 +197,7 @@ fun BottomNavigationBar(
             
             // Saved icon - 43dp from left
             val savedIconColor = if (outlineTab == NavigationTab.SAVED) {
-                Color(171, 177, 212)  // Same blue-ish color as profile
+                Color(171, 191, 212)  // Reduced purple blend by 20%
             } else {
                 Color.Black
             }
@@ -217,7 +217,7 @@ fun BottomNavigationBar(
             
             // Home icon - 105dp from left
             val homeIconColor = if (outlineTab == NavigationTab.HOME) {
-                Color(171, 177, 212)  // Same blue-ish color as profile
+                Color(171, 191, 212)  // Reduced purple blend by 20%
             } else {
                 Color.Black
             }
@@ -226,8 +226,8 @@ fun BottomNavigationBar(
                 painter = rememberVectorPainter(image = HomeIcon),
                 contentDescription = "Home",
                 modifier = Modifier
-                    .size(24.dp)
-                    .offset(x = 105.dp - 12.dp, y = 34.dp - 12.dp)
+                    .size(width = 20.dp, height = 21.dp)
+                    .offset(x = 105.dp - 10.dp, y = 34.dp - 10.5.dp)
                     .clickable(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
@@ -237,7 +237,7 @@ fun BottomNavigationBar(
             
             // Chats icon - 229dp from left
             val chatsIconColor = if (outlineTab == NavigationTab.CHATS) {
-                Color(171, 177, 212)  // Same blue-ish color as profile
+                Color(171, 191, 212)  // Reduced purple blend by 20%
             } else {
                 Color.Black
             }
@@ -246,8 +246,8 @@ fun BottomNavigationBar(
                 painter = rememberVectorPainter(image = ChatsIcon),
                 contentDescription = "Chats",
                 modifier = Modifier
-                    .size(24.dp)
-                    .offset(x = 229.dp - 12.dp, y = 34.dp - 12.dp)
+                    .size(21.dp)
+                    .offset(x = 229.dp - 10.5.dp, y = 34.dp - 10.5.dp)
                     .clickable(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() }
@@ -257,7 +257,7 @@ fun BottomNavigationBar(
             
             // Profile icon - 291dp from left
             val profileIconColor = if (outlineTab == NavigationTab.PROFILE) {
-                Color(171, 177, 212)  // Blue-ish color
+                Color(171, 191, 212)  // Reduced purple blend by 20%
             } else {
                 Color.Black
             }
@@ -297,7 +297,7 @@ fun BottomNavigationBar(
     }
 }
 
-// Saved icon vector
+// Saved icon vector - wallet with dollar sign (from group325)
 private val SavedIcon: ImageVector
     get() = ImageVector.Builder(
         name = "saved",
@@ -306,34 +306,77 @@ private val SavedIcon: ImageVector
         viewportWidth = 24f,
         viewportHeight = 24f
     ).apply {
+        // Wallet/Card shape with rounded corners
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
+            strokeLineCap = StrokeCap.Butt,
+            strokeLineJoin = StrokeJoin.Miter,
+            fill = null
+        ) {
+            // Top flap of wallet
+            moveTo(16f, 6.8f)
+            curveTo(16f, 5.0083f, 16f, 4.1134f, 15.414f, 3.5567f)
+            curveTo(14.828f, 3f, 13.886f, 3f, 12f, 3f)
+            curveTo(10.114f, 3f, 9.172f, 3f, 8.586f, 3.5567f)
+            curveTo(8f, 4.1134f, 8f, 5.0083f, 8f, 6.8f)
+            
+            // Main wallet body
+            moveTo(2f, 14.4f)
+            curveTo(2f, 10.8175f, 2f, 9.02585f, 3.172f, 7.9134f)
+            curveTo(4.344f, 6.80095f, 6.229f, 6.8f, 10f, 6.8f)
+            lineTo(14f, 6.8f)
+            curveTo(17.771f, 6.8f, 19.657f, 6.8f, 20.828f, 7.9134f)
+            curveTo(21.999f, 9.0268f, 22f, 10.8175f, 22f, 14.4f)
+            curveTo(22f, 17.9824f, 22f, 19.7741f, 20.828f, 20.8866f)
+            curveTo(19.656f, 21.999f, 17.771f, 22f, 14f, 22f)
+            lineTo(10f, 22f)
+            curveTo(6.229f, 22f, 4.343f, 22f, 3.172f, 20.8866f)
+            curveTo(2.001f, 19.7732f, 2f, 17.9824f, 2f, 14.4f)
+            close()
+        }
+        
+        // Dollar sign in the center
+        path(
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 1.5f,
             strokeLineCap = StrokeCap.Round,
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            moveTo(19f, 21f)
-            lineTo(12f, 16.7778f)
-            lineTo(5f, 21f)
-            lineTo(5f, 4.11111f)
-            arcTo(2.11111f, 2.11111f, 0f, false, true, 7f, 2f)
-            lineTo(17f, 2f)
-            arcTo(2.11111f, 2.11111f, 0f, false, true, 19f, 4.11111f)
-            lineTo(19f, 21f)
-            close()
+            // S-curve of dollar sign
+            moveTo(12f, 17.4164f)
+            curveTo(13.105f, 17.4164f, 14f, 16.7636f, 14f, 15.9586f)
+            curveTo(14f, 15.1536f, 13.105f, 14.5f, 12f, 14.5f)
+            curveTo(10.895f, 14.5f, 10f, 13.8473f, 10f, 13.0414f)
+            curveTo(10f, 12.2364f, 10.895f, 11.5836f, 12f, 11.5836f)
+            
+            // Bottom curve
+            moveTo(12f, 17.4164f)
+            curveTo(10.895f, 17.4164f, 10f, 16.7636f, 10f, 15.9586f)
+            
+            // Vertical lines
+            moveTo(12f, 17.4164f)
+            lineTo(12f, 18f)
+            moveTo(12f, 11.5836f)
+            lineTo(12f, 11f)
+            
+            // Top curve
+            moveTo(12f, 11.5836f)
+            curveTo(13.105f, 11.5836f, 14f, 12.2364f, 14f, 13.0414f)
         }
     }.build()
 
-// Home icon vector
+// Home icon vector - house with door (from group323)
 private val HomeIcon: ImageVector
     get() = ImageVector.Builder(
         name = "home",
-        defaultWidth = 24.dp,
-        defaultHeight = 24.dp,
-        viewportWidth = 24f,
-        viewportHeight = 24f
+        defaultWidth = 20.dp,
+        defaultHeight = 21.dp,
+        viewportWidth = 20f,
+        viewportHeight = 21f
     ).apply {
+        // Door in the center
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
@@ -341,21 +384,41 @@ private val HomeIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            // House outline
-            moveTo(3f, 9f)
-            lineTo(12f, 2f)
-            lineTo(21f, 9f)
-            lineTo(21f, 20f)
-            arcTo(1f, 1f, 0f, false, true, 20f, 21f)
-            lineTo(4f, 21f)
-            arcTo(1f, 1f, 0f, false, true, 3f, 20f)
-            lineTo(3f, 9f)
+            moveTo(13f, 19.9995f)
+            lineTo(13f, 11.9995f)
+            curveTo(13f, 11.7343f, 12.8946f, 11.4799f, 12.7071f, 11.2924f)
+            curveTo(12.5196f, 11.1049f, 12.2652f, 10.9995f, 12f, 10.9995f)
+            lineTo(8f, 10.9995f)
+            curveTo(7.73478f, 10.9995f, 7.48043f, 11.1049f, 7.29289f, 11.2924f)
+            curveTo(7.10536f, 11.4799f, 7f, 11.7343f, 7f, 11.9995f)
+            lineTo(7f, 19.9995f)
+        }
+        
+        // House outline with roof
+        path(
+            stroke = SolidColor(Color.Black),
+            strokeLineWidth = 2f,
+            strokeLineCap = StrokeCap.Round,
+            strokeLineJoin = StrokeJoin.Round,
+            fill = null
+        ) {
+            moveTo(1f, 8.99948f)
+            curveTo(0.99993f, 8.70855f, 1.06333f, 8.4211f, 1.18579f, 8.1572f)
+            curveTo(1.30824f, 7.89329f, 1.4868f, 7.65928f, 1.709f, 7.47148f)
+            lineTo(8.709f, 1.47248f)
+            curveTo(9.06999f, 1.16739f, 9.52736f, 1f, 10f, 1f)
+            curveTo(10.4726f, 1f, 10.93f, 1.16739f, 11.291f, 1.47248f)
+            lineTo(18.291f, 7.47148f)
+            curveTo(18.5132f, 7.65928f, 18.6918f, 7.89329f, 18.8142f, 8.1572f)
+            curveTo(18.9367f, 8.4211f, 19.0001f, 8.70855f, 19f, 8.99948f)
+            lineTo(19f, 17.9995f)
+            curveTo(19f, 18.5299f, 18.7893f, 19.0386f, 18.4142f, 19.4137f)
+            curveTo(18.0391f, 19.7888f, 17.5304f, 19.9995f, 17f, 19.9995f)
+            lineTo(3f, 19.9995f)
+            curveTo(2.46957f, 19.9995f, 1.96086f, 19.7888f, 1.58579f, 19.4137f)
+            curveTo(1.21071f, 19.0386f, 1f, 18.5299f, 1f, 17.9995f)
+            lineTo(1f, 8.99948f)
             close()
-            // Door
-            moveTo(9f, 21f)
-            lineTo(9f, 13f)
-            lineTo(15f, 13f)
-            lineTo(15f, 21f)
         }
     }.build()
 
@@ -390,16 +453,16 @@ private val CreateIcon: ImageVector
         }
     }.build()
 
-// Chats icon vector (original chats_icon_3)
+// Chats icon vector - dual overlapping chat bubbles (from group327)
 private val ChatsIcon: ImageVector
     get() = ImageVector.Builder(
         name = "chats",
-        defaultWidth = 24.dp,
-        defaultHeight = 24.dp,
-        viewportWidth = 24f,
-        viewportHeight = 24f
+        defaultWidth = 21.dp,
+        defaultHeight = 21.dp,
+        viewportWidth = 21f,
+        viewportHeight = 21f
     ).apply {
-        // First chat bubble with tail
+        // First chat bubble (front)
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
@@ -407,26 +470,27 @@ private val ChatsIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            moveTo(17f, 11f)
-            curveTo(17f, 11.5304f, 16.7893f, 12.0391f, 16.4142f, 12.4142f)
-            curveTo(16.0391f, 12.7893f, 15.5304f, 13f, 15f, 13f)
-            lineTo(7.828f, 13f)
-            curveTo(7.29761f, 13.0001f, 6.78899f, 13.2109f, 6.414f, 13.586f)
-            lineTo(4.212f, 15.788f)
-            curveTo(4.1127f, 15.8873f, 3.9862f, 15.9549f, 3.84849f, 15.9823f)
-            curveTo(3.71077f, 16.0097f, 3.56803f, 15.9956f, 3.43831f, 15.9419f)
-            curveTo(3.30858f, 15.8881f, 3.1977f, 15.7971f, 3.11969f, 15.6804f)
-            curveTo(3.04167f, 15.5637f, 3.00002f, 15.4264f, 3f, 15.286f)
-            lineTo(3f, 5f)
-            curveTo(3f, 4.46957f, 3.21071f, 3.96086f, 3.58579f, 3.58579f)
-            curveTo(3.96086f, 3.21071f, 4.46957f, 3f, 5f, 3f)
-            lineTo(15f, 3f)
-            curveTo(15.5304f, 3f, 16.0391f, 3.21071f, 16.4142f, 3.58579f)
-            curveTo(16.7893f, 3.96086f, 17f, 4.46957f, 17f, 5f)
-            lineTo(17f, 11f)
+            moveTo(15f, 8.38694f)
+            curveTo(15f, 8.87672f, 14.7893f, 9.34645f, 14.4142f, 9.69278f)
+            curveTo(14.0391f, 10.0391f, 13.5304f, 10.2337f, 13f, 10.2337f)
+            lineTo(5.828f, 10.2337f)
+            curveTo(5.29761f, 10.2338f, 4.78899f, 10.4284f, 4.414f, 10.7748f)
+            lineTo(2.212f, 12.808f)
+            curveTo(2.1127f, 12.8997f, 1.9862f, 12.9621f, 1.84849f, 12.9874f)
+            curveTo(1.71077f, 13.0127f, 1.56803f, 12.9997f, 1.43831f, 12.9501f)
+            curveTo(1.30858f, 12.9005f, 1.1977f, 12.8165f, 1.11969f, 12.7087f)
+            curveTo(1.04167f, 12.6009f, 1.00002f, 12.4741f, 1f, 12.3445f)
+            lineTo(1f, 2.84674f)
+            curveTo(1f, 2.35695f, 1.21071f, 1.88723f, 1.58579f, 1.5409f)
+            curveTo(1.96086f, 1.19457f, 2.46957f, 1f, 3f, 1f)
+            lineTo(13f, 1f)
+            curveTo(13.5304f, 1f, 14.0391f, 1.19457f, 14.4142f, 1.5409f)
+            curveTo(14.7893f, 1.88723f, 15f, 2.35695f, 15f, 2.84674f)
+            lineTo(15f, 8.38694f)
             close()
         }
-        // Second chat bubble
+        
+        // Second chat bubble (back/offset) - modified from group327
         path(
             stroke = SolidColor(Color.Black),
             strokeLineWidth = 2f,
@@ -434,20 +498,20 @@ private val ChatsIcon: ImageVector
             strokeLineJoin = StrokeJoin.Round,
             fill = null
         ) {
-            moveTo(20f, 9f)
-            curveTo(20.5304f, 9f, 21.0391f, 9.21071f, 21.4142f, 9.58579f)
-            curveTo(21.7893f, 9.96086f, 22f, 10.4696f, 22f, 11f)
-            lineTo(22f, 21.286f)
-            curveTo(22f, 21.4264f, 21.9583f, 21.5637f, 21.8803f, 21.6804f)
-            curveTo(21.8023f, 21.7971f, 21.6914f, 21.8881f, 21.5617f, 21.9419f)
-            curveTo(21.432f, 21.9956f, 21.2892f, 22.0097f, 21.1515f, 21.9823f)
-            curveTo(21.0138f, 21.9549f, 20.8873f, 21.8873f, 20.788f, 21.788f)
-            lineTo(18.586f, 19.586f)
-            curveTo(18.211f, 19.2109f, 17.7024f, 19.0001f, 17.172f, 19f)
-            lineTo(10f, 19f)
-            curveTo(9.46957f, 19f, 8.96086f, 18.7893f, 8.58579f, 18.4142f)
-            curveTo(8.21071f, 18.0391f, 8f, 17.5304f, 8f, 17f)
-            lineTo(8f, 16f)
+            moveTo(18f, 6f)
+            curveTo(18.5304f, 6f, 19.0391f, 6.22699f, 19.4142f, 6.63105f)
+            curveTo(19.7893f, 7.0351f, 20f, 7.58311f, 20f, 8.15452f)
+            lineTo(20f, 19.2352f)
+            curveTo(20f, 19.3865f, 19.9583f, 19.5344f, 19.8803f, 19.6601f)
+            curveTo(19.8023f, 19.7859f, 19.6914f, 19.8839f, 19.5617f, 19.9418f)
+            curveTo(19.432f, 19.9997f, 19.2892f, 20.0148f, 19.1515f, 19.9853f)
+            curveTo(19.0138f, 19.9558f, 18.8873f, 19.883f, 18.788f, 19.776f)
+            lineTo(16.586f, 17.4039f)
+            curveTo(16.211f, 16.9998f, 15.7024f, 16.7727f, 15.172f, 16.7726f)
+            lineTo(8f, 16.7726f)
+            curveTo(7.46957f, 16.7726f, 6.96086f, 16.5456f, 6.58579f, 16.1416f)
+            curveTo(6.21071f, 15.7375f, 6f, 15.1895f, 6f, 14.6181f)
+            lineTo(6f, 13.5f)
         }
     }.build()
 

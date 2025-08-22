@@ -29,6 +29,7 @@ import java.util.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChatsComposeScreen(
+    modifier: Modifier = Modifier,
     onChatClick: (Chat) -> Unit,
     onBackClick: () -> Unit,
     viewModel: ChatsViewModel = viewModel()
@@ -41,7 +42,7 @@ fun ChatsComposeScreen(
     }
     
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFF0D0D0D))
     ) {

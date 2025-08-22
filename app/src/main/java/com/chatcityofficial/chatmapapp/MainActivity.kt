@@ -21,14 +21,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.chatcityofficial.chatmapapp.ui.compose.chats.ChatsComposeActivity
 import com.chatcityofficial.chatmapapp.ui.compose.navigation.ComposeBottomNavigationView
 import com.chatcityofficial.chatmapapp.ui.compose.navigation.NavigationTab
 import com.chatcityofficial.chatmapapp.ui.home.HomeFragment
 import com.chatcityofficial.chatmapapp.ui.saved.SavedFragment
 import com.chatcityofficial.chatmapapp.ui.profile.ProfileFragment
+import com.chatcityofficial.chatmapapp.ui.chats.ChatsComposeFragment
 
 class MainActivity : AppCompatActivity() {
+
 
     private lateinit var composeNavBar: ComposeBottomNavigationView
     
@@ -40,11 +41,8 @@ class MainActivity : AppCompatActivity() {
     private var homeFragment: HomeFragment? = null
     private var savedFragment: SavedFragment? = null
     private var profileFragment: ProfileFragment? = null
+    private var chatsFragment: ChatsComposeFragment? = null
     private var activeFragment: Fragment? = null
-    
-    companion object {
-        private const val CHATS_ACTIVITY_REQUEST_CODE = 1001
-    }
     
     // Map between navigation IDs and NavigationTab enum
     private val navigationTabMap = mapOf(
@@ -77,6 +75,9 @@ class MainActivity : AppCompatActivity() {
         // Get references
         composeNavBar = findViewById(R.id.compose_nav_bar)
         
+        // Setup floating action buttons
+        setupFloatingButtons()
+        
         // Initialize fragments with manual management
         initializeFragments()
         
@@ -105,6 +106,9 @@ class MainActivity : AppCompatActivity() {
         
         // Setup back button behavior
         setupBackButtonBehavior()
+        
+        // Set initial arrow button visibility based on current destination
+        updateArrowButtonVisibility(currentDestinationId == R.id.navigation_home)
         
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
@@ -157,6 +161,9 @@ class MainActivity : AppCompatActivity() {
         if (profileFragment == null) {
             profileFragment = ProfileFragment()
         }
+        if (chatsFragment == null) {
+            chatsFragment = ChatsComposeFragment.newInstance()
+        }
         
         // Add all fragments to the container but hide non-active ones
         val fragmentManager = supportFragmentManager
@@ -180,6 +187,12 @@ class MainActivity : AppCompatActivity() {
                 transaction.hide(it)
             }
         }
+        chatsFragment?.let {
+            if (!it.isAdded) {
+                transaction.add(R.id.nav_host_fragment_activity_main, it, "chats")
+                transaction.hide(it)
+            }
+        }
         
         transaction.commit()
         activeFragment = homeFragment
@@ -194,18 +207,7 @@ class MainActivity : AppCompatActivity() {
                     // Do nothing when create button is tapped (for now)
                     // No navigation, no action at all
                 }
-                NavigationTab.CHATS -> {
-                    // Store the previous destination before updating
-                    previousDestinationId = currentDestinationId
-                    
-                    // Launch ChatsComposeActivity instead of navigating to fragment
-                    val intent = Intent(this, ChatsComposeActivity::class.java)
-                    startActivityForResult(intent, CHATS_ACTIVITY_REQUEST_CODE)
-                    overridePendingTransition(R.anim.fragment_slide_in_right, R.anim.fragment_slide_out_left)
-                    
-                    // Update the selected tab to show chats is selected
-                    currentDestinationId = R.id.navigation_chats
-                }
+                NavigationTab.CHATS -> navigateToFragment(R.id.navigation_chats)
                 NavigationTab.PROFILE -> navigateToFragment(R.id.navigation_profile)
             }
         }
@@ -218,6 +220,7 @@ class MainActivity : AppCompatActivity() {
                 val targetFragment = when (destinationId) {
                     R.id.navigation_home -> homeFragment
                     R.id.navigation_saved -> savedFragment
+                    R.id.navigation_chats -> chatsFragment
                     R.id.navigation_profile -> profileFragment
                     else -> null
                 }
@@ -248,6 +251,9 @@ class MainActivity : AppCompatActivity() {
                     navigationTabMap[destinationId]?.let { tab ->
                         composeNavBar.setSelectedTab(tab)
                     }
+                    
+                    // Update arrow button visibility - only show on home screen
+                    updateArrowButtonVisibility(destinationId == R.id.navigation_home)
                 }
             }
         } catch (e: Exception) {
@@ -255,6 +261,83 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
+    private fun updateArrowButtonVisibility(isVisible: Boolean) {
+        findViewById<View>(R.id.floating_5whitebase)?.visibility = if (isVisible) View.VISIBLE else View.GONE
+        findViewById<View>(R.id.floating_5whitebase_2)?.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+    
+    private fun setupFloatingButtons() {
+        // Setup right arrow button click with animation
+        findViewById<View>(R.id.floating_5whitebase)?.apply {
+            setOnClickListener {
+                android.util.Log.d("MainActivity", "Right arrow button clicked")
+                // Apply white flash animation
+                animateButtonTap(this)
+                // Navigate to next chat bubble
+                (activeFragment as? HomeFragment)?.navigateToNextChatBubble()
+            }
+        }
+        
+        // Setup left arrow button click with animation
+        findViewById<View>(R.id.floating_5whitebase_2)?.apply {
+            setOnClickListener {
+                android.util.Log.d("MainActivity", "Left arrow button clicked")
+                // Apply white flash animation
+                animateButtonTap(this)
+                // Navigate to previous chat bubble
+                (activeFragment as? HomeFragment)?.navigateToPreviousChatBubble()
+            }
+        }
+    }
+    
+    private fun animateButtonTap(button: View) {
+        // Create a View with rounded corners using white color
+        val overlay = View(this).apply {
+            // Create a rounded drawable programmatically with white color
+            val drawable = android.graphics.drawable.GradientDrawable().apply {
+                shape = android.graphics.drawable.GradientDrawable.RECTANGLE
+                setColor(android.graphics.Color.WHITE)
+                cornerRadius = 14f * resources.displayMetrics.density  // 14dp in pixels
+            }
+            background = drawable
+            alpha = 0f
+        }
+        
+        // Find the button's parent (ConstraintLayout)
+        val parent = button.parent as? ViewGroup ?: return
+        
+        // Add the overlay to the parent
+        parent.addView(overlay)
+        
+        // Set the overlay's layout params using ConstraintLayout params
+        val params = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(
+            button.width,
+            button.height
+        )
+        overlay.layoutParams = params
+        
+        // Position the overlay exactly over the button
+        overlay.x = button.x
+        overlay.y = button.y
+        
+        // Make sure the overlay is on top
+        overlay.elevation = button.elevation + 1f
+        
+        // Animate the overlay with good visibility
+        overlay.animate()
+            .alpha(0.6f)  // Good visibility for white
+            .setDuration(100)
+            .withEndAction {
+                overlay.animate()
+                    .alpha(0f)
+                    .setDuration(150)
+                    .withEndAction {
+                        parent.removeView(overlay)
+                    }
+                    .start()
+            }
+            .start()
+    }
     
     private fun getNavigationAnimations(currentId: Int, targetId: Int): List<Int> {
         // Define tab order for determining slide direction
@@ -290,37 +373,6 @@ class MainActivity : AppCompatActivity() {
                 R.anim.fragment_slide_in_right,     // popEnter (back animation)
                 R.anim.fragment_slide_out_left      // popExit (back animation)
             )
-        }
-    }
-    
-    
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        
-        if (requestCode == CHATS_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            // When returning from ChatsComposeActivity, restore the previous screen
-            if (previousDestinationId != R.id.navigation_chats && previousDestinationId != 0) {
-                // Restore the previous destination
-                val destinationToRestore = previousDestinationId
-                currentDestinationId = destinationToRestore
-                navigationTabMap[destinationToRestore]?.let { tab ->
-                    composeNavBar.setSelectedTab(tab)
-                }
-                
-                // Navigate to the previous destination with a small delay to ensure smooth transition
-                window.decorView.postDelayed({
-                    when (destinationToRestore) {
-                        R.id.navigation_saved, R.id.navigation_home, R.id.navigation_profile -> {
-                            navigateToFragment(destinationToRestore)
-                        }
-                    }
-                }, 50)
-            } else {
-                // Default to home if no previous destination
-                currentDestinationId = R.id.navigation_home
-                composeNavBar.setSelectedTab(NavigationTab.HOME)
-                navigateToFragment(R.id.navigation_home)
-            }
         }
     }
 }

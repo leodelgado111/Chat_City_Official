@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.ui.layout.layout
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -13,9 +14,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.BlendMode
@@ -35,18 +36,13 @@ fun ThemedLocationContainer(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Container with proper intrinsic sizing
-    Surface(
+    // Container without elevation or shadow
+    Box(
         modifier = modifier
             .height(36.dp)
-            .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(12.dp),
-                clip = false
-            ),
-        shape = RoundedCornerShape(12.dp),
-        color = Color.Transparent
+            .clip(RoundedCornerShape(12.dp))
     ) {
+        // Main content box
         Box(
             modifier = Modifier
                 .clickable(
