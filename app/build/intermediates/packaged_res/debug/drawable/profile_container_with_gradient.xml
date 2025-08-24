@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Base white container with 30% opacity -->
+    <item
+        android:left="20dp"
+        android:top="16dp"
+        android:right="13dp"
+        android:bottom="24dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="#4DFFFFFF" />
+        </shape>
+    </item>
+    
+    <!-- Sweep gradient overlay with purple, pink, blue blend -->
+    <item
+        android:left="20dp"
+        android:top="16dp"
+        android:right="13dp"
+        android:bottom="24dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <gradient
+                android:type="sweep"
+                android:centerX="0.0"
+                android:centerY="0.0"
+                android:startColor="#B38800FF"
+                android:centerColor="#B3FF00AA"
+                android:endColor="#B30088FF" />
+        </shape>
+    </item>
+    
+</layer-list>

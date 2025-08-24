@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.compose.ui.platform.ComposeView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
@@ -25,10 +26,25 @@ public final class FragmentHomeBinding implements ViewBinding {
   private final ConstraintLayout rootView;
 
   @NonNull
-  public final ImageView chatBubbleOverlay;
+  public final LinearLayout defaultViewContainer;
 
   @NonNull
-  public final LinearLayout defaultViewContainer;
+  public final ImageView floating5leftarrow;
+
+  @NonNull
+  public final ImageView floating5rightarrow;
+
+  @NonNull
+  public final ImageView floating5strongergradient;
+
+  @NonNull
+  public final ImageView floating5strongergradient2;
+
+  @NonNull
+  public final ImageView floating5whitebase;
+
+  @NonNull
+  public final ImageView floating5whitebase2;
 
   @NonNull
   public final ThemedLocationContainerView locationContainer;
@@ -41,6 +57,12 @@ public final class FragmentHomeBinding implements ViewBinding {
 
   @NonNull
   public final MapView mapView;
+
+  @NonNull
+  public final ComposeView postButtonComposeView;
+
+  @NonNull
+  public final ComposeView postButtonComposeView2;
 
   @NonNull
   public final ImageView searchBackButton;
@@ -58,19 +80,30 @@ public final class FragmentHomeBinding implements ViewBinding {
   public final RecyclerView searchResultsRecyclerView;
 
   private FragmentHomeBinding(@NonNull ConstraintLayout rootView,
-      @NonNull ImageView chatBubbleOverlay, @NonNull LinearLayout defaultViewContainer,
+      @NonNull LinearLayout defaultViewContainer, @NonNull ImageView floating5leftarrow,
+      @NonNull ImageView floating5rightarrow, @NonNull ImageView floating5strongergradient,
+      @NonNull ImageView floating5strongergradient2, @NonNull ImageView floating5whitebase,
+      @NonNull ImageView floating5whitebase2,
       @NonNull ThemedLocationContainerView locationContainer, @NonNull ImageView logoImageView,
       @NonNull View mapClickInterceptor, @NonNull MapView mapView,
+      @NonNull ComposeView postButtonComposeView, @NonNull ComposeView postButtonComposeView2,
       @NonNull ImageView searchBackButton, @NonNull ImageView searchClearButton,
       @NonNull LinearLayout searchContainer, @NonNull EditText searchEditText,
       @NonNull RecyclerView searchResultsRecyclerView) {
     this.rootView = rootView;
-    this.chatBubbleOverlay = chatBubbleOverlay;
     this.defaultViewContainer = defaultViewContainer;
+    this.floating5leftarrow = floating5leftarrow;
+    this.floating5rightarrow = floating5rightarrow;
+    this.floating5strongergradient = floating5strongergradient;
+    this.floating5strongergradient2 = floating5strongergradient2;
+    this.floating5whitebase = floating5whitebase;
+    this.floating5whitebase2 = floating5whitebase2;
     this.locationContainer = locationContainer;
     this.logoImageView = logoImageView;
     this.mapClickInterceptor = mapClickInterceptor;
     this.mapView = mapView;
+    this.postButtonComposeView = postButtonComposeView;
+    this.postButtonComposeView2 = postButtonComposeView2;
     this.searchBackButton = searchBackButton;
     this.searchClearButton = searchClearButton;
     this.searchContainer = searchContainer;
@@ -105,15 +138,45 @@ public final class FragmentHomeBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.chatBubbleOverlay;
-      ImageView chatBubbleOverlay = ViewBindings.findChildViewById(rootView, id);
-      if (chatBubbleOverlay == null) {
-        break missingId;
-      }
-
       id = R.id.defaultViewContainer;
       LinearLayout defaultViewContainer = ViewBindings.findChildViewById(rootView, id);
       if (defaultViewContainer == null) {
+        break missingId;
+      }
+
+      id = R.id.floating_5leftarrow;
+      ImageView floating5leftarrow = ViewBindings.findChildViewById(rootView, id);
+      if (floating5leftarrow == null) {
+        break missingId;
+      }
+
+      id = R.id.floating_5rightarrow;
+      ImageView floating5rightarrow = ViewBindings.findChildViewById(rootView, id);
+      if (floating5rightarrow == null) {
+        break missingId;
+      }
+
+      id = R.id.floating_5strongergradient;
+      ImageView floating5strongergradient = ViewBindings.findChildViewById(rootView, id);
+      if (floating5strongergradient == null) {
+        break missingId;
+      }
+
+      id = R.id.floating_5strongergradient_2;
+      ImageView floating5strongergradient2 = ViewBindings.findChildViewById(rootView, id);
+      if (floating5strongergradient2 == null) {
+        break missingId;
+      }
+
+      id = R.id.floating_5whitebase;
+      ImageView floating5whitebase = ViewBindings.findChildViewById(rootView, id);
+      if (floating5whitebase == null) {
+        break missingId;
+      }
+
+      id = R.id.floating_5whitebase_2;
+      ImageView floating5whitebase2 = ViewBindings.findChildViewById(rootView, id);
+      if (floating5whitebase2 == null) {
         break missingId;
       }
 
@@ -138,6 +201,18 @@ public final class FragmentHomeBinding implements ViewBinding {
       id = R.id.mapView;
       MapView mapView = ViewBindings.findChildViewById(rootView, id);
       if (mapView == null) {
+        break missingId;
+      }
+
+      id = R.id.postButtonComposeView;
+      ComposeView postButtonComposeView = ViewBindings.findChildViewById(rootView, id);
+      if (postButtonComposeView == null) {
+        break missingId;
+      }
+
+      id = R.id.postButtonComposeView2;
+      ComposeView postButtonComposeView2 = ViewBindings.findChildViewById(rootView, id);
+      if (postButtonComposeView2 == null) {
         break missingId;
       }
 
@@ -171,10 +246,12 @@ public final class FragmentHomeBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentHomeBinding((ConstraintLayout) rootView, chatBubbleOverlay,
-          defaultViewContainer, locationContainer, logoImageView, mapClickInterceptor, mapView,
-          searchBackButton, searchClearButton, searchContainer, searchEditText,
-          searchResultsRecyclerView);
+      return new FragmentHomeBinding((ConstraintLayout) rootView, defaultViewContainer,
+          floating5leftarrow, floating5rightarrow, floating5strongergradient,
+          floating5strongergradient2, floating5whitebase, floating5whitebase2, locationContainer,
+          logoImageView, mapClickInterceptor, mapView, postButtonComposeView,
+          postButtonComposeView2, searchBackButton, searchClearButton, searchContainer,
+          searchEditText, searchResultsRecyclerView);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

@@ -75,9 +75,6 @@ class MainActivity : AppCompatActivity() {
         // Get references
         composeNavBar = findViewById(R.id.compose_nav_bar)
         
-        // Setup floating action buttons
-        setupFloatingButtons()
-        
         // Initialize fragments with manual management
         initializeFragments()
         
@@ -106,9 +103,6 @@ class MainActivity : AppCompatActivity() {
         
         // Setup back button behavior
         setupBackButtonBehavior()
-        
-        // Set initial arrow button visibility based on current destination
-        updateArrowButtonVisibility(currentDestinationId == R.id.navigation_home)
         
         // Set up click listeners for navigation buttons
         setupNavigationButtons()
@@ -204,8 +198,10 @@ class MainActivity : AppCompatActivity() {
                 NavigationTab.SAVED -> navigateToFragment(R.id.navigation_saved)
                 NavigationTab.HOME -> navigateToFragment(R.id.navigation_home)
                 NavigationTab.CREATE -> {
-                    // Do nothing when create button is tapped (for now)
-                    // No navigation, no action at all
+                    // Toggle post button visibility in HomeFragment
+                    if (activeFragment is HomeFragment) {
+                        (activeFragment as HomeFragment).togglePostButton()
+                    }
                 }
                 NavigationTab.CHATS -> navigateToFragment(R.id.navigation_chats)
                 NavigationTab.PROFILE -> navigateToFragment(R.id.navigation_profile)
@@ -240,6 +236,11 @@ class MainActivity : AppCompatActivity() {
                     // Hide current fragment
                     activeFragment?.let { transaction.hide(it) }
                     
+                    // If leaving home screen, hide the post buttons
+                    if (currentDestinationId == R.id.navigation_home && destinationId != R.id.navigation_home) {
+                        (homeFragment as? HomeFragment)?.hidePostButtons()
+                    }
+                    
                     // Show target fragment
                     transaction.show(newFragment)
                     transaction.commit()
@@ -251,92 +252,11 @@ class MainActivity : AppCompatActivity() {
                     navigationTabMap[destinationId]?.let { tab ->
                         composeNavBar.setSelectedTab(tab)
                     }
-                    
-                    // Update arrow button visibility - only show on home screen
-                    updateArrowButtonVisibility(destinationId == R.id.navigation_home)
                 }
             }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
-    
-    private fun updateArrowButtonVisibility(isVisible: Boolean) {
-        findViewById<View>(R.id.floating_5whitebase)?.visibility = if (isVisible) View.VISIBLE else View.GONE
-        findViewById<View>(R.id.floating_5whitebase_2)?.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-    
-    private fun setupFloatingButtons() {
-        // Setup right arrow button click with animation
-        findViewById<View>(R.id.floating_5whitebase)?.apply {
-            setOnClickListener {
-                android.util.Log.d("MainActivity", "Right arrow button clicked")
-                // Apply white flash animation
-                animateButtonTap(this)
-                // Navigate to next chat bubble
-                (activeFragment as? HomeFragment)?.navigateToNextChatBubble()
-            }
-        }
-        
-        // Setup left arrow button click with animation
-        findViewById<View>(R.id.floating_5whitebase_2)?.apply {
-            setOnClickListener {
-                android.util.Log.d("MainActivity", "Left arrow button clicked")
-                // Apply white flash animation
-                animateButtonTap(this)
-                // Navigate to previous chat bubble
-                (activeFragment as? HomeFragment)?.navigateToPreviousChatBubble()
-            }
-        }
-    }
-    
-    private fun animateButtonTap(button: View) {
-        // Create a View with rounded corners using white color
-        val overlay = View(this).apply {
-            // Create a rounded drawable programmatically with white color
-            val drawable = android.graphics.drawable.GradientDrawable().apply {
-                shape = android.graphics.drawable.GradientDrawable.RECTANGLE
-                setColor(android.graphics.Color.WHITE)
-                cornerRadius = 14f * resources.displayMetrics.density  // 14dp in pixels
-            }
-            background = drawable
-            alpha = 0f
-        }
-        
-        // Find the button's parent (ConstraintLayout)
-        val parent = button.parent as? ViewGroup ?: return
-        
-        // Add the overlay to the parent
-        parent.addView(overlay)
-        
-        // Set the overlay's layout params using ConstraintLayout params
-        val params = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(
-            button.width,
-            button.height
-        )
-        overlay.layoutParams = params
-        
-        // Position the overlay exactly over the button
-        overlay.x = button.x
-        overlay.y = button.y
-        
-        // Make sure the overlay is on top
-        overlay.elevation = button.elevation + 1f
-        
-        // Animate the overlay with good visibility
-        overlay.animate()
-            .alpha(0.6f)  // Good visibility for white
-            .setDuration(100)
-            .withEndAction {
-                overlay.animate()
-                    .alpha(0f)
-                    .setDuration(150)
-                    .withEndAction {
-                        parent.removeView(overlay)
-                    }
-                    .start()
-            }
-            .start()
     }
     
     private fun getNavigationAnimations(currentId: Int, targetId: Int): List<Int> {

@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -28,41 +27,14 @@ public final class ActivityMainBinding implements ViewBinding {
   public final ConstraintLayout container;
 
   @NonNull
-  public final ImageView floating5leftarrow;
-
-  @NonNull
-  public final ImageView floating5rightarrow;
-
-  @NonNull
-  public final ImageView floating5strongergradient;
-
-  @NonNull
-  public final ImageView floating5strongergradient2;
-
-  @NonNull
-  public final ImageView floating5whitebase;
-
-  @NonNull
-  public final ImageView floating5whitebase2;
-
-  @NonNull
   public final FrameLayout navHostFragmentActivityMain;
 
   private ActivityMainBinding(@NonNull ConstraintLayout rootView,
       @NonNull ComposeBottomNavigationView composeNavBar, @NonNull ConstraintLayout container,
-      @NonNull ImageView floating5leftarrow, @NonNull ImageView floating5rightarrow,
-      @NonNull ImageView floating5strongergradient, @NonNull ImageView floating5strongergradient2,
-      @NonNull ImageView floating5whitebase, @NonNull ImageView floating5whitebase2,
       @NonNull FrameLayout navHostFragmentActivityMain) {
     this.rootView = rootView;
     this.composeNavBar = composeNavBar;
     this.container = container;
-    this.floating5leftarrow = floating5leftarrow;
-    this.floating5rightarrow = floating5rightarrow;
-    this.floating5strongergradient = floating5strongergradient;
-    this.floating5strongergradient2 = floating5strongergradient2;
-    this.floating5whitebase = floating5whitebase;
-    this.floating5whitebase2 = floating5whitebase2;
     this.navHostFragmentActivityMain = navHostFragmentActivityMain;
   }
 
@@ -101,42 +73,6 @@ public final class ActivityMainBinding implements ViewBinding {
 
       ConstraintLayout container = (ConstraintLayout) rootView;
 
-      id = R.id.floating_5leftarrow;
-      ImageView floating5leftarrow = ViewBindings.findChildViewById(rootView, id);
-      if (floating5leftarrow == null) {
-        break missingId;
-      }
-
-      id = R.id.floating_5rightarrow;
-      ImageView floating5rightarrow = ViewBindings.findChildViewById(rootView, id);
-      if (floating5rightarrow == null) {
-        break missingId;
-      }
-
-      id = R.id.floating_5strongergradient;
-      ImageView floating5strongergradient = ViewBindings.findChildViewById(rootView, id);
-      if (floating5strongergradient == null) {
-        break missingId;
-      }
-
-      id = R.id.floating_5strongergradient_2;
-      ImageView floating5strongergradient2 = ViewBindings.findChildViewById(rootView, id);
-      if (floating5strongergradient2 == null) {
-        break missingId;
-      }
-
-      id = R.id.floating_5whitebase;
-      ImageView floating5whitebase = ViewBindings.findChildViewById(rootView, id);
-      if (floating5whitebase == null) {
-        break missingId;
-      }
-
-      id = R.id.floating_5whitebase_2;
-      ImageView floating5whitebase2 = ViewBindings.findChildViewById(rootView, id);
-      if (floating5whitebase2 == null) {
-        break missingId;
-      }
-
       id = R.id.nav_host_fragment_activity_main;
       FrameLayout navHostFragmentActivityMain = ViewBindings.findChildViewById(rootView, id);
       if (navHostFragmentActivityMain == null) {
@@ -144,8 +80,6 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((ConstraintLayout) rootView, composeNavBar, container,
-          floating5leftarrow, floating5rightarrow, floating5strongergradient,
-          floating5strongergradient2, floating5whitebase, floating5whitebase2,
           navHostFragmentActivityMain);
     }
     String missingId = rootView.getResources().getResourceName(id);

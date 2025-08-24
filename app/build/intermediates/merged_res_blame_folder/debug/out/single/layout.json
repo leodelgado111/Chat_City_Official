@@ -1,7 +1,7 @@
 [
     {
-        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-88:/layout/activity_main.xml",
-        "source": "com.chatcityofficial.chatmapapp-main-91:/layout/activity_main.xml"
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\layout_styled_chat_bubble.xml",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\layout_styled_chat_bubble.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\activity_chat_detail.xml",
@@ -10,6 +10,10 @@
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\fragment_chats_modern.xml",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_chats_modern.xml"
+    },
+    {
+        "merged": "com.chatcityofficial.chatmapapp-mergeDebugResources-88:/layout/fragment_home.xml",
+        "source": "com.chatcityofficial.chatmapapp-main-91:/layout/fragment_home.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\item_chat_modern.xml",
@@ -56,12 +60,12 @@
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_chats.xml"
     },
     {
-        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\activity_chat.xml",
-        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\activity_chat.xml"
-    },
-    {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\fragment_home.xml",
         "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\activity_chat.xml",
+        "source": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-main-91:\\layout\\activity_chat.xml"
     },
     {
         "merged": "C:\\Users\\Leo\\.gradle\\daemon\\8.9\\com.chatcityofficial.chatmapapp-mergeDebugResources-88:\\layout\\fragment_home_with_search.xml",

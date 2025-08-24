@@ -176,17 +176,105 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Chat Bubble PNG Overlay -->
+    <!-- Arrow Navigation Buttons (moved from MainActivity) -->
+    <!-- Right arrow button (bottom) -->
     <ImageView
-        android:id="@+id/chatBubbleOverlay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/chat_bubble_example"
+        android:id="@+id/floating_5whitebase"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:src="@drawable/ic_5whitebase"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="148dp"
+        android:layout_marginEnd="28dp" />
+    
+    <!-- Right arrow gradient overlay -->
+    <ImageView
+        android:id="@+id/floating_5strongergradient"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:src="@drawable/ic_5strongergradient"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_5whitebase"
+        app:layout_constraintEnd_toEndOf="@+id/floating_5whitebase"
+        app:layout_constraintStart_toStartOf="@+id/floating_5whitebase"
+        app:layout_constraintTop_toTopOf="@+id/floating_5whitebase" />
+    
+    <!-- Right arrow icon -->
+    <ImageView
+        android:id="@+id/floating_5rightarrow"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:src="@drawable/ic_5rightarrow"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_5whitebase"
+        app:layout_constraintEnd_toEndOf="@+id/floating_5whitebase"
+        app:layout_constraintStart_toStartOf="@+id/floating_5whitebase"
+        app:layout_constraintTop_toTopOf="@+id/floating_5whitebase" />
+    
+    <!-- Left arrow button (top) -->
+    <ImageView
+        android:id="@+id/floating_5whitebase_2"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:src="@drawable/ic_5whitebase"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/floating_5whitebase"
+        app:layout_constraintEnd_toEndOf="@+id/floating_5whitebase"
+        android:layout_marginBottom="15dp" />
+    
+    <!-- Left arrow gradient overlay -->
+    <ImageView
+        android:id="@+id/floating_5strongergradient_2"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:src="@drawable/ic_5strongergradient"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_5whitebase_2"
+        app:layout_constraintEnd_toEndOf="@+id/floating_5whitebase_2"
+        app:layout_constraintStart_toStartOf="@+id/floating_5whitebase_2"
+        app:layout_constraintTop_toTopOf="@+id/floating_5whitebase_2" />
+    
+    <!-- Left arrow icon -->
+    <ImageView
+        android:id="@+id/floating_5leftarrow"
+        android:layout_width="19dp"
+        android:layout_height="19dp"
+        android:src="@drawable/ic_5leftarrow"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_5whitebase_2"
+        app:layout_constraintEnd_toEndOf="@+id/floating_5whitebase_2"
+        app:layout_constraintStart_toStartOf="@+id/floating_5whitebase_2"
+        app:layout_constraintTop_toTopOf="@+id/floating_5whitebase_2" />
+
+    <!-- Post Button Compose View -->
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/postButtonComposeView"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="145dp"
+        android:layout_marginEnd="90dp"
         android:visibility="gone"
-        android:alpha="0"
-        android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Duplicate Post Button Compose View (without icon) -->
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/postButtonComposeView2"
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="114.5dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/postButtonComposeView"
+        app:layout_constraintTop_toTopOf="@+id/postButtonComposeView"
         app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

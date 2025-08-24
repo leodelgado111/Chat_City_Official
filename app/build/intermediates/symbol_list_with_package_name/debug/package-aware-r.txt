@@ -3637,6 +3637,9 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable activitycontainer_text_overlay
+drawable activitycontainer_text_overlay_vector
+drawable activitycontainer_white_base
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -3719,6 +3722,7 @@ drawable ic_delete
 drawable ic_gps
 drawable ic_gps_arrow
 drawable ic_gps_button_layered
+drawable ic_group_icon_overlay
 drawable ic_keyboard_black_24dp
 drawable ic_location_pin
 drawable ic_m3_chip_check
@@ -3737,6 +3741,7 @@ drawable ic_nav_home
 drawable ic_nav_profile
 drawable ic_nav_saved
 drawable ic_photo
+drawable ic_post_button_icon
 drawable ic_profile_placeholder
 drawable ic_remove
 drawable ic_saved
@@ -3865,6 +3870,11 @@ drawable places_powered_by_google_dark
 drawable places_powered_by_google_light
 drawable powered_by_google_dark
 drawable powered_by_google_light
+drawable profile_container_gradient
+drawable profile_container_textoverlay_vector
+drawable profile_container_with_gradient
+drawable profile_main_screen_drawable
+drawable profile_main_screen_vector
 drawable quantum_ic_arrow_back_grey600_24
 drawable quantum_ic_clear_grey600_24
 drawable quantum_ic_cloud_off_vd_theme_24
@@ -4013,7 +4023,6 @@ id center_vertical
 id chain
 id chain2
 id chains
-id chatBubbleOverlay
 id chatCityLogo
 id chatInfoContainer
 id chat_bubble_text
@@ -4358,6 +4367,8 @@ id places_autocomplete_try_again
 id places_autocomplete_try_again_progress
 id pooling_container_listener_holder_tag
 id position
+id postButtonComposeView
+id postButtonComposeView2
 id postLayout
 id poweredByGoogle
 id pressed
